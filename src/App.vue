@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-  import HelloWorld from './components/HelloWorld.vue';
+  import HelloWorld from './views/general.view.vue';
 </script>
 
 <style lang="scss">
