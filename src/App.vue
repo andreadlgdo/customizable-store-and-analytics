@@ -1,18 +1,13 @@
 <template>
   <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  <p>{{ t('test') }}</p>
-  <select v-model="$i18n.locale">
-    <option v-for="locale in $i18n.availableLocales" :key="locale" :value="locale">
-      {{ locale }}
-    </option>
-  </select>
+  <p>{{ test }}</p>
 </template>
 
 <script lang="ts" setup>
   import HelloWorld from './components/HelloWorld.vue';
-  import { useI18n } from 'vue-i18n';
+  import { ref } from 'vue';
 
-  const { t } = useI18n();
+  const test = ref('a');
 </script>
 
 <style lang="scss">
