@@ -3,12 +3,17 @@
     "target": "es5",
     "module": "esnext",
     "baseUrl": "./",
+    "strict": true,
+    "jsx": "preserve",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "paths": {
       "@/*": ["src/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
-  }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
