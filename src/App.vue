@@ -7,8 +7,7 @@
 <style lang="scss">
   html,
   body,
-  .app,
-  .app__content {
+  .app {
     height: 100%;
   }
 
