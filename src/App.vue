@@ -1,7 +1,5 @@
 <template>
-  <div class="app">
-    <HelloWorld />
-  </div>
+  <HelloWorld />
 </template>
 
 <script lang="ts" setup>
@@ -9,5 +7,6 @@
 </script>
 
 <style lang="scss">
+  @import 'assets/sass/styles';
   @import 'assets/sass/fonts';
 </style>
