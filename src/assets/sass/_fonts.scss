@@ -1,19 +1,7 @@
 :root {
   --bg-main: #ff0000;
-  --btn-secondary-c: #f6f6f6;
-  --bg-items: #fff;
-  --text-c-1: #625f6e;
-  --text-c-2: #5e5873;
-  --color-main: #6e6b7b;
-  --shadow-c: rgba(34, 41, 47, 0.05);
 }
 
 [data-theme='dark'] {
   --bg-main: #00ff92;
-  --btn-secondary-c: #333;
-  --bg-items: #2c2c2c;
-  --text-c-1: #e0e0e0;
-  --text-c-2: #c0c0c0;
-  --color-main: #b0b0b0;
-  --shadow-c: rgba(0, 0, 0, 0.5);
 }
