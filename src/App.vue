@@ -1,17 +1,22 @@
 <template>
-  <div class="app"></div>
+  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <p>{{ test }}</p>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+  import HelloWorld from './components/HelloWorld.vue';
+  import { ref } from 'vue';
+
+  const test = ref('a');
+</script>
 
 <style lang="scss">
-  html,
-  body,
-  .app {
-    height: 100%;
-  }
-
-  body {
-    overflow: hidden;
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
   }
 </style>
