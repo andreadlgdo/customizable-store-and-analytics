@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@types/vue-i18n':
-    specifier: ^7.0.0
-    version: 7.0.0(vue@3.2.13)
   core-js:
     specifier: ^3.8.3
     version: 3.8.3
@@ -18,7 +15,7 @@ dependencies:
     specifier: ^8.0.0-0
     version: 8.0.0-alpha.1(vue@3.2.13)
   vue-i18n:
-    specifier: ^9.13.1
+    specifier: '9'
     version: 9.13.1(vue@3.2.13)
 
 devDependencies:
@@ -1754,15 +1751,6 @@ packages:
     dependencies:
       '@types/node': 20.14.12
     dev: true
-
-  /@types/vue-i18n@7.0.0(vue@3.2.13):
-    resolution: {integrity: sha512-4e3EvN4k+B6eTq1qWDFW1wpzCgz+8nNCn6LAQTkcRoGJx9rVO5iYzyEogFTi9RwBJ588+Rx0nUwRFjKUYPe/BQ==}
-    deprecated: This is a stub types definition for vue-i18n (https://github.com/kazupon/vue-i18n). vue-i18n provides its own type definitions, so you don't need @types/vue-i18n installed!
-    dependencies:
-      vue-i18n: 9.13.1(vue@3.2.13)
-    transitivePeerDependencies:
-      - vue
-    dev: false
 
   /@types/webpack-env@1.18.5:
     resolution: {integrity: sha512-wz7kjjRRj8/Lty4B+Kr0LN6Ypc/3SymeCCGSbaXp2leH0ZVg/PriNiOwNj4bD4uphI7A8NXS4b6Gl373sfO5mA==}
