@@ -25,6 +25,8 @@
     }
   });
 
+  defineEmits(['click']);
+
   const { size } = toRefs(props);
 </script>
 
@@ -37,6 +39,7 @@
     justify-content: center;
     background: transparent;
     border: none;
+    cursor: pointer;
 
     &--small {
       width: 1.5rem;

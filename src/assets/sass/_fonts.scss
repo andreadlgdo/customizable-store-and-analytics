@@ -1,7 +1,10 @@
 :root {
-  --bg-main: #ff0000;
-}
-
-[data-theme='dark'] {
-  --bg-main: #00ff92;
+  --font-size--tiny: 10px;
+  --font-size--extra-small: 12px;
+  --font-size--small: 14px;
+  --font-size--regular: 16px;
+  --font-size--extra-regular: 18px;
+  --font-size--large: 20px;
+  --font-size--extra-large: 24px;
+  --font-size--huge: 40px;
 }
