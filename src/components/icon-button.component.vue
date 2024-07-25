@@ -1,9 +1,10 @@
 <template>
   <button :class="[baseClass, `${baseClass}--${size}`]" @click="$emit('click')">
-    <img
+    <SvgIcon
       :class="`${baseClass}__icon`"
       :src="require(`../assets/media/icons/${icon}.svg`)"
-      :alt="icon"
+      :size="size"
+      :colorAttribute="colorAttribute"
     />
   </button>
 </template>
@@ -11,6 +12,7 @@
 <script lang="ts" setup>
   import { PropType, toRefs } from 'vue';
   import { SizeType } from '../types/size.type';
+  import SvgIcon from './svg-icon.component.vue';
 
   const baseClass = 'icon-button';
 
@@ -22,6 +24,10 @@
     icon: {
       type: String,
       required: true
+    },
+    colorAttribute: {
+      type: String, //fill, stroke and both
+      default: undefined
     }
   });
 
@@ -44,31 +50,16 @@
     &--small {
       width: 1.5rem;
       height: 1.5rem;
-
-      #{$base-class}__icon {
-        width: 1rem;
-        height: 1rem;
-      }
     }
 
     &--normal {
       width: 2rem;
       height: 2rem;
-
-      #{$base-class}__icon {
-        width: 1.5rem;
-        height: 1.5rem;
-      }
     }
 
     &--large {
       width: 3rem;
       height: 3rem;
-
-      #{$base-class}__icon {
-        width: 2.5rem;
-        height: 2.5rem;
-      }
     }
   }
 </style>

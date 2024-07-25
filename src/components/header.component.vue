@@ -1,10 +1,14 @@
 <template>
   <div :class="baseClass">
     <div :class="`${baseClass}__menu ${baseClass}__menu--mobile`">
-      <icon-button :class="`${baseClass}__icon ${baseClass}__icon--menu`" icon="menu" />
+      <icon-button
+        :class="`${baseClass}__icon ${baseClass}__icon--menu`"
+        icon="menu"
+        color-attribute="stroke"
+      />
     </div>
     <section :class="`${baseClass}__menu ${baseClass}__menu--left`">
-      <h1>LOGO</h1>
+      <h1 :class="`${baseClass}__text ${baseClass}__text--logo`">LOGO</h1>
       <div :class="`${baseClass}__menu ${baseClass}__menu--options`">
         <span :class="`${baseClass}__text ${baseClass}__text--menu`">Menu 1</span>
         <span :class="`${baseClass}__text ${baseClass}__text--menu`">Menu 1</span>
@@ -12,12 +16,21 @@
       </div>
     </section>
     <section :class="`${baseClass}__menu ${baseClass}__menu--right`">
-      <icon-button :class="`${baseClass}__icon ${baseClass}__icon--search`" icon="search" />
+      <icon-button
+        :class="`${baseClass}__icon ${baseClass}__icon--search`"
+        icon="search"
+        color-attribute="fill"
+      />
       <icon-button
         :class="`${baseClass}__icon ${baseClass}__icon--shoppingCart`"
         icon="shoppingCart"
+        color-attribute="fill"
       />
-      <icon-button :class="`${baseClass}__icon ${baseClass}__icon--user`" icon="user" />
+      <icon-button
+        :class="`${baseClass}__icon ${baseClass}__icon--user`"
+        icon="user"
+        color-attribute="stroke"
+      />
     </section>
   </div>
 </template>
@@ -59,6 +72,8 @@
     }
 
     &__text {
+      color: var(--color-main);
+
       &--menu {
         font-size: var(--font-size--large);
       }

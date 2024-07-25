@@ -15,5 +15,6 @@
 
   .app {
     height: 100%;
+    background: var(--bg-main);
   }
 </style>
