@@ -8,6 +8,7 @@ module.exports = defineConfig({
           @use 'sass:map';
           @import '@/assets/sass/styles.scss';
           @import '@/assets/sass/fonts.scss';
+          @import '@/assets/sass/colors.scss';
         `
       }
     }
