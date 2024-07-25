@@ -1,5 +1,7 @@
 <template>
-  <button @click="toggleTheme">{{ theme === 'dark' ? 'Light Mode' : 'Dark Mode' }}</button>
+  <button @click="toggleTheme">
+    {{ theme === 'dark' ? 'Light Mode' : 'Dark Mode' }}
+  </button>
 </template>
 
 <script lang="ts" setup>
