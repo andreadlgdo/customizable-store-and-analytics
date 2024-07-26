@@ -1,11 +1,13 @@
 :root {
   --bg-transparent: 'transparent';
   --bg-main: #ffffff;
+  --color-main: #000000;
   --shadow-header: 0px 4px 8px #0000000f;
 }
 
 [data-theme='dark'] {
   --bg-transparent: 'transparent';
-  --bg-main: #000000;
-  --shadow-header: 0px 4px 8px #0000000f;
+  --color-main: #ffffff;
+  --bg-main: #202124;
+  --shadow-header: 0px 4px 8px #afafb0;
 }
