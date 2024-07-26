@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
   import { PropType, toRefs } from 'vue';
-  import { SizeType } from '../types/size.type';
+  import { SizeType } from '../../types/size.type';
   import SvgIcon from './svg-icon.component.vue';
 
   const baseClass = 'icon-button';

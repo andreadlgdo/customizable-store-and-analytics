@@ -7,7 +7,8 @@
 
 <script lang="ts" setup>
   import { ref, onMounted, PropType } from 'vue';
-  import { SizeType } from '@/types/size.type';
+  import { SizeType } from '../../types/size.type';
+  import { SvgIconType } from '../../types/svg-icon.type';
 
   const baseClass = 'svg-icon';
 
@@ -21,7 +22,7 @@
       default: 'normal'
     },
     colorAttribute: {
-      type: String, //fill, stroke and both
+      type: String as PropType<SvgIconType>,
       default: undefined
     }
   });

@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-  import IconButton from './icon-button.component.vue';
+  import IconButton from './icons/icon-button.component.vue';
 
   const baseClass = 'header';
 </script>
