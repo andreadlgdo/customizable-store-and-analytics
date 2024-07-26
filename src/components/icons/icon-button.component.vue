@@ -12,6 +12,7 @@
 <script lang="ts" setup>
   import { PropType, toRefs } from 'vue';
   import { SizeType } from '../../types/size.type';
+  import { SvgIconType } from '../../types/svg-icon.type';
   import SvgIcon from './svg-icon.component.vue';
 
   const baseClass = 'icon-button';
@@ -26,7 +27,7 @@
       required: true
     },
     colorAttribute: {
-      type: String, //fill, stroke and both
+      type: String as PropType<SvgIconType>,
       default: undefined
     }
   });
