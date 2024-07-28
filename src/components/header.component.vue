@@ -27,6 +27,7 @@
         color-attribute="fill"
       />
       <icon-button
+        @click="$emit('clickUser')"
         :class="`${baseClass}__icon ${baseClass}__icon--user`"
         icon="user"
         color-attribute="stroke"
@@ -39,6 +40,8 @@
   import IconButton from './icons/icon-button.component.vue';
 
   const baseClass = 'header';
+
+  defineEmits(['clickUser']);
 </script>
 
 <style scoped lang="scss">
