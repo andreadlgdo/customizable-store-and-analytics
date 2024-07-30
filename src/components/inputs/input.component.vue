@@ -49,12 +49,13 @@
 
     &__wrapper {
       background: var(--bg-main);
-      border-color: var(--color-main);
+      border: 2px solid var(--color-main);
       border-radius: 20px;
       height: 42px;
       min-width: 324px;
       padding-left: 16px;
       outline: none;
+      color: var(--color-main);
 
       &--icon {
         padding-left: 42px;
@@ -65,8 +66,8 @@
       position: absolute;
 
       &--user {
-        left: 8px;
-        top: 7px;
+        left: 12px;
+        top: 9px;
       }
 
       &--close {
