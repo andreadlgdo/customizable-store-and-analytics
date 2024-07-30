@@ -6,7 +6,7 @@
       :type="type"
       :placeholder="placeholder"
     />
-    <SvgIcon
+    <svg-icon
       v-if="icon"
       :class="`${baseClass}__icon ${baseClass}__icon--user`"
       :src="require(`../../assets/media/icons/${icon}.svg`)"
@@ -17,7 +17,7 @@
       :class="`${baseClass}__icon ${baseClass}__icon--close`"
       icon="close"
       size="small"
-      color-attribute="fill"
+      colorAttribute="fill"
     />
   </div>
 </template>
