@@ -1,6 +1,6 @@
 <template>
   <button :class="[baseClass, `${baseClass}--${size}`]" @click="$emit('click')">
-    <SvgIcon
+    <svg-icon
       :class="`${baseClass}__icon`"
       :src="require(`../../assets/media/icons/${icon}.svg`)"
       :size="size"
