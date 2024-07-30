@@ -1,17 +1,19 @@
 <template>
   <div :class="baseClass">
     <input
+      v-model="query"
       :class="[`${baseClass}__wrapper`, { [`${baseClass}__wrapper--icon`]: icon }]"
       :type="type"
       :placeholder="placeholder"
     />
-    <icon-button
+    <SvgIcon
       v-if="icon"
       :class="`${baseClass}__icon ${baseClass}__icon--user`"
-      :icon="icon"
-      :color-attribute="colorAttribute"
+      :src="require(`../../assets/media/icons/${icon}.svg`)"
+      :colorAttribute="colorAttribute"
     />
     <icon-button
+      @click="query = ''"
       :class="`${baseClass}__icon ${baseClass}__icon--close`"
       icon="close"
       size="small"
@@ -22,10 +24,13 @@
 
 <script lang="ts" setup>
   import IconButton from '../icons/icon-button.component.vue';
-  import { PropType } from 'vue';
+  import SvgIcon from '../icons/svg-icon.component.vue';
+  import { PropType, ref } from 'vue';
   import { SvgIconType } from '@/types/svg-icon.type';
 
   const baseClass = 'input';
+
+  const query = ref('');
 
   defineProps({
     type: {
