@@ -1,3 +1,26 @@
 {
-  "test": "ingles"
+  "library": {
+    "title": "Component library",
+    "toggle": {
+      "language": "Language Toggle",
+      "theme": "Theme Toggle"
+    },
+    "icons": {
+      "button": "Button Icons",
+      "svg": "SVG Icons"
+    },
+    "inputs": {
+      "text": {
+        "title": "Text Inputs",
+        "password": "Password Input"
+      },
+      "button": "Buttons"
+    },
+    "asides": {
+      "title": "Asides"
+    },
+    "header": {
+      "title": "Header"
+    }
+  }
 }
