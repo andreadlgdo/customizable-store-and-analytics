@@ -1,8 +1,11 @@
 <template>
-  <div class="app">
+  <div class="app" v-if="true">
     <Header @clickUser="openUserAside" />
     <ThemeToggle />
     <Aside @close="closeUserAside" :isOpen="isAsideOpen" />
+  </div>
+  <div class="app" v-else>
+    <Library />
   </div>
 </template>
 
@@ -12,6 +15,7 @@
   import Header from './components/header.component.vue';
   import Aside from './components/aside.component.vue';
   import ThemeToggle from './components/toggles/theme-toggle.component.vue';
+  import Library from './views/library.view.vue';
 
   const isAsideOpen = ref(false);
 
@@ -32,5 +36,7 @@
   .app {
     height: 100%;
     background: var(--bg-main);
+    color: var(--color-main);
+    overflow: auto;
   }
 </style>

@@ -51,13 +51,14 @@
 <style lang="scss" scoped>
   .input {
     position: relative;
+    width: 324px;
 
     &__wrapper {
       background: var(--bg-main);
       border: 2px solid var(--color-main);
       border-radius: 20px;
       height: 42px;
-      min-width: 324px;
+      width: 324px;
       padding-left: 16px;
       outline: none;
       color: var(--color-main);

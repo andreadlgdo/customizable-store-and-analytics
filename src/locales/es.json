@@ -1,3 +1,26 @@
 {
-  "test": "español"
+  "library": {
+    "title": "Libreria de componentes",
+    "toggle": {
+      "language": "Cambio de idioma",
+      "theme": "Cambio de tema"
+    },
+    "icons": {
+      "button": "Botones de Iconos",
+      "svg": "Iconos SVG"
+    },
+    "inputs": {
+      "text": {
+        "title": "Inputs de texto",
+        "password": "Input Contraseña"
+      },
+      "button": "Botones"
+    },
+    "asides": {
+      "title": "Asides"
+    },
+    "header": {
+      "title": "Cabecera"
+    }
+  }
 }
