@@ -19,8 +19,11 @@
       <h3 :class="`${baseClass}__text ${baseClass}__text--subtitle`">
         {{ t('library.asides.title') }}
       </h3>
-      <button-input :text="isAsideOpen ? 'Close aside' : 'Open aside'" @click="chageUserAside" />
-      <Aside :is-open="isAsideOpen" @close="chageUserAside" />
+      <button-input
+        :text="isAsideOpen ? 'Close aside' : 'Open aside'"
+        @click="isAsideOpen = !isAsideOpen"
+      />
+      <Aside :is-open="isAsideOpen" @close="isAsideOpen = false" />
     </div>
     <hr />
     <div>
@@ -108,10 +111,6 @@
   const baseClass = 'library';
 
   const isAsideOpen = ref(false);
-
-  const chageUserAside = () => {
-    isAsideOpen.value = !isAsideOpen.value;
-  };
 </script>
 
 <style scoped lang="scss">
