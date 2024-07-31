@@ -1,17 +1,27 @@
 :root {
+  // Background colors
   --bg-transparent: 'transparent';
   --bg-main: #ffffff;
   --bg-fill-button: #b0afaf5e;
   --bg-fill-button-hover: #b0afafa8;
+
+  // Colors
   --color-main: #000000;
+
+  // Sombras
   --shadow-header: 0px 4px 8px #0000000f;
 }
 
 [data-theme='dark'] {
+  // Background colors
   --bg-transparent: 'transparent';
-  --color-main: #ffffff;
   --bg-main: #202124;
   --bg-fill-button: #b0afaf73;
   --bg-fill-button-hover: #b0afafb3;
+
+  // Colors
+  --color-main: #ffffff;
+
+  // Sombras
   --shadow-header: 0px 4px 8px #afafb0;
 }
