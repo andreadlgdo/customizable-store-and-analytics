@@ -5,14 +5,14 @@
       <h3 :class="`${baseClass}__text ${baseClass}__text--subtitle`">
         {{ t('library.toggle.language') }}
       </h3>
-      <LanguageToggle />
+      <language-toggle />
     </div>
     <hr />
     <div>
       <h3 :class="`${baseClass}__text ${baseClass}__text--subtitle`">
         {{ t('library.toggle.language') }}
       </h3>
-      <ThemeToggle />
+      <theme-toggle />
     </div>
     <hr />
     <div>
