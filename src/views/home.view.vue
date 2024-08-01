@@ -1,6 +1,6 @@
 <template>
   <Header @clickUser="isAsideOpen = true" />
-  <ThemeToggle />
+  <theme-toggle />
   <Aside @close="isAsideOpen = false" :isOpen="isAsideOpen" />
 </template>
 
