@@ -4,7 +4,7 @@
       :class="`${baseClass}__icon`"
       :src="require(`../../assets/media/icons/${icon}.svg`)"
       :size="size"
-      :colorAttribute="colorAttribute"
+      :color-attribute="colorAttribute"
     />
   </button>
 </template>

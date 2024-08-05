@@ -10,7 +10,7 @@
       v-if="icon"
       :class="`${baseClass}__icon ${baseClass}__icon--info`"
       :src="require(`../../assets/media/icons/${icon}.svg`)"
-      :colorAttribute="colorAttribute"
+      :color-attribute="colorAttribute"
       size="small"
     />
     <icon-button
@@ -18,7 +18,7 @@
       :class="`${baseClass}__icon ${baseClass}__icon--close`"
       icon="close"
       size="small"
-      colorAttribute="fill"
+      color-attribute="fill"
     />
   </div>
 </template>

@@ -4,7 +4,7 @@
       <icon-button
         :class="`${baseClass}__icon ${baseClass}__icon--menu`"
         icon="menu"
-        colorAttribute="stroke"
+        color-attribute="stroke"
       />
     </div>
     <section :class="`${baseClass}__menu ${baseClass}__menu--left`">
@@ -19,18 +19,18 @@
       <icon-button
         :class="`${baseClass}__icon ${baseClass}__icon--search`"
         icon="search"
-        colorAttribute="fill"
+        color-attribute="fill"
       />
       <icon-button
         :class="`${baseClass}__icon ${baseClass}__icon--shoppingCart`"
         icon="shoppingCart"
-        colorAttribute="fill"
+        color-attribute="fill"
       />
       <icon-button
         @click="$emit('clickUser')"
         :class="`${baseClass}__icon ${baseClass}__icon--user`"
         icon="user"
-        colorAttribute="stroke"
+        color-attribute="stroke"
       />
     </section>
   </div>

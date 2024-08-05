@@ -3,7 +3,7 @@ module.exports = {
   parserOptions: {
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
-    ecmaVersion: 2020,
+    ecmaVersion: 2020
   },
   env: {
     node: true,
@@ -19,6 +19,15 @@ module.exports = {
     defineEmits: 'readonly',
     defineExpose: 'readonly',
     withDefaults: 'readonly'
+  },
+  rules: {
+    'vue/attributes-order': 'off',
+    'vue/v-on-event-hyphenation': 'off',
+    'vue/max-attributes-per-line': 'off',
+    'vue/html-self-closing': 'off',
+    'vue/require-default-prop': 'off',
+    'vue/singleline-html-element-content-newline': 'off',
+    'vue/no-v-html': 'off'
   }
   // other configurations...
 };

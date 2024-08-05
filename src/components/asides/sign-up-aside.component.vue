@@ -1,5 +1,5 @@
 <template>
-  <Aside @close="$emit('close')" :isOpen="isOpen">
+  <Aside @close="$emit('close')" :is-open="isOpen">
     <div :class="baseClass">
       <h1>{{ t('signUp.title') }}</h1>
       <div :class="`${baseClass}__wrapper-inputs`">
@@ -7,27 +7,27 @@
           :class="`${baseClass}__input ${baseClass}__input--name`"
           :placeholder="t('signUp.inputsPlaceholders.name')"
           icon="user"
-          colorAttribute="stroke"
+          color-attribute="stroke"
         />
         <text-input
           :class="`${baseClass}__input ${baseClass}__input--email`"
           :placeholder="t('signUp.inputsPlaceholders.email')"
           icon="email"
-          colorAttribute="fill"
+          color-attribute="fill"
         />
         <text-input
           :class="`${baseClass}__input ${baseClass}__input--password`"
           :placeholder="t('signUp.inputsPlaceholders.password')"
           type="password"
           icon="password"
-          colorAttribute="fill"
+          color-attribute="fill"
         />
         <text-input
           :class="`${baseClass}__input ${baseClass}__input--password`"
           :placeholder="t('signUp.inputsPlaceholders.repeatPassword')"
           type="password"
           icon="password"
-          colorAttribute="fill"
+          color-attribute="fill"
         />
         <checkbox-input :text="t('signUp.checkboxText')" />
       </div>

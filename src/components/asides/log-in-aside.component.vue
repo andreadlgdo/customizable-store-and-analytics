@@ -1,5 +1,5 @@
 <template>
-  <Aside @close="$emit('close')" :isOpen="isOpen">
+  <Aside @close="$emit('close')" :is-open="isOpen">
     <div :class="baseClass">
       <h1>{{ t('logIn.title') }}</h1>
       <div>
@@ -7,14 +7,14 @@
           :class="`${baseClass}__input ${baseClass}__input--email`"
           :placeholder="t('logIn.inputsPlaceholders.email')"
           icon="email"
-          colorAttribute="fill"
+          color-attribute="fill"
         />
         <text-input
           :class="`${baseClass}__input ${baseClass}__input--password`"
           :placeholder="t('logIn.inputsPlaceholders.password')"
           type="password"
           icon="password"
-          colorAttribute="fill"
+          color-attribute="fill"
         />
         <p :class="`${baseClass}__text ${baseClass}__text--password`">
           {{ t('logIn.forgotPassword') }}
