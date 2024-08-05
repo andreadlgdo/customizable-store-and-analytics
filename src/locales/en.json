@@ -22,5 +22,18 @@
     "header": {
       "title": "Header"
     }
+  },
+  "initSesion": {
+    "title": "Log in",
+    "inputsPlaceholders": {
+      "user": "User",
+      "password": "Password"
+    },
+    "forgotPassword": "Have you forgotten your password?",
+    "action": "Log in",
+    "register": {
+      "description": "Don't have an account yet?",
+      "action": "Sign up"
+    }
   }
 }
