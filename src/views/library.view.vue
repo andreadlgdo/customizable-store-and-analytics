@@ -30,6 +30,11 @@
           @click="isLogInAsideOpen = !isLogInAsideOpen"
         />
         <log-in-aside :is-open="isLogInAsideOpen" @close="isLogInAsideOpen = false" />
+        <button-input
+          :text="isSignUpAsideOpen ? 'Close Sign up Aside' : 'Open Sign up Aside'"
+          @click="isSignUpAsideOpen = !isSignUpAsideOpen"
+        />
+        <sign-up-aside :is-open="isSignUpAsideOpen" @close="isSignUpAsideOpen = false" />
       </div>
     </div>
     <hr />
@@ -93,6 +98,22 @@
     <hr />
     <div>
       <h3 :class="`${baseClass}__text ${baseClass}__text--subtitle`">
+        {{ t('library.inputs.checkbox') }}
+      </h3>
+      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
+        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
+          <checkbox-input size="small" />
+          <checkbox-input />
+          <checkbox-input size="large" />
+        </div>
+        <checkbox-input text="Texto del checkbox" size="small" />
+        <checkbox-input text="Texto del checkbox" />
+        <checkbox-input text="Texto del checkbox" size="large" />
+      </div>
+    </div>
+    <hr />
+    <div>
+      <h3 :class="`${baseClass}__text ${baseClass}__text--subtitle`">
         {{ t('library.header.title') }}
       </h3>
       <Header />
@@ -105,15 +126,17 @@
 
   import Aside from '../components/asides/aside.component.vue';
   import LogInAside from '../components/asides/log-in-aside.component.vue';
+  import SignUpAside from '../components/asides/sign-up-aside.component.vue';
 
   import IconButton from '../components/icons/icon-button.component.vue';
   import SvgIcon from '../components/icons/svg-icon.component.vue';
 
-  import TextInput from '../components/inputs/text-input.component.vue';
   import ButtonInput from '../components/inputs/button-input.component.vue';
+  import CheckboxInput from '../components/inputs/checkbox-input.component.vue';
+  import TextInput from '../components/inputs/text-input.component.vue';
 
-  import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
   import LanguageToggle from '../components/toggles/language-toggle.component.vue';
+  import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
 
   import Header from '../components/header.component.vue';
 
@@ -125,6 +148,7 @@
 
   const isBasicAsideOpen = ref(false);
   const isLogInAsideOpen = ref(false);
+  const isSignUpAsideOpen = ref(false);
 </script>
 
 <style scoped lang="scss">
