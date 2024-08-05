@@ -34,10 +34,12 @@
 </template>
 
 <script lang="ts" setup>
-  import Aside from './aside.component.vue';
+  import { useI18n } from 'vue-i18n';
+
   import TextInput from '../inputs/text-input.component.vue';
   import ButtonInput from '../inputs/button-input.component.vue';
-  import { useI18n } from 'vue-i18n';
+
+  import Aside from './aside.component.vue';
 
   const baseClass = 'log-in-aside';
 
