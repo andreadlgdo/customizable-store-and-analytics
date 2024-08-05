@@ -95,13 +95,18 @@
 
 <script lang="ts" setup>
   import { useI18n } from 'vue-i18n';
-  import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
-  import LanguageToggle from '../components/toggles/language-toggle.component.vue';
+
+  import Aside from '../components/asides/aside.component.vue';
+
   import IconButton from '../components/icons/icon-button.component.vue';
   import SvgIcon from '../components/icons/svg-icon.component.vue';
+
   import TextInput from '../components/inputs/text-input.component.vue';
   import ButtonInput from '../components/inputs/button-input.component.vue';
-  import Aside from '../components/asides/aside.component.vue';
+
+  import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
+  import LanguageToggle from '../components/toggles/language-toggle.component.vue';
+
   import Header from '../components/header.component.vue';
 
   import { ref } from 'vue';

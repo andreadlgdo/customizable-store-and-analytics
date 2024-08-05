@@ -8,10 +8,12 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
 
+  import LogInAside from '../components/asides/log-in-aside.component.vue';
+
   import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
   import LanguageToggle from '../components/toggles/language-toggle.component.vue';
+
   import Header from '../components/header.component.vue';
-  import LogInAside from '../components/asides/log-in-aside.component.vue';
 
   const isAsideOpen = ref(false);
 </script>
