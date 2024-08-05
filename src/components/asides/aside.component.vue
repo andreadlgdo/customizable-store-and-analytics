@@ -9,12 +9,13 @@
           colorAttribute="fill"
         />
       </div>
+      <slot />
     </div>
   </transition>
 </template>
 
 <script lang="ts" setup>
-  import IconButton from './icons/icon-button.component.vue';
+  import IconButton from '../icons/icon-button.component.vue';
 
   const baseClass = 'aside';
 

@@ -22,5 +22,18 @@
     "header": {
       "title": "Cabecera"
     }
+  },
+  "initSesion": {
+    "title": "Inicio de sesion",
+    "inputsPlaceholders": {
+      "user": "Usuario",
+      "password": "Contraseña"
+    },
+    "forgotPassword": "¿Has olvidado tu contraseña?",
+    "action": "Iniciar sesión",
+    "register": {
+      "description": "¿No tienes cuenta aun?",
+      "action": "Registrate"
+    }
   }
 }

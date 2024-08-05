@@ -8,9 +8,10 @@
     />
     <svg-icon
       v-if="icon"
-      :class="`${baseClass}__icon ${baseClass}__icon--user`"
+      :class="`${baseClass}__icon ${baseClass}__icon--info`"
       :src="require(`../../assets/media/icons/${icon}.svg`)"
       :colorAttribute="colorAttribute"
+      size="small"
     />
     <icon-button
       @click="query = ''"
@@ -64,16 +65,16 @@
       color: var(--color-main);
 
       &--icon {
-        padding-left: 42px;
+        padding-left: 40px;
       }
     }
 
     &__icon {
       position: absolute;
 
-      &--user {
-        left: 12px;
-        top: 9px;
+      &--info {
+        left: 14px;
+        top: 11px;
       }
 
       &--close {

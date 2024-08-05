@@ -19,11 +19,18 @@
       <h3 :class="`${baseClass}__text ${baseClass}__text--subtitle`">
         {{ t('library.asides.title') }}
       </h3>
-      <button-input
-        :text="isAsideOpen ? 'Close aside' : 'Open aside'"
-        @click="isAsideOpen = !isAsideOpen"
-      />
-      <Aside :is-open="isAsideOpen" @close="isAsideOpen = false" />
+      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
+        <button-input
+          :text="isBasicAsideOpen ? 'Close Basic Aside' : 'Open Basic Aside'"
+          @click="isBasicAsideOpen = !isBasicAsideOpen"
+        />
+        <Aside :is-open="isBasicAsideOpen" @close="isBasicAsideOpen = false" />
+        <button-input
+          :text="isLogInAsideOpen ? 'Close Log In Aside' : 'Open Log In Aside'"
+          @click="isLogInAsideOpen = !isLogInAsideOpen"
+        />
+        <log-in-aside :is-open="isLogInAsideOpen" @close="isLogInAsideOpen = false" />
+      </div>
     </div>
     <hr />
     <div>
@@ -95,13 +102,19 @@
 
 <script lang="ts" setup>
   import { useI18n } from 'vue-i18n';
-  import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
-  import LanguageToggle from '../components/toggles/language-toggle.component.vue';
+
+  import Aside from '../components/asides/aside.component.vue';
+  import LogInAside from '../components/asides/log-in-aside.component.vue';
+
   import IconButton from '../components/icons/icon-button.component.vue';
   import SvgIcon from '../components/icons/svg-icon.component.vue';
+
   import TextInput from '../components/inputs/text-input.component.vue';
   import ButtonInput from '../components/inputs/button-input.component.vue';
-  import Aside from '../components/aside.component.vue';
+
+  import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
+  import LanguageToggle from '../components/toggles/language-toggle.component.vue';
+
   import Header from '../components/header.component.vue';
 
   import { ref } from 'vue';
@@ -110,7 +123,8 @@
 
   const baseClass = 'library';
 
-  const isAsideOpen = ref(false);
+  const isBasicAsideOpen = ref(false);
+  const isLogInAsideOpen = ref(false);
 </script>
 
 <style scoped lang="scss">
