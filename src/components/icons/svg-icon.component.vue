@@ -38,8 +38,8 @@
 <style lang="scss">
   .svg-icon {
     &--small svg {
-      width: 1rem;
-      height: 1rem;
+      width: 1.2rem;
+      height: 1.2rem;
     }
 
     &--normal svg {
