@@ -1,32 +1,35 @@
 <template>
   <Aside @close="$emit('close')" :isOpen="isOpen">
     <div :class="baseClass">
-      <h1>{{ t('initSesion.title') }}</h1>
+      <h1>{{ t('logIn.title') }}</h1>
       <div>
         <text-input
           :class="`${baseClass}__input ${baseClass}__input--email`"
-          :placeholder="t('initSesion.inputsPlaceholders.email')"
+          :placeholder="t('logIn.inputsPlaceholders.email')"
           icon="email"
           colorAttribute="fill"
         />
         <text-input
           :class="`${baseClass}__input ${baseClass}__input--password`"
-          :placeholder="t('initSesion.inputsPlaceholders.password')"
+          :placeholder="t('logIn.inputsPlaceholders.password')"
           type="password"
           icon="password"
           colorAttribute="fill"
         />
         <p :class="`${baseClass}__text ${baseClass}__text--password`">
-          {{ t('initSesion.forgotPassword') }}
+          {{ t('logIn.forgotPassword') }}
         </p>
       </div>
       <div>
-        <button-input :text="t('initSesion.action')" type="fill" />
+        <button-input :text="t('logIn.action')" type="fill" />
         <p :class="`${baseClass}__text ${baseClass}__text--create-account`">
-          {{ t('initSesion.register.description') }}
+          {{ t('logIn.signUp.description') }}
         </p>
-        <a :class="`${baseClass}__text ${baseClass}__text--register`" @click="$emit('register')">
-          {{ t('initSesion.register.action') }}
+        <a
+          :class="`${baseClass}__text ${baseClass}__text--sign-up`"
+          @click="$emit('openSignUpAsideOpen')"
+        >
+          {{ t('logIn.signUp.action') }}
         </a>
       </div>
     </div>
@@ -49,7 +52,7 @@
     isOpen: Boolean
   });
 
-  defineEmits(['close', 'register']);
+  defineEmits(['close', 'openSignUpAsideOpen']);
 </script>
 
 <style lang="scss" scoped>
@@ -76,7 +79,7 @@
         margin-top: 16px;
       }
 
-      &--register {
+      &--sign-up {
         margin-top: 4px;
         text-decoration: underline;
         cursor: pointer;
