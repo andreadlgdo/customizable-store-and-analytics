@@ -14,7 +14,8 @@
         "title": "Inputs de texto",
         "password": "Input Contraseña"
       },
-      "button": "Botones"
+      "button": "Botones",
+      "checkbox": "Checkboxes"
     },
     "asides": {
       "title": "Asides"
@@ -23,7 +24,7 @@
       "title": "Cabecera"
     }
   },
-  "initSesion": {
+  "logIn": {
     "title": "Inicio de sesion",
     "inputsPlaceholders": {
       "email": "Correo electronico",
@@ -31,9 +32,24 @@
     },
     "forgotPassword": "¿Has olvidado tu contraseña?",
     "action": "Iniciar sesión",
-    "register": {
+    "signUp": {
       "description": "¿No tienes cuenta aun?",
       "action": "Registrate"
+    }
+  },
+  "signUp": {
+    "title": "Sign up",
+    "inputsPlaceholders": {
+      "name": "Nombre",
+      "email": "Correo electronico",
+      "password": "Contraseña",
+      "repeatPassword": "Repetir contraseña"
+    },
+    "checkboxText": "Aceptar terminos y condiciones",
+    "action": "Registrarse",
+    "logIn": {
+      "description": "¿Ya tienes cuenta?",
+      "action": "Inicia sesion"
     }
   }
 }

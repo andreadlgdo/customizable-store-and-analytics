@@ -14,7 +14,8 @@
         "title": "Text Inputs",
         "password": "Password Input"
       },
-      "button": "Buttons"
+      "button": "Buttons",
+      "checkbox": "Checkboxes"
     },
     "asides": {
       "title": "Asides"
@@ -23,7 +24,7 @@
       "title": "Header"
     }
   },
-  "initSesion": {
+  "logIn": {
     "title": "Log in",
     "inputsPlaceholders": {
       "email": "Email",
@@ -31,9 +32,24 @@
     },
     "forgotPassword": "Have you forgotten your password?",
     "action": "Log in",
-    "register": {
+    "signUp": {
       "description": "Don't have an account yet?",
       "action": "Sign up"
+    }
+  },
+  "signUp": {
+    "title": "Sign up",
+    "inputsPlaceholders": {
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "repeatPassword": "Repeat password"
+    },
+    "checkboxText": "Accept terms and conditions",
+    "action": "Sign up",
+    "logIn": {
+      "description": "Already have an account?",
+      "action": "Log in"
     }
   }
 }
