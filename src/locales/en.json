@@ -26,7 +26,7 @@
   "initSesion": {
     "title": "Log in",
     "inputsPlaceholders": {
-      "user": "User",
+      "email": "Email",
       "password": "Password"
     },
     "forgotPassword": "Have you forgotten your password?",

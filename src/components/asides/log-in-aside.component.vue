@@ -4,10 +4,10 @@
       <h1>{{ t('initSesion.title') }}</h1>
       <div>
         <text-input
-          :class="`${baseClass}__input ${baseClass}__input--user`"
-          :placeholder="t('initSesion.inputsPlaceholders.user')"
-          icon="user"
-          colorAttribute="stroke"
+          :class="`${baseClass}__input ${baseClass}__input--email`"
+          :placeholder="t('initSesion.inputsPlaceholders.email')"
+          icon="email"
+          colorAttribute="fill"
         />
         <text-input
           :class="`${baseClass}__input ${baseClass}__input--password`"
