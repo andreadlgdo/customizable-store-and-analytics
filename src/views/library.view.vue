@@ -101,7 +101,7 @@
   import SvgIcon from '../components/icons/svg-icon.component.vue';
   import TextInput from '../components/inputs/text-input.component.vue';
   import ButtonInput from '../components/inputs/button-input.component.vue';
-  import Aside from '../components/aside.component.vue';
+  import Aside from '../components/asides/aside.component.vue';
   import Header from '../components/header.component.vue';
 
   import { ref } from 'vue';
