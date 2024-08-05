@@ -5,12 +5,12 @@
   <LogInAside
     @close="closeAllAsides"
     @openSignUpAsideOpen="openSignUpAsideOpen"
-    :isOpen="isLogInAsideOpen"
+    :is-open="isLogInAsideOpen"
   />
   <SignUpAside
     @close="closeAllAsides"
     @openLogInAsideOpen="openLogInAsideOpen"
-    :isOpen="isSignUpAsideOpen"
+    :is-open="isSignUpAsideOpen"
   />
 </template>
 
