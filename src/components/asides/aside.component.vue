@@ -1,5 +1,5 @@
 <template>
-  <transition name="aside">
+  <transition :name="baseClass">
     <div v-if="isOpen" :class="baseClass">
       <div :class="`${baseClass}__header`">
         <icon-button

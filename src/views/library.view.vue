@@ -138,7 +138,7 @@
   import LanguageToggle from '../components/toggles/language-toggle.component.vue';
   import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
 
-  import Header from '../components/header.component.vue';
+  import Header from '../components/header/header.component.vue';
 
   import { ref } from 'vue';
 

@@ -23,7 +23,7 @@
   import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
   import LanguageToggle from '../components/toggles/language-toggle.component.vue';
 
-  import Header from '../components/header.component.vue';
+  import Header from '../components/header/header.component.vue';
 
   const isLogInAsideOpen = ref(false);
   const isSignUpAsideOpen = ref(false);
