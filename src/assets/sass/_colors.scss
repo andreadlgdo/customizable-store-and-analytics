@@ -10,6 +10,7 @@
 
   // Sombras
   --shadow-header: 0px 4px 8px #0000000f;
+  --shadow-header-search-box: 0px 2px 0px #0000000f;
 }
 
 [data-theme='dark'] {
@@ -24,4 +25,5 @@
 
   // Sombras
   --shadow-header: 0px 4px 8px #afafb0;
+  --shadow-header-search-box: 0px 2px 0px #afafb0;
 }
