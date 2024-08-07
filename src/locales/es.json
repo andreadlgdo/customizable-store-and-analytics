@@ -24,6 +24,9 @@
       "title": "Cabecera"
     }
   },
+  "header": {
+    "searchbox": "Buscar..."
+  },
   "logIn": {
     "title": "Inicio de sesion",
     "inputsPlaceholders": {

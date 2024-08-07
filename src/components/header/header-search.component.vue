@@ -7,7 +7,12 @@
           :src="require('../../assets/media/icons/search.svg')"
           color-attribute="fill"
         />
-        <input v-model="query" :class="`${baseClass}__input`" type="text" placeholder="BUSCAR..." />
+        <input
+          v-model="query"
+          :class="`${baseClass}__input`"
+          type="text"
+          :placeholder="t('header.searchbox').toUpperCase()"
+        />
       </div>
       <icon-button
         @click="query = ''"
@@ -24,8 +29,11 @@
 
   import IconButton from '../icons/icon-button.component.vue';
   import SvgIcon from '../icons/svg-icon.component.vue';
+  import { useI18n } from 'vue-i18n';
 
   const baseClass = 'header-search';
+
+  const { t } = useI18n();
 
   const query = ref('');
 </script>

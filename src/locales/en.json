@@ -24,6 +24,9 @@
       "title": "Header"
     }
   },
+  "header": {
+    "searchbox": "Search..."
+  },
   "logIn": {
     "title": "Log in",
     "inputsPlaceholders": {
