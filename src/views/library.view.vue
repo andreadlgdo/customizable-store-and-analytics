@@ -131,14 +131,14 @@
   import IconButton from '../components/icons/icon-button.component.vue';
   import SvgIcon from '../components/icons/svg-icon.component.vue';
 
+  import Header from '../components/header/header.component.vue';
+
   import ButtonInput from '../components/inputs/button-input.component.vue';
   import CheckboxInput from '../components/inputs/checkbox-input.component.vue';
   import TextInput from '../components/inputs/text-input.component.vue';
 
   import LanguageToggle from '../components/toggles/language-toggle.component.vue';
   import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
-
-  import Header from '../components/header.component.vue';
 
   import { ref } from 'vue';
 

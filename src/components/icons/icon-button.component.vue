@@ -62,5 +62,9 @@
       width: 3rem;
       height: 3rem;
     }
+
+    &__icon {
+      display: flex;
+    }
   }
 </style>

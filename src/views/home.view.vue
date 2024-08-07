@@ -20,10 +20,10 @@
   import LogInAside from '../components/asides/log-in-aside.component.vue';
   import SignUpAside from '../components/asides/sign-up-aside.component.vue';
 
+  import Header from '../components/header/header.component.vue';
+
   import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
   import LanguageToggle from '../components/toggles/language-toggle.component.vue';
-
-  import Header from '../components/header.component.vue';
 
   const isLogInAsideOpen = ref(false);
   const isSignUpAsideOpen = ref(false);
