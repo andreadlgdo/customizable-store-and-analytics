@@ -20,9 +20,10 @@
 </template>
 
 <script lang="ts" setup>
+  import { ref } from 'vue';
+
   import IconButton from '../icons/icon-button.component.vue';
   import SvgIcon from '../icons/svg-icon.component.vue';
-  import { ref } from 'vue';
 
   const baseClass = 'header-search';
 
