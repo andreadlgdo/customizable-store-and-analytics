@@ -54,5 +54,11 @@
       "description": "¿Ya tienes cuenta?",
       "action": "Inicia sesion"
     }
+  },
+  "cart": {
+    "title": "Carrito (X)"
+  },
+  "whistList": {
+    "title": "Lista de deseos (X)"
   }
 }
