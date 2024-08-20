@@ -2,6 +2,7 @@
   <transition :name="baseClass">
     <div v-if="isOpen" :class="[baseClass, `${baseClass}--${type}`]">
       <div :class="`${baseClass}__header`">
+        <slot name="header" />
         <icon-button
           @click="$emit('close')"
           :class="`${baseClass}__icon ${baseClass}__icon--close`"
