@@ -79,4 +79,14 @@
       }
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    .shopping-cart-aside {
+      &__button {
+        &--cart {
+          border-top-left-radius: 0;
+        }
+      }
+    }
+  }
 </style>

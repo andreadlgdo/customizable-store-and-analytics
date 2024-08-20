@@ -79,7 +79,10 @@
 
   @media only screen and (max-width: 768px) {
     .aside {
+      margin: 0;
+      height: 100vh;
       width: 100%;
+      border-radius: 0;
     }
   }
 </style>
