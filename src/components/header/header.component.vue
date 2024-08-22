@@ -26,6 +26,7 @@
           color-attribute="fill"
         />
         <icon-button
+          @click="$emit('clickShoppingCart')"
           :class="`${baseClass}__icon ${baseClass}__icon--shoppingCart`"
           icon="shoppingCart"
           color-attribute="fill"
@@ -55,7 +56,7 @@
 
   const isOpenSearchBox = ref(false);
 
-  defineEmits(['clickUser']);
+  defineEmits(['clickUser', 'clickShoppingCart']);
 </script>
 
 <style scoped lang="scss">

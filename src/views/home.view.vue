@@ -1,23 +1,28 @@
 <template>
-  <Header @clickUser="isLogInAsideOpen = true" />
+  <Header
+    @clickUser="isLogInAsideOpen = true"
+    @clickShoppingCart="isShoppingCartAsideOpen = true"
+  />
   <theme-toggle />
   <language-toggle />
-  <LogInAside
+  <log-in-aside
     @close="closeAllAsides"
     @openSignUpAsideOpen="openSignUpAsideOpen"
     :is-open="isLogInAsideOpen"
   />
-  <SignUpAside
+  <sign-up-aside
     @close="closeAllAsides"
     @openLogInAsideOpen="openLogInAsideOpen"
     :is-open="isSignUpAsideOpen"
   />
+  <shopping-cart-aside @close="closeAllAsides" :is-open="isShoppingCartAsideOpen" />
 </template>
 
 <script lang="ts" setup>
   import { ref } from 'vue';
 
   import LogInAside from '../components/asides/log-in-aside.component.vue';
+  import ShoppingCartAside from '../components/asides/shopping-cart-aside.component.vue';
   import SignUpAside from '../components/asides/sign-up-aside.component.vue';
 
   import Header from '../components/header/header.component.vue';
@@ -27,6 +32,7 @@
 
   const isLogInAsideOpen = ref(false);
   const isSignUpAsideOpen = ref(false);
+  const isShoppingCartAsideOpen = ref(false);
 
   const openSignUpAsideOpen = () => {
     isLogInAsideOpen.value = false;
@@ -41,6 +47,7 @@
   const closeAllAsides = () => {
     isLogInAsideOpen.value = false;
     isSignUpAsideOpen.value = false;
+    isShoppingCartAsideOpen.value = false;
   };
 </script>
 

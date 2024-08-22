@@ -7,9 +7,11 @@
 
   // Colors
   --color-main: #000000;
+  --color-soft: #0000000f;
 
   // Sombras
   --shadow-header: 0px 4px 8px #0000000f;
+  --shadow-aside: 0px 3px 8px rgba(0, 0, 0, 0.24);
   --shadow-header-search-box: 0px 2px 0px #0000000f;
 }
 
@@ -22,8 +24,10 @@
 
   // Colors
   --color-main: #ffffff;
+  --color-soft: #ffffff36;
 
   // Sombras
   --shadow-header: 0px 4px 8px #afafb0;
+  --shadow-aside: 0px 3px 8px #afafb0;
   --shadow-header-search-box: 0px 2px 0px #afafb0;
 }

@@ -54,5 +54,11 @@
       "description": "Already have an account?",
       "action": "Log in"
     }
+  },
+  "cart": {
+    "title": "Cart (X)"
+  },
+  "whistList": {
+    "title": "Whist List (X)"
   }
 }
