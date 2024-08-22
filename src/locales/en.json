@@ -27,38 +27,53 @@
   "header": {
     "searchbox": "Search..."
   },
-  "logIn": {
-    "title": "Log in",
-    "inputsPlaceholders": {
-      "email": "Email",
-      "password": "Password"
-    },
-    "forgotPassword": "Have you forgotten your password?",
-    "action": "Log in",
-    "signUp": {
-      "description": "Don't have an account yet?",
-      "action": "Sign up"
-    }
-  },
-  "signUp": {
-    "title": "Sign up",
-    "inputsPlaceholders": {
-      "name": "Name",
-      "email": "Email",
-      "password": "Password",
-      "repeatPassword": "Repeat password"
-    },
-    "checkboxText": "Accept terms and conditions",
-    "action": "Sign up",
+  "userAsides": {
     "logIn": {
-      "description": "Already have an account?",
-      "action": "Log in"
+      "title": "Log in",
+      "inputsPlaceholders": {
+        "email": "Email",
+        "password": "Password"
+      },
+      "forgotPassword": "Have you forgotten your password?",
+      "action": "Log in",
+      "signUp": {
+        "description": "Don't have an account yet?",
+        "action": "Sign up"
+      }
+    },
+    "signUp": {
+      "title": "Sign up",
+      "inputsPlaceholders": {
+        "name": "Name",
+        "email": "Email",
+        "password": "Password",
+        "repeatPassword": "Repeat password"
+      },
+      "checkboxText": "Accept terms and conditions",
+      "action": "Sign up",
+      "logIn": {
+        "description": "Already have an account?",
+        "action": "Log in"
+      }
     }
   },
-  "cart": {
-    "title": "Cart (X)"
-  },
-  "whistList": {
-    "title": "Whist List (X)"
+  "productAsides": {
+    "cart": {
+      "title": "Cart (X)",
+      "empty": {
+        "title": "Your cart is empty",
+        "description": "Add products to your cart to enjoy a complete shopping experience"
+      },
+      "button": "Move to whist list"
+    },
+    "whistList": {
+      "title": "Whist List (X)",
+      "empty": {
+        "title": "Your whist list is empty",
+        "description": "Save your favorites to access them at any time"
+      },
+      "button": "Move to cart"
+    },
+    "action": "Go shopping"
   }
 }

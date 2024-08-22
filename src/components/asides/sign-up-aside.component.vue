@@ -1,46 +1,46 @@
 <template>
   <Aside @close="$emit('close')" :is-open="isOpen">
     <div :class="baseClass">
-      <h1>{{ t('signUp.title') }}</h1>
+      <h1>{{ t('userAsides.signUp.title') }}</h1>
       <div :class="`${baseClass}__wrapper-inputs`">
         <text-input
           :class="`${baseClass}__input ${baseClass}__input--name`"
-          :placeholder="t('signUp.inputsPlaceholders.name')"
+          :placeholder="t('userAsides.signUp.inputsPlaceholders.name')"
           icon="user"
           color-attribute="stroke"
         />
         <text-input
           :class="`${baseClass}__input ${baseClass}__input--email`"
-          :placeholder="t('signUp.inputsPlaceholders.email')"
+          :placeholder="t('userAsides.signUp.inputsPlaceholders.email')"
           icon="email"
           color-attribute="fill"
         />
         <text-input
           :class="`${baseClass}__input ${baseClass}__input--password`"
-          :placeholder="t('signUp.inputsPlaceholders.password')"
+          :placeholder="t('userAsides.signUp.inputsPlaceholders.password')"
           type="password"
           icon="password"
           color-attribute="fill"
         />
         <text-input
           :class="`${baseClass}__input ${baseClass}__input--password`"
-          :placeholder="t('signUp.inputsPlaceholders.repeatPassword')"
+          :placeholder="t('userAsides.signUp.inputsPlaceholders.repeatPassword')"
           type="password"
           icon="password"
           color-attribute="fill"
         />
-        <checkbox-input :text="t('signUp.checkboxText')" />
+        <checkbox-input :text="t('userAsides.signUp.checkboxText')" />
       </div>
       <div>
-        <button-input :text="t('signUp.action')" type="fill" />
+        <button-input :text="t('userAsides.signUp.action')" type="fill" />
         <p :class="`${baseClass}__text ${baseClass}__text--have-account`">
-          {{ t('signUp.logIn.description') }}
+          {{ t('userAsides.signUp.logIn.description') }}
         </p>
         <a
           :class="`${baseClass}__text ${baseClass}__text--logIn`"
           @click="$emit('openLogInAsideOpen')"
         >
-          {{ t('signUp.logIn.action') }}
+          {{ t('userAsides.signUp.logIn.action') }}
         </a>
       </div>
     </div>

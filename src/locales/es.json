@@ -27,38 +27,53 @@
   "header": {
     "searchbox": "Buscar..."
   },
-  "logIn": {
-    "title": "Inicio de sesion",
-    "inputsPlaceholders": {
-      "email": "Correo electronico",
-      "password": "Contraseña"
-    },
-    "forgotPassword": "¿Has olvidado tu contraseña?",
-    "action": "Iniciar sesión",
-    "signUp": {
-      "description": "¿No tienes cuenta aun?",
-      "action": "Registrate"
-    }
-  },
-  "signUp": {
-    "title": "Sign up",
-    "inputsPlaceholders": {
-      "name": "Nombre",
-      "email": "Correo electronico",
-      "password": "Contraseña",
-      "repeatPassword": "Repetir contraseña"
-    },
-    "checkboxText": "Aceptar terminos y condiciones",
-    "action": "Registrarse",
+  "userAsides": {
     "logIn": {
-      "description": "¿Ya tienes cuenta?",
-      "action": "Inicia sesion"
+      "title": "Inicio de sesion",
+      "inputsPlaceholders": {
+        "email": "Correo electronico",
+        "password": "Contraseña"
+      },
+      "forgotPassword": "¿Has olvidado tu contraseña?",
+      "action": "Iniciar sesión",
+      "signUp": {
+        "description": "¿No tienes cuenta aun?",
+        "action": "Registrate"
+      }
+    },
+    "signUp": {
+      "title": "Registro de usuario",
+      "inputsPlaceholders": {
+        "name": "Nombre",
+        "email": "Correo electronico",
+        "password": "Contraseña",
+        "repeatPassword": "Repetir contraseña"
+      },
+      "checkboxText": "Aceptar terminos y condiciones",
+      "action": "Registrarse",
+      "logIn": {
+        "description": "¿Ya tienes cuenta?",
+        "action": "Inicia sesion"
+      }
     }
   },
-  "cart": {
-    "title": "Carrito (X)"
-  },
-  "whistList": {
-    "title": "Lista de deseos (X)"
+  "productAsides": {
+    "cart": {
+      "title": "Carrito (X)",
+      "empty": {
+        "title": "Tu cesta esta vacia",
+        "description": "Añade productos a tu carrito para poder disfrutar de una experiencia de compra completa"
+      },
+      "button": "Ver el carrito"
+    },
+    "whistList": {
+      "title": "Lista de deseos (X)",
+      "empty": {
+        "title": "Tu whist list esta vacia",
+        "description": "Guarda tus favoritos para poder acceder a ellos en cualquier momento"
+      },
+      "button": "Ver la lista de deseos"
+    },
+    "action": "Ir a comprar"
   }
 }
