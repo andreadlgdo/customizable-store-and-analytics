@@ -9,7 +9,7 @@
             { [`${baseClass}__button--selected`]: selectedShoppingCart }
           ]"
         >
-          {{ t('cart.title') }}
+          {{ t('productAsides.cart.title') }}
         </button>
         <button
           @click="selectedShoppingCart = false"
@@ -18,8 +18,50 @@
             { [`${baseClass}__button--selected`]: !selectedShoppingCart }
           ]"
         >
-          {{ t('whistList.title') }}
+          {{ t('productAsides.whistList.title') }}
         </button>
+      </div>
+    </template>
+    <template v-slot:default>
+      <div :class="`${baseClass}__content`">
+        <img
+          :class="`${baseClass}__image`"
+          src="../../assets/media/images/empty.png"
+          alt="Empty cart"
+        />
+        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--text`">
+          <h2>
+            {{
+              selectedShoppingCart
+                ? t('productAsides.cart.empty.title')
+                : t('productAsides.whistList.empty.title')
+            }}
+          </h2>
+          <p>
+            {{
+              selectedShoppingCart
+                ? t('productAsides.cart.empty.description')
+                : t('productAsides.whistList.empty.description')
+            }}
+          </p>
+        </div>
+        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
+          <button-input
+            @click="selectedShoppingCart = !selectedShoppingCart"
+            :text="
+              selectedShoppingCart
+                ? t('productAsides.cart.button')
+                : t('productAsides.whistList.button')
+            "
+            size="large"
+          />
+          <button-input
+            @click="$emit('close')"
+            :text="t('productAsides.action')"
+            type="fill"
+            size="large"
+          />
+        </div>
       </div>
     </template>
   </Aside>
@@ -28,6 +70,8 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { useI18n } from 'vue-i18n';
+
+  import ButtonInput from '../inputs/button-input.component.vue';
 
   import Aside from './aside.component.vue';
 
@@ -76,6 +120,33 @@
 
       &:hover {
         background: var(--bg-fill-button-hover);
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      padding: 4rem;
+      margin-top: 4rem;
+    }
+
+    &__image {
+      border-radius: 20px;
+      height: 12rem;
+      width: 10rem;
+    }
+
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+
+      &--button {
+        margin-top: 2rem;
       }
     }
   }
