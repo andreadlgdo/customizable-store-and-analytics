@@ -1,35 +1,35 @@
 <template>
   <Aside @close="$emit('close')" :is-open="isOpen">
     <div :class="baseClass">
-      <h1>{{ t('logIn.title') }}</h1>
+      <h1>{{ t('userAsides.logIn.title') }}</h1>
       <div>
         <text-input
           :class="`${baseClass}__input ${baseClass}__input--email`"
-          :placeholder="t('logIn.inputsPlaceholders.email')"
+          :placeholder="t('userAsides.logIn.inputsPlaceholders.email')"
           icon="email"
           color-attribute="fill"
         />
         <text-input
           :class="`${baseClass}__input ${baseClass}__input--password`"
-          :placeholder="t('logIn.inputsPlaceholders.password')"
+          :placeholder="t('userAsides.logIn.inputsPlaceholders.password')"
           type="password"
           icon="password"
           color-attribute="fill"
         />
         <p :class="`${baseClass}__text ${baseClass}__text--password`">
-          {{ t('logIn.forgotPassword') }}
+          {{ t('userAsides.logIn.forgotPassword') }}
         </p>
       </div>
       <div>
-        <button-input :text="t('logIn.action')" type="fill" />
+        <button-input :text="t('userAsides.logIn.action')" type="fill" />
         <p :class="`${baseClass}__text ${baseClass}__text--create-account`">
-          {{ t('logIn.signUp.description') }}
+          {{ t('userAsides.logIn.signUp.description') }}
         </p>
         <a
           :class="`${baseClass}__text ${baseClass}__text--sign-up`"
           @click="$emit('openSignUpAsideOpen')"
         >
-          {{ t('logIn.signUp.action') }}
+          {{ t('userAsides.logIn.signUp.action') }}
         </a>
       </div>
     </div>
