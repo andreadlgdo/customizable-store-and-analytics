@@ -18,9 +18,9 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import IconButton from '../icons/icon-button.component.vue';
-
   import { AsideType } from '../../types/aside.type';
+
+  import IconButton from '../icons/icon-button.component.vue';
 
   const baseClass = 'aside';
 
@@ -48,9 +48,8 @@
     box-shadow: var(--shadow-header);
 
     &--round {
-      margin-right: 4px;
       border-radius: 50px;
-      margin-top: 4px;
+      margin: 4px 4px 0 0;
       height: 99vh;
       box-shadow: var(--shadow-aside);
 
