@@ -22,6 +22,9 @@
     },
     "header": {
       "title": "Header"
+    },
+    "products": {
+      "title": "Products cards"
     }
   },
   "header": {
@@ -72,7 +75,10 @@
         "title": "Your whist list is empty",
         "description": "Save your favorites to access them at any time"
       },
-      "button": "Move to cart"
+      "button": "Move to cart",
+      "products": {
+        "action": "Add to cart"
+      }
     },
     "action": "Go shopping"
   }

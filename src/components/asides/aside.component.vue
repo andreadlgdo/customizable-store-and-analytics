@@ -46,6 +46,7 @@
     width: 400px;
     background: var(--bg-main);
     box-shadow: var(--shadow-header);
+    overflow: scroll;
 
     &--round {
       border-radius: 50px;

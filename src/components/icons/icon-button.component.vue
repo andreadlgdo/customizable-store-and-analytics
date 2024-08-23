@@ -10,14 +10,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { PropType, toRefs } from 'vue';
+  import { PropType } from 'vue';
   import { SizeType } from '../../types/size.type';
   import { SvgIconType } from '../../types/svg-icon.type';
   import SvgIcon from './svg-icon.component.vue';
 
   const baseClass = 'icon-button';
 
-  const props = defineProps({
+  defineProps({
     size: {
       type: String as PropType<SizeType>,
       default: 'normal'
@@ -33,8 +33,6 @@
   });
 
   defineEmits(['click']);
-
-  const { size } = toRefs(props);
 </script>
 
 <style scoped lang="scss">
