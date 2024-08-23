@@ -1,5 +1,8 @@
 <template>
-  <button :class="[baseClass, `${baseClass}--${size}`]" @click="$emit('click')">
+  <button
+    :class="[baseClass, `${baseClass}--${size}`, { [`${baseClass}--border`]: haveBorder }]"
+    @click="$emit('click')"
+  >
     <svg-icon
       :class="`${baseClass}__icon`"
       :src="require(`../../assets/media/icons/${icon}.svg`)"
@@ -29,7 +32,8 @@
     colorAttribute: {
       type: String as PropType<SvgIconType>,
       default: undefined
-    }
+    },
+    haveBorder: Boolean
   });
 
   defineEmits(['click']);
@@ -37,8 +41,6 @@
 
 <style scoped lang="scss">
   .icon-button {
-    $base-class: &;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -63,6 +65,17 @@
 
     &__icon {
       display: flex;
+    }
+
+    &--border {
+      border: 2px solid var(--color-main);
+      border-radius: 50%;
+      padding: 1rem;
+
+      &:hover {
+        border: 2px solid var(--bg-fill-button-hover);
+        background: var(--bg-fill-button-hover);
+      }
     }
   }
 </style>
