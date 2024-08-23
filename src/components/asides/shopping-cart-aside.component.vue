@@ -23,7 +23,7 @@
       </div>
     </template>
     <template v-slot:default>
-      <div :class="`${baseClass}__content`">
+      <div v-if="!products.length" :class="`${baseClass}__content`">
         <img
           :class="`${baseClass}__image`"
           src="../../assets/media/images/empty.png"
@@ -63,15 +63,27 @@
           />
         </div>
       </div>
+      <div v-else-if="!selectedShoppingCart">
+        <div :class="`${baseClass}__products`">
+          <product-card-whist-list
+            v-for="(product, index) in products"
+            :key="index"
+            :product="product"
+          />
+        </div>
+      </div>
     </template>
   </Aside>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { PropType, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
+  import { Product } from '../../interfaces/product';
+
   import ButtonInput from '../inputs/button-input.component.vue';
+  import ProductCardWhistList from '../product-cards/product-card-whist-list.component.vue';
 
   import Aside from './aside.component.vue';
 
@@ -82,7 +94,11 @@
   const selectedShoppingCart = ref(true);
 
   defineProps({
-    isOpen: Boolean
+    isOpen: Boolean,
+    products: {
+      type: Array as PropType<Array<Product>>,
+      default: () => []
+    }
   });
 
   defineEmits(['close']);
@@ -148,6 +164,12 @@
       &--button {
         margin-top: 2rem;
       }
+    }
+
+    &__products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
     }
   }
 
