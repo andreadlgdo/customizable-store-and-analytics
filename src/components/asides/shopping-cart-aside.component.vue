@@ -50,8 +50,8 @@
             @click="selectedShoppingCart = !selectedShoppingCart"
             :text="
               selectedShoppingCart
-                ? t('productAsides.cart.button')
-                : t('productAsides.whistList.button')
+                ? t('productAsides.whistList.button')
+                : t('productAsides.cart.button')
             "
             size="large"
           />
