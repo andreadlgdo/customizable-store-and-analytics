@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, onMounted, PropType } from 'vue';
+  import { ref, onMounted, PropType, watch } from 'vue';
   import { SizeType } from '../../types/size.type';
   import { SvgIconType } from '../../types/svg-icon.type';
 
@@ -29,9 +29,21 @@
 
   const svgContent = ref('');
 
-  onMounted(async () => {
+  const updateSvgContent = async () => {
     const response = await fetch(props.src);
     svgContent.value = await response.text();
+  };
+
+  watch(
+    () => props.src,
+    () => {
+      updateSvgContent();
+    },
+    { immediate: true }
+  );
+
+  onMounted(() => {
+    updateSvgContent();
   });
 </script>
 

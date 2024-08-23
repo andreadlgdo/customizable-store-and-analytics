@@ -60,7 +60,9 @@
     }
 
     &--small {
-      width: 124px;
+      width: 120px;
+      height: 30px;
+      font-size: 14px;
     }
 
     &--normal {
