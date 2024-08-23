@@ -34,6 +34,12 @@
   const isSignUpAsideOpen = ref(false);
   const isShoppingCartAsideOpen = ref(false);
 
+  /* const products = [
+    { title: 'Product 1', image: 'empty', price: 10.0, quantity: 1 },
+    { title: 'Product 2', image: 'empty', price: 10.0, isSelected: true, quantity: 10 },
+    { title: 'Product 3', image: 'empty', price: 10.0, quantity: 2 }
+  ];*/
+
   const openSignUpAsideOpen = () => {
     isLogInAsideOpen.value = false;
     isSignUpAsideOpen.value = true;
