@@ -42,11 +42,19 @@
       <h3 :class="`${baseClass}__text ${baseClass}__text--subtitle`">
         {{ t('library.icons.button') }}
       </h3>
-      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
-        <icon-button icon="search" size="small" colorAttribute="fill" />
-        <icon-button icon="search" colorAttribute="fill" />
-        <icon-button icon="search" size="large" colorAttribute="fill" />
+      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
+        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
+          <icon-button icon="search" size="small" colorAttribute="fill" />
+          <icon-button icon="search" colorAttribute="fill" />
+          <icon-button icon="search" size="large" colorAttribute="fill" />
+        </div>
+        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
+          <icon-button icon="search" size="small" colorAttribute="fill" have-border />
+          <icon-button icon="search" colorAttribute="fill" have-border />
+          <icon-button icon="search" size="large" colorAttribute="fill" have-border />
+        </div>
       </div>
+      <br />
       <h3 :class="`${baseClass}__text ${baseClass}__text--subtitle`">
         {{ t('library.icons.svg') }}
       </h3>
