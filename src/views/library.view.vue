@@ -114,6 +114,19 @@
     <hr />
     <div>
       <h3 :class="`${baseClass}__text ${baseClass}__text--subtitle`">
+        {{ t('library.products.title') }}
+      </h3>
+      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
+        <product-card-whist-list
+          v-for="(product, index) in products"
+          :key="index"
+          :product="product"
+        />
+      </div>
+    </div>
+    <hr />
+    <div>
+      <h3 :class="`${baseClass}__text ${baseClass}__text--subtitle`">
         {{ t('library.header.title') }}
       </h3>
       <Header />
@@ -137,6 +150,8 @@
   import CheckboxInput from '../components/inputs/checkbox-input.component.vue';
   import TextInput from '../components/inputs/text-input.component.vue';
 
+  import ProductCardWhistList from '../components/product-cards/product-card-whist-list.component.vue';
+
   import LanguageToggle from '../components/toggles/language-toggle.component.vue';
   import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
 
@@ -149,6 +164,20 @@
   const isBasicAsideOpen = ref(false);
   const isLogInAsideOpen = ref(false);
   const isSignUpAsideOpen = ref(false);
+
+  const products = [
+    {
+      title: 'Producto',
+      price: 10,
+      image: 'empty'
+    },
+    {
+      title: 'Producto fav',
+      price: 20.5,
+      image: 'empty',
+      isSelected: true
+    }
+  ];
 </script>
 
 <style scoped lang="scss">

@@ -22,6 +22,9 @@
     },
     "header": {
       "title": "Cabecera"
+    },
+    "products": {
+      "title": "Tarjetas de productos"
     }
   },
   "header": {
@@ -72,7 +75,10 @@
         "title": "Tu whist list esta vacia",
         "description": "Guarda tus favoritos para poder acceder a ellos en cualquier momento"
       },
-      "button": "Ver la lista de deseos"
+      "button": "Ver la lista de deseos",
+      "products": {
+        "action": "Añadir al carrito"
+      }
     },
     "action": "Ir a comprar"
   }
