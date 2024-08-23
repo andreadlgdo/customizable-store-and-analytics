@@ -23,7 +23,13 @@
       </div>
     </template>
     <template v-slot:default>
-      <div v-if="!products.length" :class="`${baseClass}__content`">
+      <div
+        v-if="
+          (selectedShoppingCart && !cartProducts.length) ||
+          (!selectedShoppingCart && !whistListProducts.length)
+        "
+        :class="`${baseClass}__content`"
+      >
         <img
           :class="`${baseClass}__image`"
           src="../../assets/media/images/empty.png"
@@ -65,7 +71,14 @@
       </div>
       <div v-else-if="!selectedShoppingCart" :class="`${baseClass}__products`">
         <product-card-whist-list
-          v-for="(product, index) in products"
+          v-for="(product, index) in whistListProducts"
+          :key="index"
+          :product="product"
+        />
+      </div>
+      <div v-else>
+        <product-card-shopping-cart
+          v-for="(product, index) in cartProducts"
           :key="index"
           :product="product"
         />
@@ -81,6 +94,8 @@
   import { Product } from '../../interfaces/product';
 
   import ButtonInput from '../inputs/button-input.component.vue';
+
+  import ProductCardShoppingCart from '../product-cards/product-card-shopping-cart.component.vue';
   import ProductCardWhistList from '../product-cards/product-card-whist-list.component.vue';
 
   import Aside from './aside.component.vue';
@@ -93,7 +108,11 @@
 
   defineProps({
     isOpen: Boolean,
-    products: {
+    whistListProducts: {
+      type: Array as PropType<Array<Product>>,
+      default: () => []
+    },
+    cartProducts: {
       type: Array as PropType<Array<Product>>,
       default: () => []
     }

@@ -1,5 +1,5 @@
 <template>
-  <div :class="baseClass">
+  <div :class="baseClass" v-if="product">
     <img
       :src="require(`../../assets/media/images/${product.image}.png`)"
       alt="Empty cart"
@@ -31,7 +31,7 @@
 
   const { t } = useI18n();
 
-  const baseClass = ref('product-card-whist-list');
+  const baseClass = 'product-card-whist-list';
 
   const props = defineProps({
     product: {
