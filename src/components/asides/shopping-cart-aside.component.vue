@@ -63,14 +63,12 @@
           />
         </div>
       </div>
-      <div v-else-if="!selectedShoppingCart">
-        <div :class="`${baseClass}__products`">
-          <product-card-whist-list
-            v-for="(product, index) in products"
-            :key="index"
-            :product="product"
-          />
-        </div>
+      <div v-else-if="!selectedShoppingCart" :class="`${baseClass}__products`">
+        <product-card-whist-list
+          v-for="(product, index) in products"
+          :key="index"
+          :product="product"
+        />
       </div>
     </template>
   </Aside>
@@ -170,6 +168,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 0.5rem;
+      margin-bottom: 2rem;
     }
   }
 

@@ -30,6 +30,7 @@
   import IconButton from '../icons/icon-button.component.vue';
 
   const { t } = useI18n();
+
   const baseClass = ref('product-card-whist-list');
 
   const props = defineProps({
