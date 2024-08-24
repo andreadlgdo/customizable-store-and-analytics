@@ -16,7 +16,7 @@
       <p>{{ product.title }}</p>
       <p>{{ product.price }} €</p>
     </div>
-    <button-input :text="t('productAsides.whistList.products.action')" size="small" />
+    <button-input :text="t('productAsides.whistList.products.action')" size="mini" />
   </div>
 </template>
 
@@ -53,7 +53,6 @@
     gap: 0.5rem;
     margin-top: 1rem;
     width: fit-content;
-    overflow: hidden;
 
     &__image {
       height: 10rem;
