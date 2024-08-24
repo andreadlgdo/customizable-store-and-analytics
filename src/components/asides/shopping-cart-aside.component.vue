@@ -56,8 +56,8 @@
             @click="selectedShoppingCart = !selectedShoppingCart"
             :text="
               selectedShoppingCart
-                ? t('productAsides.whistList.button')
-                : t('productAsides.cart.button')
+                ? t('productAsides.cart.button')
+                : t('productAsides.whistList.button')
             "
             size="large"
           />
@@ -69,19 +69,50 @@
           />
         </div>
       </div>
-      <div v-else-if="!selectedShoppingCart" :class="`${baseClass}__products`">
+      <div
+        v-else-if="!selectedShoppingCart"
+        :class="`${baseClass}__products ${baseClass}__products--whistList`"
+      >
         <product-card-whist-list
           v-for="(product, index) in whistListProducts"
           :key="index"
           :product="product"
         />
       </div>
-      <div v-else>
+      <div v-else :class="`${baseClass}__products ${baseClass}__products--cart`">
         <product-card-shopping-cart
           v-for="(product, index) in cartProducts"
           :key="index"
           :product="product"
         />
+        <div :class="`${baseClass}__discount`">
+          <div :class="`${baseClass}__label`">
+            <svg-icon
+              :src="require('../../assets/media/icons/discount.svg')"
+              color-attribute="fill"
+            />
+            <input
+              :class="`${baseClass}__input`"
+              type="text"
+              :placeholder="t('productAsides.cart.products.discount')"
+            />
+          </div>
+          <!-- TO DO: Check if is valid the promo code -->
+          <icon-button icon="arrow-right" color-attribute="fill" />
+        </div>
+        <hr />
+        <div :class="`${baseClass}__footer`">
+          <button-input
+            @click="$emit('close')"
+            :text="t('productAsides.cart.products.buttons.buy')"
+            size="small"
+          />
+          <button-input
+            :text="t('productAsides.cart.products.buttons.pay')"
+            type="fill"
+            size="small"
+          />
+        </div>
       </div>
     </template>
   </Aside>
@@ -92,6 +123,9 @@
   import { useI18n } from 'vue-i18n';
 
   import { Product } from '../../interfaces/product';
+
+  import SvgIcon from '../icons/svg-icon.component.vue';
+  import IconButton from '../icons/icon-button.component.vue';
 
   import ButtonInput from '../inputs/button-input.component.vue';
 
@@ -184,10 +218,45 @@
     }
 
     &__products {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-      margin-bottom: 2rem;
+      &--whistList {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+      }
+    }
+
+    &__discount {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 1rem;
+    }
+
+    &__input {
+      height: 2rem;
+      width: 18rem;
+      border: none;
+      outline: none;
+      background: var(--bg-main);
+    }
+
+    &__label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    &__footer {
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      height: 6rem;
+      margin-top: 2rem;
+      background: var(--bg-main);
     }
   }
 
