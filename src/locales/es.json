@@ -67,7 +67,7 @@
         "title": "Tu cesta esta vacia",
         "description": "Añade productos a tu carrito para poder disfrutar de una experiencia de compra completa"
       },
-      "button": "Ver el carrito",
+      "button": "Ver la lista de deseos",
       "products": {
         "discount": "Código promocional",
         "buttons": {
@@ -82,7 +82,7 @@
         "title": "Tu whist list esta vacia",
         "description": "Guarda tus favoritos para poder acceder a ellos en cualquier momento"
       },
-      "button": "Ver la lista de deseos",
+      "button": "Ver el carrito",
       "products": {
         "action": "Añadir al carrito"
       }
