@@ -24,7 +24,10 @@
       "title": "Header"
     },
     "products": {
-      "title": "Products cards"
+      "title": {
+        "whistList": "Whist List Products cards",
+        "cart": "Whist List Products cards"
+      }
     }
   },
   "header": {
