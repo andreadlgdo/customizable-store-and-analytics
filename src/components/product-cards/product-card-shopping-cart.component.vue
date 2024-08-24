@@ -10,7 +10,7 @@
         <p>{{ product.title }}</p>
         <p>{{ product.price }} €</p>
         <!-- TO DO: Los atributos tendran que cambiarse -->
-        <p>{{ product.quantity }} | Atributo 1 | Atributo 2</p>
+        <p>{{ product.quantity }} ud | Atributo 1 | Atributo 2</p>
       </div>
       <div :class="[baseClass, `${baseClass}__button`]">
         <icon-button

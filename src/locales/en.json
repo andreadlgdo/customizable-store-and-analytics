@@ -67,7 +67,14 @@
         "title": "Your cart is empty",
         "description": "Add products to your cart to enjoy a complete shopping experience"
       },
-      "button": "Move to whist list"
+      "button": "Move to whist list",
+      "products": {
+        "discount": "Promo code",
+        "buttons": {
+          "buy": "Go shopping",
+          "pay": "Place order"
+        }
+      }
     },
     "whistList": {
       "title": "Whist List (X)",

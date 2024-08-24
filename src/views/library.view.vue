@@ -92,11 +92,13 @@
       </h3>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
+          <button-input text="Stroke mini" size="mini" />
           <button-input text="Stroke small" size="small" />
           <button-input text="Stroke normal" />
           <button-input text="Stroke large" size="large" />
         </div>
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
+          <button-input text="Fill mini" type="fill" size="mini" />
           <button-input text="Fill small" type="fill" size="small" />
           <button-input text="Fill normal" type="fill" />
           <button-input text="Fill large" type="fill" size="large" />

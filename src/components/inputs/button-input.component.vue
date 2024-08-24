@@ -59,10 +59,15 @@
       }
     }
 
-    &--small {
+    &--mini {
       width: 120px;
       height: 30px;
       font-size: 14px;
+    }
+
+    &--small {
+      width: 180px;
+      font-size: 16px;
     }
 
     &--normal {
