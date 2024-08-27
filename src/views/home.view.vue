@@ -18,7 +18,11 @@
     :is-open="isSignUpAsideOpen"
     :close-position="isMobile ? 'left' : 'right'"
   />
-  <shopping-cart-aside @close="closeAllAsides" :is-open="isShoppingCartAsideOpen" />
+  <shopping-cart-aside
+    @close="closeAllAsides"
+    :is-open="isShoppingCartAsideOpen"
+    :cart-products="products"
+  />
   <Menu
     @close="closeAllAsides"
     @clickUserAsideOnMobile="openUserAsideOnMobile"
@@ -41,26 +45,18 @@
   import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
   import LanguageToggle from '../components/toggles/language-toggle.component.vue';
 
+  import productsData from '../json/products.json';
+
+  import { Product } from '../interfaces/product';
+
   const isLogInAsideOpen = ref(false);
   const isSignUpAsideOpen = ref(false);
   const isShoppingCartAsideOpen = ref(false);
   const isMenuOpen = ref(false);
 
   const isMobile = window.innerWidth < 768;
-  /*const products = [
-    { title: 'Product 1', image: 'empty', price: 10.0, quantity: 1 },
-    { title: 'Product 2', image: 'empty', price: 10.0, isSelected: true, quantity: 10 },
-    { title: 'Product 3', image: 'empty', price: 10.0, quantity: 2 },
-    { title: 'Product 1', image: 'empty', price: 10.0, quantity: 1 },
-    { title: 'Product 2', image: 'empty', price: 10.0, isSelected: true, quantity: 10 },
-    { title: 'Product 3', image: 'empty', price: 10.0, quantity: 2 },
-    { title: 'Product 1', image: 'empty', price: 10.0, quantity: 1 },
-    { title: 'Product 2', image: 'empty', price: 10.0, isSelected: true, quantity: 10 },
-    { title: 'Product 3', image: 'empty', price: 10.0, quantity: 2 },
-    { title: 'Product 1', image: 'empty', price: 10.0, quantity: 1 },
-    { title: 'Product 2', image: 'empty', price: 10.0, isSelected: true, quantity: 10 },
-    { title: 'Product 3', image: 'empty', price: 10.0, quantity: 2 }
-  ];*/
+
+  const products = ref<Product[]>(productsData);
 
   // TO DO: Remove when we have menu items from the backend
   const menuItems = [
