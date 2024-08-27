@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="[`${baseClass}--${size}`, { [`${baseClass}--${colorAttribute}`]: colorAttribute }]"
+    :class="[baseClass, `${baseClass}--${size}`, { [`${baseClass}--${colorAttribute}`]: colorAttribute }]"
     v-html="svgContent"
   ></div>
 </template>
@@ -49,6 +49,15 @@
 
 <style lang="scss">
   .svg-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--mini svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
     &--small svg {
       width: 1.2rem;
       height: 1.2rem;
