@@ -223,7 +223,7 @@
       title: 'Producto fav',
       price: 20.5,
       image: 'empty',
-      isSelected: true
+      isFavorite: true
     }
   ];
 </script>
