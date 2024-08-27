@@ -1,6 +1,9 @@
 <template>
   <transition :name="baseClass">
-    <div v-if="isOpen" :class="[baseClass, `${baseClass}--${type}`]">
+    <div
+      v-if="isOpen"
+      :class="[baseClass, `${baseClass}--${type}`, `${baseClass}--${closePosition}`]"
+    >
       <div :class="`${baseClass}__header`">
         <slot name="header" />
         <icon-button
@@ -29,6 +32,10 @@
     type: {
       type: String as PropType<AsideType>,
       default: 'square'
+    },
+    closePosition: {
+      type: String as PropType<'right' | 'left'>,
+      default: 'right'
     }
   });
 
@@ -56,6 +63,13 @@
 
       #{$base-class}__header {
         border-bottom: 1px solid var(--color-soft);
+      }
+    }
+
+    &--left {
+      #{$base-class}__header {
+        justify-content: flex-start;
+        padding-left: 24px;
       }
     }
 
