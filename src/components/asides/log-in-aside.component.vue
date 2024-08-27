@@ -1,5 +1,5 @@
 <template>
-  <Aside @close="$emit('close')" :is-open="isOpen">
+  <Aside @close="$emit('close')" :is-open="isOpen" :close-position="closePosition">
     <div :class="baseClass">
       <h1>{{ t('userAsides.logIn.title') }}</h1>
       <div>
@@ -37,7 +37,10 @@
 </template>
 
 <script lang="ts" setup>
+  import { PropType } from 'vue';
   import { useI18n } from 'vue-i18n';
+
+  import { PositionType } from '../../types/position.type';
 
   import TextInput from '../inputs/text-input.component.vue';
   import ButtonInput from '../inputs/button-input.component.vue';
@@ -49,7 +52,11 @@
   const { t } = useI18n();
 
   defineProps({
-    isOpen: Boolean
+    isOpen: Boolean,
+    closePosition: {
+      type: String as PropType<PositionType>,
+      default: 'right'
+    }
   });
 
   defineEmits(['close', 'openSignUpAsideOpen']);
