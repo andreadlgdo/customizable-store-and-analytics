@@ -37,13 +37,15 @@
 </template>
 
 <script lang="ts" setup>
+  import { PropType } from 'vue';
   import { useI18n } from 'vue-i18n';
+
+  import { PositionType } from '../../types/position.type';
 
   import TextInput from '../inputs/text-input.component.vue';
   import ButtonInput from '../inputs/button-input.component.vue';
 
   import Aside from './aside.component.vue';
-  import { PropType } from 'vue';
 
   const baseClass = 'log-in-aside';
 
@@ -52,7 +54,7 @@
   defineProps({
     isOpen: Boolean,
     closePosition: {
-      type: String as PropType<'right' | 'left'>,
+      type: String as PropType<PositionType>,
       default: 'right'
     }
   });

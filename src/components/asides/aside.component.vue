@@ -22,6 +22,7 @@
   import { PropType } from 'vue';
 
   import { AsideType } from '../../types/aside.type';
+  import { PositionType } from '../../types/position.type';
 
   import IconButton from '../icons/icon-button.component.vue';
 
@@ -34,7 +35,7 @@
       default: 'square'
     },
     closePosition: {
-      type: String as PropType<'right' | 'left'>,
+      type: String as PropType<PositionType>,
       default: 'right'
     }
   });
