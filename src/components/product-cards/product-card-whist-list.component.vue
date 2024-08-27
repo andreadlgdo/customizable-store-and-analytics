@@ -40,7 +40,7 @@
     }
   });
 
-  const isFavorite = ref(props.product.isSelected ?? false);
+  const isFavorite = ref(props.product.isFavorite ?? false);
 </script>
 
 <style lang="scss" scoped>
