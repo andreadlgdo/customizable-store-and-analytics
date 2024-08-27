@@ -264,7 +264,7 @@
     }
 
     &__product {
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
     }
   }
 </style>
