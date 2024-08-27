@@ -5,6 +5,7 @@
     >
       <div :class="`${baseClass}__menu ${baseClass}__menu--mobile`">
         <icon-button
+          @click="$emit('clickMenu')"
           :class="`${baseClass}__icon ${baseClass}__icon--menu`"
           icon="menu"
           color-attribute="stroke"
@@ -56,7 +57,7 @@
 
   const isOpenSearchBox = ref(false);
 
-  defineEmits(['clickUser', 'clickShoppingCart']);
+  defineEmits(['clickUser', 'clickShoppingCart', 'clickMenu']);
 </script>
 
 <style scoped lang="scss">

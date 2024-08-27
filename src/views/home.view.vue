@@ -2,6 +2,7 @@
   <Header
     @clickUser="isLogInAsideOpen = true"
     @clickShoppingCart="isShoppingCartAsideOpen = true"
+    @clickMenu="isMenuOpen = true"
   />
   <theme-toggle />
   <language-toggle />
@@ -16,6 +17,7 @@
     :is-open="isSignUpAsideOpen"
   />
   <shopping-cart-aside @close="closeAllAsides" :is-open="isShoppingCartAsideOpen" />
+  <Menu @close="closeAllAsides" :is-open="isMenuOpen" />
 </template>
 
 <script lang="ts" setup>
@@ -27,12 +29,15 @@
 
   import Header from '../components/header/header.component.vue';
 
+  import Menu from '../components/mobile/menu.component.vue';
+
   import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
   import LanguageToggle from '../components/toggles/language-toggle.component.vue';
 
   const isLogInAsideOpen = ref(false);
   const isSignUpAsideOpen = ref(false);
   const isShoppingCartAsideOpen = ref(false);
+  const isMenuOpen = ref(false);
 
   /*const products = [
     { title: 'Product 1', image: 'empty', price: 10.0, quantity: 1 },
@@ -63,6 +68,7 @@
     isLogInAsideOpen.value = false;
     isSignUpAsideOpen.value = false;
     isShoppingCartAsideOpen.value = false;
+    isMenuOpen.value = false;
   };
 </script>
 
