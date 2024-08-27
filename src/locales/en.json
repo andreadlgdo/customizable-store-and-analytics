@@ -91,5 +91,10 @@
       }
     },
     "action": "Go shopping"
+  },
+  "mobile": {
+    "menu": {
+      "login": "Login"
+    }
   }
 }

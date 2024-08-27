@@ -91,5 +91,10 @@
       }
     },
     "action": "Ir a comprar"
+  },
+  "mobile": {
+    "menu": {
+      "login": "Iniciar sesion"
+    }
   }
 }
