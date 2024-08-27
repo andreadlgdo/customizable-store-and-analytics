@@ -21,20 +21,44 @@
       </h3>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
         <button-input
-          :text="isBasicAsideOpen ? 'Close Basic Aside' : 'Open Basic Aside'"
           @click="isBasicAsideOpen = !isBasicAsideOpen"
+          :text="isBasicAsideOpen ? 'Close Basic Aside' : 'Open Basic Aside'"
         />
-        <Aside :is-open="isBasicAsideOpen" @close="isBasicAsideOpen = false" />
+        <Aside @close="isBasicAsideOpen = false" :is-open="isBasicAsideOpen" />
         <button-input
-          :text="isLogInAsideOpen ? 'Close Log In Aside' : 'Open Log In Aside'"
           @click="isLogInAsideOpen = !isLogInAsideOpen"
+          :text="isLogInAsideOpen ? 'Close Log In Aside' : 'Open Log In Aside'"
         />
-        <log-in-aside :is-open="isLogInAsideOpen" @close="isLogInAsideOpen = false" />
+        <log-in-aside @close="isLogInAsideOpen = false" :is-open="isLogInAsideOpen" />
         <button-input
-          :text="isSignUpAsideOpen ? 'Close Sign up Aside' : 'Open Sign up Aside'"
           @click="isSignUpAsideOpen = !isSignUpAsideOpen"
+          :text="isSignUpAsideOpen ? 'Close Sign up Aside' : 'Open Sign up Aside'"
         />
-        <sign-up-aside :is-open="isSignUpAsideOpen" @close="isSignUpAsideOpen = false" />
+        <sign-up-aside @close="isSignUpAsideOpen = false" :is-open="isSignUpAsideOpen" />
+        <button-input
+          @click="isShoppingCartEmptyAsideOpen = !isShoppingCartEmptyAsideOpen"
+          :text="
+            isShoppingCartEmptyAsideOpen
+              ? 'Close Shopping cart Aside Empty'
+              : 'Open Shopping cart Aside Empty'
+          "
+          size="large"
+        />
+        <shopping-cart-aside
+          @close="isShoppingCartEmptyAsideOpen = false"
+          :is-open="isShoppingCartEmptyAsideOpen"
+        />
+        <button-input
+          @click="isShoppingCartAsideOpen = !isShoppingCartAsideOpen"
+          :text="isShoppingCartAsideOpen ? 'Close Shopping cart Aside' : 'Open Shopping cart Aside'"
+          size="large"
+        />
+        <shopping-cart-aside
+          :is-open="isShoppingCartAsideOpen"
+          @close="isShoppingCartAsideOpen = false"
+          :whist-list-products="products"
+          :cart-products="products"
+        />
       </div>
     </div>
     <hr />
@@ -124,10 +148,21 @@
     <hr />
     <div>
       <h3 :class="`${baseClass}__text ${baseClass}__text--subtitle`">
-        {{ t('library.products.title') }}
+        {{ t('library.products.title.whistList') }}
       </h3>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
         <product-card-whist-list
+          :class="`${baseClass}__product`"
+          v-for="(product, index) in products"
+          :key="index"
+          :product="product"
+        />
+      </div>
+      <h3 :class="`${baseClass}__text ${baseClass}__text--subtitle`">
+        {{ t('library.products.title.cart') }}
+      </h3>
+      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
+        <product-card-shopping-cart
           v-for="(product, index) in products"
           :key="index"
           :product="product"
@@ -145,11 +180,13 @@
 </template>
 
 <script lang="ts" setup>
+  import { ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import Aside from '../components/asides/aside.component.vue';
   import LogInAside from '../components/asides/log-in-aside.component.vue';
   import SignUpAside from '../components/asides/sign-up-aside.component.vue';
+  import ShoppingCartAside from '../components/asides/shopping-cart-aside.component.vue';
 
   import IconButton from '../components/icons/icon-button.component.vue';
   import SvgIcon from '../components/icons/svg-icon.component.vue';
@@ -160,12 +197,11 @@
   import CheckboxInput from '../components/inputs/checkbox-input.component.vue';
   import TextInput from '../components/inputs/text-input.component.vue';
 
+  import ProductCardShoppingCart from '../components/product-cards/product-card-shopping-cart.component.vue';
   import ProductCardWhistList from '../components/product-cards/product-card-whist-list.component.vue';
 
   import LanguageToggle from '../components/toggles/language-toggle.component.vue';
   import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
-
-  import { ref } from 'vue';
 
   const { t } = useI18n();
 
@@ -174,6 +210,8 @@
   const isBasicAsideOpen = ref(false);
   const isLogInAsideOpen = ref(false);
   const isSignUpAsideOpen = ref(false);
+  const isShoppingCartEmptyAsideOpen = ref(false);
+  const isShoppingCartAsideOpen = ref(false);
 
   const products = [
     {
@@ -223,6 +261,10 @@
         flex-direction: column;
         gap: 1rem;
       }
+    }
+
+    &__product {
+      margin-bottom: 2rem;
     }
   }
 </style>

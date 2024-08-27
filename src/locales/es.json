@@ -24,7 +24,10 @@
       "title": "Cabecera"
     },
     "products": {
-      "title": "Tarjetas de productos"
+      "title": {
+        "whistList": "Whist List Tarjetas de productos",
+        "cart": "Carrito Tarjetas de productos"
+      }
     }
   },
   "header": {
