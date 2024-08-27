@@ -1,5 +1,5 @@
 <template>
-  <Aside @close="$emit('close')" :is-open="isOpen">
+  <Aside @close="$emit('close')" :is-open="isOpen" :close-position="closePosition">
     <div :class="baseClass">
       <h1>{{ t('userAsides.logIn.title') }}</h1>
       <div>
@@ -43,13 +43,18 @@
   import ButtonInput from '../inputs/button-input.component.vue';
 
   import Aside from './aside.component.vue';
+  import { PropType } from 'vue';
 
   const baseClass = 'log-in-aside';
 
   const { t } = useI18n();
 
   defineProps({
-    isOpen: Boolean
+    isOpen: Boolean,
+    closePosition: {
+      type: String as PropType<'right' | 'left'>,
+      default: 'right'
+    }
   });
 
   defineEmits(['close', 'openSignUpAsideOpen']);

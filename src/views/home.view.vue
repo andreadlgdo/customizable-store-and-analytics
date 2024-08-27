@@ -10,14 +10,21 @@
     @close="closeAllAsides"
     @openSignUpAsideOpen="openSignUpAsideOpen"
     :is-open="isLogInAsideOpen"
+    :close-position="isMobile ? 'left' : 'right'"
   />
   <sign-up-aside
     @close="closeAllAsides"
     @openLogInAsideOpen="openLogInAsideOpen"
     :is-open="isSignUpAsideOpen"
+    :close-position="isMobile ? 'left' : 'right'"
   />
   <shopping-cart-aside @close="closeAllAsides" :is-open="isShoppingCartAsideOpen" />
-  <Menu @close="closeAllAsides" :is-open="isMenuOpen" />
+  <Menu
+    @close="closeAllAsides"
+    @clickUserAsideOnMobile="openUserAsideOnMobile"
+    :is-open="isMenuOpen"
+    :menu-items="menuItems"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -39,6 +46,7 @@
   const isShoppingCartAsideOpen = ref(false);
   const isMenuOpen = ref(false);
 
+  const isMobile = window.innerWidth < 768;
   /*const products = [
     { title: 'Product 1', image: 'empty', price: 10.0, quantity: 1 },
     { title: 'Product 2', image: 'empty', price: 10.0, isSelected: true, quantity: 10 },
@@ -53,6 +61,14 @@
     { title: 'Product 2', image: 'empty', price: 10.0, isSelected: true, quantity: 10 },
     { title: 'Product 3', image: 'empty', price: 10.0, quantity: 2 }
   ];*/
+
+  // TO DO: Remove when we have menu items from the backend
+  const menuItems = [
+    { label: 'Home', subMenu: [] },
+    { label: 'Shop', subMenu: ['Vestidos', 'Cazadoras', 'Camisetas', 'Zapatos'] },
+    { label: 'About', subMenu: [] },
+    { label: 'Contact', subMenu: [] }
+  ];
 
   const openSignUpAsideOpen = () => {
     isLogInAsideOpen.value = false;
@@ -69,6 +85,11 @@
     isSignUpAsideOpen.value = false;
     isShoppingCartAsideOpen.value = false;
     isMenuOpen.value = false;
+  };
+
+  const openUserAsideOnMobile = () => {
+    isMenuOpen.value = false;
+    isLogInAsideOpen.value = true;
   };
 </script>
 
