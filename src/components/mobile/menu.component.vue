@@ -16,7 +16,7 @@
           <svg-icon
             v-if="menu.subMenu.length"
             @click="isSubmenuOpen = true"
-            :src="require('../../assets/media/icons/arrow-right.svg')"
+            :src="require('../../assets/media/icons/arrow.svg')"
             color-attribute="fill"
             size="mini"
           />
@@ -26,7 +26,7 @@
             <svg-icon
               @click="isSubmenuOpen = false"
               :class="`${baseClass}__icon`"
-              :src="require('../../assets/media/icons/arrow-right.svg')"
+              :src="require('../../assets/media/icons/arrow.svg')"
               color-attribute="fill"
               size="small"
             />

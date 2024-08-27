@@ -98,7 +98,7 @@
             />
           </div>
           <!-- TO DO: Check if is valid the promo code -->
-          <icon-button icon="arrow-right" color-attribute="fill" />
+          <icon-button icon="arrow" color-attribute="fill" />
         </div>
         <hr />
         <div :class="`${baseClass}__footer`">
