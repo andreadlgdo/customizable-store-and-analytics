@@ -14,7 +14,7 @@
       </div>
       <div :class="[baseClass, `${baseClass}__button`]">
         <icon-button
-          @click="isFavorite = !isFavorite"
+          @click="$emit('updateProduct', product)"
           :class="{ [`${baseClass}__icon--selected`]: isFavorite }"
           :icon="isFavorite ? 'heartSelected' : 'heart'"
           :color-attribute="isFavorite ? undefined : 'stroke'"
@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref } from 'vue';
+  import { computed, PropType } from 'vue';
 
   import { Product } from '../../interfaces/product';
 
@@ -44,7 +44,9 @@
     }
   });
 
-  const isFavorite = ref(props.product?.isFavorite ?? false);
+  defineEmits(['updateProduct']);
+
+  const isFavorite = computed(() => props.product?.isFavorite ?? false);
 </script>
 
 <style lang="scss" scoped>

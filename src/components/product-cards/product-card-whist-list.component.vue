@@ -6,7 +6,7 @@
       :class="`${baseClass}__image`"
     />
     <icon-button
-      @click="isFavorite = !isFavorite"
+      @click="$emit('updateProduct', product)"
       :class="`${baseClass}__icon`"
       :icon="isFavorite ? 'heartSelected' : 'heart'"
       :color-attribute="isFavorite ? undefined : 'stroke'"
@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref } from 'vue';
+  import { computed, PropType } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { Product } from '../../interfaces/product';
@@ -40,7 +40,9 @@
     }
   });
 
-  const isFavorite = ref(props.product.isFavorite ?? false);
+  defineEmits(['updateProduct']);
+
+  const isFavorite = computed(() => props.product?.isFavorite ?? false);
 </script>
 
 <style lang="scss" scoped>
