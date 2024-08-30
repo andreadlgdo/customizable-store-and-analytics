@@ -22,7 +22,6 @@
     @close="closeAllAsides"
     @updateProduct="updateProduct"
     :is-open="isShoppingCartAsideOpen"
-    :cart-products="products"
     :whist-list-products="products.filter(p => p.isFavorite)"
   />
   <Menu
