@@ -1,47 +1,51 @@
 <template>
   <Aside @close="$emit('close')" :is-open="isOpen" close-position="left">
     <div :class="baseClass">
-      <div v-if="!isSubmenuOpen" :class="`${baseClass}__item ${baseClass}__item--user`">
-        <svg-icon :src="require('../../assets/media/icons/user.svg')" color-attribute="stroke" />
-        <p
-          @click="$emit('clickUserAsideOnMobile')"
-          :class="`${baseClass}__text ${baseClass}__text--login`"
-        >
-          {{ t('mobile.menu.login').toUpperCase() }}
-        </p>
-      </div>
-      <div v-for="(menu, index) in menuItems" :key="index">
-        <div v-if="!isSubmenuOpen" :class="`${baseClass}__item ${baseClass}__item--menu`">
-          <p>{{ menu.label }}</p>
-          <svg-icon
-            v-if="menu.subMenu.length"
-            @click="isSubmenuOpen = true"
-            :src="require('../../assets/media/icons/arrow.svg')"
-            color-attribute="fill"
-            size="mini"
-          />
+      <transition :name="baseClass" appear>
+        <div v-if="!isSubmenuOpen" :class="`${baseClass}__item ${baseClass}__item--user`">
+          <svg-icon :src="require('../../assets/media/icons/user.svg')" color-attribute="stroke" />
+          <p
+            @click="$emit('clickUserAsideOnMobile')"
+            :class="`${baseClass}__text ${baseClass}__text--login`"
+          >
+            {{ t('mobile.menu.login').toUpperCase() }}
+          </p>
         </div>
-        <div v-else>
-          <div v-if="menu.subMenu.length" :class="`${baseClass}__item ${baseClass}__item--user`">
+      </transition>
+      <div v-for="(menu, index) in menuItems" :key="index">
+        <transition :name="baseClass" appear>
+          <div v-if="!isSubmenuOpen" :class="`${baseClass}__item ${baseClass}__item--menu`">
+            <p>{{ menu.label }}</p>
             <svg-icon
-              @click="isSubmenuOpen = false"
-              :class="`${baseClass}__icon`"
+              v-if="menu.subMenu.length"
+              @click="isSubmenuOpen = true"
               :src="require('../../assets/media/icons/arrow.svg')"
               color-attribute="fill"
-              size="small"
+              size="mini"
             />
-            <p :class="`${baseClass}__text ${baseClass}__text--login`">
-              {{ menu.label.toUpperCase() }}
-            </p>
           </div>
-          <div
-            v-for="(category, index) in menu.subMenu"
-            :key="index"
-            :class="`${baseClass}__item ${baseClass}__item--submenu`"
-          >
-            <p>{{ category }}</p>
+          <div v-else>
+            <div v-if="menu.subMenu.length" :class="`${baseClass}__item ${baseClass}__item--user`">
+              <svg-icon
+                @click="isSubmenuOpen = false"
+                :class="`${baseClass}__icon`"
+                :src="require('../../assets/media/icons/arrow.svg')"
+                color-attribute="fill"
+                size="small"
+              />
+              <p :class="`${baseClass}__text ${baseClass}__text--login`">
+                {{ menu.label.toUpperCase() }}
+              </p>
+            </div>
+            <div
+              v-for="(category, index) in menu.subMenu"
+              :key="index"
+              :class="`${baseClass}__item ${baseClass}__item--submenu`"
+            >
+              <p>{{ category }}</p>
+            </div>
           </div>
-        </div>
+        </transition>
       </div>
     </div>
   </Aside>
@@ -78,6 +82,10 @@
     display: flex;
     flex-direction: column;
     margin: 26px 46px;
+
+    &-enter-active {
+      animation: fade-in-left 1s ease-out both;
+    }
 
     &__item {
       display: flex;
