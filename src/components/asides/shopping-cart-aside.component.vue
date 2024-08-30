@@ -74,6 +74,7 @@
         :class="`${baseClass}__products ${baseClass}__products--whistList`"
       >
         <product-card-whist-list
+          @updateProduct="$emit('updateProduct', $event)"
           v-for="(product, index) in whistListProducts"
           :key="index"
           :product="product"
@@ -81,6 +82,7 @@
       </div>
       <div v-else :class="`${baseClass}__products ${baseClass}__products--cart`">
         <product-card-shopping-cart
+          @updateProduct="$emit('updateProduct', $event)"
           v-for="(product, index) in cartProducts"
           :key="index"
           :product="product"
@@ -152,7 +154,7 @@
     }
   });
 
-  defineEmits(['close']);
+  defineEmits(['close', 'updateProduct']);
 </script>
 
 <style lang="scss" scoped>

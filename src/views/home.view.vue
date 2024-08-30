@@ -20,8 +20,9 @@
   />
   <shopping-cart-aside
     @close="closeAllAsides"
+    @updateProduct="updateProduct"
     :is-open="isShoppingCartAsideOpen"
-    :cart-products="products"
+    :whist-list-products="products.filter(p => p.isFavorite)"
   />
   <Menu
     @close="closeAllAsides"
@@ -86,6 +87,14 @@
   const openUserAsideOnMobile = () => {
     isMenuOpen.value = false;
     isLogInAsideOpen.value = true;
+  };
+
+  const updateProduct = (product: Product) => {
+    products.value.forEach(p => {
+      if (p.id === product.id) {
+        Object.assign(p, product);
+      }
+    });
   };
 </script>
 
