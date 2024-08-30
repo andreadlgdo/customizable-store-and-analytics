@@ -93,7 +93,7 @@
   const updateProduct = (product: Product) => {
     products.value.forEach(p => {
       if (p.id === product.id) {
-        p.isFavorite = !p.isFavorite;
+        Object.assign(p, product);
       }
     });
   };

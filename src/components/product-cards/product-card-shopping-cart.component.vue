@@ -14,7 +14,7 @@
       </div>
       <div :class="[baseClass, `${baseClass}__button`]">
         <icon-button
-          @click="$emit('updateProduct', product)"
+          @click="updateProduct"
           :class="{ [`${baseClass}__icon--selected`]: isFavorite }"
           :icon="isFavorite ? 'heartSelected' : 'heart'"
           :color-attribute="isFavorite ? undefined : 'stroke'"
@@ -44,9 +44,15 @@
     }
   });
 
-  defineEmits(['updateProduct']);
+  const emit = defineEmits(['updateProduct']);
 
   const isFavorite = computed(() => props.product?.isFavorite ?? false);
+
+  const product = computed(() => props.product);
+  const updateProduct = () => {
+    product.value.isFavorite = !product.value.isFavorite;
+    emit('updateProduct', product.value);
+  };
 </script>
 
 <style lang="scss" scoped>
