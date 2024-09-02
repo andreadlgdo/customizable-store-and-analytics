@@ -97,7 +97,7 @@
     });
   };
 
-  fetch('http://localhost:3000/')
+  fetch('https://customizable-store-and-analytics-3oqesmhr9.vercel.app/')
       .then(response => {
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.indexOf("application/json") !== -1) {
