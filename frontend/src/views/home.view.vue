@@ -118,7 +118,10 @@
       .catch(error => console.error('Error:', error));
 
   fetch(`${apiUrl}/api/products`)
-      .then(response => response.json())
+      .then(response => {
+        console.log('r', response);
+        return response.json()
+      })
       .then(products => {
         p.value =products;
         console.log(products);
