@@ -97,7 +97,9 @@
     });
   };
 
-  fetch('https://customizable-store-and-analytics-3oqesmhr9.vercel.app/')
+  const apiUrl = process.env.VUE_APP_API_URL;
+
+  fetch(`${apiUrl}`)
       .then(response => {
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.indexOf("application/json") !== -1) {
