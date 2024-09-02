@@ -10,6 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const corsOptions = {
+    origin: [ process.env.VUE_APP_API ?? '*' ],
     methods: ['GET', 'POST'], // Allow only these methods
     allowedHeaders: ['Content-Type'], // Allow only these headers
 };
