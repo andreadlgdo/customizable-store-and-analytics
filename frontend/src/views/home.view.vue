@@ -96,6 +96,25 @@
       }
     });
   };
+
+  const apiUrl = process.env.VUE_APP_API_URL;
+
+  fetch(`${apiUrl}`)
+      .then(response => {
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          return response.json();
+        } else {
+          return response.text();
+        }
+      })
+      .then(data => {
+        console.log(data);
+        // If it's text, data will be a string
+        // If it's JSON, data will be an object
+      })
+      .catch(error => console.error('Error:', error));
+
 </script>
 
 <style lang="scss" scoped></style>
