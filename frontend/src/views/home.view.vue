@@ -30,6 +30,7 @@
     :is-open="isMenuOpen"
     :menu-items="menuItems"
   />
+  {{ p }}
 </template>
 
 <script lang="ts" setup>
@@ -97,6 +98,7 @@
     });
   };
 
+  const p = ref();
   const apiUrl = process.env.VUE_APP_API_URL;
 
   fetch(`${apiUrl}`)
@@ -114,6 +116,14 @@
         // If it's JSON, data will be an object
       })
       .catch(error => console.error('Error:', error));
+
+  fetch(`${apiUrl}/api/products`)
+      .then(response => response.json())
+      .then(products => {
+        p.value =products;
+        console.log(products);
+      })
+      .catch(error => console.error('Error fetching products:', error));
 
 </script>
 

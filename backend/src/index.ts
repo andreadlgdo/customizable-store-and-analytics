@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import Product from "./models/Product";
 
 dotenv.config();
 
@@ -26,6 +27,15 @@ mongoose.connect(process.env.MONGODB_URI as string)
 // Routes
 app.get('/', (req, res) => {
     res.json('API is running');
+});
+
+app.get('/api/products', async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching products', error });
+    }
 });
 
 // Start server
