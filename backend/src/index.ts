@@ -8,13 +8,13 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const corsOptions = {
+/*const corsOptions = {
     origin: 'http://localhost:8080', // Allow only this origin
     methods: ['GET', 'POST'], // Allow only these methods
     allowedHeaders: ['Content-Type'], // Allow only these headers
-};
+};*/
 
-app.use(cors(corsOptions));
+app.use(cors);
 
 // Middleware
 app.use(express.json());
