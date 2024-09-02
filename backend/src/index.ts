@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 const corsOptions = {
     methods: ['GET', 'POST'], // Allow only these methods
-    allowedHeaders: ['Content-Type'], // Allow only these headers
+    allowedHeaders: ['Content-Type', 'Access-Control-Allow-Origin'], // Allow only these headers
 };
 
 app.use(cors(corsOptions));
