@@ -11,7 +11,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const corsOptions = {
-    origin: [ process.env.VUE_APP_API ?? '*' ],
     methods: ['GET', 'POST'], // Allow only these methods
     allowedHeaders: ['Content-Type'], // Allow only these headers
 };
@@ -27,19 +26,17 @@ mongoose.connect(process.env.MONGODB_URI as string)
     .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes
-app.get('/', () => {
-    //res.json('API is running');
-    console.log('API is running');
+app.get('/', (req: Request, res: Response) => {
+    res.json('API is running');
 });
 
 app.get('/api/products', async (req: Request, res: Response) => {
     try {
         const products = await Product.find();
         console.log('p', products);
-        //res.json(products);
+        res.json(products);
     } catch (error) {
-        console.log('error', error);
-        //res.status(500).json({ message: 'Error fetching products', error });
+        res.status(500).json({ message: 'Error fetching products', error });
     }
 });
 
