@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -26,11 +26,11 @@ mongoose.connect(process.env.MONGODB_URI as string)
     .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
     res.json('API is running');
 });
 
-app.get('/api/products', async (req, res) => {
+app.get('/api/products', async (req: Request, res: Response) => {
     try {
         const products = await Product.find();
         console.log('p', products);
