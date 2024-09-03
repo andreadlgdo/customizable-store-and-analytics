@@ -38,7 +38,8 @@ app.get('/api/products', async (req: Request, res: Response) => {
         console.log('p', products);
         //res.json(products);
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching products', error });
+        console.log('error', error);
+        //res.status(500).json({ message: 'Error fetching products', error });
     }
 });
 
