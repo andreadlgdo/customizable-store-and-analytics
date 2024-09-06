@@ -102,32 +102,37 @@
   const apiUrl = process.env.VUE_APP_API_URL;
 
   fetch(`${apiUrl}`)
-      .then(response => {
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.indexOf("application/json") !== -1) {
-          return response.json();
-        } else {
-          return response.text();
-        }
-      })
-      .then(data => {
-        console.log(data);
-        // If it's text, data will be a string
-        // If it's JSON, data will be an object
-      })
-      .catch(error => console.error('Error:', error));
+    .then(response => {
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.indexOf('application/json') !== -1) {
+        return response.json();
+      } else {
+        return response.text();
+      }
+    })
+    .then(data => {
+      console.log(data);
+      // If it's text, data will be a string
+      // If it's JSON, data will be an object
+    })
+    .catch(error => console.error('Error:', error));
 
   fetch(`${apiUrl}/api/products`)
-      .then(response => {
-        console.log('r', response);
-        return response.json()
-      })
-      .then(products => {
-        p.value =products;
-        console.log(products);
-      })
-      .catch(error => console.error('Error fetching products:', error));
+    .then(response => {
+      console.log('r', response);
+      return response.json();
+    })
+    .then(products => {
+      p.value = products;
+      console.log(products);
+    })
+    .catch(error => console.error('Error fetching products:', error));
 
+  setInterval(() => {
+    fetch(`${apiUrl}/ping`)
+      .then(response => console.log('Backend pinged successfully', response))
+      .catch(error => console.error('Error pinging backend:', error));
+  }, 840000); // 14 minutos en milisegundos
 </script>
 
 <style lang="scss" scoped></style>
