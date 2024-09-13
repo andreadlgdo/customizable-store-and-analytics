@@ -30,11 +30,11 @@
     :is-open="isMenuOpen"
     :menu-items="menuItems"
   />
-  {{ p }}
+  {{ products }}
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
 
   import LogInAside from '../components/asides/log-in-aside.component.vue';
   import ShoppingCartAside from '../components/asides/shopping-cart-aside.component.vue';
@@ -47,9 +47,10 @@
   import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
   import LanguageToggle from '../components/toggles/language-toggle.component.vue';
 
-  import productsData from '../json/products.json';
-
   import { Product } from '../interfaces/product';
+  import { useProducts } from '@/composables/use-products';
+
+  const { products, fetchProducts } = useProducts();
 
   const isLogInAsideOpen = ref(false);
   const isSignUpAsideOpen = ref(false);
@@ -57,8 +58,6 @@
   const isMenuOpen = ref(false);
 
   const isMobile = window.innerWidth < 768;
-
-  const products = ref<Product[]>(productsData);
 
   // TO DO: Remove when we have menu items from the backend
   const menuItems = [
@@ -91,48 +90,16 @@
   };
 
   const updateProduct = (product: Product) => {
-    products.value.forEach(p => {
+    products.value.forEach((p: Product) => {
       if (p.id === product.id) {
         Object.assign(p, product);
       }
     });
   };
 
-  const p = ref();
-  const apiUrl = process.env.VUE_APP_API_URL;
-
-  fetch(`${apiUrl}`)
-    .then(response => {
-      const contentType = response.headers.get('content-type');
-      if (contentType && contentType.indexOf('application/json') !== -1) {
-        return response.json();
-      } else {
-        return response.text();
-      }
-    })
-    .then(data => {
-      console.log(data);
-      // If it's text, data will be a string
-      // If it's JSON, data will be an object
-    })
-    .catch(error => console.error('Error:', error));
-
-  fetch(`${apiUrl}/api/products`)
-    .then(response => {
-      console.log('r', response);
-      return response.json();
-    })
-    .then(products => {
-      p.value = products;
-      console.log(products);
-    })
-    .catch(error => console.error('Error fetching products:', error));
-
-  setInterval(() => {
-    fetch(`${apiUrl}/ping`)
-      .then(response => console.log('Backend pinged successfully', response))
-      .catch(error => console.error('Error pinging backend:', error));
-  }, 840000); // 14 minutos en milisegundos
+  onMounted(async () => {
+    await fetchProducts();
+  });
 </script>
 
 <style lang="scss" scoped></style>
