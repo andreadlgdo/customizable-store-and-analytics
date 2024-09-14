@@ -1,9 +1,34 @@
 import { ref } from 'vue';
 import { userService } from '../services/user.service';
+import { User } from '@/interfaces/user';
 
 export function useUsers() {
   const user = ref(null);
   const loading = ref(false);
+
+  const getUsers = async () => {
+    loading.value = true;
+    try {
+      const users = await userService.getUsers();
+      return users;
+    } catch (error) {
+      console.error('Get users failed', error);
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const createUser = async (user: User) => {
+    loading.value = true;
+    try {
+      const response = await userService.createUser(user);
+      return response.user;
+    } catch (error) {
+      console.error('Create user failed', error);
+    } finally {
+      loading.value = false;
+    }
+  };
 
   const login = async (username: string, password: string) => {
     loading.value = true;
@@ -28,6 +53,8 @@ export function useUsers() {
   return {
     user,
     loading,
+    getUsers,
+    createUser,
     login,
     logout
   };
