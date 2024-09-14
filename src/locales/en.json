@@ -37,7 +37,7 @@
     "logIn": {
       "title": "Log in",
       "inputsPlaceholders": {
-        "email": "Email",
+        "username": "Username",
         "password": "Password"
       },
       "forgotPassword": "Have you forgotten your password?",
