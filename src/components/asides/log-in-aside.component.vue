@@ -3,12 +3,16 @@
     <div v-if="!isUserRegister" :class="baseClass">
       <h1>{{ t('userAsides.logIn.title') }}</h1>
       <div>
+        <p v-if="invalidCredentials" :class="`${baseClass}__text ${baseClass}__text--error`">
+          {{ invalidCredentials }}
+        </p>
         <text-input
           @input="query => (userForm.username = query)"
           :class="`${baseClass}__input ${baseClass}__input--user`"
           :placeholder="t('userAsides.logIn.inputsPlaceholders.username')"
           icon="user"
           color-attribute="stroke"
+          :error="errorUsername"
         />
         <text-input
           @input="query => (userForm.password = query)"
@@ -17,6 +21,7 @@
           type="password"
           icon="password"
           color-attribute="fill"
+          :error="errorPassword"
         />
         <p :class="`${baseClass}__text ${baseClass}__text--password`">
           {{ t('userAsides.logIn.forgotPassword') }}
@@ -76,11 +81,28 @@
   });
 
   const isUserRegister = ref(false);
+  const errorUsername = ref('');
+  const errorPassword = ref('');
+  const invalidCredentials = ref('');
 
   const logInUser = async (): Promise<void> => {
-    if (userForm.value.username && userForm.value.password) {
-      await login(userForm.value.username, userForm.value.password);
-      isUserRegister.value = !!user.value;
+    errorPassword.value = '';
+    invalidCredentials.value = '';
+    errorUsername.value = '';
+    if (!userForm.value.username && !userForm.value.password) {
+      errorUsername.value = 'El nombre de usuario esta vacio';
+      errorPassword.value = 'La contraseña esta vacio';
+    } else if (!userForm.value.username) {
+      errorUsername.value = 'El nombre de usuario esta vacio';
+    } else if (!userForm.value.password) {
+      errorPassword.value = 'La contraseña esta vacio';
+    } else {
+      const error = await login(userForm.value.username, userForm.value.password);
+      if (error) {
+        invalidCredentials.value = 'Usuario o contraseña incorrectos';
+      } else {
+        isUserRegister.value = !!user.value;
+      }
     }
   };
 </script>
@@ -102,7 +124,12 @@
 
     &__text {
       display: flex;
-      justify-content: center;
+
+      &--password,
+      &--create-account,
+      &--sign-up {
+        justify-content: center;
+      }
 
       &--password,
       &--create-account {
@@ -113,6 +140,12 @@
         margin-top: 4px;
         text-decoration: underline;
         cursor: pointer;
+      }
+
+      &--error {
+        justify-content: flex-start;
+        margin-bottom: 26px;
+        color: var(--color-error);
       }
     }
   }
