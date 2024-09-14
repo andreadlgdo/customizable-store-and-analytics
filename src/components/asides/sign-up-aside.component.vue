@@ -6,37 +6,46 @@
         <text-input
           @input="query => (userForm.username = query)"
           :class="`${baseClass}__input ${baseClass}__input--name`"
-          :placeholder="t('userAsides.signUp.inputsPlaceholders.name')"
+          :placeholder="t('userAsides.signUp.inputsPlaceholders.username.title')"
           icon="user"
           color-attribute="stroke"
+          :error="errorUser"
         />
         <text-input
           @input="query => (userForm.email = query)"
           :class="`${baseClass}__input ${baseClass}__input--email`"
-          :placeholder="t('userAsides.signUp.inputsPlaceholders.email')"
+          :placeholder="t('userAsides.signUp.inputsPlaceholders.email.title')"
           icon="email"
           color-attribute="fill"
+          :error="errorEmail"
         />
         <text-input
           @input="query => (userForm.password = query)"
           :class="`${baseClass}__input ${baseClass}__input--password`"
-          :placeholder="t('userAsides.signUp.inputsPlaceholders.password')"
+          :placeholder="t('userAsides.signUp.inputsPlaceholders.password.title')"
           type="password"
           icon="password"
           color-attribute="fill"
+          :error="errorPassword"
         />
         <text-input
           @input="query => (userForm.repeatPassword = query)"
           :class="`${baseClass}__input ${baseClass}__input--password`"
-          :placeholder="t('userAsides.signUp.inputsPlaceholders.repeatPassword')"
+          :placeholder="t('userAsides.signUp.inputsPlaceholders.repeatPassword.title')"
           type="password"
           icon="password"
           color-attribute="fill"
+          :error="equalPassword"
         />
-        <checkbox-input
-          @selectCheckbox="isChecked => (isSelectCheckbox = isChecked)"
-          :text="t('userAsides.signUp.checkboxText')"
-        />
+        <div>
+          <p v-if="errorAcceptTerms" :class="`${baseClass}__text ${baseClass}__text--error`">
+            {{ errorAcceptTerms }}
+          </p>
+          <checkbox-input
+            @selectCheckbox="isChecked => (isSelectCheckbox = isChecked)"
+            :text="t('userAsides.signUp.checkboxText')"
+          />
+        </div>
       </div>
       <div>
         <button-input @click="addUser" :text="t('userAsides.signUp.action')" type="fill" />
@@ -98,20 +107,38 @@
     repeatPassword: ''
   });
 
+  const equalPassword = ref('');
+  const errorPassword = ref('');
+  const errorUser = ref('');
+  const errorEmail = ref('');
+  const errorAcceptTerms = ref('');
+
   const addUser = async (): Promise<void> => {
-    if (userForm.value.password !== userForm.value.repeatPassword) {
-      console.error('Las constraseñas no coinciden');
-    } else if (!userForm.value.email) {
-      console.error('El email es obligatorio');
+    equalPassword.value = '';
+    errorPassword.value = '';
+    errorUser.value = '';
+    errorEmail.value = '';
+    errorAcceptTerms.value = '';
+
+    if (!userForm.value.password) {
+      errorPassword.value = t('userAsides.signUp.inputsPlaceholders.password.error');
+    } else if (userForm.value.password !== userForm.value.repeatPassword) {
+      equalPassword.value = t('userAsides.signUp.inputsPlaceholders.repeatPassword.error');
+    }
+    if (!userForm.value.email) {
+      errorEmail.value = t('userAsides.signUp.inputsPlaceholders.email.error');
+    }
+    if (!userForm.value.username) {
+      errorUser.value = t('userAsides.signUp.inputsPlaceholders.username.error.empty');
     } else {
       const users = await getUsers();
       const userWithSameUsername = users.find(
         (user: User) => user.username === userForm.value.username
       );
       if (userWithSameUsername) {
-        console.error('El usuario ya existe');
+        errorUser.value = t('userAsides.signUp.inputsPlaceholders.username.error.exits');
       } else if (!isSelectCheckbox.value) {
-        console.error('Tienes que aceptar los terminos y condiciones');
+        errorAcceptTerms.value = t('userAsides.signUp.inputsPlaceholders.acceptTerms');
       } else {
         const user = await createUser({
           username: userForm.value.username,
@@ -151,6 +178,12 @@
         margin-top: 4px;
         text-decoration: underline;
         cursor: pointer;
+      }
+
+      &--error {
+        justify-content: flex-start;
+        margin-bottom: 8px;
+        color: var(--color-error);
       }
     }
   }

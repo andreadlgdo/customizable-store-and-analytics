@@ -57,10 +57,26 @@
     "signUp": {
       "title": "Sign up",
       "inputsPlaceholders": {
-        "name": "Username",
-        "email": "Email",
-        "password": "Password",
-        "repeatPassword": "Repeat password"
+        "username": {
+          "title": "Username",
+          "error": {
+            "empty": "The username field is empty",
+            "exits": "The username already exists"
+          }
+        },
+        "email": {
+          "title": "Email",
+          "error": "The email field is empty"
+        },
+        "password": {
+          "title": "Password",
+          "error": "The password field is empty"
+        },
+        "repeatPassword": {
+          "title": "Repeat password",
+          "error": "The password fields do not match"
+        },
+        "acceptTerms": "You must accept the terms and conditions to sign up"
       },
       "checkboxText": "Accept terms and conditions",
       "action": "Sign up",
