@@ -1,21 +1,24 @@
 <template>
   <Aside @close="$emit('close')" :is-open="isOpen" :close-position="closePosition">
-    <div :class="baseClass">
+    <div v-if="!isUserCreated" :class="baseClass">
       <h1>{{ t('userAsides.signUp.title') }}</h1>
       <div :class="`${baseClass}__wrapper-inputs`">
         <text-input
+          @input="query => (userForm.username = query)"
           :class="`${baseClass}__input ${baseClass}__input--name`"
           :placeholder="t('userAsides.signUp.inputsPlaceholders.name')"
           icon="user"
           color-attribute="stroke"
         />
         <text-input
+          @input="query => (userForm.email = query)"
           :class="`${baseClass}__input ${baseClass}__input--email`"
           :placeholder="t('userAsides.signUp.inputsPlaceholders.email')"
           icon="email"
           color-attribute="fill"
         />
         <text-input
+          @input="query => (userForm.password = query)"
           :class="`${baseClass}__input ${baseClass}__input--password`"
           :placeholder="t('userAsides.signUp.inputsPlaceholders.password')"
           type="password"
@@ -23,16 +26,20 @@
           color-attribute="fill"
         />
         <text-input
+          @input="query => (userForm.repeatPassword = query)"
           :class="`${baseClass}__input ${baseClass}__input--password`"
           :placeholder="t('userAsides.signUp.inputsPlaceholders.repeatPassword')"
           type="password"
           icon="password"
           color-attribute="fill"
         />
-        <checkbox-input :text="t('userAsides.signUp.checkboxText')" />
+        <checkbox-input
+          @selectCheckbox="isChecked => (isSelectCheckbox = isChecked)"
+          :text="t('userAsides.signUp.checkboxText')"
+        />
       </div>
       <div>
-        <button-input :text="t('userAsides.signUp.action')" type="fill" />
+        <button-input @click="addUser" :text="t('userAsides.signUp.action')" type="fill" />
         <p :class="`${baseClass}__text ${baseClass}__text--have-account`">
           {{ t('userAsides.signUp.logIn.description') }}
         </p>
@@ -44,13 +51,18 @@
         </a>
       </div>
     </div>
+    <div v-else :class="baseClass">
+      <p>Usuario creado</p>
+    </div>
   </Aside>
 </template>
 
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { PropType, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
+  import { useUsers } from '../../composables/use-users';
+  import { User } from '../../interfaces/user';
   import { PositionType } from '../../types/position.type';
 
   import ButtonInput from '../inputs/button-input.component.vue';
@@ -63,6 +75,8 @@
 
   const { t } = useI18n();
 
+  const { getUsers, createUser } = useUsers();
+
   defineProps({
     isOpen: Boolean,
     closePosition: {
@@ -72,6 +86,42 @@
   });
 
   defineEmits(['close', 'openLogInAsideOpen']);
+
+  const isUserCreated = ref(false);
+
+  const isSelectCheckbox = ref(false);
+
+  const userForm = ref({
+    username: '',
+    email: '',
+    password: '',
+    repeatPassword: ''
+  });
+
+  const addUser = async (): Promise<void> => {
+    if (userForm.value.password !== userForm.value.repeatPassword) {
+      console.error('Las constraseñas no coinciden');
+    } else if (!userForm.value.email) {
+      console.error('El email es obligatorio');
+    } else {
+      const users = await getUsers();
+      const userWithSameUsername = users.find(
+        (user: User) => user.username === userForm.value.username
+      );
+      if (userWithSameUsername) {
+        console.error('El usuario ya existe');
+      } else if (!isSelectCheckbox.value) {
+        console.error('Tienes que aceptar los terminos y condiciones');
+      } else {
+        const user = await createUser({
+          username: userForm.value.username,
+          email: userForm.value.email,
+          password: userForm.value.password
+        });
+        isUserCreated.value = !!user;
+      }
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
