@@ -1,6 +1,7 @@
 <template>
   <div :class="baseClass">
     <input
+      @input="$emit('input', query)"
       v-model="query"
       :class="[`${baseClass}__wrapper`, { [`${baseClass}__wrapper--icon`]: icon }]"
       :type="type"
@@ -31,9 +32,7 @@
 
   const baseClass = 'input';
 
-  const query = ref('');
-
-  defineProps({
+  const props = defineProps({
     type: {
       type: String, //text, color, password, submit, button, number, checkbox
       default: 'text'
@@ -45,8 +44,13 @@
       type: String as PropType<SvgIconType>,
       default: undefined
     },
+    value: String,
     placeholder: String //text, color, password, submit, button, number, checkbox
   });
+
+  defineEmits(['input']);
+
+  const query = ref(props.value ?? '');
 </script>
 
 <style lang="scss" scoped>

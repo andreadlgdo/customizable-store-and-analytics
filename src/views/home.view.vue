@@ -91,7 +91,7 @@
 
   const updateProduct = (product: Product) => {
     products.value.forEach((p: Product) => {
-      if (p.id === product.id) {
+      if (p._id === product._id) {
         Object.assign(p, product);
       }
     });

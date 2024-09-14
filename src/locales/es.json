@@ -37,7 +37,7 @@
     "logIn": {
       "title": "Inicio de sesion",
       "inputsPlaceholders": {
-        "email": "Correo electronico",
+        "username": "Nombre de usuario",
         "password": "Contraseña"
       },
       "forgotPassword": "¿Has olvidado tu contraseña?",
