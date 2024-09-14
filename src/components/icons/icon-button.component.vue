@@ -8,6 +8,7 @@
       :src="require(`../../assets/media/icons/${icon}.svg`)"
       :size="size"
       :color-attribute="colorAttribute"
+      :error="error"
     />
   </button>
 </template>
@@ -33,7 +34,8 @@
       type: String as PropType<SvgIconType>,
       default: undefined
     },
-    haveBorder: Boolean
+    haveBorder: Boolean,
+    error: Boolean
   });
 
   defineEmits(['click']);

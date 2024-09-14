@@ -1,6 +1,13 @@
 <template>
   <div
-    :class="[baseClass, `${baseClass}--${size}`, { [`${baseClass}--${colorAttribute}`]: colorAttribute }]"
+    :class="[
+      baseClass,
+      `${baseClass}--${size}`,
+      {
+        [`${baseClass}__${colorAttribute}`]: colorAttribute,
+        [`${baseClass}__${colorAttribute}--error`]: error
+      }
+    ]"
     v-html="svgContent"
   ></div>
 </template>
@@ -24,7 +31,8 @@
     colorAttribute: {
       type: String as PropType<SvgIconType>,
       default: undefined
-    }
+    },
+    error: Boolean
   });
 
   const svgContent = ref('');
@@ -73,17 +81,36 @@
       height: 2rem;
     }
 
-    &--fill svg {
-      fill: var(--color-main);
+    &__fill {
+      & svg {
+        fill: var(--color-main);
+      }
+
+      &--error svg {
+        fill: var(--color-error);
+      }
     }
 
-    &--stroke svg {
-      stroke: var(--color-main);
+    &__stroke {
+      & svg {
+        stroke: var(--color-main);
+      }
+
+      &--error svg {
+        stroke: var(--color-error);
+      }
     }
 
-    &--both svg {
-      fill: var(--color-main);
-      stroke: var(--color-main);
+    &__both {
+      & svg {
+        fill: var(--color-main);
+        stroke: var(--color-main);
+      }
+
+      &--error svg {
+        fill: var(--color-error);
+        stroke: var(--color-error);
+      }
     }
   }
 </style>
