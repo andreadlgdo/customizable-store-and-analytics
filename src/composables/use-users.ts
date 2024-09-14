@@ -40,6 +40,7 @@ export function useUsers() {
       // localStorage.setItem('token', response.token);
     } catch (error) {
       console.error('Login failed', error);
+      return error;
     } finally {
       loading.value = false;
     }

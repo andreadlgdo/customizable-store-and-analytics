@@ -1,5 +1,5 @@
 <template>
-  <div :class="baseClass">
+  <div :class="[baseClass, { [`${baseClass}--error`]: !!error }]">
     <input
       @input="$emit('input', query)"
       v-model="query"
@@ -12,6 +12,7 @@
       :class="`${baseClass}__icon ${baseClass}__icon--info`"
       :src="require(`../../assets/media/icons/${icon}.svg`)"
       :color-attribute="colorAttribute"
+      :error="!!error"
       size="small"
     />
     <icon-button
@@ -20,7 +21,9 @@
       icon="close"
       size="small"
       color-attribute="fill"
+      :error="!!error"
     />
+    <p v-if="!!error" :class="`${baseClass}__text`">{{ error }}</p>
   </div>
 </template>
 
@@ -45,7 +48,8 @@
       default: undefined
     },
     value: String,
-    placeholder: String //text, color, password, submit, button, number, checkbox
+    placeholder: String, //text, color, password, submit, button, number, checkbox
+    error: String
   });
 
   defineEmits(['input']);
@@ -55,6 +59,8 @@
 
 <style lang="scss" scoped>
   .input {
+    $baseClass: &;
+
     position: relative;
     width: 324px;
 
@@ -85,6 +91,23 @@
         right: 10px;
         top: 10px;
       }
+    }
+
+    &--error {
+      & #{$baseClass}__wrapper {
+        border: 2px solid var(--color-error);
+      }
+
+      & #{$baseClass}__wrapper {
+        color: var(--color-error);
+      }
+    }
+
+    &__text {
+      color: var(--color-error);
+      font-size: 14px;
+      padding-left: 18px;
+      padding-top: 2px;
     }
   }
 </style>
