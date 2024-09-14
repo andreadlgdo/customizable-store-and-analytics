@@ -1,12 +1,17 @@
 <template>
   <div :class="[baseClass, `${baseClass}--${size}`]">
-    <input :class="`${baseClass}__input`" type="checkbox" />
+    <input
+      v-model="isChecked"
+      @change="$emit('selectCheckbox', isChecked)"
+      :class="`${baseClass}__input`"
+      type="checkbox"
+    />
     <p :class="`${baseClass}__text`">{{ text }}</p>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { PropType, ref } from 'vue';
   import { SizeType } from '../../types/size.type';
 
   const baseClass = 'checkbox-input';
@@ -18,6 +23,10 @@
       default: 'normal'
     }
   });
+
+  defineEmits(['selectCheckbox']);
+
+  const isChecked = ref(false);
 </script>
 
 <style lang="scss" scoped>
