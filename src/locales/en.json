@@ -50,7 +50,7 @@
     "signUp": {
       "title": "Sign up",
       "inputsPlaceholders": {
-        "name": "Name",
+        "name": "Username",
         "email": "Email",
         "password": "Password",
         "repeatPassword": "Repeat password"

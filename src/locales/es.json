@@ -50,7 +50,7 @@
     "signUp": {
       "title": "Registro de usuario",
       "inputsPlaceholders": {
-        "name": "Nombre",
+        "name": "Nombre de usuario",
         "email": "Correo electronico",
         "password": "Contraseña",
         "repeatPassword": "Repetir contraseña"
