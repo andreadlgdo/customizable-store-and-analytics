@@ -37,8 +37,15 @@
     "logIn": {
       "title": "Inicio de sesion",
       "inputsPlaceholders": {
-        "username": "Nombre de usuario",
-        "password": "Contraseña"
+        "username": {
+          "title": "Nombre de usuario",
+          "error": "El campo nombre de usuario esta vacio"
+        },
+        "password": {
+          "title": "Contraseña",
+          "error": "El campo contraseña esta vacio"
+        },
+        "generalError": "El usuario o la contraseña no son correctos"
       },
       "forgotPassword": "¿Has olvidado tu contraseña?",
       "action": "Iniciar sesión",

@@ -37,8 +37,15 @@
     "logIn": {
       "title": "Log in",
       "inputsPlaceholders": {
-        "username": "Username",
-        "password": "Password"
+        "username": {
+          "title": "Username",
+          "error": "The username field is empty"
+        },
+        "password": {
+          "title": "Password",
+          "error": "The password field is empty"
+        },
+        "generalError": "The username or password is incorrect"
       },
       "forgotPassword": "Have you forgotten your password?",
       "action": "Log in",

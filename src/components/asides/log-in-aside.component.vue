@@ -9,7 +9,7 @@
         <text-input
           @input="query => (userForm.username = query)"
           :class="`${baseClass}__input ${baseClass}__input--user`"
-          :placeholder="t('userAsides.logIn.inputsPlaceholders.username')"
+          :placeholder="t('userAsides.logIn.inputsPlaceholders.username.title')"
           icon="user"
           color-attribute="stroke"
           :error="errorUsername"
@@ -17,7 +17,7 @@
         <text-input
           @input="query => (userForm.password = query)"
           :class="`${baseClass}__input ${baseClass}__input--password`"
-          :placeholder="t('userAsides.logIn.inputsPlaceholders.password')"
+          :placeholder="t('userAsides.logIn.inputsPlaceholders.password.title')"
           type="password"
           icon="password"
           color-attribute="fill"
@@ -81,6 +81,7 @@
   });
 
   const isUserRegister = ref(false);
+  
   const errorUsername = ref('');
   const errorPassword = ref('');
   const invalidCredentials = ref('');
@@ -90,16 +91,16 @@
     invalidCredentials.value = '';
     errorUsername.value = '';
     if (!userForm.value.username && !userForm.value.password) {
-      errorUsername.value = 'El nombre de usuario esta vacio';
-      errorPassword.value = 'La contraseña esta vacio';
+      errorUsername.value = t('userAsides.logIn.inputsPlaceholders.username.error');
+      errorPassword.value = t('userAsides.logIn.inputsPlaceholders.password.error');
     } else if (!userForm.value.username) {
-      errorUsername.value = 'El nombre de usuario esta vacio';
+      errorUsername.value = t('userAsides.logIn.inputsPlaceholders.username.error');
     } else if (!userForm.value.password) {
-      errorPassword.value = 'La contraseña esta vacio';
+      errorPassword.value = t('userAsides.logIn.inputsPlaceholders.password.error');
     } else {
       const error = await login(userForm.value.username, userForm.value.password);
       if (error) {
-        invalidCredentials.value = 'Usuario o contraseña incorrectos';
+        invalidCredentials.value = t('userAsides.logIn.inputsPlaceholders.generalError');
       } else {
         isUserRegister.value = !!user.value;
       }
