@@ -84,6 +84,27 @@
         "description": "¿Ya tienes cuenta?",
         "action": "Inicia sesion"
       }
+    },
+    "userMenu": {
+      "title": "¡Hola!",
+      "items": {
+        "client": {
+          "label1": "Datos personales",
+          "label2": "Mi carrito",
+          "label3": "Mis pedidos",
+          "label4": "Mi lista de deseos"
+        },
+        "admin": {
+          "label1": "Datos personales",
+          "label2": "Gestión de productos",
+          "label3": "Gestión de stock",
+          "label4": "Gestión de pedidos",
+          "label5": "Personalización",
+          "label6": "Analiticas de datos"
+        }
+      },
+      "goProfile": "Ir a mi perfil",
+      "logOut": "Cerrar sesión"
     }
   },
   "productAsides": {
