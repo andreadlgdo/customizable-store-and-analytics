@@ -1,5 +1,5 @@
 <template>
-  <Aside @close="$emit('close')" :is-open="isOpen" :close-position="closePosition">
+  <Aside @close="$emit('close')" :is-open="isOpenAside" :close-position="closePosition">
     <div v-if="!isUserCreated" :class="baseClass">
       <h1>{{ t('userAsides.signUp.title') }}</h1>
       <div :class="`${baseClass}__wrapper-inputs`">
@@ -61,13 +61,13 @@
       </div>
     </div>
     <div v-else :class="baseClass">
-      <p>Usuario creado</p>
+      <menu-user-aside @close="closeAside" :is-open="isOpenAside" :user="userCreated" />
     </div>
   </Aside>
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref } from 'vue';
+  import { PropType, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { useUsers } from '../../composables/use-users';
@@ -79,6 +79,7 @@
   import TextInput from '../inputs/text-input.component.vue';
 
   import Aside from './aside.component.vue';
+  import MenuUserAside from './menu-user-aside.component.vue';
 
   const baseClass = 'sign-up-aside';
 
@@ -86,7 +87,7 @@
 
   const { getUsers, createUser } = useUsers();
 
-  defineProps({
+  const props = defineProps({
     isOpen: Boolean,
     closePosition: {
       type: String as PropType<PositionType>,
@@ -94,11 +95,14 @@
     }
   });
 
-  defineEmits(['close', 'openLogInAsideOpen']);
+  const emits = defineEmits(['close', 'openLogInAsideOpen']);
+
+  const userCreated = ref();
 
   const isUserCreated = ref(false);
-
   const isSelectCheckbox = ref(false);
+
+  const isOpenAside = ref(props.isOpen);
 
   const userForm = ref({
     username: '',
@@ -140,15 +144,27 @@
       } else if (!isSelectCheckbox.value) {
         errorAcceptTerms.value = t('userAsides.signUp.inputsPlaceholders.acceptTerms');
       } else {
-        const user = await createUser({
+        userCreated.value = await createUser({
           username: userForm.value.username,
           email: userForm.value.email,
           password: userForm.value.password
         });
-        isUserCreated.value = !!user;
+        isUserCreated.value = !!userCreated.value;
       }
     }
   };
+
+  const closeAside = () => {
+    isOpenAside.value = false;
+    emits('close');
+  };
+
+  watch(
+    () => props.isOpen,
+    newValue => {
+      isOpenAside.value = newValue;
+    }
+  );
 </script>
 
 <style lang="scss" scoped>
