@@ -84,6 +84,25 @@
         "description": "Already have an account?",
         "action": "Log in"
       }
+    },
+    "userMenu": {
+      "title": "Hello!",
+      "items": {
+        "client": {
+          "label1": "Personal Data",
+          "label2": "My Cart",
+          "label3": "My Orders",
+          "label4": "My Whist List"
+        },
+        "admin": {
+          "label1": "Personal Data",
+          "label2": "Product management",
+          "label3": "Stock management",
+          "label4": "Order management",
+          "label5": "Personalization",
+          "label6": "Data analytics"
+        }
+      }
     }
   },
   "productAsides": {
