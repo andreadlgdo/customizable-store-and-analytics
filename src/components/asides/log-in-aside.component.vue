@@ -1,5 +1,5 @@
 <template>
-  <Aside @close="$emit('close')" :is-open="isOpen" :close-position="closePosition">
+  <Aside @close="$emit('close')" :is-open="isOpenAside" :close-position="closePosition">
     <div v-if="!isUserRegister" :class="baseClass">
       <h1>{{ t('userAsides.logIn.title') }}</h1>
       <div>
@@ -40,15 +40,14 @@
         </a>
       </div>
     </div>
-    <!-- TO DO: Change when we add the admin menu -->
     <div v-else :class="baseClass">
-      <p>ENTRO</p>
+      <menu-admin-aside @close="closeAside" :is-open="isOpenAside" :user="user" />
     </div>
   </Aside>
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref } from 'vue';
+  import { PropType, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { useUsers } from '../../composables/use-users';
@@ -58,6 +57,7 @@
   import ButtonInput from '../inputs/button-input.component.vue';
 
   import Aside from './aside.component.vue';
+  import MenuAdminAside from './menu-user-aside.component.vue';
 
   const baseClass = 'log-in-aside';
 
@@ -65,7 +65,7 @@
 
   const { user, login } = useUsers();
 
-  defineProps({
+  const props = defineProps({
     isOpen: Boolean,
     closePosition: {
       type: String as PropType<PositionType>,
@@ -73,7 +73,7 @@
     }
   });
 
-  defineEmits(['close', 'openSignUpAsideOpen']);
+  const emits = defineEmits(['close', 'openSignUpAsideOpen']);
 
   const userForm = ref({
     username: '',
@@ -81,7 +81,8 @@
   });
 
   const isUserRegister = ref(false);
-  
+  const isOpenAside = ref(props.isOpen);
+
   const errorUsername = ref('');
   const errorPassword = ref('');
   const invalidCredentials = ref('');
@@ -103,9 +104,22 @@
         invalidCredentials.value = t('userAsides.logIn.inputsPlaceholders.generalError');
       } else {
         isUserRegister.value = !!user.value;
+        isOpenAside.value = isUserRegister.value;
       }
     }
   };
+
+  const closeAside = () => {
+    isOpenAside.value = false;
+    emits('close');
+  };
+
+  watch(
+    () => props.isOpen,
+    newValue => {
+      isOpenAside.value = newValue;
+    }
+  );
 </script>
 
 <style lang="scss" scoped>
