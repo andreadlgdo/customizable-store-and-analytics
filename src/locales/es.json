@@ -102,7 +102,9 @@
           "label5": "Personalización",
           "label6": "Analiticas de datos"
         }
-      }
+      },
+      "goProfile": "Ir a mi perfil",
+      "logOut": "Cerrar sesión"
     }
   },
   "productAsides": {

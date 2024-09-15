@@ -1,28 +1,37 @@
 <template>
   <Aside @close="$emit('close')" :is-open="isOpen">
     <div :class="baseClass">
-      <div :class="`${baseClass}__title`">
-        <p :class="`${baseClass}__text ${baseClass}__text--title`">
-          {{ t('userAsides.userMenu.title') }}
-        </p>
-        <p :class="`${baseClass}__text ${baseClass}__text--subtitle`">
-          {{ user.username.toUpperCase() ?? '' }}
+      <div>
+        <div :class="`${baseClass}__title`">
+          <p :class="`${baseClass}__text ${baseClass}__text--title`">
+            {{ t('userAsides.userMenu.title') }}
+          </p>
+          <p :class="`${baseClass}__text ${baseClass}__text--subtitle`">
+            {{ user.username.toUpperCase() ?? '' }}
+          </p>
+        </div>
+        <hr />
+        <menu-items :menu-items="menuElements" />
+      </div>
+      <div :class="`${baseClass}__footer`">
+        <button-input :text="t('userAsides.userMenu.goProfile')" type="fill" />
+        <p :class="`${baseClass}__text ${baseClass}__text--log-out`">
+          {{ t('userAsides.userMenu.logOut') }}
         </p>
       </div>
-      <hr />
-      <menu-items :menu-items="menuElements" />
     </div>
   </Aside>
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, PropType } from 'vue';
+  import { PropType } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { User } from '../../interfaces/user';
 
   import Aside from '../asides/aside.component.vue';
   import MenuItems from '../menu/menu-items.component.vue';
+  import ButtonInput from '../inputs/button-input.component.vue';
 
   const baseClass = 'menu-admin-aside';
 
@@ -58,7 +67,9 @@
   .menu-admin-aside {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     margin: 0 46px;
+    height: 87%;
 
     &__title {
       display: flex;
@@ -77,6 +88,23 @@
         font-size: 70px;
         font-weight: 700;
       }
+
+      &--log-out {
+        cursor: pointer;
+
+        &:hover {
+          font-weight: 700;
+        }
+      }
+    }
+
+    &__footer {
+      display: flex;
+      flex-direction: column;
+      align-self: center;
+      text-align: center;
+      gap: 8px;
+      margin-bottom: 8px;
     }
   }
 </style>
