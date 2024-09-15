@@ -28,7 +28,6 @@
     @close="closeAllAsides"
     @clickUserAsideOnMobile="openUserAsideOnMobile"
     :is-open="isMenuOpen"
-    :menu-items="menuItems"
   />
   {{ products }}
 </template>
@@ -58,14 +57,6 @@
   const isMenuOpen = ref(false);
 
   const isMobile = window.innerWidth < 768;
-
-  // TO DO: Remove when we have menu items from the backend
-  const menuItems = [
-    { label: 'Home', subMenu: [] },
-    { label: 'Shop', subMenu: ['Vestidos', 'Cazadoras', 'Camisetas', 'Zapatos'] },
-    { label: 'About', subMenu: [] },
-    { label: 'Contact', subMenu: [] }
-  ];
 
   const openSignUpAsideOpen = () => {
     isLogInAsideOpen.value = false;

@@ -12,53 +12,18 @@
           </p>
         </div>
       </transition>
-      <div v-for="(menu, index) in menuItems" :key="index">
-        <transition :name="baseClass" appear>
-          <div v-if="!isSubmenuOpen" :class="`${baseClass}__item ${baseClass}__item--menu`">
-            <p>{{ menu.label }}</p>
-            <svg-icon
-              v-if="menu.subMenu.length"
-              @click="isSubmenuOpen = true"
-              :src="require('../../assets/media/icons/arrow.svg')"
-              color-attribute="fill"
-              size="mini"
-            />
-          </div>
-          <div v-else>
-            <div v-if="menu.subMenu.length" :class="`${baseClass}__item ${baseClass}__item--user`">
-              <svg-icon
-                @click="isSubmenuOpen = false"
-                :class="`${baseClass}__icon`"
-                :src="require('../../assets/media/icons/arrow.svg')"
-                color-attribute="fill"
-                size="small"
-              />
-              <p :class="`${baseClass}__text ${baseClass}__text--login`">
-                {{ menu.label.toUpperCase() }}
-              </p>
-            </div>
-            <div
-              v-for="(category, index) in menu.subMenu"
-              :key="index"
-              :class="`${baseClass}__item ${baseClass}__item--submenu`"
-            >
-              <p>{{ category }}</p>
-            </div>
-          </div>
-        </transition>
-      </div>
+      <menu-items :menuItems="menuElements" />
     </div>
   </Aside>
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref } from 'vue';
+  import { ref } from 'vue';
   import { useI18n } from 'vue-i18n';
-
-  import { MenuItem } from '../../interfaces/menuItem';
 
   import Aside from '../asides/aside.component.vue';
   import SvgIcon from '../icons/svg-icon.component.vue';
+  import MenuItems from '../menu/menu-items.component.vue';
 
   const baseClass = 'menu';
 
@@ -66,15 +31,19 @@
 
   const isSubmenuOpen = ref(false);
 
+  // TO DO: Remove when we have menu items from the backend
+  const menuElements = [
+    { label: 'Home' },
+    { label: 'Shop', subMenu: ['Vestidos', 'Cazadoras', 'Camisetas', 'Zapatos'] },
+    { label: 'About' },
+    { label: 'Contact' }
+  ];
+
   defineProps({
-    isOpen: Boolean,
-    menuItems: {
-      type: Array as PropType<Array<MenuItem>>,
-      default: () => []
-    }
+    isOpen: Boolean
   });
 
-  defineEmits(['close', 'clickUser']);
+  defineEmits(['close', 'clickUserAsideOnMobile']);
 </script>
 
 <style lang="scss" scoped>
@@ -92,24 +61,13 @@
       align-items: center;
       border-bottom: 1px solid var(--color-medium);
       padding: 1rem 1.5rem;
-
-      &--user {
-        gap: 0.5rem;
-      }
-
-      &--menu {
-        justify-content: space-between;
-      }
+      gap: 0.5rem;
     }
 
     &__text {
       &--login {
         font-weight: bold;
       }
-    }
-
-    &__icon {
-      transform: rotate(180deg);
     }
   }
 </style>
