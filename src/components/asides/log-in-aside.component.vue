@@ -40,8 +40,9 @@
         </a>
       </div>
     </div>
+
     <div v-else :class="baseClass">
-      <menu-admin-aside @close="closeAside" :is-open="isOpenAside" :user="user" />
+      <menu-user-aside @close="closeAside" @logout="logOut" :is-open="isOpenAside" :user="user" />
     </div>
   </Aside>
 </template>
@@ -57,13 +58,13 @@
   import ButtonInput from '../inputs/button-input.component.vue';
 
   import Aside from './aside.component.vue';
-  import MenuAdminAside from './menu-user-aside.component.vue';
+  import MenuUserAside from './menu-user-aside.component.vue';
 
   const baseClass = 'log-in-aside';
 
   const { t } = useI18n();
 
-  const { user, login } = useUsers();
+  const { user, login, logout } = useUsers();
 
   const props = defineProps({
     isOpen: Boolean,
@@ -112,6 +113,15 @@
   const closeAside = () => {
     isOpenAside.value = false;
     emits('close');
+  };
+
+  const logOut = () => {
+    logout();
+    isUserRegister.value = false;
+    userForm.value = {
+      username: '',
+      password: ''
+    };
   };
 
   watch(

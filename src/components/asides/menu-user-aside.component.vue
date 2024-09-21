@@ -15,9 +15,12 @@
       </div>
       <div :class="`${baseClass}__footer`">
         <button-input :text="t('userAsides.userMenu.goProfile')" type="fill" />
-        <p :class="`${baseClass}__text ${baseClass}__text--log-out`">
+        <button
+          @click="$emit('logout')"
+          :class="`${baseClass}__button ${baseClass}__button--log-out`"
+        >
           {{ t('userAsides.userMenu.logOut') }}
-        </p>
+        </button>
       </div>
     </div>
   </Aside>
@@ -33,7 +36,7 @@
   import MenuItems from '../menu/menu-items.component.vue';
   import ButtonInput from '../inputs/button-input.component.vue';
 
-  const baseClass = 'menu-admin-aside';
+  const baseClass = 'menu-user-aside';
 
   const { t } = useI18n();
 
@@ -64,7 +67,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .menu-admin-aside {
+  .menu-user-aside {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -77,6 +80,16 @@
       margin-bottom: 20px;
     }
 
+    &__button {
+      border: none;
+      background: none;
+      font-size: 16px;
+
+      &:hover {
+        font-weight: 700;
+      }
+    }
+
     &__text {
       &--title {
         font-size: 56px;
@@ -87,14 +100,6 @@
         line-height: 52px;
         font-size: 70px;
         font-weight: 700;
-      }
-
-      &--log-out {
-        cursor: pointer;
-
-        &:hover {
-          font-weight: 700;
-        }
       }
     }
 
