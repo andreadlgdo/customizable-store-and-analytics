@@ -6,12 +6,25 @@ import Dashboard from '../views/dashboard.view.vue';
 
 const routes = [
   { name: 'Home', path: '/', component: Home },
-  { name: 'Dashboard', path: '/dashboard', component: Dashboard }
+  { name: 'Dashboard', path: '/dashboard', component: Dashboard, meta: { requiresAuth: true } }
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    const userString = localStorage.getItem('user');
+    if (!userString) {
+      next({ name: 'Home' });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;
