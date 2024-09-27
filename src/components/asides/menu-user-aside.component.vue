@@ -1,5 +1,5 @@
 <template>
-  <Aside @close="$emit('close')" :is-open="isOpen">
+  <Aside @close="$emit('close')" :is-open="openAside">
     <div :class="baseClass">
       <div>
         <div :class="`${baseClass}__title`">
@@ -14,15 +14,8 @@
         <menu-items :menu-items="menuElements" />
       </div>
       <div :class="`${baseClass}__footer`">
-        <button-input
-          @click="$router.push('/dashboard')"
-          :text="t('userAsides.userMenu.goProfile')"
-          type="fill"
-        />
-        <button
-          @click="$emit('logout')"
-          :class="`${baseClass}__button ${baseClass}__button--log-out`"
-        >
+        <button-input @click="goToProfile" :text="t('userAsides.userMenu.goProfile')" type="fill" />
+        <button @click="logOut" :class="`${baseClass}__button ${baseClass}__button--log-out`">
           {{ t('userAsides.userMenu.logOut') }}
         </button>
       </div>
@@ -31,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { PropType, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { User } from '../../interfaces/user';
@@ -39,9 +32,11 @@
   import Aside from '../asides/aside.component.vue';
   import MenuItems from '../menu/menu-items.component.vue';
   import ButtonInput from '../inputs/button-input.component.vue';
+  import { useRouter } from 'vue-router';
 
   const baseClass = 'menu-user-aside';
 
+  const router = useRouter();
   const { t } = useI18n();
 
   const props = defineProps({
@@ -51,6 +46,10 @@
       required: true
     }
   });
+
+  const emit = defineEmits(['logout']);
+
+  const openAside = ref(props.isOpen);
 
   const menuElements =
     props.user.type !== 'admin'
@@ -68,6 +67,16 @@
           { label: t('userAsides.userMenu.items.admin.label5') },
           { label: t('userAsides.userMenu.items.admin.label6') }
         ];
+
+  const goToProfile = () => {
+    router.push('/dashboard');
+    openAside.value = false;
+  };
+
+  const logOut = () => {
+    router.push('/');
+    emit('logout');
+  };
 </script>
 
 <style lang="scss" scoped>

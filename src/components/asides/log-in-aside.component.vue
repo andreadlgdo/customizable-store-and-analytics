@@ -42,13 +42,19 @@
     </div>
 
     <div v-else :class="baseClass">
-      <menu-user-aside @close="closeAside" @logout="logOut" :is-open="isOpenAside" :user="user" />
+      <menu-user-aside
+        v-if="user"
+        @close="closeAside"
+        @logout="logOut"
+        :is-open="isOpenAside"
+        :user="user"
+      />
     </div>
   </Aside>
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref, watch } from 'vue';
+  import { onMounted, PropType, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { useUsers } from '../../composables/use-users';
@@ -123,6 +129,15 @@
       password: ''
     };
   };
+
+  onMounted(() => {
+    const userStore = localStorage.getItem('user');
+    if (userStore) {
+      isUserRegister.value = true;
+      const userObject = JSON.parse(userStore);
+      user.value = userObject;
+    }
+  });
 
   watch(
     () => props.isOpen,
