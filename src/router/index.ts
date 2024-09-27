@@ -1,8 +1,13 @@
 // import Library from '../views/library.view.vue';
-import Home from '../views/home.view.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
-const routes = [{ name: 'Home', path: '/', component: Home }];
+import Home from '../views/home.view.vue';
+import Dashboard from '../views/dashboard.view.vue';
+
+const routes = [
+  { name: 'Home', path: '/', component: Home },
+  { name: 'Dashboard', path: '/dashboard', component: Dashboard }
+];
 
 const router = createRouter({
   history: createWebHistory(),

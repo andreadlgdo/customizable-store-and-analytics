@@ -14,7 +14,11 @@
         <menu-items :menu-items="menuElements" />
       </div>
       <div :class="`${baseClass}__footer`">
-        <button-input :text="t('userAsides.userMenu.goProfile')" type="fill" />
+        <button-input
+          @click="$router.push('/dashboard')"
+          :text="t('userAsides.userMenu.goProfile')"
+          type="fill"
+        />
         <button
           @click="$emit('logout')"
           :class="`${baseClass}__button ${baseClass}__button--log-out`"
