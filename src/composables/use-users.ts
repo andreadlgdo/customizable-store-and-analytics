@@ -22,6 +22,7 @@ export function useUsers() {
     loading.value = true;
     try {
       const response = await userService.createUser(user);
+      localStorage.setItem('user', JSON.stringify(response.user));
       return response.user;
     } catch (error) {
       console.error('Create user failed', error);
@@ -36,8 +37,7 @@ export function useUsers() {
       const userData = { username, password };
       const response = await userService.validUser(userData);
       user.value = response.user;
-      // Aquí podrías guardar el token si lo recibes en la respuesta
-      // localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(user.value));
     } catch (error) {
       console.error('Login failed', error);
       return error;
@@ -48,7 +48,7 @@ export function useUsers() {
 
   const logout = () => {
     user.value = null;
-    // localStorage.removeItem('token');
+    localStorage.removeItem('user');
   };
 
   return {
