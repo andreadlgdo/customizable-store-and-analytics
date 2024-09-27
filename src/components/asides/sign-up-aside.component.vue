@@ -61,13 +61,18 @@
       </div>
     </div>
     <div v-else :class="baseClass">
-      <menu-user-aside @close="closeAside" :is-open="isOpenAside" :user="userCreated" />
+      <menu-user-aside
+        v-if="userCreated"
+        @close="closeAside"
+        :is-open="isOpenAside"
+        :user="userCreated"
+      />
     </div>
   </Aside>
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref, watch } from 'vue';
+  import { onMounted, PropType, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { useUsers } from '../../composables/use-users';
@@ -165,6 +170,15 @@
       isOpenAside.value = newValue;
     }
   );
+
+  onMounted(() => {
+    const userStore = localStorage.getItem('user');
+    if (userStore) {
+      isUserCreated.value = true;
+      const userObject = JSON.parse(userStore);
+      userCreated.value = userObject;
+    }
+  });
 </script>
 
 <style lang="scss" scoped>
