@@ -65,7 +65,10 @@ const userAsidesMessages = {
       },
       email: {
         title: 'Email',
-        error: 'The email field is empty'
+        error: {
+          empty: 'The email field is empty',
+          incorrect: 'The email is not correct'
+        }
       },
       password: {
         title: 'Password',

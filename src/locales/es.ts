@@ -65,7 +65,10 @@ const userAsidesMessages = {
       },
       email: {
         title: 'Correo electronico',
-        error: 'El campo correo electronico esta vacio'
+        error: {
+          empty: 'El campo correo electronico esta vacio',
+          incorrect: 'El correo electronico es incorrecto'
+        }
       },
       password: {
         title: 'Contraseña',

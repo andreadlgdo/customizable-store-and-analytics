@@ -79,7 +79,10 @@ export interface UserAsideMessages {
       };
       email: {
         title: string;
-        error: string;
+        error: {
+          empty: string;
+          incorrect: string;
+        };
       };
       password: {
         title: string;

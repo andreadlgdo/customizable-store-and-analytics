@@ -128,6 +128,11 @@
   const errorEmail = ref('');
   const errorAcceptTerms = ref('');
 
+  const isValidEmail = (email: string): boolean => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
   const addUser = async (): Promise<void> => {
     equalPassword.value = '';
     errorPassword.value = '';
@@ -141,7 +146,9 @@
       equalPassword.value = t('userAsides.signUp.inputsPlaceholders.repeatPassword.error');
     }
     if (!userForm.value.email) {
-      errorEmail.value = t('userAsides.signUp.inputsPlaceholders.email.error');
+      errorEmail.value = t('userAsides.signUp.inputsPlaceholders.email.error.empty');
+    } else if (!isValidEmail(userForm.value.email)) {
+      errorEmail.value = t('userAsides.signUp.inputsPlaceholders.email.error.incorrect');
     }
     if (!userForm.value.username) {
       errorUser.value = t('userAsides.signUp.inputsPlaceholders.username.error.empty');
