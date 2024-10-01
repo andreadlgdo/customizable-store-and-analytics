@@ -41,10 +41,16 @@
           <p v-if="errorAcceptTerms" :class="`${baseClass}__text ${baseClass}__text--error`">
             {{ errorAcceptTerms }}
           </p>
-          <checkbox-input
-            @selectCheckbox="isChecked => (isSelectCheckbox = isChecked)"
-            :text="t('userAsides.signUp.checkboxText')"
-          />
+          <checkbox-input @selectCheckbox="isChecked => (isSelectCheckbox = isChecked)">
+            <a
+              :href="$router.resolve('/terms-and-conditions').href"
+              target="_blank"
+              rel="noopener noreferrer"
+              :class="`${baseClass}__text ${baseClass}__text--link`"
+            >
+              {{ t('userAsides.signUp.checkboxText') }}
+            </a>
+          </checkbox-input>
         </div>
       </div>
       <div>
@@ -214,6 +220,15 @@
         justify-content: flex-start;
         margin-bottom: 8px;
         color: var(--color-error);
+      }
+
+      &--link {
+        text-decoration: underline;
+        cursor: pointer;
+
+        &:hover {
+          color: blue;
+        }
       }
     }
   }

@@ -6,7 +6,8 @@
       :class="`${baseClass}__input`"
       type="checkbox"
     />
-    <p :class="`${baseClass}__text`">{{ text }}</p>
+    <p v-if="$slots.default" :class="`${baseClass}__text`">{{ text }}</p>
+    <slot />
   </div>
 </template>
 
@@ -35,7 +36,7 @@
 
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.2rem;
 
     &--small {
       #{$base-class}__input {
