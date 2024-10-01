@@ -11,7 +11,7 @@
           v-model="query"
           :class="`${baseClass}__input`"
           type="text"
-          :placeholder="t('header.searchbox').toUpperCase()"
+          :placeholder="t('header.searchBox').toUpperCase()"
         />
       </div>
       <icon-button

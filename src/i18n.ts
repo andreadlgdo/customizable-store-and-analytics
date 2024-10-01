@@ -1,10 +1,11 @@
 import { createI18n } from 'vue-i18n';
-import esMessages from './locales/es.json';
-import enMessages from './locales/en.json';
+import { AppMessages } from './locales/locales';
+import es from './locales/es';
+import en from './locales/en';
 
-const messages = {
-  es: esMessages,
-  en: enMessages
+const messages: AppMessages = {
+  es,
+  en
 };
 
 const i18n = createI18n({
