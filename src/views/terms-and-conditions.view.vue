@@ -86,6 +86,7 @@
 <script lang="ts" setup>
   const baseClass = 'terms-and-conditions';
 </script>
+
 <style lang="scss" scoped>
   .terms-and-conditions {
     display: flex;
