@@ -1,10 +1,11 @@
 <template>
   <header-layout />
-  <div :class="baseClass" v-if="products.length && products[0]">
-    <img :class="`${baseClass}__image`" :src="products[0].imageUrl" />
-    <h2>{{ products[0].name }}</h2>
-    <p>{{ products[0].description }}</p>
-    <p>{{ products[0].price }} €</p>
+  <div :class="baseClass" v-if="products.length">
+    <div v-for="(product, index) in products" :key="index" :class="`${baseClass}__product`">
+      <img :class="`${baseClass}__image`" :src="product.imageUrl" />
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.price }} €</p>
+    </div>
   </div>
 </template>
 
@@ -27,12 +28,20 @@
 <style lang="scss" scoped>
   .home {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 4rem;
     margin: 2rem;
 
     &__image {
       height: 14rem;
       width: 10rem;
+    }
+
+    &__product {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 14rem;
     }
   }
 </style>
