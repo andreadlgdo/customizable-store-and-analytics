@@ -52,7 +52,7 @@
 
   const openAside = ref(props.isOpen);
 
-  const { menuElements } = useUserMenu(props.user);
+  const { menuElements } = useUserMenu();
 
   const goToProfile = () => {
     router.push('/dashboard');
