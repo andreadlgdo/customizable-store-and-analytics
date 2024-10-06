@@ -4,8 +4,8 @@
     @clickShoppingCart="isShoppingCartAsideOpen = true"
     @clickMenu="isMenuOpen = true"
   />
-  <theme-toggle class="changePosition theme" />
-  <language-toggle class="changePosition language" />
+  <theme-toggle class="changePosition changePosition__theme" />
+  <language-toggle class="changePosition changePosition__language" />
   <log-in-aside
     @close="closeAllAsides"
     @openSignUpAsideOpen="openSignUpAsideOpen"
@@ -99,10 +99,10 @@
     position: absolute;
     top: 2rem;
 
-    .language {
+    &__language {
       right: 12rem;
     }
-    .theme {
+    &__theme {
       right: 16rem;
     }
   }
