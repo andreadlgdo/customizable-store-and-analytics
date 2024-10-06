@@ -32,23 +32,26 @@
 <style lang="scss" scoped>
   .dashboard {
     display: flex;
+    height: calc(100vh - 80px);
 
     &__menu {
       display: flex;
       flex-direction: column;
       justify-content: center;
       width: 30%;
+      overflow-y: auto;
     }
 
     &__landing {
       width: 70%;
       background: green;
+      overflow-y: auto;
     }
 
     &__user-image {
       display: flex;
       justify-content: center;
-      padding: 2rem 0;
+      padding: 6rem 0 1rem;
       border-bottom: 1px solid var(--color-medium);
     }
 
