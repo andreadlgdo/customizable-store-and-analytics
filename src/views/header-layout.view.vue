@@ -4,8 +4,8 @@
     @clickShoppingCart="isShoppingCartAsideOpen = true"
     @clickMenu="isMenuOpen = true"
   />
-  <theme-toggle />
-  <language-toggle />
+  <theme-toggle class="changePosition theme" />
+  <language-toggle class="changePosition language" />
   <log-in-aside
     @close="closeAllAsides"
     @openSignUpAsideOpen="openSignUpAsideOpen"
@@ -92,3 +92,18 @@
     await fetchProducts();
   });
 </script>
+
+<style lang="scss" scoped>
+  // TODO: Remove when i change the inputs
+  .changePosition {
+    position: absolute;
+    top: 2rem;
+
+    .language {
+      right: 12rem;
+    }
+    .theme {
+      right: 16rem;
+    }
+  }
+</style>
