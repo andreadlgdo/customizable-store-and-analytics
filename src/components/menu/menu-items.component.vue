@@ -103,6 +103,7 @@
 
       &--description {
         font-size: 14px;
+        color: var(--color-submain);
       }
 
       &--submenu {
