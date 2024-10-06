@@ -16,11 +16,12 @@
 </template>
 
 <script lang="ts" setup>
+  import MenuItems from '../components/menu/menu-items.component.vue';
+
   import { useUsers } from '../composables/use-users';
   import { useUserMenu } from '../composables/use-user-menu';
 
   import HeaderLayout from './header-layout.view.vue';
-  import MenuItems from '../components/menu/menu-items.component.vue';
 
   const baseClass = 'dashboard';
 
