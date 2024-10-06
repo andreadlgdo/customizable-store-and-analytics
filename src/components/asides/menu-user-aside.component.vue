@@ -28,6 +28,7 @@
   import { useI18n } from 'vue-i18n';
   import { useRouter } from 'vue-router';
 
+  import { useUserMenu } from '../../composables/use-user-menu';
   import { User } from '../../interfaces/user';
 
   import Aside from '../asides/aside.component.vue';
@@ -51,22 +52,7 @@
 
   const openAside = ref(props.isOpen);
 
-  const menuElements =
-    props.user.type !== 'admin'
-      ? [
-          { label: t('userAsides.userMenu.items.client.label1') },
-          { label: t('userAsides.userMenu.items.client.label2') },
-          { label: t('userAsides.userMenu.items.client.label3') },
-          { label: t('userAsides.userMenu.items.client.label4') }
-        ]
-      : [
-          { label: t('userAsides.userMenu.items.admin.label1') },
-          { label: t('userAsides.userMenu.items.admin.label2') },
-          { label: t('userAsides.userMenu.items.admin.label3') },
-          { label: t('userAsides.userMenu.items.admin.label4') },
-          { label: t('userAsides.userMenu.items.admin.label5') },
-          { label: t('userAsides.userMenu.items.admin.label6') }
-        ];
+  const { menuElements } = useUserMenu(props.user);
 
   const goToProfile = () => {
     router.push('/dashboard');
