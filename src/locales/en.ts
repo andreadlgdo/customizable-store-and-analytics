@@ -90,19 +90,47 @@ const userAsidesMessages = {
   userMenu: {
     title: 'Hello!',
     items: {
+      general: {
+        personalData: {
+          label: 'Personal Data',
+          description: 'Update and manage your personal information.'
+        }
+      },
       client: {
-        label1: 'Personal Data',
-        label2: 'My Cart',
-        label3: 'My Orders',
-        label4: 'My Whist List'
+        cart: {
+          label: 'My Cart',
+          description: 'View and modify the products you want to buy.'
+        },
+        orders: {
+          label: 'My Orders',
+          description: 'Check the status and details of your previous purchases.'
+        },
+        whistList: {
+          label: 'My Whist List',
+          description: 'Save products you\'d like to purchase later.'
+        }
       },
       admin: {
-        label1: 'Personal Data',
-        label2: 'Product management',
-        label3: 'Stock management',
-        label4: 'Order management',
-        label5: 'Personalization',
-        label6: 'Data analytics'
+        productsManagement: {
+          label: 'Product management',
+          description: 'Add, edit or delete products in the store.'
+        },
+        stockManagement: {
+          label: 'Stock management',
+          description: 'Control the availability and quantity of products in inventory.'
+        },
+        ordersManagement: {
+          label: 'Order management',
+          description: 'Monitors and organizes orders placed by users.'
+        },
+        personalization: {
+          label: 'Personalization',
+          description: 'Adjust the appearance and functionality of the app to suit your needs.'
+        },
+        dataAnalytics: {
+          label: 'Data analytics',
+          description: 'Access reports and statistics to improve business performance.'
+        }
       }
     },
     goProfile: 'Go to profile',
