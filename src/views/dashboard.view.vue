@@ -44,6 +44,7 @@
 
     &__landing {
       width: 70%;
+      // TODO: Change when add the landing sections
       background: green;
       overflow-y: auto;
     }
