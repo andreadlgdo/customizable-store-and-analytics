@@ -3,7 +3,7 @@ import { userService } from '../services/user.service';
 import { User } from '../interfaces/user';
 
 export function useUsers() {
-  const user = ref(null);
+  const user = ref<User | undefined>(undefined);
   const loading = ref(false);
 
   const getUsers = async () => {
@@ -47,7 +47,7 @@ export function useUsers() {
   };
 
   const logout = () => {
-    user.value = null;
+    user.value = undefined;
     localStorage.removeItem('user');
   };
 

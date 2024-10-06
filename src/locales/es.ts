@@ -90,19 +90,47 @@ const userAsidesMessages = {
   userMenu: {
     title: '¡Hola!',
     items: {
+      general: {
+        personalData: {
+          label: 'Datos personales',
+          description: 'Actualiza y gestiona tu información personal.'
+        }
+      },
       client: {
-        label1: 'Datos personales',
-        label2: 'Mi carrito',
-        label3: 'Mis pedidos',
-        label4: 'Mi lista de deseos'
+        cart: {
+          label: 'Mi carrito',
+          description: 'Visualiza y modifica los productos que deseas comprar.'
+        },
+        orders: {
+          label: 'Mis pedidos',
+          description: 'Consulta el estado y detalles de tus compras anteriores.'
+        },
+        whistList: {
+          label: 'Mi lista de deseos',
+          description: 'Guarda productos que te gustaría adquirir más adelante.'
+        }
       },
       admin: {
-        label1: 'Datos personales',
-        label2: 'Gestión de productos',
-        label3: 'Gestión de stock',
-        label4: 'Gestión de pedidos',
-        label5: 'Personalización',
-        label6: 'Analiticas de datos'
+        productsManagement: {
+          label: 'Gestión de productos',
+          description: 'Añade, edita o elimina productos en la tienda.'
+        },
+        stockManagement: {
+          label: 'Gestión de stock',
+          description: 'Controla la disponibilidad y cantidad de productos en inventario.'
+        },
+        ordersManagement: {
+          label: 'Gestión de pedidos',
+          description: 'Supervisa y organiza los pedidos realizados por los usuarios.'
+        },
+        personalization: {
+          label: 'Personalización',
+          description: 'Ajusta la apariencia y funcionalidad de la app según tus necesidades.'
+        },
+        dataAnalytics: {
+          label: 'Analiticas de datos',
+          description: 'Accede a informes y estadísticas para mejorar el rendimiento del negocio.'
+        }
       }
     },
     goProfile: 'Ir a mi perfil',

@@ -104,19 +104,47 @@ export interface UserAsideMessages {
   userMenu: {
     title: string;
     items: {
+      general: {
+        personalData: {
+          label: string;
+          description: string;
+        };
+      };
       client: {
-        label1: string;
-        label2: string;
-        label3: string;
-        label4: string;
+        cart: {
+          label: string;
+          description: string;
+        };
+        orders: {
+          label: string;
+          description: string;
+        };
+        whistList: {
+          label: string;
+          description: string;
+        };
       };
       admin: {
-        label1: string;
-        label2: string;
-        label3: string;
-        label4: string;
-        label5: string;
-        label6: string;
+        productsManagement: {
+          label: string;
+          description: string;
+        };
+        stockManagement: {
+          label: string;
+          description: string;
+        };
+        ordersManagement: {
+          label: string;
+          description: string;
+        };
+        personalization: {
+          label: string;
+          description: string;
+        };
+        dataAnalytics: {
+          label: string;
+          description: string;
+        };
       };
     };
     goProfile: string;

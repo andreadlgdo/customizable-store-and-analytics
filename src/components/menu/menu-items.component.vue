@@ -2,7 +2,12 @@
   <div v-for="(menu, index) in menuItems" :key="index">
     <transition :name="baseClass" appear>
       <div v-if="!isSubmenuOpen" :class="`${baseClass}__item ${baseClass}__item--menu`">
-        <p :class="`${baseClass}__text ${baseClass}__text--menu`">{{ menu.label }}</p>
+        <div :class="`${baseClass}__item-text`">
+          <p :class="`${baseClass}__text ${baseClass}__text--menu`">{{ menu.label }}</p>
+          <p v-if="showDescription" :class="`${baseClass}__text ${baseClass}__text--description`">
+            {{ menu.description }}
+          </p>
+        </div>
         <svg-icon
           v-if="menu.subMenu?.length"
           @click="isSubmenuOpen = true"
@@ -51,7 +56,8 @@
     menuItems: {
       type: Array as PropType<Array<MenuItem>>,
       default: () => []
-    }
+    },
+    showDescription: Boolean
   });
 
   defineEmits(['clickUser']);
@@ -78,13 +84,26 @@
       }
     }
 
+    &__item-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
     &__text {
+      font-size: 20px;
+
       &--menu {
         cursor: pointer;
 
         &:hover {
           font-weight: bold;
         }
+      }
+
+      &--description {
+        font-size: 14px;
+        color: var(--color-submain);
       }
 
       &--submenu {
