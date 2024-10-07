@@ -29,19 +29,20 @@
   import MenuItems from '../components/menu/menu-items.component.vue';
 
   import { imageService } from '../services/image.service';
+  import { userService } from '../services/user.service';
 
-  import { useUsers } from '../composables/use-users';
   import { useUserMenu } from '../composables/use-user-menu';
 
   import HeaderLayout from './header-layout.view.vue';
 
   const baseClass = 'dashboard';
 
-  const { user } = useUsers();
-
   const { menuElements } = useUserMenu();
 
   const fileInput = ref();
+
+  const userStore = localStorage.getItem('user');
+  const user = ref(userStore ? JSON.parse(userStore) : undefined);
 
   const onFileSelected = async (event: Event) => {
     const target = event.target as HTMLInputElement;
@@ -54,8 +55,12 @@
     } else {
       const formData = new FormData();
       formData.append('image', selectedFile);
-      const image = await imageService.addImage(formData);
-      console.log('image', image);
+      const imageUrl = await imageService.addImage(formData);
+      if (imageUrl) {
+        user.value.imageUrl = imageUrl;
+        await userService.updateUser(user.value);
+        console.log('  user.value', user.value);
+      }
     }
   };
 </script>
