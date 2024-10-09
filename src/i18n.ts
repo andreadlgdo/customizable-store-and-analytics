@@ -10,6 +10,7 @@ const messages: AppMessages = {
 
 const i18n = createI18n({
   legacy: false,
+  globalInjection: true,
   locale: 'es',
   fallbackLocale: 'es',
   messages
