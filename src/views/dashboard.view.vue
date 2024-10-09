@@ -4,9 +4,17 @@
     <div :class="`${baseClass}__menu`">
       <div :class="`${baseClass}__user-image`">
         <img
+          @click="fileInput.click()"
           :class="`${baseClass}__image`"
           :src="user?.imageUrl ?? require('../assets/media/images/empty.png')"
           alt="userImage"
+        />
+        <input
+          ref="fileInput"
+          @change="onFileSelected"
+          type="file"
+          accept="image/*"
+          :class="`${baseClass}__input ${baseClass}__input--file`"
         />
       </div>
       <menu-items :menu-items="menuElements" showDescription />
@@ -16,18 +24,48 @@
 </template>
 
 <script lang="ts" setup>
+  import { ref } from 'vue';
+
   import MenuItems from '../components/menu/menu-items.component.vue';
 
-  import { useUsers } from '../composables/use-users';
+  import { imageService } from '../services/image.service';
+  import { userService } from '../services/user.service';
+
   import { useUserMenu } from '../composables/use-user-menu';
 
   import HeaderLayout from './header-layout.view.vue';
 
   const baseClass = 'dashboard';
 
-  const { user } = useUsers();
-
   const { menuElements } = useUserMenu();
+
+  const fileInput = ref();
+
+  const userStore = localStorage.getItem('user');
+  const user = ref(userStore ? JSON.parse(userStore) : undefined);
+
+  const onFileSelected = async (event: Event) => {
+    const target = event.target as HTMLInputElement;
+
+    const selectedFile = target.files?.[0];
+
+    if (!selectedFile) {
+      alert('Por favor selecciona una imagen primero');
+      return;
+    } else {
+      const formData = new FormData();
+
+      formData.append('image', selectedFile);
+      formData.append('routeImage', `profile/${user.value._id}`);
+
+      const imageUrl = await imageService.addImage(formData);
+      if (imageUrl) {
+        user.value.imageUrl = imageUrl;
+        const newUser = await userService.updateUser(user.value);
+        localStorage.setItem('user', JSON.stringify(newUser));
+      }
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -58,9 +96,17 @@
     }
 
     &__image {
+      position: relative;
       width: 14rem;
       height: 14rem;
       border-radius: 50%;
+      cursor: pointer;
+    }
+
+    &__input {
+      &--file {
+        display: none;
+      }
     }
   }
 </style>

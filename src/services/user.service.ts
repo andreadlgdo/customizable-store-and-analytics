@@ -35,6 +35,30 @@ export const userService = {
       throw error;
     }
   },
+  updateUser: async function (userData: User) {
+    try {
+      if (!userData._id) {
+        console.log('The user do not have an id');
+      }
+      const response = await fetch(`${apiUrl}/api/users/${userData._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to updated user');
+      }
+
+      const responseJson = await response.json();
+      return responseJson.user;
+    } catch (error) {
+      console.log('Error updating user:', error);
+      throw error;
+    }
+  },
   validUser: async function (userData: { username: string; password: string }) {
     try {
       const response = await fetch(`${apiUrl}/api/login`, {
