@@ -52,7 +52,8 @@ export const userService = {
         throw new Error('Failed to updated user');
       }
 
-      return await response.json();
+      const responseJson = await response.json();
+      return responseJson.user;
     } catch (error) {
       console.log('Error updating user:', error);
       throw error;

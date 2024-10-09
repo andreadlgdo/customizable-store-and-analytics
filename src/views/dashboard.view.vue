@@ -54,12 +54,15 @@
       return;
     } else {
       const formData = new FormData();
+
       formData.append('image', selectedFile);
+      formData.append('routeImage', `profile/${user.value._id}`);
+
       const imageUrl = await imageService.addImage(formData);
       if (imageUrl) {
         user.value.imageUrl = imageUrl;
-        await userService.updateUser(user.value);
-        console.log('  user.value', user.value);
+        const newUser = await userService.updateUser(user.value);
+        localStorage.setItem('user', JSON.stringify(newUser));
       }
     }
   };
