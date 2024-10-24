@@ -81,6 +81,11 @@
       height: 2.5rem;
     }
 
+    &--custom svg {
+      width: 26rem;
+      height: 23rem;
+    }
+
     &__fill {
       & svg {
         fill: var(--color-main);
