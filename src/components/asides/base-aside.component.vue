@@ -1,6 +1,9 @@
 <template>
   <transition :name="baseClass">
-    <div v-if="isOpen" :class="[baseClass, `${baseClass}--${closePosition}`]">
+    <div
+      v-if="isOpen"
+      :class="[baseClass, `${baseClass}--${type}`, `${baseClass}--${closePosition}`]"
+    >
       <div :class="`${baseClass}__header`">
         <slot name="header" />
         <icon-button
@@ -91,7 +94,6 @@
       margin: 0;
       height: 100%;
       width: 400px;
-      border-radius: 50px;
     }
   }
 
