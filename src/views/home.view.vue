@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref } from 'vue';
+  import { ref, onMounted } from 'vue';
 
   import { generalService } from '../services/general.service';
 
