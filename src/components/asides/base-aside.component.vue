@@ -1,13 +1,6 @@
 <template>
   <transition :name="baseClass">
-    <div
-      v-if="isOpen"
-      :class="[
-        baseClass,
-        [isMobile ? `${baseClass}--square` : `${baseClass}--${type}`],
-        `${baseClass}--${closePosition}`
-      ]"
-    >
+    <div v-if="isOpen" :class="[baseClass, `${baseClass}--${closePosition}`]">
       <div :class="`${baseClass}__header`">
         <slot name="header" />
         <icon-button
@@ -25,16 +18,12 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import { useMobile } from '../../composables/use-mobile';
-
   import { AsideType } from '../../types/aside.type';
   import { PositionType } from '../../types/position.type';
 
   import IconButton from '../icons/icon-button.component.vue';
 
   const baseClass = 'base-aside';
-
-  const { isMobile } = useMobile();
 
   defineProps({
     isOpen: Boolean,
@@ -98,9 +87,18 @@
   }
 
   @media only screen and (max-width: 768px) {
-    .aside {
+    .base-aside {
       margin: 0;
-      height: 100vh;
+      height: 100%;
+      width: 400px;
+      border-radius: 50px;
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+    .base-aside {
+      margin: 0;
+      height: 100%;
       width: 100%;
       border-radius: 0;
     }
