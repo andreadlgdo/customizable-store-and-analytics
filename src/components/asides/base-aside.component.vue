@@ -66,7 +66,7 @@
 
     &--round {
       border-radius: 50px;
-      margin: 4px 4px 0 0;
+      margin: 4px 6px 0 0;
       height: 99vh;
     }
 
