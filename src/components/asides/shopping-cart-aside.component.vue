@@ -1,5 +1,5 @@
 <template>
-  <Aside @close="$emit('close')" :is-open="isOpen" type="round">
+  <base-aside @close="$emit('close')" :is-open="isOpen" type="round">
     <template v-slot:header>
       <div :class="`${baseClass}__toggle`">
         <button
@@ -117,7 +117,7 @@
         </div>
       </div>
     </template>
-  </Aside>
+  </base-aside>
 </template>
 
 <script lang="ts" setup>
@@ -134,7 +134,7 @@
   import ProductCardShoppingCart from '../product-cards/product-card-shopping-cart.component.vue';
   import ProductCardWhistList from '../product-cards/product-card-whist-list.component.vue';
 
-  import Aside from './aside.component.vue';
+  import BaseAside from './base-aside.component.vue';
 
   const baseClass = 'shopping-cart-aside';
 

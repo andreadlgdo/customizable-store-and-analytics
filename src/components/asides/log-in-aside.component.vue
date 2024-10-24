@@ -1,5 +1,10 @@
 <template>
-  <Aside @close="$emit('close')" :is-open="isOpenAside" :close-position="closePosition">
+  <base-aside
+    @close="$emit('close')"
+    :is-open="isOpenAside"
+    :close-position="closePosition"
+    type="round"
+  >
     <div v-if="!isUserRegister" :class="baseClass">
       <h1>{{ t('userAsides.logIn.title') }}</h1>
       <div>
@@ -50,7 +55,7 @@
         :user="user"
       />
     </div>
-  </Aside>
+  </base-aside>
 </template>
 
 <script lang="ts" setup>
@@ -63,7 +68,7 @@
   import TextInput from '../inputs/text-input.component.vue';
   import ButtonInput from '../inputs/button-input.component.vue';
 
-  import Aside from './aside.component.vue';
+  import BaseAside from './base-aside.component.vue';
   import MenuUserAside from './menu-user-aside.component.vue';
 
   const baseClass = 'log-in-aside';

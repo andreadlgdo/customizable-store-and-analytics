@@ -2,7 +2,11 @@
   <transition :name="baseClass">
     <div
       v-if="isOpen"
-      :class="[baseClass, `${baseClass}--${type}`, `${baseClass}--${closePosition}`]"
+      :class="[
+        baseClass,
+        [isMobile ? `${baseClass}--square` : `${baseClass}--${type}`],
+        `${baseClass}--${closePosition}`
+      ]"
     >
       <div :class="`${baseClass}__header`">
         <slot name="header" />
@@ -21,12 +25,16 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
+  import { useMobile } from '../../composables/use-mobile';
+
   import { AsideType } from '../../types/aside.type';
   import { PositionType } from '../../types/position.type';
 
   import IconButton from '../icons/icon-button.component.vue';
 
-  const baseClass = 'aside';
+  const baseClass = 'base-aside';
+
+  const { isMobile } = useMobile();
 
   defineProps({
     isOpen: Boolean,
@@ -44,7 +52,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .aside {
+  .base-aside {
     $base-class: &;
 
     position: absolute;
@@ -53,18 +61,13 @@
     height: 100vh;
     width: 400px;
     background: var(--bg-main);
-    box-shadow: var(--shadow-header);
+    box-shadow: var(--shadow-aside);
     overflow: scroll;
 
     &--round {
       border-radius: 50px;
       margin: 4px 4px 0 0;
       height: 99vh;
-      box-shadow: var(--shadow-aside);
-
-      #{$base-class}__header {
-        border-bottom: 1px solid var(--color-soft);
-      }
     }
 
     &--left {
@@ -72,14 +75,6 @@
         justify-content: flex-start;
         padding-left: 24px;
       }
-    }
-
-    &-enter-active {
-      animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    }
-
-    &-leave-active {
-      animation: slide-out-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
     }
 
     &__header {
@@ -93,6 +88,14 @@
       padding-right: 24px;
       background: var(--bg-main);
       z-index: 1;
+    }
+
+    &-enter-active {
+      animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+
+    &-leave-active {
+      animation: slide-out-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
     }
   }
 

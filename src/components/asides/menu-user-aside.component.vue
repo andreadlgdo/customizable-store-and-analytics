@@ -1,5 +1,5 @@
 <template>
-  <Aside @close="$emit('close')" :is-open="openAside">
+  <base-aside @close="$emit('close')" :is-open="openAside">
     <div :class="baseClass">
       <div>
         <div :class="`${baseClass}__title`">
@@ -20,7 +20,7 @@
         </button>
       </div>
     </div>
-  </Aside>
+  </base-aside>
 </template>
 
 <script lang="ts" setup>
@@ -31,7 +31,7 @@
   import { useUserMenu } from '../../composables/use-user-menu';
   import { User } from '../../interfaces/user';
 
-  import Aside from '../asides/aside.component.vue';
+  import BaseAside from './base-aside.component.vue';
   import MenuItems from '../menu/menu-items.component.vue';
   import ButtonInput from '../inputs/button-input.component.vue';
 

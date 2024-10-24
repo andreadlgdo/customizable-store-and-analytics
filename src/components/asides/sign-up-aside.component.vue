@@ -1,5 +1,10 @@
 <template>
-  <Aside @close="$emit('close')" :is-open="isOpenAside" :close-position="closePosition">
+  <base-aside
+    @close="$emit('close')"
+    :is-open="isOpenAside"
+    :close-position="closePosition"
+    type="round"
+  >
     <div v-if="!isUserCreated" :class="baseClass">
       <h1>{{ t('userAsides.signUp.title') }}</h1>
       <div :class="`${baseClass}__wrapper-inputs`">
@@ -74,7 +79,7 @@
         :user="userCreated"
       />
     </div>
-  </Aside>
+  </base-aside>
 </template>
 
 <script lang="ts" setup>
@@ -89,7 +94,7 @@
   import CheckboxInput from '../inputs/checkbox-input.component.vue';
   import TextInput from '../inputs/text-input.component.vue';
 
-  import Aside from './aside.component.vue';
+  import BaseAside from './base-aside.component.vue';
   import MenuUserAside from './menu-user-aside.component.vue';
 
   const baseClass = 'sign-up-aside';
