@@ -15,6 +15,7 @@
     height: 100%;
     background: var(--bg-main);
     color: var(--color-main);
-    overflow: auto;
+    // TODO: Probably change when add more landing items
+    overflow: hidden;
   }
 </style>
