@@ -4,7 +4,7 @@
       :class="[`${baseClass}__wrapper`, { [`${baseClass}__wrapper--search-box`]: isOpenSearchBox }]"
     >
       <section :class="`${baseClass}__menu ${baseClass}__menu--left`">
-        <icon-button @click="$emit('clickMenu')" icon="menu" color-attribute="stroke" />
+        <icon-button @click="$emit('clickMenu')" icon="menu" color-attribute="both" />
       </section>
       <section :class="`${baseClass}__menu ${baseClass}__menu--center`">
         <svg-icon
