@@ -3,33 +3,20 @@
     <div
       :class="[`${baseClass}__wrapper`, { [`${baseClass}__wrapper--search-box`]: isOpenSearchBox }]"
     >
-      <div :class="`${baseClass}__menu ${baseClass}__menu--mobile`">
-        <icon-button
-          @click="$emit('clickMenu')"
-          :class="`${baseClass}__icon ${baseClass}__icon--menu`"
-          icon="menu"
-          color-attribute="stroke"
-        />
-      </div>
       <section :class="`${baseClass}__menu ${baseClass}__menu--left`">
-        <h1 :class="`${baseClass}__text ${baseClass}__text--logo`">LOGO</h1>
-        <div :class="`${baseClass}__menu ${baseClass}__menu--options`">
-          <span :class="`${baseClass}__text ${baseClass}__text--menu`">Menu 1</span>
-          <span :class="`${baseClass}__text ${baseClass}__text--menu`">Menu 1</span>
-          <span :class="`${baseClass}__text ${baseClass}__text--menu`">Menu 1</span>
-        </div>
+        <icon-button @click="$emit('clickMenu')" icon="menu" color-attribute="stroke" />
+      </section>
+      <section :class="`${baseClass}__menu ${baseClass}__menu--center`">
+        <svg-icon
+          :src="require('../../assets/media/icons/logo.svg')"
+          color-attribute="stroke"
+          size="large"
+        />
       </section>
       <section :class="`${baseClass}__menu ${baseClass}__menu--right`">
         <icon-button
           @click="isOpenSearchBox = !isOpenSearchBox"
-          :class="`${baseClass}__icon ${baseClass}__icon--search`"
           icon="search"
-          color-attribute="fill"
-        />
-        <icon-button
-          @click="$emit('clickShoppingCart')"
-          :class="`${baseClass}__icon ${baseClass}__icon--shoppingCart`"
-          icon="shoppingCart"
           color-attribute="fill"
         />
         <icon-button
@@ -37,6 +24,11 @@
           :class="`${baseClass}__icon ${baseClass}__icon--user`"
           icon="user"
           color-attribute="stroke"
+        />
+        <icon-button
+          @click="$emit('clickShoppingCart')"
+          icon="shoppingCart"
+          color-attribute="fill"
         />
       </section>
     </div>
@@ -50,6 +42,7 @@
   import { ref } from 'vue';
 
   import IconButton from '../icons/icon-button.component.vue';
+  import SvgIcon from '../icons/svg-icon.component.vue';
 
   import HeaderSearch from './header-search.component.vue';
 
@@ -62,12 +55,14 @@
 
 <style scoped lang="scss">
   .header {
+    position: absolute;
+    width: 100%;
+
     &__wrapper {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr auto 1fr;
       height: 5rem;
       padding: 0 2rem;
-      box-shadow: var(--shadow-header);
 
       &--search-box {
         box-shadow: var(--shadow-header-search-box);
@@ -78,29 +73,13 @@
       display: flex;
       align-items: center;
 
-      &--left,
-      &--right {
-        gap: 1.5rem;
+      &--left {
+        justify-content: flex-start;
       }
 
       &--right {
         justify-content: flex-end;
-      }
-
-      &--options {
-        gap: 1rem;
-      }
-
-      &--mobile {
-        display: none;
-      }
-    }
-
-    &__text {
-      color: var(--color-main);
-
-      &--menu {
-        font-size: var(--font-size--large);
+        gap: 1.5rem;
       }
     }
 
@@ -114,24 +93,15 @@
 
     @media only screen and (max-width: 768px) {
       &__wrapper {
-        grid-template-columns: 1fr 1fr 1fr;
         padding: 0 1rem;
       }
 
       &__menu {
         display: flex;
 
-        &--left {
-          justify-content: center;
-        }
-
         &--right {
           justify-content: flex-end;
-          gap: 0.5rem;
-        }
-
-        &--options {
-          display: none;
+          gap: 1rem;
         }
       }
 
