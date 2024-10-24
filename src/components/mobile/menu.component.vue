@@ -1,5 +1,5 @@
 <template>
-  <Aside @close="$emit('close')" :is-open="isOpen" close-position="left">
+  <base-aside @close="$emit('close')" :is-open="isOpen" close-position="left">
     <div :class="baseClass">
       <transition :name="baseClass" appear>
         <div v-if="!isSubmenuOpen" :class="`${baseClass}__item ${baseClass}__item--user`">
@@ -14,14 +14,14 @@
       </transition>
       <menu-items :menuItems="menuElements" />
     </div>
-  </Aside>
+  </base-aside>
 </template>
 
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import Aside from '../asides/aside.component.vue';
+  import BaseAside from '../asides/base-aside.component.vue';
   import SvgIcon from '../icons/svg-icon.component.vue';
   import MenuItems from '../menu/menu-items.component.vue';
 

@@ -24,7 +24,7 @@
           @click="isBasicAsideOpen = !isBasicAsideOpen"
           :text="isBasicAsideOpen ? 'Close Basic Aside' : 'Open Basic Aside'"
         />
-        <Aside @close="isBasicAsideOpen = false" :is-open="isBasicAsideOpen" />
+        <base-aside @close="isBasicAsideOpen = false" :is-open="isBasicAsideOpen" />
         <button-input
           @click="isLogInAsideOpen = !isLogInAsideOpen"
           :text="isLogInAsideOpen ? 'Close Log In Aside' : 'Open Log In Aside'"
@@ -183,7 +183,7 @@
   import { ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import Aside from '../components/asides/aside.component.vue';
+  import BaseAside from '../components/asides/base-aside.component.vue';
   import LogInAside from '../components/asides/log-in-aside.component.vue';
   import SignUpAside from '../components/asides/sign-up-aside.component.vue';
   import ShoppingCartAside from '../components/asides/shopping-cart-aside.component.vue';
