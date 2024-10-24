@@ -1,27 +1,19 @@
 <template>
   <header-layout />
-  <div :class="baseClass" v-if="products.length">
-    <div v-for="(product, index) in products" :key="index" :class="`${baseClass}__product`">
-      <img :class="`${baseClass}__image`" :src="product.imageUrl" />
-      <h3>{{ product.name }}</h3>
-      <p>{{ product.price }} €</p>
-    </div>
-  </div>
+  <img v-if="landingImage?.imageUrl" :src="landingImage.imageUrl" :alt="landingImage.type" />
 </template>
 
 <script lang="ts" setup>
-  import { onMounted } from 'vue';
+  import { onMounted, ref } from 'vue';
 
-  import { useProducts } from '../composables/use-products';
+  import { generalService } from '../services/general.service';
 
   import HeaderLayout from './header-layout.view.vue';
 
-  const baseClass = 'home';
-
-  const { products, fetchProducts } = useProducts();
+  const landingImage = ref();
 
   onMounted(async () => {
-    await fetchProducts();
+    landingImage.value = await generalService.getLandingImage();
   });
 </script>
 

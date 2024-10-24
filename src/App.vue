@@ -15,6 +15,6 @@
     height: 100%;
     background: var(--bg-main);
     color: var(--color-main);
-    overflow: auto;
+    overflow: hidden;
   }
 </style>
