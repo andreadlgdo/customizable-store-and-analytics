@@ -1,40 +1,47 @@
 <template>
   <header-layout />
-  <img v-if="landingImage?.imageUrl" :src="landingImage.imageUrl" :alt="landingImage.type" />
+  <img
+    v-if="landingImage?.imageUrl"
+    :class="`${baseClass}__image`"
+    :src="landingImage.imageUrl"
+    :alt="landingImage.type"
+  />
 </template>
 
 <script lang="ts" setup>
-  import { ref, onMounted } from 'vue';
+  import { computed, ref, onMounted } from 'vue';
 
+  import { useMobile } from '../composables/use-mobile';
   import { generalService } from '../services/general.service';
 
   import HeaderLayout from './header-layout.view.vue';
 
-  const landingImage = ref();
+  const baseClass = 'home';
+
+  const { isMobile } = useMobile();
+
+  const images = ref([]);
+
+  const landingImage = computed(() => {
+    if (isMobile.value) {
+      return images.value.find((image: any) => image.device === 'mobile');
+    } else {
+      return images.value.find((image: any) => image.device === 'desktop');
+    }
+  });
 
   onMounted(async () => {
-    landingImage.value = await generalService.getLandingImage();
+    images.value = await generalService.getLandingImages();
   });
 </script>
 
 <style lang="scss" scoped>
   .home {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4rem;
-    margin: 2rem;
-
-    &__image {
-      height: 14rem;
-      width: 10rem;
-    }
-
-    &__product {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 14rem;
+    @media only screen and (max-width: 768px) {
+      &__image {
+        width: 100%;
+        height: auto;
+      }
     }
   }
 </style>
