@@ -62,7 +62,7 @@
     width: 400px;
     background: var(--bg-main);
     box-shadow: var(--shadow-aside);
-    overflow: scroll;
+    overflow: hidden;
 
     &--round {
       border-radius: 50px;
@@ -79,14 +79,12 @@
 
     &__header {
       position: sticky;
-      top: 0;
       display: flex;
       align-items: center;
       justify-content: flex-end;
       gap: 1rem;
       height: 5rem;
       padding-right: 24px;
-      background: var(--bg-main);
       z-index: 1;
     }
 

@@ -5,6 +5,11 @@
     :close-position="closePosition"
     type="round"
   >
+    <svg-icon
+      :src="require('../../assets/media/forms/form-up.svg')"
+      :class="`${baseClass}__svg ${baseClass}__svg--up`"
+      size="custom"
+    />
     <div v-if="!isUserRegister" :class="baseClass">
       <h1>{{ t('userAsides.logIn.title') }}</h1>
       <div>
@@ -45,7 +50,6 @@
         </a>
       </div>
     </div>
-
     <div v-else :class="baseClass">
       <menu-user-aside
         v-if="user"
@@ -55,6 +59,11 @@
         :user="user"
       />
     </div>
+    <svg-icon
+      :src="require('../../assets/media/forms/form-down.svg')"
+      :class="`${baseClass}__svg ${baseClass}__svg--down`"
+      size="custom"
+    />
   </base-aside>
 </template>
 
@@ -64,6 +73,8 @@
 
   import { useUsers } from '../../composables/use-users';
   import { PositionType } from '../../types/position.type';
+
+  import SvgIcon from '../icons/svg-icon.component.vue';
 
   import TextInput from '../inputs/text-input.component.vue';
   import ButtonInput from '../inputs/button-input.component.vue';
@@ -159,7 +170,20 @@
     justify-content: center;
     align-items: center;
     gap: 4rem;
-    margin-top: 42px;
+    height: 82%;
+
+    &__svg {
+      position: absolute;
+      right: -6px;
+
+      &--up {
+        top: -84px;
+      }
+
+      &--down {
+        bottom: -70px;
+      }
+    }
 
     &__input {
       &--password {
