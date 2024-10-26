@@ -33,21 +33,18 @@
           color-attribute="fill"
           :error="errorPassword"
         />
-        <p :class="`${baseClass}__text ${baseClass}__text--password`">
+        <base-text tag="small" text-align="right" :class="`${baseClass}__link`">
           {{ t('userAsides.logIn.forgotPassword') }}
-        </p>
+        </base-text>
       </div>
-      <div>
+      <div :class="`${baseClass}__wrapper`">
         <button-input @click="logInUser" :text="t('userAsides.logIn.action')" type="fill" />
-        <p :class="`${baseClass}__text ${baseClass}__text--create-account`">
+        <base-text tag="small" :class="`${baseClass}__text ${baseClass}__text--sign-up`">
           {{ t('userAsides.logIn.signUp.description') }}
-        </p>
-        <a
-          :class="`${baseClass}__text ${baseClass}__text--sign-up`"
-          @click="$emit('openSignUpAsideOpen')"
-        >
-          {{ t('userAsides.logIn.signUp.action') }}
-        </a>
+          <a @click="$emit('openSignUpAsideOpen')" :class="`${baseClass}__link`">
+            {{ t('userAsides.logIn.signUp.action') }}
+          </a>
+        </base-text>
       </div>
       <svg-icon
         :src="require('../../assets/media/forms/form-down.svg')"
@@ -76,8 +73,8 @@
 
   import SvgIcon from '../icons/svg-icon.component.vue';
 
-  import TextInput from '../inputs/text-input.component.vue';
   import ButtonInput from '../inputs/button-input.component.vue';
+  import TextInput from '../inputs/text-input.component.vue';
 
   import BaseText from '../base-text.component.vue';
 
@@ -194,24 +191,17 @@
       }
     }
 
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
     &__text {
       display: flex;
 
-      &--password,
-      &--create-account,
       &--sign-up {
-        justify-content: center;
-      }
-
-      &--password,
-      &--create-account {
-        margin-top: 16px;
-      }
-
-      &--sign-up {
-        margin-top: 4px;
-        text-decoration: underline;
-        cursor: pointer;
+        gap: 4px;
       }
 
       &--error {
@@ -219,6 +209,11 @@
         margin-bottom: 26px;
         color: var(--color-error);
       }
+    }
+
+    &__link {
+      font-weight: 600;
+      cursor: pointer;
     }
   }
 </style>
