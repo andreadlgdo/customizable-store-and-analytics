@@ -11,6 +11,7 @@
         :class="`${baseClass}__svg ${baseClass}__svg--up`"
         size="custom"
       />
+      <base-text tag="h2" overline>{{ t('userAsides.logIn.title') }}</base-text>
       <div>
         <p v-if="invalidCredentials" :class="`${baseClass}__text ${baseClass}__text--error`">
           {{ invalidCredentials }}
@@ -77,6 +78,8 @@
 
   import TextInput from '../inputs/text-input.component.vue';
   import ButtonInput from '../inputs/button-input.component.vue';
+
+  import BaseText from '../base-text.component.vue';
 
   import BaseAside from './base-aside.component.vue';
   import MenuUserAside from './menu-user-aside.component.vue';
