@@ -5,7 +5,6 @@
       :class="[baseClass, `${baseClass}--${type}`, `${baseClass}--${closePosition}`]"
     >
       <div :class="`${baseClass}__header`">
-        <slot name="header" />
         <icon-button
           @click="$emit('close')"
           :class="`${baseClass}__icon ${baseClass}__icon--close`"
@@ -70,13 +69,9 @@
     }
 
     &__header {
-      position: sticky;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 1rem;
-      height: 5rem;
-      padding-right: 24px;
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
       z-index: 1;
     }
 

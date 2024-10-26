@@ -5,13 +5,12 @@
     :close-position="closePosition"
     type="round"
   >
-    <svg-icon
-      :src="require('../../assets/media/forms/form-up.svg')"
-      :class="`${baseClass}__svg ${baseClass}__svg--up`"
-      size="custom"
-    />
     <div v-if="!isUserRegister" :class="baseClass">
-      <h1>{{ t('userAsides.logIn.title') }}</h1>
+      <svg-icon
+        :src="require('../../assets/media/forms/form-up.svg')"
+        :class="`${baseClass}__svg ${baseClass}__svg--up`"
+        size="custom"
+      />
       <div>
         <p v-if="invalidCredentials" :class="`${baseClass}__text ${baseClass}__text--error`">
           {{ invalidCredentials }}
@@ -49,6 +48,11 @@
           {{ t('userAsides.logIn.signUp.action') }}
         </a>
       </div>
+      <svg-icon
+        :src="require('../../assets/media/forms/form-down.svg')"
+        :class="`${baseClass}__svg ${baseClass}__svg--down`"
+        size="custom"
+      />
     </div>
     <div v-else :class="baseClass">
       <menu-user-aside
@@ -59,11 +63,6 @@
         :user="user"
       />
     </div>
-    <svg-icon
-      :src="require('../../assets/media/forms/form-down.svg')"
-      :class="`${baseClass}__svg ${baseClass}__svg--down`"
-      size="custom"
-    />
   </base-aside>
 </template>
 
@@ -169,8 +168,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 4rem;
-    height: 82%;
+    gap: 2rem;
+    padding: 0 2rem;
+    height: 100vh;
 
     &__svg {
       position: absolute;
