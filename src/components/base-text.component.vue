@@ -37,34 +37,42 @@
       font-size: 2.75rem;
       font-weight: 800;
     }
+
     &--h2 {
       font-size: 2.35rem;
       font-weight: 800;
     }
+
     &--h3 {
       font-size: 2rem;
       font-weight: 700;
     }
+
     &--h4 {
       font-size: 1.5rem;
       font-weight: 700;
     }
+
     &--span {
       font-size: 1.5rem;
       font-weight: 500;
     }
+
     &--p {
       font-size: 1.25rem;
       font-weight: 400;
     }
+
     &--default {
       font-size: 1rem;
       font-weight: 400;
     }
+
     &--small {
       font-size: 0.75rem;
       font-weight: 400;
     }
+
     &--extra-small {
       font-size: 0.625rem;
       font-weight: 400;
