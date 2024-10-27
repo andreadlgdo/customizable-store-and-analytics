@@ -1,5 +1,6 @@
 import { ref } from 'vue';
-import { productService } from '../services/product.service';
+
+import { productService } from '../services';
 
 export function useProducts() {
   const products = ref([]);

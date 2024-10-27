@@ -31,7 +31,7 @@
 <script lang="ts" setup>
   import { computed, PropType } from 'vue';
 
-  import { Product } from '../../interfaces/product';
+  import { Product } from '../../interfaces';
 
   import IconButton from '../icons/icon-button.component.vue';
 

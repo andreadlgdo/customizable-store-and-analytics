@@ -86,10 +86,10 @@
   import { onMounted, PropType, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { useUsers } from '../../composables/use-users';
-  import { User } from '../../interfaces/user';
+  import { PositionType } from '../../types/position.type';
 
-  import { PositionType } from '../../types';
+  import { useUsers } from '../../composables';
+  import { User } from '../../interfaces';
 
   import ButtonInput from '../inputs/button-input.component.vue';
   import CheckboxInput from '../inputs/checkbox-input.component.vue';

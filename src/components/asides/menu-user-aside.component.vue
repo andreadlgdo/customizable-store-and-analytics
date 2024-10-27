@@ -28,8 +28,8 @@
   import { useI18n } from 'vue-i18n';
   import { useRouter } from 'vue-router';
 
-  import { useUserMenu } from '../../composables/use-user-menu';
-  import { User } from '../../interfaces/user';
+  import { useUserMenu } from '../../composables';
+  import { User } from '../../interfaces';
 
   import MenuItems from '../menu/menu-items.component.vue';
   import ButtonInput from '../inputs/button-input.component.vue';

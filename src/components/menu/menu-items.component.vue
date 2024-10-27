@@ -44,7 +44,7 @@
 <script lang="ts" setup>
   import { PropType, ref } from 'vue';
 
-  import { MenuItem } from '../../interfaces/menuItem';
+  import { MenuItem } from '../../interfaces';
 
   import SvgIcon from '../icons/svg-icon.component.vue';
 

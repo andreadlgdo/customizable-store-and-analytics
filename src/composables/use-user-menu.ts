@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { MenuItem } from '../interfaces/menuItem';
+import { MenuItem } from '../interfaces';
 
 export function useUserMenu() {
   const { t } = useI18n();
