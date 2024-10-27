@@ -124,7 +124,7 @@
   import { PropType, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { Product } from '../../interfaces/product';
+  import { Product } from '../../interfaces';
 
   import SvgIcon from '../icons/svg-icon.component.vue';
   import IconButton from '../icons/icon-button.component.vue';

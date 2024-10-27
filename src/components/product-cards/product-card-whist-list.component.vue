@@ -24,7 +24,7 @@
   import { computed, PropType } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { Product } from '../../interfaces/product';
+  import { Product } from '../../interfaces';
 
   import ButtonInput from '../inputs/button-input.component.vue';
   import IconButton from '../icons/icon-button.component.vue';

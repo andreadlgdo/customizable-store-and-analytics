@@ -1,4 +1,4 @@
-import { User } from '@/interfaces/user';
+import { User } from '../interfaces';
 
 const apiUrl = process.env.VUE_APP_API_URL;
 
