@@ -14,8 +14,8 @@
 
 <script lang="ts" setup>
   import { ref, onMounted, PropType, watch } from 'vue';
-  import { SizeType } from '../../types/size.type';
-  import { SvgIconType } from '../../types/svg-icon.type';
+
+  import { SizeType, SvgIconType } from '../../types';
 
   const baseClass = 'svg-icon';
 

@@ -13,7 +13,8 @@
 
 <script lang="ts" setup>
   import { PropType, ref } from 'vue';
-  import { SizeType } from '../../types/size.type';
+
+  import { SizeType } from '../../types';
 
   const baseClass = 'checkbox-input';
 

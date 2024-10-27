@@ -10,13 +10,26 @@
   --color-submain: #00000085;
   --color-medium: #00000045;
   --color-soft: #0000000f;
-  --color-error: red;
+
+  //Button colors
+  --color-default: #eae7e7;
+  --color-warning: #fae9cd;
+  --color-error: #fad3d0;
+  --color-success: #d4ebdf;
+
+  --color-border-default: #d9d9d9;
+  --color-border-warning: #fdd595;
+  --color-border-error: #ff8077;
+  --color-border-success: #aad7bf;
+
+  // --color-error: red;
 
   // Sombras
   --shadow-header: 0px 4px 8px #0000000f;
   --shadow-aside: 0px 54px 55px 0px rgba(0, 0, 0, 0.25), 0px -12px 30px 0px rgba(0, 0, 0, 0.12),
     0px 4px 6px 0px rgba(0, 0, 0, 0.12), 0px 12px 13px 0px rgba(0, 0, 0, 0.17),
     0px -3px 5px 0px rgba(0, 0, 0, 0.09);
+  --shadow-button: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   --shadow-header-search-box: 0px 2px 0px #0000000f;
 }
 
@@ -33,8 +46,20 @@
   --color-medium: #ffffff85;
   --color-soft: #ffffff36;
 
+  //Button colors
+  --color-default: #afafaf;
+  --color-warning: #ffc970;
+  --color-error: #f08b83;
+  --color-success: #8bc08f;
+
+  --color-border-default: #807e7e;
+  --color-border-warning: #faa927;
+  --color-border-error: #fa5c51;
+  --color-border-success: #56c35e;
+
   // Sombras
   --shadow-header: 0px 4px 8px #afafb0;
   --shadow-aside: 0px 3px 8px #afafb0;
+  --shadow-button: 0 2px 4px 0 #b9b7b77d;
   --shadow-header-search-box: 0px 2px 0px #afafb0;
 }
