@@ -11,6 +11,7 @@
         :class="`${baseClass}__svg ${baseClass}__svg--up`"
         size="custom"
       />
+      <base-text tag="h2" overline>{{ t('userAsides.logIn.title') }}</base-text>
       <div>
         <p v-if="invalidCredentials" :class="`${baseClass}__text ${baseClass}__text--error`">
           {{ invalidCredentials }}
@@ -32,21 +33,20 @@
           color-attribute="fill"
           :error="errorPassword"
         />
-        <p :class="`${baseClass}__text ${baseClass}__text--password`">
+        <base-text tag="link" :class="`${baseClass}__text ${baseClass}__text--password`">
           {{ t('userAsides.logIn.forgotPassword') }}
-        </p>
+        </base-text>
       </div>
-      <div>
+      <div :class="`${baseClass}__wrapper`">
         <button-input @click="logInUser" :text="t('userAsides.logIn.action')" type="fill" />
-        <p :class="`${baseClass}__text ${baseClass}__text--create-account`">
-          {{ t('userAsides.logIn.signUp.description') }}
-        </p>
-        <a
-          :class="`${baseClass}__text ${baseClass}__text--sign-up`"
-          @click="$emit('openSignUpAsideOpen')"
-        >
-          {{ t('userAsides.logIn.signUp.action') }}
-        </a>
+        <div :class="`${baseClass}__wrapper-text`">
+          <base-text tag="small">
+            {{ t('userAsides.logIn.signUp.description') }}
+          </base-text>
+          <base-text @click="$emit('openSignUpAsideOpen')" tag="link">
+            {{ t('userAsides.logIn.signUp.action') }}
+          </base-text>
+        </div>
       </div>
       <svg-icon
         :src="require('../../assets/media/forms/form-down.svg')"
@@ -75,8 +75,10 @@
 
   import SvgIcon from '../icons/svg-icon.component.vue';
 
-  import TextInput from '../inputs/text-input.component.vue';
   import ButtonInput from '../inputs/button-input.component.vue';
+  import TextInput from '../inputs/text-input.component.vue';
+
+  import BaseText from '../base-text.component.vue';
 
   import BaseAside from './base-aside.component.vue';
   import MenuUserAside from './menu-user-aside.component.vue';
@@ -191,24 +193,25 @@
       }
     }
 
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    &__wrapper-text {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+    }
+
     &__text {
       display: flex;
 
-      &--password,
-      &--create-account,
-      &--sign-up {
-        justify-content: center;
-      }
-
-      &--password,
-      &--create-account {
-        margin-top: 16px;
-      }
-
-      &--sign-up {
-        margin-top: 4px;
-        text-decoration: underline;
-        cursor: pointer;
+      &--password {
+        justify-content: flex-end;
+        margin-top: 6px;
+        margin-right: 12px;
       }
 
       &--error {
