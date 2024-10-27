@@ -1,8 +1,7 @@
 import { ref } from 'vue';
 
-import { userService } from '../services/user.service';
-
 import { User } from '../interfaces';
+import { userService } from '../services';
 
 export function useUsers() {
   const user = ref<User | undefined>(undefined);
