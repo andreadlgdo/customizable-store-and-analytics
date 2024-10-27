@@ -10,8 +10,7 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import { AlignType } from '../types/align.type';
-  import { TextTagType } from '../types/text.type';
+  import { AlignType, TextTagType } from '../types';
 
   const baseClass = 'base-text';
 

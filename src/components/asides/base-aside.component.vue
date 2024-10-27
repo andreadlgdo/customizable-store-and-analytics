@@ -20,8 +20,7 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import { AsideType } from '../../types/aside.type';
-  import { PositionType } from '../../types/position.type';
+  import { AsideType, PositionType } from '../../types';
 
   import IconButton from '../icons/icon-button.component.vue';
 

@@ -69,7 +69,8 @@
   import { useI18n } from 'vue-i18n';
 
   import { useUsers } from '../../composables/use-users';
-  import { PositionType } from '../../types/position.type';
+
+  import { PositionType } from '../../types';
 
   import SvgIcon from '../icons/svg-icon.component.vue';
 
