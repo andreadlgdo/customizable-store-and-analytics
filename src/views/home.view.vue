@@ -11,8 +11,9 @@
 <script lang="ts" setup>
   import { computed, ref, onMounted } from 'vue';
 
-  import { useMobile } from '../composables/use-mobile';
   import { generalService } from '../services/general.service';
+
+  import { useMobile } from '../composables';
 
   import HeaderLayout from './header-layout.view.vue';
 

@@ -31,7 +31,7 @@
   import { imageService } from '../services/image.service';
   import { userService } from '../services/user.service';
 
-  import { useUserMenu } from '../composables/use-user-menu';
+  import { useUserMenu } from '../composables';
 
   import HeaderLayout from './header-layout.view.vue';
 

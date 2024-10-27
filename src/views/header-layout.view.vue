@@ -45,9 +45,9 @@
   import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
   import LanguageToggle from '../components/toggles/language-toggle.component.vue';
 
-  import { useProducts } from '../composables/use-products';
-
   import { Product } from '../interfaces/product';
+
+  import { useProducts } from '../composables';
 
   const { products, fetchProducts } = useProducts();
 
