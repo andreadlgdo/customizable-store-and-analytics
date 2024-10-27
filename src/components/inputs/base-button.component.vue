@@ -13,7 +13,7 @@
     }"
   >
     <icon-button v-if="icon" :icon="icon" :color-attribute="colorAttribute" size="small" />
-    <base-text v-if="text" :class="`${baseClass}__text`" tag="default">
+    <base-text v-if="text" tag="default">
       {{ text }}
     </base-text>
   </div>
@@ -98,10 +98,6 @@
 
     &--semi-round {
       border-radius: 8px;
-    }
-
-    &__text {
-      width: auto;
     }
 
     &--shadow {
