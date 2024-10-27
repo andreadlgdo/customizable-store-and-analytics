@@ -33,18 +33,20 @@
           color-attribute="fill"
           :error="errorPassword"
         />
-        <base-text tag="small" text-align="right" :class="`${baseClass}__link`">
+        <base-text tag="link" :class="`${baseClass}__text ${baseClass}__text--password`">
           {{ t('userAsides.logIn.forgotPassword') }}
         </base-text>
       </div>
       <div :class="`${baseClass}__wrapper`">
         <base-button @click="logInUser" :text="t('userAsides.logIn.action')" have-shadow />
-        <base-text tag="small" :class="`${baseClass}__text ${baseClass}__text--sign-up`">
-          {{ t('userAsides.logIn.signUp.description') }}
-          <a @click="$emit('openSignUpAsideOpen')" :class="`${baseClass}__link`">
+        <div :class="`${baseClass}__wrapper-text`">
+          <base-text tag="small">
+            {{ t('userAsides.logIn.signUp.description') }}
+          </base-text>
+          <base-text @click="$emit('openSignUpAsideOpen')" tag="link">
             {{ t('userAsides.logIn.signUp.action') }}
-          </a>
-        </base-text>
+          </base-text>
+        </div>
       </div>
       <svg-icon
         :src="require('../../assets/media/forms/form-down.svg')"
@@ -198,11 +200,19 @@
       gap: 12px;
     }
 
+    &__wrapper-text {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+    }
+
     &__text {
       display: flex;
 
-      &--sign-up {
-        gap: 4px;
+      &--password {
+        justify-content: flex-end;
+        margin-top: 6px;
+        margin-right: 12px;
       }
 
       &--error {
@@ -210,11 +220,6 @@
         margin-bottom: 26px;
         color: var(--color-error);
       }
-    }
-
-    &__link {
-      font-weight: 600;
-      cursor: pointer;
     }
   }
 </style>
