@@ -88,7 +88,8 @@
 
   import { useUsers } from '../../composables/use-users';
   import { User } from '../../interfaces/user';
-  import { PositionType } from '../../types/position.type';
+
+  import { PositionType } from '../../types';
 
   import ButtonInput from '../inputs/button-input.component.vue';
   import CheckboxInput from '../inputs/checkbox-input.component.vue';

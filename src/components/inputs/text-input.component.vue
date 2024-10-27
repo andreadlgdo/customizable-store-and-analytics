@@ -28,10 +28,12 @@
 </template>
 
 <script lang="ts" setup>
+  import { PropType, ref } from 'vue';
+
   import IconButton from '../icons/icon-button.component.vue';
   import SvgIcon from '../icons/svg-icon.component.vue';
-  import { PropType, ref } from 'vue';
-  import { SvgIconType } from '@/types/svg-icon.type';
+
+  import type { SvgIconType } from '../../types';
 
   const baseClass = 'input';
 

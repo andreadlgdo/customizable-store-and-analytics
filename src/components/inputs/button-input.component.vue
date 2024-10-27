@@ -9,8 +9,8 @@
 
 <script lang="ts" setup>
   import { PropType } from 'vue';
-  import { ButtonType } from '../../types/button.type';
-  import { SizeType } from '../../types/size.type';
+
+  import { ButtonType, SizeType } from '../../types';
 
   const baseClass = 'button';
 

@@ -38,7 +38,7 @@
         </base-text>
       </div>
       <div :class="`${baseClass}__wrapper`">
-        <button-input @click="logInUser" :text="t('userAsides.logIn.action')" type="fill" />
+        <base-button @click="logInUser" :text="t('userAsides.logIn.action')" have-shadow />
         <div :class="`${baseClass}__wrapper-text`">
           <base-text tag="small">
             {{ t('userAsides.logIn.signUp.description') }}
@@ -71,11 +71,12 @@
   import { useI18n } from 'vue-i18n';
 
   import { useUsers } from '../../composables/use-users';
-  import { PositionType } from '../../types/position.type';
+
+  import { PositionType } from '../../types';
 
   import SvgIcon from '../icons/svg-icon.component.vue';
 
-  import ButtonInput from '../inputs/button-input.component.vue';
+  import BaseButton from '../inputs/base-button.component.vue';
   import TextInput from '../inputs/text-input.component.vue';
 
   import BaseText from '../base-text.component.vue';
@@ -196,7 +197,7 @@
     &__wrapper {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 12px;
     }
 
     &__wrapper-text {
