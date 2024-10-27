@@ -1,7 +1,7 @@
 <template>
   <span
     :class="[baseClass, `${baseClass}--${tag}`]"
-    :style="{ textTransform: overline ? 'uppercase' : '', justifyContent: textAlign }"
+    :style="{ textTransform: overline ? 'uppercase' : '' }"
   >
     <slot></slot>
   </span>
@@ -10,7 +10,6 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import { AlignType } from '../types/align.type';
   import { TextTagType } from '../types/text.type';
 
   const baseClass = 'base-text';
@@ -20,10 +19,6 @@
       type: String as PropType<TextTagType>,
       default: 'span'
     },
-    textAlign: {
-      type: String as PropType<AlignType>,
-      default: 'center'
-    },
     overline: Boolean
   });
 </script>
@@ -31,7 +26,6 @@
 <style lang="scss" scoped>
   .base-text {
     display: flex;
-    width: 100%;
 
     &--h1 {
       font-size: 2.75rem;
@@ -76,6 +70,12 @@
     &--extra-small {
       font-size: 0.625rem;
       font-weight: 400;
+    }
+
+    &--link {
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
     }
   }
 </style>

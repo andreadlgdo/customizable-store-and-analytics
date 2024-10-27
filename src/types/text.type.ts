@@ -7,5 +7,5 @@ export type TextTagType =
   | 'p'
   | 'default'
   | 'small'
-  | 'extra-small';
-
+  | 'extra-small'
+  | 'link';
