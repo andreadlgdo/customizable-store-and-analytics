@@ -83,7 +83,7 @@
 
     &--custom svg {
       width: 26rem;
-      height: 23rem;
+      height: 22rem;
     }
 
     &__fill {
