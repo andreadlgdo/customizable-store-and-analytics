@@ -16,7 +16,7 @@
       </checkbox-input>
     </template>
     <template v-slot:footer>
-      <div :class="`${baseClass}__footer`">
+      <div v-if="isNewPassword" :class="`${baseClass}__footer`">
         <checkbox-input size="small">
           <base-text tag="small">
             {{ t('userAsides.logIn.inputsPlaceholders.password.rememberMe') }}
@@ -44,7 +44,8 @@
 
   defineProps({
     label: String,
-    error: String
+    error: String,
+    isNewPassword: Boolean
   });
 </script>
 

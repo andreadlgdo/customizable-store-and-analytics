@@ -32,6 +32,7 @@
           @input="query => (userForm.password = query)"
           :label="t('userAsides.logIn.inputsPlaceholders.password.title')"
           :error="errorPassword"
+          isNewPassword
         />
       </div>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--footer`">
@@ -187,18 +188,22 @@
       }
 
       &--down {
-        bottom: -90px;
+        bottom: -64px;
       }
     }
 
     &__wrapper {
       display: flex;
       flex-direction: column;
-      gap: 12px;
 
       &--inputs {
         gap: 28px;
         width: 100%;
+      }
+
+      &--footer {
+        gap: 12px;
+        z-index: 1;
       }
     }
 

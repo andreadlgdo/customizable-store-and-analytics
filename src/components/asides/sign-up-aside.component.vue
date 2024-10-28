@@ -6,46 +6,38 @@
     type="round"
   >
     <div v-if="!isUserCreated" :class="baseClass">
-      <h1>{{ t('userAsides.signUp.title') }}</h1>
-      <div :class="`${baseClass}__wrapper-inputs`">
-        <text-input
+      <svg-icon
+        :src="require('../../assets/media/forms/form-up.svg')"
+        :class="`${baseClass}__svg ${baseClass}__svg--up`"
+        size="custom"
+      />
+      <base-text tag="h2" overline>{{ t('userAsides.signUp.title') }}</base-text>
+      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--inputs`">
+        <base-text-input
           @input="query => (userForm.username = query)"
-          :class="`${baseClass}__input ${baseClass}__input--name`"
-          :placeholder="t('userAsides.signUp.inputsPlaceholders.username.title')"
+          :label="t('userAsides.signUp.inputsPlaceholders.username.title')"
           icon="user"
           color-attribute="stroke"
           :error="errorUser"
         />
-        <text-input
+        <base-text-input
           @input="query => (userForm.email = query)"
-          :class="`${baseClass}__input ${baseClass}__input--email`"
-          :placeholder="t('userAsides.signUp.inputsPlaceholders.email.title')"
+          :label="t('userAsides.signUp.inputsPlaceholders.email.title')"
           icon="email"
           color-attribute="fill"
           :error="errorEmail"
         />
-        <text-input
+        <password-input
           @input="query => (userForm.password = query)"
-          :class="`${baseClass}__input ${baseClass}__input--password`"
-          :placeholder="t('userAsides.signUp.inputsPlaceholders.password.title')"
-          type="password"
-          icon="password"
-          color-attribute="fill"
+          :label="t('userAsides.signUp.inputsPlaceholders.password.title')"
           :error="errorPassword"
         />
-        <text-input
+        <password-input
           @input="query => (userForm.repeatPassword = query)"
-          :class="`${baseClass}__input ${baseClass}__input--password`"
-          :placeholder="t('userAsides.signUp.inputsPlaceholders.repeatPassword.title')"
-          type="password"
-          icon="password"
-          color-attribute="fill"
+          :label="t('userAsides.signUp.inputsPlaceholders.repeatPassword.title')"
           :error="equalPassword"
         />
         <div>
-          <p v-if="errorAcceptTerms" :class="`${baseClass}__text ${baseClass}__text--error`">
-            {{ errorAcceptTerms }}
-          </p>
           <checkbox-input @selectCheckbox="isChecked => (isSelectCheckbox = isChecked)">
             <a
               :href="$router.resolve('/terms-and-conditions').href"
@@ -53,23 +45,40 @@
               rel="noopener noreferrer"
               :class="`${baseClass}__text ${baseClass}__text--link`"
             >
-              {{ t('userAsides.signUp.checkboxText') }}
+              <base-text tag="link">{{ t('userAsides.signUp.checkboxText') }}</base-text>
             </a>
           </checkbox-input>
+          <base-text
+            v-if="errorAcceptTerms"
+            tag="small"
+            color="error"
+            :class="`${baseClass}__text ${baseClass}__text-error`"
+          >
+            {{ errorAcceptTerms }}
+          </base-text>
         </div>
       </div>
-      <div>
-        <button-input @click="addUser" :text="t('userAsides.signUp.action')" type="fill" />
-        <p :class="`${baseClass}__text ${baseClass}__text--have-account`">
-          {{ t('userAsides.signUp.logIn.description') }}
-        </p>
-        <a
-          :class="`${baseClass}__text ${baseClass}__text--logIn`"
-          @click="$emit('openLogInAsideOpen')"
-        >
-          {{ t('userAsides.signUp.logIn.action') }}
-        </a>
+      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--footer`">
+        <base-button
+          @click="addUser"
+          :text="t('userAsides.signUp.action')"
+          color="primary"
+          have-shadow
+        />
+        <div :class="`${baseClass}__wrapper-text`">
+          <base-text tag="small">
+            {{ t('userAsides.signUp.logIn.description') }}
+          </base-text>
+          <base-text @click="$emit('openLogInAsideOpen')" tag="link">
+            {{ t('userAsides.signUp.logIn.action') }}
+          </base-text>
+        </div>
       </div>
+      <svg-icon
+        :src="require('../../assets/media/forms/form-down.svg')"
+        :class="`${baseClass}__svg ${baseClass}__svg--down`"
+        size="custom"
+      />
     </div>
     <div v-else :class="baseClass">
       <menu-user-aside
@@ -91,9 +100,14 @@
   import { useUsers } from '../../composables';
   import { User } from '../../interfaces';
 
-  import ButtonInput from '../inputs/button-input.component.vue';
+  import SvgIcon from '../icons/svg-icon.component.vue';
+
+  import BaseButton from '../inputs/base-button.component.vue';
+  import BaseTextInput from '../inputs/base-text-input.component.vue';
   import CheckboxInput from '../inputs/checkbox-input.component.vue';
-  import TextInput from '../inputs/text-input.component.vue';
+  import PasswordInput from '../inputs/password-input.component.vue';
+
+  import BaseText from '../base-text.component.vue';
 
   import BaseAside from './base-aside.component.vue';
   import MenuUserAside from './menu-user-aside.component.vue';
@@ -206,43 +220,52 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 4rem;
-    margin-top: 42px;
+    gap: 2rem;
+    padding: 0 2rem;
+    height: 100vh;
 
-    &__wrapper-inputs {
+    &__svg {
+      position: absolute;
+      right: -6px;
+
+      &--up {
+        top: -106px;
+      }
+
+      &--down {
+        bottom: -90px;
+      }
+    }
+
+    &__wrapper {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+
+      &--inputs {
+        gap: 28px;
+        width: 100%;
+      }
+
+      &--footer {
+        gap: 12px;
+        z-index: 1;
+      }
     }
 
     &__text {
-      display: flex;
-      justify-content: center;
-
-      &--have-account {
-        margin-top: 16px;
-      }
-
-      &--logIn {
-        margin-top: 4px;
-        text-decoration: underline;
-        cursor: pointer;
+      &--link {
+        text-decoration: none;
       }
 
       &--error {
-        justify-content: flex-start;
-        margin-bottom: 8px;
-        color: var(--color-error);
+        margin-top: 6px;
       }
+    }
 
-      &--link {
-        text-decoration: underline;
-        cursor: pointer;
-
-        &:hover {
-          color: blue;
-        }
-      }
+    &__wrapper-text {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
     }
   }
 </style>
