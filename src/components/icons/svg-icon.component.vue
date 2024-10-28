@@ -92,7 +92,7 @@
       }
 
       &--error svg {
-        fill: var(--color-error);
+        fill: var(--color-border-error);
       }
     }
 
@@ -102,7 +102,7 @@
       }
 
       &--error svg {
-        stroke: var(--color-error);
+        stroke: var(--color-border-error);
       }
     }
 
@@ -113,8 +113,8 @@
       }
 
       &--error svg {
-        fill: var(--color-error);
-        stroke: var(--color-error);
+        fill: var(--color-border-error);
+        stroke: var(--color-border-error);
       }
     }
   }

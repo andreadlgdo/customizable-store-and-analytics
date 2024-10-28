@@ -22,7 +22,7 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import type { ButtonColor, ButtonType, InputFormType, SizeType, SvgIconType } from '../../types';
+  import type { ColorType, InputType, InputFormType, SizeType, SvgIconType } from '../../types';
 
   import IconButton from '../icons/icon-button.component.vue';
 
@@ -43,11 +43,11 @@
       default: 'normal'
     },
     type: {
-      type: String as PropType<ButtonType>,
+      type: String as PropType<InputType>,
       default: 'solid'
     },
     color: {
-      type: String as PropType<ButtonColor>,
+      type: String as PropType<ColorType>,
       default: 'default'
     },
     haveShadow: Boolean
