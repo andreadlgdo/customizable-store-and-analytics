@@ -10,7 +10,7 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import { ButtonType, SizeType } from '../../types';
+  import { InputType, SizeType } from '../../types';
 
   const baseClass = 'button';
 
@@ -20,7 +20,7 @@
       required: true
     },
     type: {
-      type: String as PropType<ButtonType>,
+      type: String as PropType<InputType>,
       default: 'stroke'
     },
     size: {
