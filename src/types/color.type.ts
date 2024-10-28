@@ -1,1 +1,1 @@
-export type ColorType = 'default' | 'warning' | 'error' | 'success';
+export type ColorType = 'primary' | 'default' | 'warning' | 'error' | 'success';

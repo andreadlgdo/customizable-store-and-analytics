@@ -1,8 +1,11 @@
 <template>
   <div :class="[baseClass, `${baseClass}--${form}`]">
-    <base-text v-if="label" tag="default" :class="`${baseClass}__text`">
-      {{ label }}
-    </base-text>
+    <div :class="`${baseClass}__header`">
+      <base-text v-if="label" tag="default" :class="`${baseClass}__text`">
+        {{ label }}
+      </base-text>
+      <slot name="header" />
+    </div>
     <input
       v-model="query"
       :type="tag"
@@ -37,6 +40,7 @@
     >
       {{ help ?? error }}
     </base-text>
+    <slot name="footer" />
   </div>
 </template>
 
@@ -110,6 +114,12 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      padding-right: 14px;
+    }
 
     &--round {
       & #{$baseClass}__input {

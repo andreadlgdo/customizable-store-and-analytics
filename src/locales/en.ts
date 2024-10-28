@@ -42,11 +42,13 @@ const userAsidesMessages = {
       },
       password: {
         title: 'Password',
-        error: 'The password field is empty'
+        error: 'The password field is empty',
+        showPassword: 'Show password',
+        rememberMe: 'Remember me'
       },
       generalError: 'The username or password is incorrect'
     },
-    forgotPassword: 'Have you forgotten your password?',
+    forgotPassword: 'Forgot password?',
     action: 'Log in',
     signUp: {
       description: "Don't have an account yet?",
@@ -107,7 +109,7 @@ const userAsidesMessages = {
         },
         whistList: {
           label: 'My Whist List',
-          description: 'Save products you\'d like to purchase later.'
+          description: "Save products you'd like to purchase later."
         }
       },
       admin: {

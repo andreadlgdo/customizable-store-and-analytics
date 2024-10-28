@@ -12,10 +12,15 @@
         size="custom"
       />
       <base-text tag="h2" overline>{{ t('userAsides.logIn.title') }}</base-text>
-      <div :class="`${baseClass}__wrapper`">
-        <p v-if="invalidCredentials" :class="`${baseClass}__text ${baseClass}__text--error`">
+      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--inputs`">
+        <base-text
+          v-if="invalidCredentials"
+          tag="default"
+          color="error"
+          :class="`${baseClass}__text`"
+        >
           {{ invalidCredentials }}
-        </p>
+        </base-text>
         <base-text-input
           @input="query => (userForm.username = query)"
           :label="t('userAsides.logIn.inputsPlaceholders.username.title')"
@@ -23,20 +28,19 @@
           color-attribute="stroke"
           :error="errorUsername"
         />
-        <base-text-input
+        <password-input
           @input="query => (userForm.password = query)"
           :label="t('userAsides.logIn.inputsPlaceholders.password.title')"
-          icon="password"
-          color-attribute="fill"
-          tag="password"
           :error="errorPassword"
         />
-        <base-text tag="link" :class="`${baseClass}__text ${baseClass}__text--password`">
-          {{ t('userAsides.logIn.forgotPassword') }}
-        </base-text>
       </div>
-      <div :class="`${baseClass}__wrapper`">
-        <base-button @click="logInUser" :text="t('userAsides.logIn.action')" have-shadow />
+      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--footer`">
+        <base-button
+          @click="logInUser"
+          :text="t('userAsides.logIn.action')"
+          color="primary"
+          have-shadow
+        />
         <div :class="`${baseClass}__wrapper-text`">
           <base-text tag="small">
             {{ t('userAsides.logIn.signUp.description') }}
@@ -76,6 +80,7 @@
 
   import BaseButton from '../inputs/base-button.component.vue';
   import BaseTextInput from '../inputs/base-text-input.component.vue';
+  import PasswordInput from '../inputs/password-input.component.vue';
 
   import BaseText from '../base-text.component.vue';
 
@@ -190,6 +195,11 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+
+      &--inputs {
+        gap: 28px;
+        width: 100%;
+      }
     }
 
     &__wrapper-text {
@@ -199,19 +209,7 @@
     }
 
     &__text {
-      display: flex;
-
-      &--password {
-        justify-content: flex-end;
-        margin-top: 6px;
-        margin-right: 12px;
-      }
-
-      &--error {
-        justify-content: flex-start;
-        margin-bottom: 26px;
-        color: var(--color-error);
-      }
+      align-self: center;
     }
   }
 </style>
