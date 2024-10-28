@@ -1,7 +1,10 @@
 <template>
   <span
     :class="[baseClass, `${baseClass}--${tag}`]"
-    :style="{ textTransform: overline ? 'uppercase' : '' }"
+    :style="{
+      textTransform: overline ? 'uppercase' : '',
+      '--color-text': color ? `var(--color-border-${color})` : 'var(--color-main)'
+    }"
   >
     <slot></slot>
   </span>
@@ -10,7 +13,7 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import { TextTagType } from '../types';
+  import { ColorType, TextTagType } from '../types';
 
   const baseClass = 'base-text';
 
@@ -19,6 +22,7 @@
       type: String as PropType<TextTagType>,
       default: 'span'
     },
+    color: String as PropType<ColorType>,
     overline: Boolean
   });
 </script>
@@ -26,6 +30,7 @@
 <style lang="scss" scoped>
   .base-text {
     display: flex;
+    color: var(--color-text);
 
     &--h1 {
       font-size: 2.75rem;
