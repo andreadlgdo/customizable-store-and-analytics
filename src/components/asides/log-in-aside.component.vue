@@ -12,25 +12,23 @@
         size="custom"
       />
       <base-text tag="h2" overline>{{ t('userAsides.logIn.title') }}</base-text>
-      <div>
+      <div :class="`${baseClass}__wrapper`">
         <p v-if="invalidCredentials" :class="`${baseClass}__text ${baseClass}__text--error`">
           {{ invalidCredentials }}
         </p>
-        <text-input
+        <base-text-input
           @input="query => (userForm.username = query)"
-          :class="`${baseClass}__input ${baseClass}__input--user`"
-          :placeholder="t('userAsides.logIn.inputsPlaceholders.username.title')"
+          :label="t('userAsides.logIn.inputsPlaceholders.username.title')"
           icon="user"
           color-attribute="stroke"
           :error="errorUsername"
         />
-        <text-input
+        <base-text-input
           @input="query => (userForm.password = query)"
-          :class="`${baseClass}__input ${baseClass}__input--password`"
-          :placeholder="t('userAsides.logIn.inputsPlaceholders.password.title')"
-          type="password"
+          :label="t('userAsides.logIn.inputsPlaceholders.password.title')"
           icon="password"
           color-attribute="fill"
+          tag="password"
           :error="errorPassword"
         />
         <base-text tag="link" :class="`${baseClass}__text ${baseClass}__text--password`">
@@ -77,7 +75,7 @@
   import SvgIcon from '../icons/svg-icon.component.vue';
 
   import BaseButton from '../inputs/base-button.component.vue';
-  import TextInput from '../inputs/text-input.component.vue';
+  import BaseTextInput from '../inputs/base-text-input.component.vue';
 
   import BaseText from '../base-text.component.vue';
 
@@ -184,13 +182,7 @@
       }
 
       &--down {
-        bottom: -70px;
-      }
-    }
-
-    &__input {
-      &--password {
-        margin-top: 32px;
+        bottom: -90px;
       }
     }
 
