@@ -118,7 +118,7 @@
     }
   }
 
-  @media only screen and (max-width: 450px) {
+  @media only screen and (max-width: 500px) {
     .svg-icon {
       &--custom svg {
         width: fit-content;
