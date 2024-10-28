@@ -57,6 +57,8 @@ export interface UserAsideMessages {
       password: {
         title: string;
         error: string;
+        showPassword: string;
+        rememberMe: string;
       };
       generalError: string;
     };

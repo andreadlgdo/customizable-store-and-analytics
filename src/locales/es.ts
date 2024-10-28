@@ -42,7 +42,9 @@ const userAsidesMessages = {
       },
       password: {
         title: 'Contraseña',
-        error: 'El campo contraseña esta vacio'
+        error: 'El campo contraseña esta vacio',
+        showPassword: 'Mostrar contraseña',
+        rememberMe: 'Recuerdame'
       },
       generalError: 'El usuario o la contraseña no son correctos'
     },
