@@ -82,7 +82,6 @@
     }
 
     &--custom svg {
-      width: 26rem;
       height: 22rem;
     }
 
@@ -115,6 +114,14 @@
       &--error svg {
         fill: var(--color-border-error);
         stroke: var(--color-border-error);
+      }
+    }
+  }
+
+  @media only screen and (max-width: 450px) {
+    .svg-icon {
+      &--custom svg {
+        width: fit-content;
       }
     }
   }

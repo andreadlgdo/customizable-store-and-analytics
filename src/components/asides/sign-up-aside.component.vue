@@ -11,8 +11,9 @@
         :class="`${baseClass}__svg ${baseClass}__svg--up`"
         size="custom"
       />
-      <base-text tag="h2" overline>{{ t('userAsides.signUp.title') }}</base-text>
+
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--inputs`">
+        <base-text tag="h2" overline>{{ t('userAsides.signUp.title') }}</base-text>
         <base-text-input
           @input="query => (userForm.username = query)"
           :label="t('userAsides.signUp.inputsPlaceholders.username.title')"
@@ -240,6 +241,7 @@
     &__wrapper {
       display: flex;
       flex-direction: column;
+      z-index: 1;
 
       &--inputs {
         gap: 28px;
@@ -248,7 +250,6 @@
 
       &--footer {
         gap: 12px;
-        z-index: 1;
       }
     }
 

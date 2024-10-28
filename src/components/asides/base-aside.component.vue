@@ -91,7 +91,7 @@
     }
   }
 
-  @media only screen and (max-width: 400px) {
+  @media only screen and (max-width: 450px) {
     .base-aside {
       margin: 0;
       height: 100%;
