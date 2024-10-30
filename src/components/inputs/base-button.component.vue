@@ -4,7 +4,8 @@
       baseClass,
       `${baseClass}--${form}`,
       `${baseClass}--${size}`,
-      { [`${baseClass}--shadow`]: haveShadow }
+      { [`${baseClass}--shadow`]: haveShadow },
+      { [`${baseClass}--right`]: iconPosition === 'right' }
     ]"
     :style="{
       '--background-color': type !== 'outline' ? `var(--color-${color})` : 'transparent',
@@ -12,8 +13,14 @@
       '--hover-color': `var(--color-border-${color})`
     }"
   >
-    <icon-button v-if="icon" :icon="icon" :color-attribute="colorAttribute" size="small" />
-    <base-text v-if="text" tag="default">
+    <icon-button
+      v-if="icon"
+      :icon="icon"
+      :color-attribute="colorAttribute"
+      size="small"
+      :class="`${baseClass}__icon`"
+    />
+    <base-text v-if="text" tag="default" :class="`${baseClass}__button`">
       {{ text }}
     </base-text>
   </div>
@@ -22,7 +29,14 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import type { ColorType, InputType, InputFormType, SizeType, SvgIconType } from '../../types';
+  import type {
+    ColorType,
+    InputType,
+    InputFormType,
+    PositionType,
+    SizeType,
+    SvgIconType
+  } from '../../types';
 
   import IconButton from '../icons/icon-button.component.vue';
 
@@ -34,6 +48,10 @@
     icon: String,
     text: String,
     colorAttribute: String as PropType<SvgIconType>,
+    iconPosition: {
+      type: String as PropType<PositionType>,
+      default: 'left'
+    },
     form: {
       type: String as PropType<InputFormType>,
       default: 'round'
@@ -56,6 +74,8 @@
 
 <style lang="scss" scoped>
   .base-button {
+    $baseClass: &;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,6 +122,16 @@
 
     &--shadow {
       box-shadow: var(--shadow-button);
+    }
+
+    &--right {
+      #{$baseClass}__icon {
+        order: 2;
+      }
+
+      #{$baseClass}__button {
+        order: 1;
+      }
     }
   }
 </style>

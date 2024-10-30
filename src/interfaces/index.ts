@@ -1,3 +1,4 @@
+export * from './category';
 export * from './image';
 export * from './menuItem';
 export * from './product';
