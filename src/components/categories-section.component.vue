@@ -4,6 +4,7 @@
     :style="{ backgroundImage: `url(${image})` }"
   >
     <base-button
+      @click="$emit('navigateTo', category)"
       :class="`${baseClass}__button`"
       :text="`Ver todos los ${category}`"
       icon="go-to"

@@ -33,9 +33,9 @@
     ColorType,
     InputType,
     InputFormType,
+    PositionType,
     SizeType,
-    SvgIconType,
-    PositionType
+    SvgIconType
   } from '../../types';
 
   import IconButton from '../icons/icon-button.component.vue';
