@@ -43,7 +43,7 @@
 
 <style lang="scss" scoped>
   .base-aside {
-    $base-class: &;
+    $baseClass: &;
 
     position: absolute;
     top: 0;
@@ -61,7 +61,7 @@
     }
 
     &--left {
-      #{$base-class}__header {
+      #{$baseClass}__header {
         justify-content: flex-start;
         padding-left: 24px;
       }

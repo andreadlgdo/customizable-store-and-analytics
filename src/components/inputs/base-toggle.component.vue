@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="[baseClass, { [`${baseClass}--shadow`]: shadow }]"
+    :class="[baseClass, { [`${baseClass}--shadow`]: haveShadow }]"
     :style="{
       '--background-color': `var(--color-${color})`,
       '--selected-color': `var(--color-border-${color})`
@@ -56,7 +56,7 @@
       type: String as PropType<ColorType>,
       default: 'default'
     },
-    shadow: Boolean
+    haveShadow: Boolean
   });
 
   const toggleItem = ref(props.item);

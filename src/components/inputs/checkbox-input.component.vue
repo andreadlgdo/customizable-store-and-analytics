@@ -33,41 +33,41 @@
 
 <style lang="scss" scoped>
   .checkbox-input {
-    $base-class: &;
+    $baseClass: &;
 
     display: flex;
     align-items: center;
     gap: 0.2rem;
 
     &--small {
-      #{$base-class}__input {
+      #{$baseClass}__input {
         width: 12px;
         height: 12px;
       }
 
-      #{$base-class}__text {
+      #{$baseClass}__text {
         font-size: 12px;
       }
     }
 
     &--normal {
-      #{$base-class}__input {
+      #{$baseClass}__input {
         width: 14px;
         height: 14px;
       }
 
-      #{$base-class}__text {
+      #{$baseClass}__text {
         font-size: 16px;
       }
     }
 
     &--large {
-      #{$base-class}__input {
+      #{$baseClass}__input {
         width: 14px;
         height: 14px;
       }
 
-      #{$base-class}__text {
+      #{$baseClass}__text {
         font-size: 20px;
       }
     }
