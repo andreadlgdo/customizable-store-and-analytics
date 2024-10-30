@@ -21,6 +21,15 @@ module.exports = {
     withDefaults: 'readonly'
   },
   rules: {
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        varsIgnorePattern: '^_',
+        argsIgnorePattern: '^_',
+        ignoreRestSiblings: true
+      }
+    ],
     'vue/attributes-order': 'off',
     'vue/v-on-event-hyphenation': 'off',
     'vue/max-attributes-per-line': 'off',
