@@ -1,27 +1,5 @@
 <template>
   <base-aside @close="$emit('close')" :is-open="isOpen" type="round">
-    <template v-slot:header>
-      <div :class="`${baseClass}__toggle`">
-        <button
-          @click="selectedShoppingCart = true"
-          :class="[
-            `${baseClass}__button ${baseClass}__button--cart`,
-            { [`${baseClass}__button--selected`]: selectedShoppingCart }
-          ]"
-        >
-          {{ t('productAsides.cart.title') }}
-        </button>
-        <button
-          @click="selectedShoppingCart = false"
-          :class="[
-            `${baseClass}__button ${baseClass}__button--whistlist`,
-            { [`${baseClass}__button--selected`]: !selectedShoppingCart }
-          ]"
-        >
-          {{ t('productAsides.whistList.title') }}
-        </button>
-      </div>
-    </template>
     <template v-slot:default>
       <div
         v-if="
@@ -29,46 +7,7 @@
           (!selectedShoppingCart && !whistListProducts.length)
         "
         :class="`${baseClass}__content`"
-      >
-        <img
-          :class="`${baseClass}__image`"
-          src="../../assets/media/images/empty.png"
-          alt="Empty cart"
-        />
-        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--text`">
-          <h2>
-            {{
-              selectedShoppingCart
-                ? t('productAsides.cart.empty.title')
-                : t('productAsides.whistList.empty.title')
-            }}
-          </h2>
-          <p>
-            {{
-              selectedShoppingCart
-                ? t('productAsides.cart.empty.description')
-                : t('productAsides.whistList.empty.description')
-            }}
-          </p>
-        </div>
-        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
-          <button-input
-            @click="selectedShoppingCart = !selectedShoppingCart"
-            :text="
-              selectedShoppingCart
-                ? t('productAsides.cart.button')
-                : t('productAsides.whistList.button')
-            "
-            size="large"
-          />
-          <button-input
-            @click="$emit('close')"
-            :text="t('productAsides.action')"
-            type="fill"
-            size="large"
-          />
-        </div>
-      </div>
+      ></div>
       <div
         v-else-if="!selectedShoppingCart"
         :class="`${baseClass}__products ${baseClass}__products--whistList`"
