@@ -55,14 +55,14 @@
   import { Category } from '../../interfaces';
   import { categoryService } from '../../services';
 
+  import SvgIcon from '../icons/svg-icon.component.vue';
+  import BaseButton from '../inputs/base-button.component.vue';
   import BaseToggle from '../inputs/base-toggle.component.vue';
 
+  import BaseText from '../base-text.component.vue';
   import CategoriesSection from '../categories-section.component.vue';
 
   import BaseAside from './base-aside.component.vue';
-  import BaseButton from '../inputs/base-button.component.vue';
-  import BaseText from '../base-text.component.vue';
-  import SvgIcon from '../icons/svg-icon.component.vue';
 
   const baseClass = 'shop-aside';
 
@@ -86,14 +86,11 @@
   );
 
   const selectToggle = (value: string) => {
-    if (toggleValues[0] === value) {
-      toggleItem.value.first.selected = true;
-      toggleItem.value.second.selected = false;
-    } else {
-      toggleItem.value.first.selected = false;
-      toggleItem.value.second.selected = true;
-      console.log('toggleSelectedValue', toggleSelectedValue.value);
-    }
+    const isFirstValue = value === toggleValues[0];
+    toggleItem.value = {
+      first: { value: toggleValues[0], selected: isFirstValue },
+      second: { value: toggleValues[1], selected: !isFirstValue }
+    };
   };
 
   onMounted(async () => {
