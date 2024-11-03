@@ -3,20 +3,18 @@
     <div :class="baseClass">
       <base-toggle @selectToggle="selectToggle" :item="toggleItem" color="primary" have-shadow />
       <transition-group :name="baseClass" mode="out-in">
-        <base-text tag="h3">{{ 'Tu ' + toggleSelectedValue + ' esta vacia' }}</base-text>
-
+        <base-text tag="h3">
+          {{ 'Tu ' + toggleSelectedValue + ' esta vacia' }}
+        </base-text>
         <svg-icon
-          v-if="toggleSelectedValue === toggleValues[0]"
-          :class="`${baseClass}__icon ${baseClass}__icon--cart`"
-          :src="require('../../assets/media/icons/cart_empty.svg')"
-          color-attribute="stroke"
-          size="extra-large"
-        />
-        <svg-icon
-          v-else
-          :class="`${baseClass}__icon ${baseClass}__icon--whistlist`"
-          :src="require('../../assets/media/icons/heart_empty.svg')"
-          color-attribute="both"
+          :key="toggleSelectedValue"
+          :class="`${baseClass}__icon ${baseClass}__icon--${toggleSelectedValue === toggleValues[0] ? 'cart' : 'whistlist'}`"
+          :src="
+            require(
+              `../../assets/media/icons/${toggleSelectedValue === toggleValues[0] ? 'cart_empty' : 'heart_empty'}.svg`
+            )
+          "
+          :color-attribute="toggleSelectedValue === toggleValues[0] ? 'stroke' : 'both'"
           size="extra-large"
         />
         <svg-icon
@@ -66,13 +64,13 @@
 
   const baseClass = 'shop-aside';
 
-  const toggleValues = ['Carrito', 'Whistlist'];
-
   defineProps({
     isOpen: Boolean
   });
 
   defineEmits(['close']);
+
+  const toggleValues = ['carrito', 'whistlist'];
 
   const categories = ref<Category[]>([]);
 
