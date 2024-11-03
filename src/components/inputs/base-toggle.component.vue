@@ -59,16 +59,20 @@
     haveShadow: Boolean
   });
 
+  const emit = defineEmits(['selectToggle']);
+
   const toggleItem = ref(props.item);
 
   const selectSecond = () => {
     toggleItem.value.second.selected = true;
     toggleItem.value.first.selected = false;
+    emit('selectToggle', toggleItem.value.second.value);
   };
 
   const selectFirst = () => {
     toggleItem.value.second.selected = false;
     toggleItem.value.first.selected = true;
+    emit('selectToggle', toggleItem.value.first.value);
   };
 </script>
 
@@ -80,7 +84,7 @@
     width: 320px;
     height: 50px;
     border-radius: 30px;
-    padding: 0 6px;
+    padding: 6px;
     background-color: var(--background-color);
 
     &--shadow {
