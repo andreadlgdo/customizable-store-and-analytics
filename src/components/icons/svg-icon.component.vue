@@ -81,6 +81,11 @@
       height: 2.5rem;
     }
 
+    &--extra-large svg {
+      width: 4.5rem;
+      height: 4.5rem;
+    }
+
     &--custom svg {
       height: 22rem;
     }

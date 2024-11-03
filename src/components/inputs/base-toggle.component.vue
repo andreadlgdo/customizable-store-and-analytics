@@ -13,7 +13,7 @@
         { [`${baseClass}__wrapper--selected`]: toggleItem.first.selected }
       ]"
     >
-      <base-text tag="default">{{ toggleItem.first.value }}</base-text>
+      <base-text tag="default">{{ capitalizeSentence(toggleItem.first.value) }}</base-text>
     </div>
     <div
       @click="selectSecond"
@@ -22,7 +22,7 @@
         { [`${baseClass}__wrapper--selected`]: toggleItem.second.selected }
       ]"
     >
-      <base-text tag="default">{{ toggleItem.second.value }}</base-text>
+      <base-text tag="default">{{ capitalizeSentence(toggleItem.second.value) }}</base-text>
     </div>
   </div>
 </template>
@@ -30,6 +30,7 @@
 <script lang="ts" setup>
   import { PropType, ref } from 'vue';
 
+  import { useTextTransform } from '../../composables';
   import { ColorType } from '../../types';
 
   import BaseText from '../base-text.component.vue';
@@ -59,16 +60,22 @@
     haveShadow: Boolean
   });
 
+  const emit = defineEmits(['selectToggle']);
+
+  const { capitalizeSentence } = useTextTransform();
+
   const toggleItem = ref(props.item);
 
   const selectSecond = () => {
     toggleItem.value.second.selected = true;
     toggleItem.value.first.selected = false;
+    emit('selectToggle', toggleItem.value.second.value);
   };
 
   const selectFirst = () => {
     toggleItem.value.second.selected = false;
     toggleItem.value.first.selected = true;
+    emit('selectToggle', toggleItem.value.first.value);
   };
 </script>
 
@@ -80,7 +87,7 @@
     width: 320px;
     height: 50px;
     border-radius: 30px;
-    padding: 0 6px;
+    padding: 6px;
     background-color: var(--background-color);
 
     &--shadow {
