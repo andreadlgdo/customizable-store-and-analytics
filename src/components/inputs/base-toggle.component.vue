@@ -13,7 +13,7 @@
         { [`${baseClass}__wrapper--selected`]: toggleItem.first.selected }
       ]"
     >
-      <base-text tag="default">{{ toggleItem.first.value }}</base-text>
+      <base-text tag="default">{{ capitalizeSentence(toggleItem.first.value) }}</base-text>
     </div>
     <div
       @click="selectSecond"
@@ -22,7 +22,7 @@
         { [`${baseClass}__wrapper--selected`]: toggleItem.second.selected }
       ]"
     >
-      <base-text tag="default">{{ toggleItem.second.value }}</base-text>
+      <base-text tag="default">{{ capitalizeSentence(toggleItem.second.value) }}</base-text>
     </div>
   </div>
 </template>
@@ -30,6 +30,7 @@
 <script lang="ts" setup>
   import { PropType, ref } from 'vue';
 
+  import { useTextTransform } from '../../composables';
   import { ColorType } from '../../types';
 
   import BaseText from '../base-text.component.vue';
@@ -60,6 +61,8 @@
   });
 
   const emit = defineEmits(['selectToggle']);
+
+  const { capitalizeSentence } = useTextTransform();
 
   const toggleItem = ref(props.item);
 
