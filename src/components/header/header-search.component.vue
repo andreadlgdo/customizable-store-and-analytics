@@ -26,10 +26,9 @@
 
 <script lang="ts" setup>
   import { ref } from 'vue';
-
-  import IconButton from '../icons/icon-button.component.vue';
-  import SvgIcon from '../icons/svg-icon.component.vue';
   import { useI18n } from 'vue-i18n';
+
+  import { IconButton, SvgIcon } from '../icons';
 
   const baseClass = 'header-search';
 

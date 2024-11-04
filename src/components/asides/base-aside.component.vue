@@ -22,7 +22,7 @@
 
   import { AsideType, PositionType } from '../../types';
 
-  import IconButton from '../icons/icon-button.component.vue';
+  import { IconButton } from '../icons';
 
   const baseClass = 'base-aside';
 

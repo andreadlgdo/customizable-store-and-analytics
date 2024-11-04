@@ -29,17 +29,15 @@
 <script lang="ts" setup>
   import { onMounted, ref } from 'vue';
 
-  import LogInAside from '../components/asides/log-in-aside.component.vue';
-  import ShopAside from '../components/asides/shop-aside.component.vue';
-  import SignUpAside from '../components/asides/sign-up-aside.component.vue';
-
-  import Header from '../components/header/header.component.vue';
-
-  import Menu from '../components/mobile/menu.component.vue';
-
-  import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
-  import LanguageToggle from '../components/toggles/language-toggle.component.vue';
-
+  import {
+    Header,
+    LanguageToggle,
+    LogInAside,
+    Menu,
+    ShopAside,
+    SignUpAside,
+    ThemeToggle
+  } from '../components';
   import { useProducts } from '../composables';
 
   const { fetchProducts } = useProducts();

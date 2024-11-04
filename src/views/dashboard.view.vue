@@ -26,8 +26,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
 
-  import MenuItems from '../components/menu/menu-items.component.vue';
-
+  import { MenuItems } from '../components';
   import { useUserMenu } from '../composables';
   import { imageService, userService } from '../services';
 

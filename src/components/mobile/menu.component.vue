@@ -21,9 +21,9 @@
   import { ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import BaseAside from '../asides/base-aside.component.vue';
-  import SvgIcon from '../icons/svg-icon.component.vue';
-  import MenuItems from '../menu/menu-items.component.vue';
+  import { BaseAside } from '../asides';
+  import { SvgIcon } from '../icons';
+  import { MenuItems } from '../menu';
 
   const baseClass = 'menu';
 

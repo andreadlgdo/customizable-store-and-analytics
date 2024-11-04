@@ -26,8 +26,8 @@
 
   import { Product } from '../../interfaces';
 
-  import ButtonInput from '../inputs/button-input.component.vue';
-  import IconButton from '../icons/icon-button.component.vue';
+  import { IconButton } from '../icons';
+  import { ButtonInput } from '../inputs';
 
   const { t } = useI18n();
 

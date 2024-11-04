@@ -101,14 +101,9 @@
   import { useUsers } from '../../composables';
   import { User } from '../../interfaces';
 
-  import SvgIcon from '../icons/svg-icon.component.vue';
-
-  import BaseButton from '../inputs/base-button.component.vue';
-  import BaseTextInput from '../inputs/base-text-input.component.vue';
-  import CheckboxInput from '../inputs/checkbox-input.component.vue';
-  import PasswordInput from '../inputs/password-input.component.vue';
-
   import BaseText from '../base-text.component.vue';
+  import { SvgIcon } from '../icons';
+  import { BaseButton, BaseTextInput, CheckboxInput, PasswordInput } from '../inputs';
 
   import BaseAside from './base-aside.component.vue';
   import MenuUserAside from './menu-user-aside.component.vue';

@@ -38,9 +38,8 @@
     SvgIconType
   } from '../../types';
 
-  import IconButton from '../icons/icon-button.component.vue';
-
   import BaseText from '../base-text.component.vue';
+  import { IconButton } from '../icons';
 
   const baseClass = 'base-button';
 

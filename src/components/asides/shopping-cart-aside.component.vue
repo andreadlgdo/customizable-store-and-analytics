@@ -12,7 +12,7 @@
         v-else-if="!selectedShoppingCart"
         :class="`${baseClass}__products ${baseClass}__products--whistList`"
       >
-        <product-card-whist-list
+        <product-card-whistlist
           @updateProduct="$emit('updateProduct', $event)"
           v-for="(product, index) in whistListProducts"
           :key="index"
@@ -65,13 +65,9 @@
 
   import { Product } from '../../interfaces';
 
-  import SvgIcon from '../icons/svg-icon.component.vue';
-  import IconButton from '../icons/icon-button.component.vue';
-
-  import ButtonInput from '../inputs/button-input.component.vue';
-
-  import ProductCardShoppingCart from '../product-cards/product-card-shopping-cart.component.vue';
-  import ProductCardWhistList from '../product-cards/product-card-whist-list.component.vue';
+  import { IconButton, SvgIcon } from '../icons';
+  import { ButtonInput } from '../inputs';
+  import { ProductCardShoppingCart, ProductCardWhistlist } from '../product-cards';
 
   import BaseAside from './base-aside.component.vue';
 
