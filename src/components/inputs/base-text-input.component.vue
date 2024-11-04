@@ -49,10 +49,8 @@
 
   import { InputType, ColorType, InputFormType, SvgIconType } from '../../types';
 
-  import IconButton from '../icons/icon-button.component.vue';
-  import SvgIcon from '../icons/svg-icon.component.vue';
-
   import BaseText from '../base-text.component.vue';
+  import { IconButton, SvgIcon } from '../icons';
 
   const baseClass = 'base-text-input';
 

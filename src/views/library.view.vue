@@ -151,7 +151,7 @@
         {{ t('library.products.title.whistList') }}
       </h3>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
-        <product-card-whist-list
+        <product-card-whistlist
           :class="`${baseClass}__product`"
           v-for="(product, index) in products"
           :key="index"
@@ -183,25 +183,22 @@
   import { ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import BaseAside from '../components/asides/base-aside.component.vue';
-  import LogInAside from '../components/asides/log-in-aside.component.vue';
-  import SignUpAside from '../components/asides/sign-up-aside.component.vue';
-  import ShoppingCartAside from '../components/asides/shopping-cart-aside.component.vue';
-
-  import IconButton from '../components/icons/icon-button.component.vue';
-  import SvgIcon from '../components/icons/svg-icon.component.vue';
-
-  import Header from '../components/header/header.component.vue';
-
-  import ButtonInput from '../components/inputs/button-input.component.vue';
-  import CheckboxInput from '../components/inputs/checkbox-input.component.vue';
-  import TextInput from '../components/inputs/text-input.component.vue';
-
-  import ProductCardShoppingCart from '../components/product-cards/product-card-shopping-cart.component.vue';
-  import ProductCardWhistList from '../components/product-cards/product-card-whist-list.component.vue';
-
-  import LanguageToggle from '../components/toggles/language-toggle.component.vue';
-  import ThemeToggle from '../components/toggles/theme-toggle.component.vue';
+  import {
+    CheckboxInput,
+    ButtonInput,
+    Header,
+    IconButton,
+    BaseAside,
+    LanguageToggle,
+    LogInAside,
+    ProductCardShoppingCart,
+    ProductCardWhistlist,
+    ShoppingCartAside,
+    SignUpAside,
+    SvgIcon,
+    TextInput,
+    ThemeToggle
+  } from '../components';
 
   const { t } = useI18n();
 

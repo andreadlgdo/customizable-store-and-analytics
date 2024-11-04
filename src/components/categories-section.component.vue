@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-  import BaseButton from './inputs/base-button.component.vue';
+  import { BaseButton } from './inputs';
 
   const baseClass = 'categories-section';
 

@@ -53,12 +53,10 @@
   import { Category } from '../../interfaces';
   import { categoryService } from '../../services';
 
-  import SvgIcon from '../icons/svg-icon.component.vue';
-  import BaseButton from '../inputs/base-button.component.vue';
-  import BaseToggle from '../inputs/base-toggle.component.vue';
-
   import BaseText from '../base-text.component.vue';
   import CategoriesSection from '../categories-section.component.vue';
+  import { SvgIcon } from '../icons';
+  import { BaseButton, BaseToggle } from '../inputs';
 
   import BaseAside from './base-aside.component.vue';
 

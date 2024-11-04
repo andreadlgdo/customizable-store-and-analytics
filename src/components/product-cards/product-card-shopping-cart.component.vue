@@ -33,7 +33,7 @@
 
   import { Product } from '../../interfaces';
 
-  import IconButton from '../icons/icon-button.component.vue';
+  import { IconButton } from '../icons';
 
   const baseClass = 'product-card-shopping-cart';
 

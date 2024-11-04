@@ -33,10 +33,8 @@
 <script lang="ts" setup>
   import { useI18n } from 'vue-i18n';
 
-  import BaseTextInput from '../inputs/base-text-input.component.vue';
-  import CheckboxInput from '../inputs/checkbox-input.component.vue';
-
   import BaseText from '../base-text.component.vue';
+  import { BaseTextInput, CheckboxInput } from '../inputs';
 
   const baseClass = 'password-input';
 

@@ -41,8 +41,7 @@
 <script setup lang="ts">
   import { ref } from 'vue';
 
-  import IconButton from '../icons/icon-button.component.vue';
-  import SvgIcon from '../icons/svg-icon.component.vue';
+  import { IconButton, SvgIcon } from '../icons';
 
   import HeaderSearch from './header-search.component.vue';
 

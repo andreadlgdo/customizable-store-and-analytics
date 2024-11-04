@@ -31,8 +31,8 @@
   import { useUserMenu } from '../../composables';
   import { User } from '../../interfaces';
 
-  import MenuItems from '../menu/menu-items.component.vue';
-  import ButtonInput from '../inputs/button-input.component.vue';
+  import { ButtonInput } from '../inputs';
+  import { MenuItems } from '../menu';
 
   import BaseAside from './base-aside.component.vue';
 

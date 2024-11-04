@@ -30,10 +30,9 @@
 <script lang="ts" setup>
   import { PropType, ref } from 'vue';
 
-  import IconButton from '../icons/icon-button.component.vue';
-  import SvgIcon from '../icons/svg-icon.component.vue';
-
   import type { SvgIconType } from '../../types';
+
+  import { IconButton, SvgIcon } from '../icons';
 
   const baseClass = 'input';
 

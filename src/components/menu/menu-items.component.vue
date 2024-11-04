@@ -46,7 +46,7 @@
 
   import { MenuItem } from '../../interfaces';
 
-  import SvgIcon from '../icons/svg-icon.component.vue';
+  import { SvgIcon } from '../icons';
 
   const baseClass = 'menu-items';
 
