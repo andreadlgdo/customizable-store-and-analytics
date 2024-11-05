@@ -74,7 +74,13 @@ const userAsidesMessages = {
       },
       password: {
         title: 'Password',
-        error: 'The password field is empty'
+        error: 'The password field is empty',
+        requirements: {
+          letter: 'Minium 1 letter',
+          characters: 'Minium 8 characters',
+          uppercase: 'Atleast 1 uppercase',
+          specialCharacter: 'Atleast 1 number'
+        }
       },
       repeatPassword: {
         title: 'Repeat password',

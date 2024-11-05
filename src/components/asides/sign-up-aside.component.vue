@@ -28,11 +28,22 @@
           color-attribute="fill"
           :error="errorEmail"
         />
-        <password-input
-          @input="query => (userForm.password = query)"
-          :label="t('userAsides.signUp.inputsPlaceholders.password.title')"
-          :error="errorPassword"
-        />
+        <div>
+          <password-input
+            @input="query => (userForm.password = query)"
+            :label="t('userAsides.signUp.inputsPlaceholders.password.title')"
+            :error="errorPassword"
+          />
+          <div :class="`${baseClass}__wrapper-pill`">
+            <base-pill
+              v-for="(item, index) in passwordRequirements"
+              :key="index"
+              :text="item.value"
+              :color="item.status"
+              icon="tick"
+            />
+          </div>
+        </div>
         <password-input
           @input="query => (userForm.repeatPassword = query)"
           :label="t('userAsides.signUp.inputsPlaceholders.repeatPassword.title')"
@@ -101,6 +112,7 @@
   import { useUsers } from '../../composables';
   import { User } from '../../interfaces';
 
+  import BasePill from '../base-pill.component.vue';
   import BaseText from '../base-text.component.vue';
   import { SvgIcon } from '../icons';
   import { BaseButton, BaseTextInput, CheckboxInput, PasswordInput } from '../inputs';
@@ -144,9 +156,58 @@
   const errorEmail = ref('');
   const errorAcceptTerms = ref('');
 
-  const isValidEmail = (email: string): boolean => {
+  const passwordRequirements = ref([
+    {
+      value: t('userAsides.signUp.inputsPlaceholders.password.requirements.characters'),
+      status: 'default'
+    },
+    {
+      value: t('userAsides.signUp.inputsPlaceholders.password.requirements.letter'),
+      status: 'default'
+    },
+    {
+      value: t('userAsides.signUp.inputsPlaceholders.password.requirements.uppercase'),
+      status: 'default'
+    },
+    {
+      value: t('userAsides.signUp.inputsPlaceholders.password.requirements.specialCharacter'),
+      status: 'default'
+    }
+  ]);
+
+  const validPassword = (password: string, repeatPassword: string): void => {
+    if (!password) {
+      errorPassword.value = t('userAsides.signUp.inputsPlaceholders.password.error');
+    }
+
+    const minLength = 8;
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+
+    const requirements = [
+      { check: () => password.length >= minLength, index: 0 },
+      { check: () => hasLetter, index: 1 },
+      { check: () => hasUpperCase, index: 2 },
+      { check: () => hasNumber, index: 3 }
+    ];
+
+    requirements.forEach(({ check, index }) => {
+      passwordRequirements.value[index].status = check() ? 'success' : 'error';
+    });
+
+    if (password !== repeatPassword) {
+      equalPassword.value = t('userAsides.signUp.inputsPlaceholders.repeatPassword.error');
+    }
+  };
+
+  const validEmail = (email: string): void => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+    if (!email) {
+      errorEmail.value = t('userAsides.signUp.inputsPlaceholders.email.error.empty');
+    } else if (!regex.test(email)) {
+      errorEmail.value = t('userAsides.signUp.inputsPlaceholders.email.error.incorrect');
+    }
   };
 
   const addUser = async (): Promise<void> => {
@@ -156,16 +217,9 @@
     errorEmail.value = '';
     errorAcceptTerms.value = '';
 
-    if (!userForm.value.password) {
-      errorPassword.value = t('userAsides.signUp.inputsPlaceholders.password.error');
-    } else if (userForm.value.password !== userForm.value.repeatPassword) {
-      equalPassword.value = t('userAsides.signUp.inputsPlaceholders.repeatPassword.error');
-    }
-    if (!userForm.value.email) {
-      errorEmail.value = t('userAsides.signUp.inputsPlaceholders.email.error.empty');
-    } else if (!isValidEmail(userForm.value.email)) {
-      errorEmail.value = t('userAsides.signUp.inputsPlaceholders.email.error.incorrect');
-    }
+    validPassword(userForm.value.password, userForm.value.repeatPassword);
+    validEmail(userForm.value.email);
+
     if (!userForm.value.username) {
       errorUser.value = t('userAsides.signUp.inputsPlaceholders.username.error.empty');
     } else {
@@ -246,6 +300,11 @@
       &--footer {
         gap: 12px;
       }
+    }
+
+    &__wrapper-pill {
+      display: flex;
+      flex-wrap: wrap;
     }
 
     &__text {
