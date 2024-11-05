@@ -89,6 +89,12 @@ export interface UserAsideMessages {
       password: {
         title: string;
         error: string;
+        requirements: {
+          letter: string;
+          characters: string;
+          uppercase: string;
+          specialCharacter: string;
+        };
       };
       repeatPassword: {
         title: string;

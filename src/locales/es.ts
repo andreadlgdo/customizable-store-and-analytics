@@ -74,7 +74,13 @@ const userAsidesMessages = {
       },
       password: {
         title: 'Contraseña',
-        error: 'El campo contraseña esta vacio'
+        error: 'El campo contraseña esta vacio',
+        requirements: {
+          letter: 'Minimo una letra',
+          characters: 'Minimo 8 caracteres',
+          uppercase: 'Al menos una mayuscula',
+          specialCharacter: 'Al menos un numero'
+        }
       },
       repeatPassword: {
         title: 'Repetir contraseña',
