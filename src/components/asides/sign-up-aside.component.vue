@@ -185,29 +185,16 @@
     const hasUpperCase = /[A-Z]/.test(password);
     const hasNumber = /\d/.test(password);
 
-    if (password.length >= minLength) {
-      passwordRequirements.value[0].status = 'success';
-    } else {
-      passwordRequirements.value[0].status = 'error';
-    }
+    const requirements = [
+      { check: () => password.length >= minLength, index: 0 },
+      { check: () => hasLetter, index: 1 },
+      { check: () => hasUpperCase, index: 2 },
+      { check: () => hasNumber, index: 3 }
+    ];
 
-    if (hasLetter) {
-      passwordRequirements.value[1].status = 'success';
-    } else {
-      passwordRequirements.value[1].status = 'error';
-    }
-
-    if (hasUpperCase) {
-      passwordRequirements.value[2].status = 'success';
-    } else {
-      passwordRequirements.value[2].status = 'error';
-    }
-
-    if (hasNumber) {
-      passwordRequirements.value[3].status = 'success';
-    } else {
-      passwordRequirements.value[3].status = 'error';
-    }
+    requirements.forEach(({ check, index }) => {
+      passwordRequirements.value[index].status = check() ? 'success' : 'error';
+    });
 
     if (password !== repeatPassword) {
       equalPassword.value = t('userAsides.signUp.inputsPlaceholders.repeatPassword.error');
