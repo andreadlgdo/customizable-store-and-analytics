@@ -1,8 +1,6 @@
 <template>
   <div :class="baseClass">
-    <div
-      :class="[`${baseClass}__wrapper`, { [`${baseClass}__wrapper--search-box`]: isOpenSearchBox }]"
-    >
+    <div :class="[`${baseClass}__wrapper`]">
       <section :class="`${baseClass}__menu ${baseClass}__menu--left`">
         <icon-button @click="$emit('clickMenu')" icon="menu" color-attribute="stroke" />
       </section>
@@ -14,11 +12,7 @@
         />
       </section>
       <section :class="`${baseClass}__menu ${baseClass}__menu--right`">
-        <icon-button
-          @click="isOpenSearchBox = !isOpenSearchBox"
-          icon="search"
-          color-attribute="fill"
-        />
+        <icon-button icon="search" color-attribute="fill" />
         <icon-button
           @click="$emit('clickUser')"
           :class="`${baseClass}__icon ${baseClass}__icon--user`"
@@ -32,22 +26,13 @@
         />
       </section>
     </div>
-    <transition name="header">
-      <header-search v-if="isOpenSearchBox" />
-    </transition>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
-
   import { IconButton, SvgIcon } from '../icons';
 
-  import HeaderSearch from './header-search.component.vue';
-
   const baseClass = 'header';
-
-  const isOpenSearchBox = ref(false);
 
   defineEmits(['clickUser', 'clickShoppingCart', 'clickMenu']);
 </script>
@@ -62,10 +47,6 @@
       grid-template-columns: 1fr auto 1fr;
       height: 5rem;
       padding: 0 2rem;
-
-      &--search-box {
-        box-shadow: var(--shadow-header-search-box);
-      }
     }
 
     &__menu {
