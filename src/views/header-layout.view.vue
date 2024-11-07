@@ -10,7 +10,6 @@
     @close="closeAllAsides"
     @openSignUpAsideOpen="openSignUpAsideOpen"
     :is-open="isLogInAsideOpen"
-    :close-position="isMobile ? 'left' : 'right'"
   />
   <sign-up-aside
     @close="closeAllAsides"
@@ -19,9 +18,9 @@
     :close-position="isMobile ? 'left' : 'right'"
   />
   <shop-aside @close="closeAllAsides" :is-open="isShoppingCartAsideOpen" />
-  <Menu
+  <menu-aside
     @close="closeAllAsides"
-    @clickUserAsideOnMobile="openUserAsideOnMobile"
+    @openLogInAside="openUserAsideOnMobile"
     :is-open="isMenuOpen"
   />
 </template>
@@ -33,7 +32,7 @@
     Header,
     LanguageToggle,
     LogInAside,
-    Menu,
+    MenuAside,
     ShopAside,
     SignUpAside,
     ThemeToggle
