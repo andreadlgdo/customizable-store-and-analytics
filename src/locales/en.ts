@@ -200,7 +200,8 @@ const appMenuMessages = {
     contact: 'Contact',
     about: 'About',
     faq: 'FAQ'
-  }
+  },
+  backToMenu: 'Back to the main menu'
 };
 
 const messages: AppMessages['en'] = {

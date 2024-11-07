@@ -22,9 +22,9 @@
         />
         <base-text
           :tag="isSubmenuOpen ? 'default' : 'h4'"
-          :class="{ [`${baseClass}__Text`]: isSubmenuOpen }"
+          :class="{ [`${baseClass}__text`]: isSubmenuOpen }"
         >
-          {{ isSubmenuOpen ? 'Back to the main menu' : t('menus.appMenu.mobile.login') }}
+          {{ isSubmenuOpen ? t('menus.appMenu.backToMenu') : t('menus.appMenu.mobile.login') }}
         </base-text>
       </div>
       <list-items

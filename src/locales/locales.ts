@@ -216,4 +216,5 @@ export interface AppMenuMessages {
     about: string;
     faq: string;
   };
+  backToMenu: string;
 }

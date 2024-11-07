@@ -201,7 +201,8 @@ const appMenuMessages = {
     contact: 'Contacto',
     about: 'Conocenos',
     faq: 'Preguntas frecuentes'
-  }
+  },
+  backToMenu: 'Volver al menu principal'
 };
 
 const messages: AppMessages['es'] = {
