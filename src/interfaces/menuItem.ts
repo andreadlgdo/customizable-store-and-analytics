@@ -1,5 +1,6 @@
 export interface MenuItem {
   label: string;
   description?: string;
-  subMenu?: string[];
+  subItem?: MenuItem[];
+  image?: string;
 }
