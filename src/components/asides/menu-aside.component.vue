@@ -104,12 +104,14 @@
   watch(
     () => menuElements.value,
     () => {
-      subMenuSelected.value = menuElements.value.flatMap(
-        menuElement =>
-          menuElement.subItem?.filter(subItem =>
-            subMenuSelected.value?.some(itemSelected => itemSelected.id === subItem.id)
-          ) || []
-      );
+      if (subMenuSelected.value) {
+        subMenuSelected.value = menuElements.value.flatMap(
+          menuElement =>
+            menuElement.subItem?.filter(subItem =>
+              subMenuSelected.value?.some(itemSelected => itemSelected.id === subItem.id)
+            ) || []
+        );
+      }
     }
   );
 </script>
