@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { computed } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import BaseText from '../base-text.component.vue';
@@ -25,7 +25,7 @@
 
   const { t, locale, availableLocales } = useI18n();
 
-  const languages = ref(
+  const languages = computed(() =>
     availableLocales.map(locale => ({
       label: t(`languages.${locale}`),
       value: locale
