@@ -111,7 +111,7 @@
   const errorPassword = ref('');
   const invalidCredentials = ref('');
 
-  const position = computed(() => (isMobile ? 'left' : 'right'));
+  const position = computed(() => (isMobile.value ? 'left' : 'right'));
 
   const logInUser = async (): Promise<void> => {
     errorPassword.value = '';

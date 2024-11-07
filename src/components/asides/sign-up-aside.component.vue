@@ -172,7 +172,7 @@
     }
   ]);
 
-  const position = computed(() => (isMobile ? 'left' : 'right'));
+  const position = computed(() => (isMobile.value ? 'left' : 'right'));
 
   const validPassword = (password: string, repeatPassword: string): void => {
     if (!password) {
