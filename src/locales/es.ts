@@ -188,7 +188,7 @@ const appMenuMessages = {
       subItems: {
         clothes: 'Ropa',
         accessories: {
-          title: 'Accessories',
+          title: 'Accesorios',
           subItems: {
             bags: 'Bolsos',
             jewelry: 'Joyas'
