@@ -1,5 +1,9 @@
 export interface AppMessages {
   [locale: string]: {
+    languages: {
+      es: string;
+      en: string;
+    };
     library: LibraryMessages;
     header: {
       searchBox: string;
@@ -195,9 +199,9 @@ export interface AppMenuMessages {
     home: string;
     shop: {
       title: string;
-    },
+    };
     contact: string;
     about: string;
     faq: string;
-  }
+  };
 }
