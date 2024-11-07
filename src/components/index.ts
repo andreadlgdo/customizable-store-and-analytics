@@ -3,7 +3,6 @@ export * from './header';
 export * from './icons';
 export * from './inputs';
 export * from './menu';
-export * from './mobile';
 export * from './product-cards';
 export * from './toggles';
 
