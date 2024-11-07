@@ -177,6 +177,21 @@ const productAsidesMessages = {
   action: 'Ir a comprar'
 };
 
+const appMenuMessages = {
+  mobile: {
+    login: 'Iniciar sesion'
+  },
+  items: {
+    home: 'Inicio',
+    shop: {
+      title: 'Tienda'
+    },
+    contact: 'Contacto',
+    about: 'Conocenos',
+    faq: 'Preguntas frecuentes'
+  }
+};
+
 const messages: AppMessages['es'] = {
   library: libraryMessages,
   header: {
@@ -184,10 +199,8 @@ const messages: AppMessages['es'] = {
   },
   userAsides: userAsidesMessages,
   productAsides: productAsidesMessages,
-  mobile: {
-    menu: {
-      login: 'Iniciar sesion'
-    }
+  menus: {
+    appMenu: appMenuMessages
   }
 };
 

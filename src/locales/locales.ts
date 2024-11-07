@@ -6,10 +6,8 @@ export interface AppMessages {
     };
     userAsides: UserAsideMessages;
     productAsides: ProductAsideMessages;
-    mobile: {
-      menu: {
-        login: string;
-      };
+    menus: {
+      appMenu: AppMenuMessages;
     };
   };
 }
@@ -187,4 +185,19 @@ export interface ProductAsideMessages {
     };
   };
   action: string;
+}
+
+export interface AppMenuMessages {
+  mobile: {
+    login: string;
+  };
+  items: {
+    home: string;
+    shop: {
+      title: string;
+    },
+    contact: string;
+    about: string;
+    faq: string;
+  }
 }
