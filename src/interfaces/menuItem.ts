@@ -1,5 +1,8 @@
 export interface MenuItem {
+  // TO DO: Change optional id
+  id?: number;
   label: string;
   description?: string;
-  subMenu?: string[];
+  subItem?: MenuItem[];
+  image?: string;
 }

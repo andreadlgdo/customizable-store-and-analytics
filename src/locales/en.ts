@@ -183,12 +183,25 @@ const appMenuMessages = {
   items: {
     home: 'Home',
     shop: {
-      title: 'Shop'
+      title: 'Shop',
+      subItems: {
+        clothes: 'Clothes',
+        accessories: {
+          title: 'Accessories',
+          subItems: {
+            bags: 'Bags',
+            jewelry: 'Jewelry'
+          }
+        },
+        shoes: 'Shoes',
+        promotions: 'Promotions'
+      }
     },
     contact: 'Contact',
     about: 'About',
     faq: 'FAQ'
-  }
+  },
+  backToMenu: 'Back to the main menu'
 };
 
 const messages: AppMessages['en'] = {
