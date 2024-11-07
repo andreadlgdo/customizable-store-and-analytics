@@ -74,7 +74,7 @@
       }
 
       &:not(#{$baseClass}--square) {
-        margin: 4px 6px 0 0;
+        margin: 4px 6px 4px 0;
       }
     }
 
@@ -88,7 +88,7 @@
       }
 
       &:not(#{$baseClass}--square) {
-        margin: 4px 0 0 6px;
+        margin: 4px 0 4px 6px;
       }
     }
 
@@ -121,7 +121,7 @@
 
   @media only screen and (max-width: 500px) {
     .base-aside {
-      margin: 0;
+      margin: 0 !important;
       height: 100%;
       width: 100%;
       border-radius: 0;
