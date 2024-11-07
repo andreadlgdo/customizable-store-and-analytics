@@ -72,6 +72,10 @@
       &-leave-active {
         animation: slide-out-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
       }
+
+      &:not(#{$baseClass}--square) {
+        margin: 4px 6px 0 0;
+      }
     }
 
     &--left {
@@ -82,11 +86,14 @@
       &-leave-active {
         animation: slide-out-left 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
       }
+
+      &:not(#{$baseClass}--square) {
+        margin: 4px 0 0 6px;
+      }
     }
 
     &--round {
       border-radius: 50px;
-      margin: 4px 6px 0 0;
       height: 99vh;
     }
 
@@ -99,7 +106,7 @@
     &__header {
       position: absolute;
       top: 1.5rem;
-      padding-left: 24px;
+      padding-left: 36px;
       z-index: 1;
     }
   }
