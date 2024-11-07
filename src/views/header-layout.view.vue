@@ -5,7 +5,6 @@
     @clickMenu="isMenuOpen = true"
   />
   <theme-toggle class="changePosition changePosition__theme" />
-  <language-toggle class="changePosition changePosition__language" />
   <log-in-aside
     @close="closeAllAsides"
     @openSignUpAsideOpen="openSignUpAsideOpen"
@@ -30,7 +29,6 @@
 
   import {
     Header,
-    LanguageToggle,
     LogInAside,
     MenuAside,
     ShopAside,
@@ -80,10 +78,6 @@
   .changePosition {
     position: absolute;
     top: 2rem;
-
-    &__language {
-      right: 12rem;
-    }
     &__theme {
       right: 16rem;
     }

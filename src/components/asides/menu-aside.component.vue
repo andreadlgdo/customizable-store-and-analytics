@@ -12,6 +12,7 @@
         <base-text tag="h4">{{ t('menus.appMenu.mobile.login') }}</base-text>
       </div>
       <list-items :items="menuElements" />
+      <language-toggle />
     </div>
   </base-aside>
 </template>
@@ -25,6 +26,7 @@
   import BaseText from '../base-text.component.vue';
   import { SvgIcon } from '../icons';
   import ListItems from '../list-items.component.vue';
+  import { LanguageToggle } from '../toggles';
 
   import BaseAside from './base-aside.component.vue';
 
