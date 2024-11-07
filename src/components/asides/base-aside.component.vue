@@ -1,8 +1,13 @@
 <template>
-  <transition :name="baseClass">
+  <transition :name="`${baseClass}--${asidePosition}`">
     <div
       v-if="isOpen"
-      :class="[baseClass, `${baseClass}--${type}`, `${baseClass}--${closePosition}`]"
+      :class="[
+        baseClass,
+        `${baseClass}--${type}`,
+        `${baseClass}--${asidePosition}`,
+        `${baseClass}--icon-${closePosition}`
+      ]"
     >
       <div :class="`${baseClass}__header`">
         <icon-button
@@ -35,6 +40,10 @@
     closePosition: {
       type: String as PropType<PositionType>,
       default: 'right'
+    },
+    asidePosition: {
+      type: String as PropType<PositionType>,
+      default: 'right'
     }
   });
 
@@ -47,39 +56,58 @@
 
     position: absolute;
     top: 0;
-    right: 0;
     height: 100vh;
     width: 400px;
     background: var(--bg-main);
     box-shadow: var(--shadow-aside);
     overflow: hidden;
 
-    &--round {
-      border-radius: 50px;
-      margin: 4px 6px 0 0;
-      height: 99vh;
+    &--right {
+      right: 0;
+
+      &-enter-active {
+        animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      }
+
+      &-leave-active {
+        animation: slide-out-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+      }
+
+      &:not(#{$baseClass}--square) {
+        margin: 4px 6px 4px 0;
+      }
     }
 
     &--left {
+      &-enter-active {
+        animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      }
+
+      &-leave-active {
+        animation: slide-out-left 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+      }
+
+      &:not(#{$baseClass}--square) {
+        margin: 4px 0 4px 6px;
+      }
+    }
+
+    &--round {
+      border-radius: 50px;
+      height: 99vh;
+    }
+
+    &--icon-right {
       #{$baseClass}__header {
-        justify-content: flex-start;
-        padding-left: 24px;
+        right: 2rem;
       }
     }
 
     &__header {
       position: absolute;
       top: 1.5rem;
-      right: 2rem;
+      padding-left: 36px;
       z-index: 1;
-    }
-
-    &-enter-active {
-      animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    }
-
-    &-leave-active {
-      animation: slide-out-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
     }
   }
 
@@ -93,7 +121,7 @@
 
   @media only screen and (max-width: 500px) {
     .base-aside {
-      margin: 0;
+      margin: 0 !important;
       height: 100%;
       width: 100%;
       border-radius: 0;

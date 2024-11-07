@@ -1,5 +1,5 @@
 <template>
-  <base-aside @close="$emit('close')" :is-open="isOpen" close-position="left">
+  <base-aside @close="$emit('close')" :is-open="isOpen" close-position="left" aside-position="left">
     <div :class="baseClass">
       <transition :name="baseClass" appear>
         <div v-if="!isSubmenuOpen" :class="`${baseClass}__item ${baseClass}__item--user`">
