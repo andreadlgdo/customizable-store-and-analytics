@@ -199,6 +199,18 @@ export interface AppMenuMessages {
     home: string;
     shop: {
       title: string;
+      subItems: {
+        clothes: string;
+        accessories: {
+          title: string;
+          subItems: {
+            bags: string;
+            jewelry: string;
+          };
+        };
+        shoes: string;
+        promotions: string;
+      };
     };
     contact: string;
     about: string;

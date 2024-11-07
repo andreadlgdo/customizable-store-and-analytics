@@ -184,7 +184,19 @@ const appMenuMessages = {
   items: {
     home: 'Inicio',
     shop: {
-      title: 'Tienda'
+      title: 'Tienda',
+      subItems: {
+        clothes: 'Ropa',
+        accessories: {
+          title: 'Accessories',
+          subItems: {
+            bags: 'Bolsos',
+            jewelry: 'Joyas'
+          }
+        },
+        shoes: 'Zapatos',
+        promotions: 'Promociones'
+      }
     },
     contact: 'Contacto',
     about: 'Conocenos',
