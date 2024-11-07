@@ -2,8 +2,8 @@
   <base-aside
     @close="$emit('close')"
     :is-open="isOpenAside"
-    :close-position="isMobile ? 'left' : 'right'"
-    :aside-position="isMobile ? 'left' : 'right'"
+    :close-position="position"
+    :aside-position="position"
     type="round"
   >
     <div v-if="!isUserRegister" :class="baseClass">
@@ -73,7 +73,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref, watch } from 'vue';
+  import { computed, onMounted, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { useMobile, useUsers } from '../../composables';
@@ -110,6 +110,8 @@
   const errorUsername = ref('');
   const errorPassword = ref('');
   const invalidCredentials = ref('');
+
+  const position = computed(() => (isMobile ? 'left' : 'right'));
 
   const logInUser = async (): Promise<void> => {
     errorPassword.value = '';

@@ -2,7 +2,8 @@
   <base-aside
     @close="$emit('close')"
     :is-open="isOpenAside"
-    :close-position="closePosition"
+    :close-position="position"
+    :aside-position="position"
     type="round"
   >
     <div v-if="!isUserCreated" :class="baseClass">
@@ -104,12 +105,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, PropType, ref, watch } from 'vue';
+  import { computed, onMounted, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { PositionType } from '../../types/position.type';
-
-  import { useUsers } from '../../composables';
+  import { useMobile, useUsers } from '../../composables';
   import { User } from '../../interfaces';
 
   import BasePill from '../base-pill.component.vue';
@@ -124,14 +123,12 @@
 
   const { t } = useI18n();
 
+  const { isMobile } = useMobile();
+
   const { getUsers, createUser } = useUsers();
 
   const props = defineProps({
-    isOpen: Boolean,
-    closePosition: {
-      type: String as PropType<PositionType>,
-      default: 'right'
-    }
+    isOpen: Boolean
   });
 
   const emits = defineEmits(['close', 'openLogInAsideOpen']);
@@ -174,6 +171,8 @@
       status: 'default'
     }
   ]);
+
+  const position = computed(() => (isMobile ? 'left' : 'right'));
 
   const validPassword = (password: string, repeatPassword: string): void => {
     if (!password) {
