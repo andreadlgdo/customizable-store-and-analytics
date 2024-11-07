@@ -1,7 +1,7 @@
 <template>
   <section :class="baseClass">
     <div v-for="(item, index) in items" :key="index" :class="`${baseClass}__item`">
-      <base-text tag="h4">{{ item.label }}</base-text>
+      <base-text tag="h4" :class="`${baseClass}__text`">{{ item.label }}</base-text>
       <icon-button v-if="item.subMenu" icon="arrow" size="small" />
     </div>
   </section>
@@ -41,6 +41,14 @@
       justify-content: space-between;
       padding: 16px;
       border-bottom: 1px solid var(--color-medium);
+    }
+
+    &__text {
+      cursor: pointer;
+
+      &:hover {
+        color: var(--color-border-primary);
+      }
     }
   }
 </style>

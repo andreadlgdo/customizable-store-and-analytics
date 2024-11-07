@@ -193,6 +193,10 @@ const appMenuMessages = {
 };
 
 const messages: AppMessages['es'] = {
+  languages: {
+    es: 'Español',
+    en: 'Ingles'
+  },
   library: libraryMessages,
   header: {
     searchBox: 'Buscar...'
