@@ -2,7 +2,8 @@
   <base-aside
     @close="$emit('close')"
     :is-open="isOpenAside"
-    :close-position="closePosition"
+    :close-position="isMobile ? 'left' : 'right'"
+    :aside-position="isMobile ? 'left' : 'right'"
     type="round"
   >
     <div v-if="!isUserRegister" :class="baseClass">
@@ -72,12 +73,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, PropType, ref, watch } from 'vue';
+  import { onMounted, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { PositionType } from '../../types/position.type';
-
-  import { useUsers } from '../../composables';
+  import { useMobile, useUsers } from '../../composables';
 
   import BaseText from '../base-text.component.vue';
   import { SvgIcon } from '../icons';
@@ -90,14 +89,12 @@
 
   const { t } = useI18n();
 
+  const { isMobile } = useMobile();
+
   const { user, login, logout } = useUsers();
 
   const props = defineProps({
-    isOpen: Boolean,
-    closePosition: {
-      type: String as PropType<PositionType>,
-      default: 'right'
-    }
+    isOpen: Boolean
   });
 
   const emits = defineEmits(['close', 'openSignUpAsideOpen']);
