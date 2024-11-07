@@ -1,5 +1,5 @@
 <template>
-  <transition :name="baseClass">
+  <transition :name="`${baseClass}--${asidePosition}`">
     <div
       v-if="isOpen"
       :class="[
@@ -64,6 +64,24 @@
 
     &--right {
       right: 0;
+
+      &-enter-active {
+        animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      }
+
+      &-leave-active {
+        animation: slide-out-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+      }
+    }
+
+    &--left {
+      &-enter-active {
+        animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      }
+
+      &-leave-active {
+        animation: slide-out-left 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+      }
     }
 
     &--round {
@@ -83,26 +101,6 @@
       top: 1.5rem;
       padding-left: 24px;
       z-index: 1;
-    }
-
-    &-enter-active {
-      #{$baseClass}--right {
-        animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-      }
-
-      #{$baseClass}--left {
-        animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-      }
-    }
-
-    &-leave-active {
-      #{$baseClass}--right {
-        animation: slide-out-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-      }
-
-      #{$baseClass}--left {
-        animation: slide-out-left 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-      }
     }
   }
 
