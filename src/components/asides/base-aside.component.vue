@@ -2,7 +2,12 @@
   <transition :name="baseClass">
     <div
       v-if="isOpen"
-      :class="[baseClass, `${baseClass}--${type}`, `${baseClass}--${closePosition}`]"
+      :class="[
+        baseClass,
+        `${baseClass}--${type}`,
+        `${baseClass}--${asidePosition}`,
+        `${baseClass}--icon-${closePosition}`
+      ]"
     >
       <div :class="`${baseClass}__header`">
         <icon-button
@@ -35,6 +40,10 @@
     closePosition: {
       type: String as PropType<PositionType>,
       default: 'right'
+    },
+    asidePosition: {
+      type: String as PropType<PositionType>,
+      default: 'right'
     }
   });
 
@@ -47,12 +56,15 @@
 
     position: absolute;
     top: 0;
-    right: 0;
     height: 100vh;
     width: 400px;
     background: var(--bg-main);
     box-shadow: var(--shadow-aside);
     overflow: hidden;
+
+    &--right {
+      right: 0;
+    }
 
     &--round {
       border-radius: 50px;
@@ -60,26 +72,37 @@
       height: 99vh;
     }
 
-    &--left {
+    &--icon-right {
       #{$baseClass}__header {
-        justify-content: flex-start;
-        padding-left: 24px;
+        right: 2rem;
       }
     }
 
     &__header {
       position: absolute;
       top: 1.5rem;
-      right: 2rem;
+      padding-left: 24px;
       z-index: 1;
     }
 
     &-enter-active {
-      animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      #{$baseClass}--right {
+        animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      }
+
+      #{$baseClass}--left {
+        animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      }
     }
 
     &-leave-active {
-      animation: slide-out-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+      #{$baseClass}--right {
+        animation: slide-out-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+      }
+
+      #{$baseClass}--left {
+        animation: slide-out-left 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+      }
     }
   }
 
