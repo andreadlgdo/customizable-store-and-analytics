@@ -4,23 +4,13 @@ import { productService } from '../services';
 
 export function useProducts() {
   const products = ref([]);
-  const loading = ref(false);
 
   const fetchProducts = async () => {
-    try {
-      loading.value = true;
-      products.value = await productService.getProducts();
-    } catch (error) {
-      console.log('error', error);
-      throw error;
-    } finally {
-      loading.value = false;
-    }
+    products.value = await productService.getProducts();
   };
 
   return {
     products,
-    loading,
     fetchProducts
   };
 }
