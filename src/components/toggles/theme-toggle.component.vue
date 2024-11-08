@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts" setup>
+  // TO DO: Remove in some moment
   import { onMounted, ref } from 'vue';
 
   const theme = ref(localStorage.getItem('theme') || 'light');

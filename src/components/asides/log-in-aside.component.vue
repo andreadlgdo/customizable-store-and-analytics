@@ -28,7 +28,6 @@
           @input="query => (userForm.username = query)"
           :label="t('userAsides.logIn.inputsPlaceholders.username.title')"
           icon="user"
-          color-attribute="stroke"
           :error="errorUsername"
         />
         <password-input

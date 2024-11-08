@@ -14,7 +14,6 @@
           @click="$emit('close')"
           :class="`${baseClass}__icon ${baseClass}__icon--close`"
           icon="close"
-          color-attribute="fill"
         />
       </div>
       <slot />

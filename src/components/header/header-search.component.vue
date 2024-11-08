@@ -5,7 +5,6 @@
         <svg-icon
           :class="`${baseClass}__icon ${baseClass}__icon--search`"
           :src="require('../../assets/media/icons/search.svg')"
-          color-attribute="fill"
         />
         <input
           v-model="query"
@@ -18,7 +17,6 @@
         @click="query = ''"
         :class="`${baseClass}__icon ${baseClass}__icon--close`"
         icon="close"
-        color-attribute="fill"
       />
     </div>
   </transition>

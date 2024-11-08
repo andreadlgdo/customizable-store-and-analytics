@@ -2,28 +2,19 @@
   <div :class="baseClass">
     <div :class="[`${baseClass}__wrapper`]">
       <section :class="`${baseClass}__menu ${baseClass}__menu--left`">
-        <icon-button @click="$emit('clickMenu')" icon="menu" color-attribute="stroke" />
+        <icon-button @click="$emit('clickMenu')" icon="menu" />
       </section>
       <section :class="`${baseClass}__menu ${baseClass}__menu--center`">
-        <svg-icon
-          :src="require('../../assets/media/icons/logo.svg')"
-          color-attribute="both"
-          size="large"
-        />
+        <svg-icon :src="require('../../assets/media/icons/logo.svg')" size="large" />
       </section>
       <section :class="`${baseClass}__menu ${baseClass}__menu--right`">
-        <icon-button icon="search" color-attribute="fill" />
+        <icon-button icon="search" />
         <icon-button
           @click="$emit('clickUser')"
           :class="`${baseClass}__icon ${baseClass}__icon--user`"
           icon="user"
-          color-attribute="stroke"
         />
-        <icon-button
-          @click="$emit('clickShoppingCart')"
-          icon="shoppingCart"
-          color-attribute="fill"
-        />
+        <icon-button @click="$emit('clickShoppingCart')" icon="shoppingCart" />
       </section>
     </div>
   </div>

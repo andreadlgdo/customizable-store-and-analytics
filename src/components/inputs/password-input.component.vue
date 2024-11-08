@@ -2,7 +2,6 @@
   <base-text-input
     @input="query => $emit('input', query)"
     icon="password"
-    color-attribute="fill"
     tag="password"
     :label="label"
     :error="error"
