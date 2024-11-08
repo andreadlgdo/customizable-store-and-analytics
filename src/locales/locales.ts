@@ -3,9 +3,24 @@ export interface AppMessages {
     languages: {
       es: string;
       en: string;
+      fr: string;
     };
     header: {
       searchBox: string;
+    };
+    asides: {
+      shop: {
+        toggle: {
+          cart: string;
+          whistList: string;
+        },
+        empty: {
+          you: string;
+          description: string;
+        },
+        categories: string;
+        buy: string;
+      }
     };
     userAsides: UserAsideMessages;
     productAsides: ProductAsideMessages;
