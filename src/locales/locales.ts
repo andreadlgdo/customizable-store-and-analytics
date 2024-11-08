@@ -4,7 +4,6 @@ export interface AppMessages {
       es: string;
       en: string;
     };
-    library: LibraryMessages;
     header: {
       searchBox: string;
     };
@@ -12,38 +11,6 @@ export interface AppMessages {
     productAsides: ProductAsideMessages;
     menus: {
       appMenu: AppMenuMessages;
-    };
-  };
-}
-
-export interface LibraryMessages {
-  title: string;
-  toggle: {
-    language: string;
-    theme: string;
-  };
-  icons: {
-    button: string;
-    svg: string;
-  };
-  inputs: {
-    text: {
-      title: string;
-      password: string;
-    };
-    button: string;
-    checkbox: string;
-  };
-  asides: {
-    title: string;
-  };
-  header: {
-    title: string;
-  };
-  products: {
-    title: {
-      whistList: string;
-      cart: string;
     };
   };
 }
