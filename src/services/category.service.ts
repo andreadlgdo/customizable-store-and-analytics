@@ -1,7 +1,7 @@
 const apiUrl = process.env.VUE_APP_API_URL;
 
 export const categoryService = {
-  getCategoriesImages: async function () {
+  getCategories: async function () {
     try {
       const response = await fetch(`${apiUrl}/api/category`);
       if (!response.ok) {
