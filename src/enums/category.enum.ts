@@ -1,4 +1,6 @@
 export enum CategoryEnum {
-  BOLSOS = 'bolsos',
-  ZAPATOS = 'zapatos'
+  CLOTHES = 'ropa',
+  BAGS = 'bolsos',
+  SHOES = 'zapatos',
+  PROMOTION = 'promocion'
 }

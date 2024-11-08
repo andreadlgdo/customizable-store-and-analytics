@@ -6,6 +6,10 @@ import { categoryService } from '../services';
 export function useCategories() {
   const categories = ref<Category[]>();
 
+  const getOneCategory = (filterCategories: string): Category | undefined => {
+    return categories.value?.find(category => filterCategories === category.title);
+  };
+
   const getCategoriesByFilter = (filterCategories: string[]): Category[] => {
     return categories.value?.filter(category => filterCategories.includes(category.title)) ?? [];
   };
@@ -16,6 +20,7 @@ export function useCategories() {
 
   return {
     loadCategories,
+    getOneCategory,
     getCategoriesByFilter
   };
 }
