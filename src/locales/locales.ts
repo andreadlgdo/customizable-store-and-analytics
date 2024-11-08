@@ -144,6 +144,7 @@ export interface UserAsideMessages {
   };
 }
 export interface ProductAsideMessages {
+  // TO DO: Review if the messages are in use
   cart: {
     title: string;
     empty: {
