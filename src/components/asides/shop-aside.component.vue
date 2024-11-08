@@ -49,9 +49,9 @@
 <script lang="ts" setup>
   import { computed, onMounted, ref } from 'vue';
 
+  import { useCategories } from '../../composables';
   import { CategoryEnum } from '../../enums';
   import { Category } from '../../interfaces';
-  import { categoryService } from '../../services';
 
   import BaseText from '../base-text.component.vue';
   import CategoriesSection from '../categories-section.component.vue';
@@ -67,6 +67,8 @@
   });
 
   defineEmits(['close']);
+
+  const { loadCategories, getCategoriesByFilter } = useCategories();
 
   const toggleValues = ['carrito', 'whistlist'];
 
@@ -90,12 +92,8 @@
   };
 
   onMounted(async () => {
-    const categoriesImages = await categoryService.getCategoriesImages();
-    categoriesImages.forEach((category: Category) => {
-      if (category.title === CategoryEnum.BOLSOS || category.title === CategoryEnum.ZAPATOS) {
-        categories.value.push(category);
-      }
-    });
+    await loadCategories();
+    categories.value = getCategoriesByFilter([CategoryEnum.BOLSOS, CategoryEnum.ZAPATOS]);
   });
 </script>
 
