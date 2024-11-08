@@ -1,37 +1,5 @@
 import { AppMessages } from './locales';
 
-const libraryMessages = {
-  title: 'Libreria de componentes',
-  toggle: {
-    language: 'Cambio de idioma',
-    theme: 'Cambio de tema'
-  },
-  icons: {
-    button: 'Botones de Iconos',
-    svg: 'Iconos SVG'
-  },
-  inputs: {
-    text: {
-      title: 'Inputs de texto',
-      password: 'Input Contraseña'
-    },
-    button: 'Botones',
-    checkbox: 'Checkboxes'
-  },
-  asides: {
-    title: 'Asides'
-  },
-  header: {
-    title: 'Cabecera'
-  },
-  products: {
-    title: {
-      whistList: 'Whist List Tarjetas de productos',
-      cart: 'Carrito Tarjetas de productos'
-    }
-  }
-};
-
 const userAsidesMessages = {
   logIn: {
     title: 'Inicio de sesion',
@@ -210,7 +178,6 @@ const messages: AppMessages['es'] = {
     es: 'Español',
     en: 'Ingles'
   },
-  library: libraryMessages,
   header: {
     searchBox: 'Buscar...'
   },

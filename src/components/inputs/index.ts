@@ -4,4 +4,3 @@ export { default as BaseToggle } from './base-toggle.component.vue';
 export { default as ButtonInput } from './button-input.component.vue';
 export { default as CheckboxInput } from './checkbox-input.component.vue';
 export { default as PasswordInput } from './password-input.component.vue';
-export { default as TextInput } from './text-input.component.vue';
