@@ -10,7 +10,6 @@
       icon="go-to"
       size="large"
       color="white"
-      color-attribute="stroke"
       icon-position="right"
       :have-shadow="haveShadow"
     />

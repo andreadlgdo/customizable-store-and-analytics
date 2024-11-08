@@ -27,7 +27,6 @@
     <icon-button
       @click="clearQuery"
       icon="close"
-      color-attribute="fill"
       size="small"
       :error="!!error"
       :class="`${baseClass}__icon ${baseClass}__icon--close`"

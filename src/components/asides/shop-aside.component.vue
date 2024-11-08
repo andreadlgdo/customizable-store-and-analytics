@@ -14,7 +14,6 @@
               `../../assets/media/icons/${toggleSelectedValue === toggleValues[0] ? 'cart_empty' : 'heart_empty'}.svg`
             )
           "
-          :color-attribute="toggleSelectedValue === toggleValues[0] ? 'stroke' : 'both'"
           size="extra-large"
         />
         <svg-icon

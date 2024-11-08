@@ -9,7 +9,6 @@
       @click="updateProduct"
       :class="`${baseClass}__icon`"
       :icon="isFavorite ? 'heartSelected' : 'heart'"
-      :color-attribute="isFavorite ? undefined : 'stroke'"
       size="small"
     />
     <div :class="`${baseClass}__content`">

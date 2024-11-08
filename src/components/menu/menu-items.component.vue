@@ -12,7 +12,6 @@
           v-if="menu.subMenu?.length"
           @click="isSubmenuOpen = true"
           :src="require('../../assets/media/icons/arrow.svg')"
-          color-attribute="fill"
           size="mini"
         />
       </div>
@@ -22,7 +21,6 @@
             @click="isSubmenuOpen = false"
             :class="`${baseClass}__icon`"
             :src="require('../../assets/media/icons/arrow.svg')"
-            color-attribute="fill"
             size="small"
           />
           <p :class="`${baseClass}__text ${baseClass}__text--submenu`">

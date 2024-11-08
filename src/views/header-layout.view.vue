@@ -4,7 +4,6 @@
     @clickShoppingCart="isShoppingCartAsideOpen = true"
     @clickMenu="isMenuOpen = true"
   />
-  <theme-toggle class="changePosition changePosition__theme" />
   <log-in-aside
     @close="closeAllAsides"
     @openSignUpAsideOpen="openSignUpAsideOpen"
@@ -32,8 +31,7 @@
     LogInAside,
     MenuAside,
     ShopAside,
-    SignUpAside,
-    ThemeToggle
+    SignUpAside
   } from '../components';
   import { useProducts } from '../composables';
 

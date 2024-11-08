@@ -17,11 +17,10 @@
           @click="updateProduct"
           :class="{ [`${baseClass}__icon--selected`]: isFavorite }"
           :icon="isFavorite ? 'heartSelected' : 'heart'"
-          :color-attribute="isFavorite ? undefined : 'stroke'"
           have-border
         />
-        <icon-button icon="edit" color-attribute="fill" have-border />
-        <icon-button icon="delete" color-attribute="stroke" have-border />
+        <icon-button icon="edit" have-border />
+        <icon-button icon="delete" have-border />
       </div>
     </div>
   </div>

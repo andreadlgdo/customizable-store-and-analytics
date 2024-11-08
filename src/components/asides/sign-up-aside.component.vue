@@ -19,14 +19,12 @@
           @input="query => (userForm.username = query)"
           :label="t('userAsides.signUp.inputsPlaceholders.username.title')"
           icon="user"
-          color-attribute="stroke"
           :error="errorUser"
         />
         <base-text-input
           @input="query => (userForm.email = query)"
           :label="t('userAsides.signUp.inputsPlaceholders.email.title')"
           icon="email"
-          color-attribute="fill"
           :error="errorEmail"
         />
         <div>
