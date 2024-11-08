@@ -93,7 +93,7 @@
 
   onMounted(async () => {
     await loadCategories();
-    categories.value = getCategoriesByFilter([CategoryEnum.BOLSOS, CategoryEnum.ZAPATOS]);
+    categories.value = getCategoriesByFilter([CategoryEnum.BAGS, CategoryEnum.SHOES]);
   });
 </script>
 

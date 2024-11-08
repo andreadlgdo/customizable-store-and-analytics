@@ -1,13 +1,20 @@
 <template>
   <section v-for="item in items" :key="item.id" :class="baseClass">
     <div :class="`${baseClass}__item`">
-      <base-text tag="h4" :class="`${baseClass}__text ${baseClass}__text--item`">
-        {{ item.label }}
-      </base-text>
+      <section :class="`${baseClass}__description`">
+        <div
+          v-if="item.image"
+          :class="`${baseClass}__image`"
+          :style="{ backgroundImage: `url(${item.image})` }"
+        ></div>
+        <base-text tag="h4" :class="`${baseClass}__text ${baseClass}__text--item`">
+          {{ item.label }}
+        </base-text>
+      </section>
       <icon-button
         v-if="item.subItem"
         :icon="expansible ? 'plus' : 'arrow'"
-        size="small"
+        :size="expansible ? 'normal' : 'small'"
         @click="expansible ? (isExpand = !isExpand) : $emit('clickSubItem', item)"
       />
     </div>
@@ -64,6 +71,21 @@
       justify-content: space-between;
     }
 
+    &__description {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    &__image {
+      height: 3rem;
+      width: 3rem;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
     &__text {
       cursor: pointer;
 
@@ -84,7 +106,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      padding: 8px;
+      padding: 0px 56px;
     }
   }
 </style>

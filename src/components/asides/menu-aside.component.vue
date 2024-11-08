@@ -38,10 +38,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, watch } from 'vue';
+  import { computed, onMounted, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { useMobile } from '../../composables';
+  import { useCategories, useMobile } from '../../composables';
+  import { CategoryEnum } from '../../enums';
   import { MenuItem } from '../../interfaces';
 
   import BaseText from '../base-text.component.vue';
@@ -59,6 +60,8 @@
 
   defineEmits(['close', 'openLogInAside']);
 
+  const { loadCategories, getOneCategory } = useCategories();
+
   const { t } = useI18n();
 
   const { isMobile } = useMobile();
@@ -73,17 +76,32 @@
       id: 2,
       label: t('menus.appMenu.items.shop.title'),
       subItem: [
-        { id: 21, label: t('menus.appMenu.items.shop.subItems.clothes') },
+        {
+          id: 21,
+          label: t('menus.appMenu.items.shop.subItems.clothes'),
+          image: getOneCategory(CategoryEnum.CLOTHES)?.imageUrl
+        },
         {
           id: 22,
           label: t('menus.appMenu.items.shop.subItems.accessories.title'),
+          image: getOneCategory(CategoryEnum.BAGS)?.imageUrl,
           subItem: [
-            { label: t('menus.appMenu.items.shop.subItems.accessories.subItems.bags') },
+            {
+              label: t('menus.appMenu.items.shop.subItems.accessories.subItems.bags')
+            },
             { label: t('menus.appMenu.items.shop.subItems.accessories.subItems.jewelry') }
           ]
         },
-        { id: 23, label: t('menus.appMenu.items.shop.subItems.shoes') },
-        { id: 24, label: t('menus.appMenu.items.shop.subItems.promotions') }
+        {
+          id: 23,
+          label: t('menus.appMenu.items.shop.subItems.shoes'),
+          image: getOneCategory(CategoryEnum.SHOES)?.imageUrl
+        },
+        {
+          id: 24,
+          label: t('menus.appMenu.items.shop.subItems.promotions'),
+          image: getOneCategory(CategoryEnum.PROMOTION)?.imageUrl
+        }
       ]
     },
     { id: 3, label: t('menus.appMenu.items.contact') },
@@ -114,6 +132,10 @@
       }
     }
   );
+
+  onMounted(async () => {
+    await loadCategories();
+  });
 </script>
 
 <style lang="scss" scoped>
