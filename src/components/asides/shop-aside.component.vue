@@ -4,7 +4,9 @@
       <base-toggle @selectToggle="selectToggle" :item="toggleItem" color="primary" have-shadow />
       <transition-group :name="baseClass" mode="out-in">
         <base-text tag="h3">
-          {{ 'Tu ' + toggleSelectedValue + ' esta vacia' }}
+          {{
+            t('asides.shop.empty.you') + toggleSelectedValue + t('asides.shop.empty.description')
+          }}
         </base-text>
         <svg-icon
           :key="toggleSelectedValue"
@@ -38,7 +40,7 @@
         @click="$emit('close')"
         type="outline-solid"
         color="primary"
-        text="Seguir comprando"
+        :text="t('asides.shop.buy')"
         size="large"
       />
     </div>
@@ -47,6 +49,7 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, ref } from 'vue';
+  import { useI18n } from 'vue-i18n';
 
   import { useCategories } from '../../composables';
   import { CategoryEnum } from '../../enums';
@@ -67,26 +70,31 @@
 
   defineEmits(['close']);
 
-  const { loadCategories, getCategoriesByFilter } = useCategories();
+  const { t } = useI18n();
 
-  const toggleValues = ['carrito', 'whistlist'];
+  const { loadCategories, getCategoriesByFilter } = useCategories();
 
   const categories = ref<Category[]>([]);
 
-  const toggleItem = ref({
-    first: { value: toggleValues[0], selected: true },
-    second: { value: toggleValues[1], selected: false }
-  });
+  const toggleValues = computed(() => [
+    t('asides.shop.toggle.cart'),
+    t('asides.shop.toggle.whistList')
+  ]);
+
+  const toggleItem = computed(() => ({
+    first: { value: toggleValues.value[0], selected: true },
+    second: { value: toggleValues.value[1], selected: false }
+  }));
 
   const toggleSelectedValue = computed(
     () => Object.values(toggleItem.value).find(item => item.selected)?.value
   );
 
   const selectToggle = (value: string) => {
-    const isFirstValue = value === toggleValues[0];
+    const isFirstValue = value === toggleValues.value[0];
     toggleItem.value = {
-      first: { value: toggleValues[0], selected: isFirstValue },
-      second: { value: toggleValues[1], selected: !isFirstValue }
+      first: { value: toggleValues.value[0], selected: isFirstValue },
+      second: { value: toggleValues.value[1], selected: !isFirstValue }
     };
   };
 
