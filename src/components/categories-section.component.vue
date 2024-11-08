@@ -6,7 +6,7 @@
     <base-button
       @click="$emit('navigateTo', category)"
       :class="`${baseClass}__button`"
-      :text="`Ver todos los ${category}`"
+      :text="t('asides.shop.categories') + `${category}`"
       icon="go-to"
       size="large"
       color="white"
@@ -17,6 +17,8 @@
 </template>
 
 <script lang="ts" setup>
+  import { useI18n } from 'vue-i18n';
+
   import { BaseButton } from './inputs';
 
   const baseClass = 'categories-section';
@@ -29,6 +31,8 @@
     image: String,
     haveShadow: Boolean
   });
+
+  const { t } = useI18n();
 </script>
 
 <style lang="scss" scoped>

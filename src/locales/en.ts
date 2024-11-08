@@ -175,10 +175,25 @@ const appMenuMessages = {
 const messages: AppMessages['en'] = {
   languages: {
     es: 'Spanish',
-    en: 'English'
+    en: 'English',
+    fr: 'French'
   },
   header: {
     searchBox: 'Search...'
+  },
+  asides: {
+    shop: {
+      toggle: {
+        cart: 'Cart',
+        whistList: 'WhistList'
+      },
+      empty: {
+        you: 'You ',
+        description: ' is empty'
+      },
+      categories: 'See all of them ',
+      buy: 'Go shopping'
+    }
   },
   userAsides: userAsidesMessages,
   productAsides: productAsidesMessages,
