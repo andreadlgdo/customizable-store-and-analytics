@@ -1,63 +1,74 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { MenuItem } from '../interfaces';
+import { MenuItem, User } from '../interfaces';
 
 export function useUserMenu() {
   const { t } = useI18n();
 
   const userStore = localStorage.getItem('user');
 
-  const user = ref(userStore ? JSON.parse(userStore) : undefined);
+  const user = ref<User>(userStore ? JSON.parse(userStore) : undefined);
 
   const menuElements: MenuItem[] =
     user.value.type !== 'admin'
       ? [
           {
-            label: t('userAsides.userMenu.items.general.personalData.label'),
-            description: t('userAsides.userMenu.items.general.personalData.description')
+            id: 1,
+            label: t('asides.user.menu.items.general.personalData.label'),
+            description: t('asides.user.menu..items.general.personalData.description')
           },
           {
-            label: t('userAsides.userMenu.items.client.cart.label'),
-            description: t('userAsides.userMenu.items.client.cart.description')
+            id: 2,
+            label: t('asides.user.menu.items.client.cart.label'),
+            description: t('asides.user.menu.items.client.cart.description')
           },
           {
-            label: t('userAsides.userMenu.items.client.orders.label'),
-            description: t('userAsides.userMenu.items.client.orders.description')
+            id: 3,
+            label: t('asides.user.menu.items.client.orders.label'),
+            description: t('asides.user.menu.items.client.orders.description')
           },
           {
-            label: t('userAsides.userMenu.items.client.whistList.label'),
-            description: t('userAsides.userMenu.items.client.whistList.description')
+            id: 4,
+            label: t('asides.user.menu.items.client.whistList.label'),
+            description: t('asides.user.menu.items.client.whistList.description')
           }
         ]
       : [
           {
-            label: t('userAsides.userMenu.items.general.personalData.label'),
-            description: t('userAsides.userMenu.items.general.personalData.description')
+            id: 1,
+            label: t('asides.user.menu.items.general.personalData.label'),
+            description: t('asides.user.menu.items.general.personalData.description')
           },
           {
-            label: t('userAsides.userMenu.items.admin.productsManagement.label'),
-            description: t('userAsides.userMenu.items.admin.productsManagement.description')
+            id: 2,
+            label: t('asides.user.menu.items.admin.productsManagement.label'),
+            description: t('asides.user.menu.items.admin.productsManagement.description')
           },
           {
-            label: t('userAsides.userMenu.items.admin.stockManagement.label'),
-            description: t('userAsides.userMenu.items.admin.stockManagement.description')
+            id: 3,
+            label: t('asides.user.menu.items.admin.stockManagement.label'),
+            description: t('asides.user.menu.items.admin.stockManagement.description')
           },
           {
-            label: t('userAsides.userMenu.items.admin.ordersManagement.label'),
-            description: t('userAsides.userMenu.items.admin.ordersManagement.description')
+            id: 4,
+            label: t('asides.user.menu.items.admin.ordersManagement.label'),
+            description: t('asides.user.menu.items.admin.ordersManagement.description')
           },
           {
-            label: t('userAsides.userMenu.items.admin.personalization.label'),
-            description: t('userAsides.userMenu.items.admin.personalization.description')
+            id: 5,
+            label: t('asides.user.menu.items.admin.personalization.label'),
+            description: t('asides.user.menu.items.admin.personalization.description')
           },
           {
-            label: t('userAsides.userMenu.items.admin.dataAnalytics.label'),
-            description: t('userAsides.userMenu.items.admin.dataAnalytics.description')
+            id: 6,
+            label: t('asides.user.menu.items.admin.dataAnalytics.label'),
+            description: t('asides.user.menu.items.admin.dataAnalytics.description')
           }
         ];
 
   return {
+    user,
     menuElements
   };
 }
