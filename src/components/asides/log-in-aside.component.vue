@@ -75,7 +75,7 @@
   import { computed, onMounted, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { useMobile, useUsers } from '../../composables';
+  import { useCurrentUser, useMobile, useUsers } from '../../composables';
 
   import BaseText from '../base-text.component.vue';
   import { SvgIcon } from '../icons';
@@ -149,11 +149,10 @@
   };
 
   onMounted(() => {
-    const userStore = localStorage.getItem('user');
-    if (userStore) {
+    const { user: userStore } = useCurrentUser();
+    if (userStore.value) {
       isUserRegister.value = true;
-      const userObject = JSON.parse(userStore);
-      user.value = userObject;
+      user.value = userStore.value;
     }
   });
 

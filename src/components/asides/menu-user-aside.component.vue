@@ -53,7 +53,7 @@
   const { t } = useI18n();
   const router = useRouter();
 
-  const { menuElements, user } = useUserMenu();
+  const { menuElements } = useUserMenu();
 
   const props = defineProps({
     isOpen: Boolean,

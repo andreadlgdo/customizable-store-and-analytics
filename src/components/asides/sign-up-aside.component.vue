@@ -106,7 +106,7 @@
   import { computed, onMounted, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { useMobile, useUsers } from '../../composables';
+  import { useCurrentUser, useMobile, useUsers } from '../../composables';
   import { User } from '../../interfaces';
 
   import BasePill from '../base-pill.component.vue';
@@ -252,11 +252,10 @@
   );
 
   onMounted(() => {
-    const userStore = localStorage.getItem('user');
+    const { user: userStore } = useCurrentUser();
     if (userStore) {
       isUserCreated.value = true;
-      const userObject = JSON.parse(userStore);
-      userCreated.value = userObject;
+      userCreated.value = userStore.value;
     }
   });
 </script>
