@@ -13,8 +13,8 @@
       </section>
       <icon-button
         v-if="item.subItem"
-        :icon="expansible ? 'plus' : 'arrow'"
-        :size="expansible ? 'normal' : 'small'"
+        :icon="expansible ? (isExpand ? 'less' : 'plus') : 'arrow'"
+        :size="expansible ? (isExpand ? 'small' : 'normal') : 'small'"
         @click="expansible ? (isExpand = !isExpand) : $emit('clickSubItem', item)"
       />
     </div>
