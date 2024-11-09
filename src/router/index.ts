@@ -4,6 +4,8 @@ import Home from '../views/home.view.vue';
 import Dashboard from '../views/dashboard.view.vue';
 import TermsAndConditions from '../views/terms-and-conditions.view.vue';
 
+import { useCurrentUser } from '../composables';
+
 const routes = [
   { name: 'Home', path: '/', component: Home },
   { name: 'Dashboard', path: '/dashboard', component: Dashboard, meta: { requiresAuth: true } },
@@ -17,8 +19,8 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
-    const userString = localStorage.getItem('user');
-    if (!userString) {
+    const { user } = useCurrentUser();
+    if (!user.value) {
       next({ name: 'Home' });
     } else {
       next();

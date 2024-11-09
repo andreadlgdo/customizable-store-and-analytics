@@ -27,19 +27,17 @@
   import { ref } from 'vue';
 
   import { MenuItems } from '../components';
-  import { useUserMenu } from '../composables';
+  import { useCurrentUser, useUserMenu } from '../composables';
   import { imageService, userService } from '../services';
 
   import HeaderLayout from './header-layout.view.vue';
 
   const baseClass = 'dashboard';
 
+  const { user } = useCurrentUser();
   const { menuElements } = useUserMenu();
 
   const fileInput = ref();
-
-  const userStore = localStorage.getItem('user');
-  const user = ref(userStore ? JSON.parse(userStore) : undefined);
 
   const onFileSelected = async (event: Event) => {
     const target = event.target as HTMLInputElement;
