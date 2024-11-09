@@ -18,16 +18,18 @@
         @click="expansible ? (isExpand = !isExpand) : $emit('clickSubItem', item)"
       />
     </div>
-    <div v-if="item.subItem && expansible && isExpand" :class="`${baseClass}__subItem`">
-      <base-text
-        v-for="(subItem, index) in item.subItem"
-        :key="index"
-        tag="p"
-        :class="`${baseClass}__text ${baseClass}__text--subItem`"
-      >
-        {{ subItem.label }}
-      </base-text>
-    </div>
+    <transition :name="`${baseClass}__subItem--animation`">
+      <div v-if="item.subItem && expansible && isExpand" :class="`${baseClass}__subItem`">
+        <base-text
+          v-for="(subItem, index) in item.subItem"
+          :key="index"
+          tag="p"
+          :class="`${baseClass}__text ${baseClass}__text--subItem`"
+        >
+          {{ subItem.label }}
+        </base-text>
+      </div>
+    </transition>
   </section>
 </template>
 
@@ -108,6 +110,38 @@
       flex-direction: column;
       gap: 8px;
       padding: 0px 56px;
+
+      &--animation {
+        &-enter-active {
+          animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        }
+
+        &-leave-active {
+          animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+        }
+      }
+    }
+  }
+
+  @keyframes slide-out-top {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slide-in-top {
+    0% {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
     }
   }
 </style>
