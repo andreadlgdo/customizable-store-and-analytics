@@ -1,23 +1,34 @@
 <template>
   <base-aside @close="$emit('close')" :is-open="openAside">
     <div :class="baseClass">
-      <div>
-        <div :class="`${baseClass}__title`">
-          <p :class="`${baseClass}__text ${baseClass}__text--title`">
-            {{ t('userAsides.userMenu.title') }}
-          </p>
-          <p :class="`${baseClass}__text ${baseClass}__text--subtitle`">
-            {{ user.username.toUpperCase() ?? '' }}
-          </p>
+      <svg-icon
+        :src="require('../../assets/media/forms/menu-user.svg')"
+        :class="`${baseClass}__svg`"
+        size="custom"
+      />
+      <img
+        :src="user?.imageUrl ?? require('../../assets/media/images/empty-user.png')"
+        alt="empty-user"
+        :class="`${baseClass}__image`"
+      />
+      <div :class="`${baseClass}__content`">
+        <div :class="`${baseClass}__header`">
+          <base-text tag="h4">{{ user.username }}</base-text>
+          <base-text tag="default">{{ user.email }}</base-text>
         </div>
-        <hr />
-        <menu-items :menu-items="menuElements" />
+        <div :class="`${baseClass}__items`"><list-items :items="menuElements" /></div>
       </div>
       <div :class="`${baseClass}__footer`">
-        <button-input @click="goToProfile" :text="t('userAsides.userMenu.goProfile')" type="fill" />
-        <button @click="logOut" :class="`${baseClass}__button ${baseClass}__button--log-out`">
-          {{ t('userAsides.userMenu.logOut') }}
-        </button>
+        <base-button
+          @click="goToProfile"
+          color="primary"
+          type="outline-solid"
+          :text="t('asides.user.menu.goProfile')"
+          have-shadow
+        />
+        <base-text @click="logOut" tag="default" :class="`${baseClass}__text`">
+          {{ t('asides.user.menu.logOut') }}
+        </base-text>
       </div>
     </div>
   </base-aside>
@@ -31,15 +42,18 @@
   import { useUserMenu } from '../../composables';
   import { User } from '../../interfaces';
 
-  import { ButtonInput } from '../inputs';
-  import { MenuItems } from '../menu';
-
   import BaseAside from './base-aside.component.vue';
+  import BaseText from '../base-text.component.vue';
+  import { SvgIcon } from '../icons';
+  import { BaseButton } from '../inputs';
+  import ListItems from '../list-items.component.vue';
 
   const baseClass = 'menu-user-aside';
 
-  const router = useRouter();
   const { t } = useI18n();
+  const router = useRouter();
+
+  const { menuElements, user } = useUserMenu();
 
   const props = defineProps({
     isOpen: Boolean,
@@ -52,8 +66,6 @@
   const emit = defineEmits(['logout']);
 
   const openAside = ref(props.isOpen);
-
-  const { menuElements } = useUserMenu();
 
   const goToProfile = () => {
     router.push('/dashboard');
@@ -70,46 +82,58 @@
   .menu-user-aside {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    margin: 0 46px;
-    height: 87%;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+    height: 100vh;
 
-    &__title {
+    &__svg {
+      position: absolute;
+      right: -6px;
+      top: -86px;
+    }
+
+    &__image {
+      position: absolute;
+      top: 100px;
+      height: 8rem;
+      border-radius: 50%;
+    }
+
+    &__header {
       display: flex;
       flex-direction: column;
-      margin-bottom: 20px;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
     }
 
-    &__button {
-      border: none;
-      background: none;
-      font-size: 16px;
-
-      &:hover {
-        font-weight: 700;
-      }
+    &__content {
+      width: 100%;
+      margin-top: 4rem;
     }
 
-    &__text {
-      &--title {
-        font-size: 56px;
-        font-weight: 400;
-      }
-
-      &--subtitle {
-        line-height: 52px;
-        font-size: 70px;
-        font-weight: 700;
-      }
+    &__items {
+      width: 100%;
+      height: 20rem;
+      overflow: scroll;
     }
 
     &__footer {
+      position: fixed;
+      bottom: 38px;
       display: flex;
       flex-direction: column;
-      align-self: center;
-      text-align: center;
-      gap: 8px;
-      margin-bottom: 8px;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    &__text {
+      &:hover {
+        font-weight: bold;
+        cursor: pointer;
+      }
     }
   }
 </style>

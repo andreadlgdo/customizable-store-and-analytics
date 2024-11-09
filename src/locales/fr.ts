@@ -62,57 +62,6 @@ const userAsidesMessages = {
       description: 'Avez-vous déjà un compte ?',
       action: 'Se connecter'
     }
-  },
-  userMenu: {
-    title: 'Bonjour!',
-    items: {
-      general: {
-        personalData: {
-          label: 'Données personnelles',
-          description: 'Mettez à jour et gérez vos informations personnelles.'
-        }
-      },
-      client: {
-        cart: {
-          label: 'Mon panier',
-          description: 'Visualisez et modifiez les produits que vous souhaitez acheter.'
-        },
-        orders: {
-          label: 'Mes commandes',
-          description: 'Vérifiez le statut et les détails de vos achats précédents.'
-        },
-        whistList: {
-          label: 'Ma liste de souhaits',
-          description: 'Enregistrez les produits que vous souhaitez acheter plus tard.'
-        }
-      },
-      admin: {
-        productsManagement: {
-          label: 'Gestion des produits',
-          description: 'Ajoutez, modifiez ou supprimez des produits dans la boutique.'
-        },
-        stockManagement: {
-          label: 'Gestion des stocks',
-          description: 'Contrôler la disponibilité et la quantité des produits en inventaire.'
-        },
-        ordersManagement: {
-          label: 'Gestion des commandes',
-          description: 'Surveiller et organiser les commandes passées par les utilisateurs.'
-        },
-        personalization: {
-          label: 'Personnalisation',
-          description:
-            "Ajustez l'apparence et les fonctionnalités de l'application en fonction de vos besoins."
-        },
-        dataAnalytics: {
-          label: 'Analyse des données',
-          description:
-            'Accédez à des rapports et des statistiques pour améliorer les performances de votre entreprise.'
-        }
-      }
-    },
-    goProfile: 'Aller sur mon profil',
-    logOut: 'Se déconnecter'
   }
 };
 
@@ -196,6 +145,58 @@ const messages: AppMessages['fr'] = {
       },
       categories: 'Voir tous les ',
       buy: 'Continuer mes achats'
+    },
+    user: {
+      menu: {
+        items: {
+          general: {
+            personalData: {
+              label: 'Données personnelles',
+              description: 'Mettez à jour et gérez vos informations personnelles.'
+            }
+          },
+          client: {
+            cart: {
+              label: 'Mon panier',
+              description: 'Visualisez et modifiez les produits que vous souhaitez acheter.'
+            },
+            orders: {
+              label: 'Mes commandes',
+              description: 'Vérifiez le statut et les détails de vos achats précédents.'
+            },
+            whistList: {
+              label: 'Ma liste de souhaits',
+              description: 'Enregistrez les produits que vous souhaitez acheter plus tard.'
+            }
+          },
+          admin: {
+            productsManagement: {
+              label: 'Gestion des produits',
+              description: 'Ajoutez, modifiez ou supprimez des produits dans la boutique.'
+            },
+            stockManagement: {
+              label: 'Gestion des stocks',
+              description: 'Contrôler la disponibilité et la quantité des produits en inventaire.'
+            },
+            ordersManagement: {
+              label: 'Gestion des commandes',
+              description: 'Surveiller et organiser les commandes passées par les utilisateurs.'
+            },
+            personalization: {
+              label: 'Personnalisation',
+              description:
+                "Ajustez l'apparence et les fonctionnalités de l'application en fonction de vos besoins."
+            },
+            dataAnalytics: {
+              label: 'Analyse des données',
+              description:
+                'Accédez à des rapports et des statistiques pour améliorer les performances de votre entreprise.'
+            }
+          }
+        },
+        goProfile: 'Aller sur mon profil',
+        logOut: 'Se déconnecter'
+      }
     }
   },
   userAsides: userAsidesMessages,

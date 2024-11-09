@@ -177,7 +177,6 @@
 
     &__svg {
       position: absolute;
-      //right: -14px;
       right: -6px;
 
       &--up {

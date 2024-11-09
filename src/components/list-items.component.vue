@@ -40,6 +40,7 @@
   interface Item {
     id: number;
     label: string;
+    description?: string;
     subItem?: Item[];
     image?: string;
   }

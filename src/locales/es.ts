@@ -62,55 +62,6 @@ const userAsidesMessages = {
       description: '¿Ya tienes cuenta?',
       action: 'Inicia sesion'
     }
-  },
-  userMenu: {
-    title: '¡Hola!',
-    items: {
-      general: {
-        personalData: {
-          label: 'Datos personales',
-          description: 'Actualiza y gestiona tu información personal.'
-        }
-      },
-      client: {
-        cart: {
-          label: 'Mi carrito',
-          description: 'Visualiza y modifica los productos que deseas comprar.'
-        },
-        orders: {
-          label: 'Mis pedidos',
-          description: 'Consulta el estado y detalles de tus compras anteriores.'
-        },
-        whistList: {
-          label: 'Mi lista de deseos',
-          description: 'Guarda productos que te gustaría adquirir más adelante.'
-        }
-      },
-      admin: {
-        productsManagement: {
-          label: 'Gestión de productos',
-          description: 'Añade, edita o elimina productos en la tienda.'
-        },
-        stockManagement: {
-          label: 'Gestión de stock',
-          description: 'Controla la disponibilidad y cantidad de productos en inventario.'
-        },
-        ordersManagement: {
-          label: 'Gestión de pedidos',
-          description: 'Supervisa y organiza los pedidos realizados por los usuarios.'
-        },
-        personalization: {
-          label: 'Personalización',
-          description: 'Ajusta la apariencia y funcionalidad de la app según tus necesidades.'
-        },
-        dataAnalytics: {
-          label: 'Analiticas de datos',
-          description: 'Accede a informes y estadísticas para mejorar el rendimiento del negocio.'
-        }
-      }
-    },
-    goProfile: 'Ir a mi perfil',
-    logOut: 'Cerrar sesión'
   }
 };
 
@@ -194,6 +145,57 @@ const messages: AppMessages['es'] = {
       },
       categories: 'Ver todos los ',
       buy: 'Continuar comprando'
+    },
+    user: {
+      menu: {
+        items: {
+          general: {
+            personalData: {
+              label: 'Datos personales',
+              description: 'Actualiza y gestiona tu información personal.'
+            }
+          },
+          client: {
+            cart: {
+              label: 'Mi carrito',
+              description: 'Visualiza y modifica los productos que deseas comprar.'
+            },
+            orders: {
+              label: 'Mis pedidos',
+              description: 'Consulta el estado y detalles de tus compras anteriores.'
+            },
+            whistList: {
+              label: 'Mi lista de deseos',
+              description: 'Guarda productos que te gustaría adquirir más adelante.'
+            }
+          },
+          admin: {
+            productsManagement: {
+              label: 'Gestión de productos',
+              description: 'Añade, edita o elimina productos en la tienda.'
+            },
+            stockManagement: {
+              label: 'Gestión de stock',
+              description: 'Controla la disponibilidad y cantidad de productos en inventario.'
+            },
+            ordersManagement: {
+              label: 'Gestión de pedidos',
+              description: 'Supervisa y organiza los pedidos realizados por los usuarios.'
+            },
+            personalization: {
+              label: 'Personalización',
+              description: 'Ajusta la apariencia y funcionalidad de la app según tus necesidades.'
+            },
+            dataAnalytics: {
+              label: 'Analiticas de datos',
+              description:
+                'Accede a informes y estadísticas para mejorar el rendimiento del negocio.'
+            }
+          }
+        },
+        goProfile: 'Ir a mi perfil',
+        logOut: 'Cerrar sesión'
+      }
     }
   },
   userAsides: userAsidesMessages,
