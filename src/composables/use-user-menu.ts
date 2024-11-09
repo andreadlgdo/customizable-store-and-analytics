@@ -1,14 +1,13 @@
-import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { MenuItem, User } from '../interfaces';
+import { MenuItem } from '../interfaces';
+
+import { useCurrentUser } from './use-current-user';
 
 export function useUserMenu() {
   const { t } = useI18n();
 
-  const userStore = localStorage.getItem('user');
-
-  const user = ref<User>(userStore ? JSON.parse(userStore) : undefined);
+  const { user } = useCurrentUser();
 
   const menuElements: MenuItem[] =
     user.value.type !== 'admin'
@@ -68,7 +67,6 @@ export function useUserMenu() {
         ];
 
   return {
-    user,
     menuElements
   };
 }
