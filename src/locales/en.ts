@@ -64,7 +64,6 @@ const userAsidesMessages = {
     }
   },
   userMenu: {
-    title: 'Hello!',
     items: {
       general: {
         personalData: {
@@ -193,6 +192,56 @@ const messages: AppMessages['en'] = {
       },
       categories: 'See all of them ',
       buy: 'Go shopping'
+    },
+    user: {
+      menu: {
+        items: {
+          general: {
+            personalData: {
+              label: 'Personal Data',
+              description: 'Update and manage your personal information.'
+            }
+          },
+          client: {
+            cart: {
+              label: 'My Cart',
+              description: 'View and modify the products you want to buy.'
+            },
+            orders: {
+              label: 'My Orders',
+              description: 'Check the status and details of your previous purchases.'
+            },
+            whistList: {
+              label: 'My Whist List',
+              description: "Save products you'd like to purchase later."
+            }
+          },
+          admin: {
+            productsManagement: {
+              label: 'Product management',
+              description: 'Add, edit or delete products in the store.'
+            },
+            stockManagement: {
+              label: 'Stock management',
+              description: 'Control the availability and quantity of products in inventory.'
+            },
+            ordersManagement: {
+              label: 'Order management',
+              description: 'Monitors and organizes orders placed by users.'
+            },
+            personalization: {
+              label: 'Personalization',
+              description: 'Adjust the appearance and functionality of the app to suit your needs.'
+            },
+            dataAnalytics: {
+              label: 'Data analytics',
+              description: 'Access reports and statistics to improve business performance.'
+            }
+          }
+        },
+        goProfile: 'Go to profile',
+        logOut: 'Log out'
+      }
     }
   },
   userAsides: userAsidesMessages,

@@ -13,14 +13,64 @@ export interface AppMessages {
         toggle: {
           cart: string;
           whistList: string;
-        },
+        };
         empty: {
           you: string;
           description: string;
-        },
+        };
         categories: string;
         buy: string;
-      }
+      };
+      user: {
+        menu: {
+          items: {
+            general: {
+              personalData: {
+                label: string;
+                description: string;
+              };
+            };
+            client: {
+              cart: {
+                label: string;
+                description: string;
+              };
+              orders: {
+                label: string;
+                description: string;
+              };
+              whistList: {
+                label: string;
+                description: string;
+              };
+            };
+            admin: {
+              productsManagement: {
+                label: string;
+                description: string;
+              };
+              stockManagement: {
+                label: string;
+                description: string;
+              };
+              ordersManagement: {
+                label: string;
+                description: string;
+              };
+              personalization: {
+                label: string;
+                description: string;
+              };
+              dataAnalytics: {
+                label: string;
+                description: string;
+              };
+            };
+          };
+          goProfile: string;
+          logOut: string;
+        };
+      };
     };
     userAsides: UserAsideMessages;
     productAsides: ProductAsideMessages;
@@ -92,55 +142,6 @@ export interface UserAsideMessages {
       description: string;
       action: string;
     };
-  };
-  userMenu: {
-    title: string;
-    items: {
-      general: {
-        personalData: {
-          label: string;
-          description: string;
-        };
-      };
-      client: {
-        cart: {
-          label: string;
-          description: string;
-        };
-        orders: {
-          label: string;
-          description: string;
-        };
-        whistList: {
-          label: string;
-          description: string;
-        };
-      };
-      admin: {
-        productsManagement: {
-          label: string;
-          description: string;
-        };
-        stockManagement: {
-          label: string;
-          description: string;
-        };
-        ordersManagement: {
-          label: string;
-          description: string;
-        };
-        personalization: {
-          label: string;
-          description: string;
-        };
-        dataAnalytics: {
-          label: string;
-          description: string;
-        };
-      };
-    };
-    goProfile: string;
-    logOut: string;
   };
 }
 export interface ProductAsideMessages {
