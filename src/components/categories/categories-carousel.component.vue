@@ -1,40 +1,40 @@
 <template>
   <section :class="baseClass">
-    <div v-for="category in categories" :key="category._id" :class="`${baseClass}__category`">
+    <div v-for="item in items" :key="item._id" :class="`${baseClass}__category`">
       <div
         :class="`${baseClass}__image`"
-        :style="{ backgroundImage: `url(${category.imageUrl})` }"
+        :style="{ backgroundImage: `url(${item.imageUrl})` }"
       ></div>
       <base-text tag="h4" :class="`${baseClass}__text`">
-        {{ capitalizeSentence(category.title) }}
+        {{ capitalizeSentence(item.title) }}
       </base-text>
     </div>
   </section>
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, PropType } from 'vue';
+  import { PropType } from 'vue';
 
-  import { useCategories, useTextTransform } from '../../composables';
+  import { useTextTransform } from '../../composables';
+  import { Category } from '../../interfaces';
   import { SizeType } from '../../types';
 
   import BaseText from '../base-text.component.vue';
 
   defineProps({
+    items: {
+      type: Array as PropType<Category[]>,
+      default: () => []
+    },
     size: {
       type: String as PropType<SizeType>,
       default: 'normal'
     }
   });
+
   const baseClass = 'categories-carousel';
 
-  const { categories, loadCategories } = useCategories();
-
   const { capitalizeSentence } = useTextTransform();
-
-  onMounted(() => {
-    loadCategories();
-  });
 </script>
 
 <style lang="scss" scoped>

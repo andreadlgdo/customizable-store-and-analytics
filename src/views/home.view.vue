@@ -5,20 +5,21 @@
     :class="`${baseClass}__image`"
     :style="{ backgroundImage: `url(${landingImage.imageUrl})` }"
   ></section>
-  <categories-carousel />
+  <categories-carousel :items="categories" />
 </template>
 
 <script lang="ts" setup>
   import { computed, ref, onMounted } from 'vue';
 
   import { CategoriesCarousel } from '../components';
-  import { useMobile } from '../composables';
+  import { useCategories, useMobile } from '../composables';
   import { generalService } from '../services';
 
   import HeaderLayout from './header-layout.view.vue';
 
   const baseClass = 'home';
 
+  const { categories, loadCategories } = useCategories();
   const { isMobile } = useMobile();
 
   const images = ref([]);
@@ -33,6 +34,7 @@
 
   onMounted(async () => {
     images.value = await generalService.getLandingImages();
+    await loadCategories();
   });
 </script>
 
