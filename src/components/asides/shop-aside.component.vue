@@ -56,7 +56,7 @@
   import { Category } from '../../interfaces';
 
   import BaseText from '../base-text.component.vue';
-  import CategoriesSection from '../categories-section.component.vue';
+  import { CategoriesSection } from '../categories';
   import { SvgIcon } from '../icons';
   import { BaseButton, BaseToggle } from '../inputs';
 

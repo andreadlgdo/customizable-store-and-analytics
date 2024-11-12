@@ -1,23 +1,25 @@
 <template>
   <header-layout />
-  <img
+  <section
     v-if="landingImage?.imageUrl"
     :class="`${baseClass}__image`"
-    :src="landingImage.imageUrl"
-    :alt="landingImage.type"
-  />
+    :style="{ backgroundImage: `url(${landingImage.imageUrl})` }"
+  ></section>
+  <categories-carousel :items="categories" />
 </template>
 
 <script lang="ts" setup>
   import { computed, ref, onMounted } from 'vue';
 
-  import { useMobile } from '../composables';
+  import { CategoriesCarousel } from '../components';
+  import { useCategories, useMobile } from '../composables';
   import { generalService } from '../services';
 
   import HeaderLayout from './header-layout.view.vue';
 
   const baseClass = 'home';
 
+  const { categories, loadCategories } = useCategories();
   const { isMobile } = useMobile();
 
   const images = ref([]);
@@ -32,16 +34,18 @@
 
   onMounted(async () => {
     images.value = await generalService.getLandingImages();
+    await loadCategories();
   });
 </script>
 
 <style lang="scss" scoped>
   .home {
-    @media only screen and (max-width: 768px) {
-      &__image {
-        width: 100%;
-        height: auto;
-      }
+    &__image {
+      height: 100%;
+      width: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
   }
 </style>
