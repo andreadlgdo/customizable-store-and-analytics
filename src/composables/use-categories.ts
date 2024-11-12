@@ -19,6 +19,7 @@ export function useCategories() {
   };
 
   return {
+    categories,
     loadCategories,
     getOneCategory,
     getCategoriesByFilter
