@@ -19,7 +19,7 @@
 <script lang="ts" setup>
   import { useI18n } from 'vue-i18n';
 
-  import { BaseButton } from './inputs';
+  import { BaseButton } from '../inputs';
 
   const baseClass = 'categories-section';
 
