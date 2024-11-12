@@ -58,10 +58,10 @@
     &__image {
       height: 180px;
       width: 180px;
+      border-radius: 50%;
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
-      border-radius: 50%;
       cursor: pointer;
     }
 
