@@ -121,7 +121,7 @@
 
   const { t } = useI18n();
 
-  const { isMobile } = useMobile();
+  const { isMobileAndTable } = useMobile();
 
   const { getUsers, createUser } = useUsers();
 
@@ -170,7 +170,7 @@
     }
   ]);
 
-  const position = computed(() => (isMobile.value ? 'left' : 'right'));
+  const position = computed(() => (isMobileAndTable.value ? 'left' : 'right'));
 
   const validPassword = (password: string, repeatPassword: string): void => {
     if (!password) {

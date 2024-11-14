@@ -8,7 +8,7 @@
   >
     <div :class="baseClass">
       <div
-        v-if="isMobile || isSubmenuOpen"
+        v-if="isMobileAndTable || isSubmenuOpen"
         :class="[
           `${baseClass}__header`,
           [isSubmenuOpen ? `${baseClass}__header--back` : `${baseClass}__header--user`]
@@ -64,7 +64,7 @@
 
   const { t } = useI18n();
 
-  const { isMobile } = useMobile();
+  const { isMobileAndTable } = useMobile();
 
   const isSubmenuOpen = ref(false);
   const isWithSubCaterogies = ref(false);
