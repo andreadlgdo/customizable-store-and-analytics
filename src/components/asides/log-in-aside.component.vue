@@ -88,7 +88,7 @@
 
   const { t } = useI18n();
 
-  const { isMobile } = useMobile();
+  const { isMobileAndTable } = useMobile();
 
   const { user, login, logout } = useUsers();
 
@@ -110,7 +110,7 @@
   const errorPassword = ref('');
   const invalidCredentials = ref('');
 
-  const position = computed(() => (isMobile.value ? 'left' : 'right'));
+  const position = computed(() => (isMobileAndTable.value ? 'left' : 'right'));
 
   const logInUser = async (): Promise<void> => {
     errorPassword.value = '';
