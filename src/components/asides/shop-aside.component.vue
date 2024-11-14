@@ -31,8 +31,9 @@
         <categories-section
           v-for="category in categories"
           :key="category._id"
-          :category="category.title"
+          :text="category.title"
           :image="category.imageUrl"
+          size="small"
           have-shadow
         />
       </transition-group>

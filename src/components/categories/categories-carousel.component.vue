@@ -1,5 +1,5 @@
 <template>
-  <section :class="baseClass">
+  <section :class="[baseClass, `${baseClass}--${size}`]">
     <div v-for="item in items" :key="item._id" :class="`${baseClass}__category`">
       <div
         :class="`${baseClass}__image`"

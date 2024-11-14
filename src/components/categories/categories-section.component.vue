@@ -1,12 +1,13 @@
 <template>
   <section
-    :class="[baseClass, { [`${baseClass}--shadow`]: haveShadow }]"
+    :class="[baseClass, `${baseClass}--${size}`, { [`${baseClass}--shadow`]: haveShadow }]"
     :style="{ backgroundImage: `url(${image})` }"
   >
     <base-button
-      @click="$emit('navigateTo', category)"
+      v-if="text"
+      @click="$emit('navigateTo', text)"
       :class="`${baseClass}__button`"
-      :text="t('asides.shop.categories') + `${category}`"
+      :text="t('asides.shop.categories') + `${text}`"
       icon="go-to"
       size="large"
       color="white"
@@ -17,16 +18,23 @@
 </template>
 
 <script lang="ts" setup>
+  import { PropType } from 'vue';
   import { useI18n } from 'vue-i18n';
+
+  import { SizeType } from '../../types';
 
   import { BaseButton } from '../inputs';
 
   const baseClass = 'categories-section';
 
   defineProps({
-    category: {
+    text: {
       type: String,
       required: true
+    },
+    size: {
+      type: String as PropType<SizeType>,
+      default: 'normal'
     },
     image: String,
     haveShadow: Boolean
@@ -38,9 +46,20 @@
 <style lang="scss" scoped>
   .categories-section {
     position: relative;
-    width: 340px;
-    height: 177px;
     border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    &--small {
+      width: 340px;
+      height: 177px;
+    }
+
+    &--large {
+      width: auto;
+      height: 350px;
+    }
 
     &--shadow {
       box-shadow: var(--shadow-section);
