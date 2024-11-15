@@ -77,6 +77,38 @@ export interface AppMessages {
     menus: {
       appMenu: AppMenuMessages;
     };
+    footer: {
+      company: {
+        name: string;
+        description: string;
+      };
+      policies: {
+        title: string;
+        shipping: string;
+        return: string;
+        privacy: string;
+        termsAndConditions: string;
+      };
+      knowUs: {
+        title: string;
+        about: string;
+        contact: string;
+        faqs: string;
+      };
+      //TO DO: email and phone for the admin user?
+      contactUs: {
+        title: string;
+        email: string;
+        phone: string;
+      };
+      caption: {
+        description: string;
+        payment: {
+          paypal: string;
+          visa: string;
+        };
+      };
+    };
   };
 }
 

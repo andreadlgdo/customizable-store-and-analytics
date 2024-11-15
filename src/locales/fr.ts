@@ -203,6 +203,38 @@ const messages: AppMessages['fr'] = {
   productAsides: productAsidesMessages,
   menus: {
     appMenu: appMenuMessages
+  },
+  footer: {
+    company: {
+      name: 'KUSTO',
+      description:
+        'Magasin de vêtements avec des designs espagnols, des tailles inclusives et des matériaux durables.'
+    },
+    policies: {
+      title: 'Politiques',
+      shipping: "Politiques d'expédition",
+      return: 'Politiques de retour',
+      privacy: 'Politiques de confidentialité',
+      termsAndConditions: 'Termes et conditions'
+    },
+    knowUs: {
+      title: 'Apprenez à nous connaître',
+      about: 'À propos de nous',
+      contact: 'Contact',
+      faqs: 'Questions fréquemment posées'
+    },
+    contactUs: {
+      title: 'Contact',
+      email: 'andreadlgdo@hotmail.com',
+      phone: '+34657832444'
+    },
+    caption: {
+      description: '@2024 - Application de commerce électronique Andrea',
+      payment: {
+        paypal: 'PayPal',
+        visa: 'VISA'
+      }
+    }
   }
 };
 
