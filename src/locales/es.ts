@@ -202,6 +202,38 @@ const messages: AppMessages['es'] = {
   productAsides: productAsidesMessages,
   menus: {
     appMenu: appMenuMessages
+  },
+  footer: {
+    company: {
+      name: 'KUSTO',
+      description:
+        'Tienda de ropa con diseños españoles, tallas inclusivas y materiales sostenibles.'
+    },
+    policies: {
+      title: 'Politicas',
+      shipping: 'Politica de envio',
+      return: 'Politica de devolución',
+      privacy: 'Politica de privacidad',
+      termsAndConditions: 'Terminos y condiciones'
+    },
+    knowUs: {
+      title: 'Conocenos',
+      about: 'Sobre nosotros',
+      contact: 'Contacto',
+      faqs: 'Preguntas frecuentes'
+    },
+    contactUs: {
+      title: 'Contactanos',
+      email: 'andreadlgdo@hotmail.com',
+      phone: '+34657832444'
+    },
+    caption: {
+      description: '@2024 - Aplicación de comercio electrónico Andrea',
+      payment: {
+        paypal: 'PayPal',
+        visa: 'VISA'
+      }
+    }
   }
 };
 
