@@ -17,17 +17,18 @@
       :class="`${baseClass}__category`"
     />
   </div>
+  <Footer />
 </template>
 
 <script lang="ts" setup>
   import { ref, onMounted } from 'vue';
 
-  import { CategoriesCarousel, CategoriesSection } from '../components';
+  import { CategoriesCarousel, CategoriesSection, Footer } from '../components';
   import { useCategories, useMobile } from '../composables';
+  import { CategoryEnum } from '../enums';
   import { generalService } from '../services';
 
   import HeaderLayout from './header-layout.view.vue';
-  import { CategoryEnum } from '@/enums';
 
   const baseClass = 'home';
 
