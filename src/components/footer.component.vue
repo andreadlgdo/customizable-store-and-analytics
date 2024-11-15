@@ -11,7 +11,15 @@
         </div>
       </div>
       <div v-for="(info, index) in information" :key="index" :class="`${baseClass}__links`">
-        <base-text v-for="(item, index) in info" :key="index" :tag="index === 0 ? 'h4' : 'default'">
+        <base-text
+          v-for="(item, i) in info"
+          :key="i"
+          :tag="i === 0 ? 'h4' : 'default'"
+          :class="{
+            [`${baseClass}__text ${baseClass}__text--link `]:
+              i !== 0 && index !== information.length - 1
+          }"
+        >
           {{ item.toUpperCase() }}
         </base-text>
       </div>
@@ -101,6 +109,14 @@
 
       &--caption {
         padding: 0 8px;
+      }
+
+      &--link {
+        cursor: pointer;
+
+        &:hover {
+          font-weight: bold;
+        }
       }
     }
   }
