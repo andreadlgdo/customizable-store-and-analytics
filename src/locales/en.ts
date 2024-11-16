@@ -180,6 +180,12 @@ const messages: AppMessages['en'] = {
   header: {
     searchBox: 'Search...'
   },
+  landing: {
+    carousel: {
+      newProducts: 'New products',
+      seeAll: 'See all'
+    }
+  },
   asides: {
     shop: {
       toggle: {

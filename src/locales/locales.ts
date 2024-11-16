@@ -8,6 +8,12 @@ export interface AppMessages {
     header: {
       searchBox: string;
     };
+    landing: {
+      carousel: {
+        newProducts: string;
+        seeAll: string;
+      };
+    };
     asides: {
       shop: {
         toggle: {
