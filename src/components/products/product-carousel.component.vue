@@ -59,7 +59,7 @@
 
     &__content {
       display: flex;
-      gap: 1rem;
+      gap: 2rem;
       padding: 0 2rem 1rem 2rem;
       overflow-x: scroll;
     }
