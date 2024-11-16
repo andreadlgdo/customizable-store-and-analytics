@@ -6,6 +6,7 @@
     :style="{ backgroundImage: `url(${landingImage.imageUrl})` }"
   ></section>
   <categories-carousel :items="categories" />
+  <product-carousel :label="t('landing.carousel.newProducts')" :products="products" />
   <div :class="`${baseClass}__categories`">
     <categories-section
       v-for="category in sections"
@@ -22,9 +23,10 @@
 
 <script lang="ts" setup>
   import { ref, onMounted } from 'vue';
+  import { useI18n } from 'vue-i18n';
 
-  import { CategoriesCarousel, CategoriesSection, Footer } from '../components';
-  import { useCategories, useMobile } from '../composables';
+  import { CategoriesCarousel, CategoriesSection, Footer, ProductCarousel } from '../components';
+  import { useCategories, useMobile, useProducts } from '../composables';
   import { CategoryEnum } from '../enums';
   import { generalService } from '../services';
 
@@ -33,7 +35,9 @@
   const baseClass = 'home';
 
   const { categories, loadCategories, getCategoriesByFilter } = useCategories();
+  const { t } = useI18n();
   const { isMobile } = useMobile();
+  const { products, loadProducts } = useProducts();
 
   const landingImage = ref();
 
@@ -42,6 +46,7 @@
   onMounted(async () => {
     landingImage.value = await generalService.getLandingImage();
     await loadCategories();
+    await loadProducts();
     const sectionsImages = await generalService.getSectionsImages();
     const sectionsCategories = getCategoriesByFilter([
       CategoryEnum.JACKETS,

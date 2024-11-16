@@ -3,7 +3,7 @@
     <div :class="`${baseClass}__header`">
       <base-text tag="h3">{{ label.toUpperCase() }}</base-text>
       <base-text tag="p" :class="`${baseClass}__text ${baseClass}__text--see-all `">
-        Ver todo
+        {{ t('landing.carousel.seeAll') }}
         <icon-button icon="go-to" size="small" />
       </base-text>
     </div>
@@ -26,6 +26,7 @@
 
 <script lang="ts" setup>
   import { PropType } from 'vue';
+  import { useI18n } from 'vue-i18n';
 
   import { Product } from '../../interfaces';
 
@@ -44,6 +45,8 @@
       required: true
     }
   });
+
+  const { t } = useI18n();
 </script>
 
 <style lang="scss" scoped>
