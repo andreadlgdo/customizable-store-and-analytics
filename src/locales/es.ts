@@ -133,6 +133,12 @@ const messages: AppMessages['es'] = {
   header: {
     searchBox: 'Buscar...'
   },
+  landing: {
+    carousel: {
+      newProducts: 'Nuevos productos',
+      seeAll: 'Ver todo'
+    }
+  },
   asides: {
     shop: {
       toggle: {
