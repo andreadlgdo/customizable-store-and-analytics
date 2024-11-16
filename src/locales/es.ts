@@ -224,11 +224,14 @@ const messages: AppMessages['es'] = {
     },
     contactUs: {
       title: 'Contactanos',
-      email: 'andreadlgdo@hotmail.com',
+      email: {
+        label: 'andreadlgdo',
+        domain: 'hotmail.com'
+      },
       phone: '+34657832444'
     },
     caption: {
-      description: '@2024 - Aplicación de comercio electrónico Andrea',
+      description: '2024 - Aplicación de comercio electrónico Andrea',
       payment: {
         paypal: 'PayPal',
         visa: 'VISA'

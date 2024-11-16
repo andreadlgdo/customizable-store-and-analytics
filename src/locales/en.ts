@@ -270,11 +270,14 @@ const messages: AppMessages['en'] = {
     },
     contactUs: {
       title: 'Contact us',
-      email: 'andreadlgdo@hotmail.com',
+      email: {
+        label: 'andreadlgdo',
+        domain: 'hotmail.com'
+      },
       phone: '+34657832444'
     },
     caption: {
-      description: '@2024 - Andrea ecommerce application',
+      description: '2024 - Andrea ecommerce application',
       payment: {
         paypal: 'PayPal',
         visa: 'VISA'

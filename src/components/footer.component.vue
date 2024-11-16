@@ -27,7 +27,7 @@
     <div :class="`${baseClass}__caption`">
       <div>
         <base-text tag="small" :class="`${baseClass}__text ${baseClass}__text--caption `">
-          {{ t('footer.caption.description') }}
+          {{ '@' + t('footer.caption.description') }}
         </base-text>
         <language-toggle />
       </div>
@@ -65,7 +65,11 @@
       t('footer.knowUs.contact'),
       t('footer.knowUs.faqs')
     ],
-    [t('footer.contactUs.title'), t('footer.contactUs.email'), t('footer.contactUs.phone')]
+    [
+      t('footer.contactUs.title'),
+      t('footer.contactUs.email.label') + '@' + t('footer.contactUs.email.domain'),
+      t('footer.contactUs.phone')
+    ]
   ]);
 </script>
 

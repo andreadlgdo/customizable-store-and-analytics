@@ -87,9 +87,10 @@
           image: getOneCategory(CategoryEnum.BAGS)?.imageUrl,
           subItem: [
             {
+              id: 221,
               label: t('menus.appMenu.items.shop.subItems.accessories.subItems.bags')
             },
-            { label: t('menus.appMenu.items.shop.subItems.accessories.subItems.jewelry') }
+            { id: 222, label: t('menus.appMenu.items.shop.subItems.accessories.subItems.jewelry') }
           ]
         },
         {

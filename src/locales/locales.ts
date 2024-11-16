@@ -98,7 +98,10 @@ export interface AppMessages {
       //TO DO: email and phone for the admin user?
       contactUs: {
         title: string;
-        email: string;
+        email: {
+          label: string;
+          domain: string;
+        };
         phone: string;
       };
       caption: {
