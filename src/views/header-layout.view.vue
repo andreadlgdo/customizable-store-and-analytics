@@ -24,13 +24,12 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref } from 'vue';
+  import { ref } from 'vue';
 
   import { Header, LogInAside, MenuAside, ShopAside, SignUpAside } from '../components';
-  import { useMobile, useProducts } from '../composables';
+  import { useMobile } from '../composables';
 
   const { isMobileAndTable } = useMobile();
-  const { fetchProducts } = useProducts();
 
   const isLogInAsideOpen = ref(false);
   const isSignUpAsideOpen = ref(false);
@@ -58,10 +57,6 @@
     isMenuOpen.value = false;
     isLogInAsideOpen.value = true;
   };
-
-  onMounted(async () => {
-    await fetchProducts();
-  });
 </script>
 
 <style lang="scss" scoped>
