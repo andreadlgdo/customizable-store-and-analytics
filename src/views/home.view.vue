@@ -2,28 +2,15 @@
   <header-layout />
   <section
     v-if="landingImage.main?.imageUrl"
-    :class="`${baseClass}__image ${baseClass}__image--primary `"
+    :class="`${baseClass}__image `"
     :style="{ backgroundImage: `url(${landingImage.main?.imageUrl})` }"
   ></section>
   <categories-carousel :items="categories" />
   <product-carousel :label="t('landing.carousel.newProducts')" :products="products" />
-  <div :class="`${baseClass}__wrapper`">
-    <div :class="`${baseClass}__properties`">
-      <section
-        v-for="(item, index) in properties"
-        :key="index"
-        :class="`${baseClass}__property ${baseClass}__property--${index}`"
-      >
-        <svg-icon :src="require(`../assets/media/icons/properties/${item.icon}.svg`)" size="none" />
-        <base-text tag="h4">{{ item.label }}</base-text>
-      </section>
-    </div>
-    <section
-      v-if="landingImage.secondary?.imageUrl"
-      :class="`${baseClass}__image ${baseClass}__image--secondary `"
-      :style="{ backgroundImage: `url(${landingImage.secondary?.imageUrl})` }"
-    ></section>
-  </div>
+  <properties-section
+    :background-image-url="landingImage.secondary?.imageUrl"
+    :items="properties"
+  />
   <div :class="`${baseClass}__categories`">
     <categories-section
       v-for="category in sections"
@@ -43,12 +30,11 @@
   import { useI18n } from 'vue-i18n';
 
   import {
-    BaseText,
     CategoriesCarousel,
     CategoriesSection,
     Footer,
     ProductCarousel,
-    SvgIcon
+    PropertiesSection
   } from '../components';
   import { useCategories, useMobile, useProducts } from '../composables';
   import { CategoryEnum } from '../enums';
@@ -95,19 +81,11 @@
 <style lang="scss" scoped>
   .home {
     &__image {
+      height: 100%;
+      width: 100%;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-
-      &--primary {
-        height: 100%;
-        width: 100%;
-      }
-
-      &--secondary {
-        height: 44rem;
-        clip-path: polygon(0 50%, 50% 60%, 100% 50%, 100% 100%, 0% 100%);
-      }
     }
 
     &__categories {
@@ -118,43 +96,6 @@
 
     &__category {
       margin: 1rem;
-    }
-
-    &__wrapper {
-      width: 100%;
-      height: 44rem;
-      background-color: var(--color-primary);
-    }
-
-    &__properties {
-      position: absolute;
-      display: flex;
-      justify-content: space-evenly;
-      width: 100%;
-      gap: 6rem;
-      padding: 0 2rem;
-      overflow-x: hidden;
-    }
-
-    &__property {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-
-      &--0,
-      &--4 {
-        margin-top: 3rem;
-      }
-
-      &--1,
-      &--3 {
-        margin-top: 6rem;
-      }
-
-      &--2 {
-        margin-top: 9rem;
-      }
     }
   }
 
