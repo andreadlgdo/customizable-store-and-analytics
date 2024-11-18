@@ -137,6 +137,13 @@ const messages: AppMessages['es'] = {
     carousel: {
       newProducts: 'Nuevos productos',
       seeAll: 'Ver todo'
+    },
+    properties: {
+      size: 'Tallas inclusivas',
+      design: 'Diseños españoles',
+      made: 'Hecho en España',
+      return: 'Devolución gratuita',
+      material: 'Materiales sostenibles'
     }
   },
   asides: {
