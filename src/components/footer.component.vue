@@ -80,6 +80,7 @@
     gap: 1rem;
     padding: 1.5rem;
     background-color: var(--color-primary);
+    overflow-x: hidden;
 
     &__content {
       display: flex;
@@ -125,8 +126,25 @@
     }
   }
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 1042px) {
     .footer {
+      &__content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      &__links {
+        margin: 16px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .footer {
+      &__content {
+        display: flex;
+        gap: 16px;
+      }
     }
   }
 </style>
