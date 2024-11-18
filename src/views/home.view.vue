@@ -1,18 +1,22 @@
 <template>
   <header-layout />
   <section
-    v-if="landingImage?.imageUrl"
-    :class="`${baseClass}__image`"
-    :style="{ backgroundImage: `url(${landingImage.imageUrl})` }"
+    v-if="landingImage.main?.imageUrl"
+    :class="`${baseClass}__image `"
+    :style="{ backgroundImage: `url(${landingImage.main?.imageUrl})` }"
   ></section>
   <categories-carousel :items="categories" />
   <product-carousel :label="t('landing.carousel.newProducts')" :products="products" />
+  <properties-section
+    :background-image-url="landingImage.secondary?.imageUrl"
+    :items="properties"
+  />
   <div :class="`${baseClass}__categories`">
     <categories-section
       v-for="category in sections"
-      :key="category?._id"
-      :text="category?.title"
-      :image="category?.imageUrl"
+      :key="category?._id ?? ''"
+      :text="category?.title ?? ''"
+      :image="category?.imageUrl ?? ''"
       size="large"
       have-shadow
       :class="`${baseClass}__category`"
@@ -22,10 +26,16 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, onMounted } from 'vue';
+  import { computed, ref, onMounted } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { CategoriesCarousel, CategoriesSection, Footer, ProductCarousel } from '../components';
+  import {
+    CategoriesCarousel,
+    CategoriesSection,
+    Footer,
+    ProductCarousel,
+    PropertiesSection
+  } from '../components';
   import { useCategories, useMobile, useProducts } from '../composables';
   import { CategoryEnum } from '../enums';
   import { generalService } from '../services';
@@ -39,12 +49,22 @@
   const { isMobile } = useMobile();
   const { products, loadProducts } = useProducts();
 
-  const landingImage = ref();
+  const landingImage = ref({ main: {}, secondary: {} });
+
+  const properties = computed(() => [
+    { icon: 'size', label: t('landing.properties.size') },
+    { icon: 'design', label: t('landing.properties.design') },
+    { icon: 'made', label: t('landing.properties.made') },
+    { icon: 'return', label: t('landing.properties.return') },
+    { icon: 'material', label: t('landing.properties.material') }
+  ]);
 
   const sections = ref();
 
   onMounted(async () => {
-    landingImage.value = await generalService.getLandingImage();
+    const images = await generalService.getLandingImages();
+    landingImage.value.main = images[0];
+    landingImage.value.secondary = images[1];
     await loadCategories();
     await loadProducts();
     const sectionsImages = await generalService.getSectionsImages();
@@ -71,6 +91,7 @@
     &__categories {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      margin: 1.5rem 0;
     }
 
     &__category {

@@ -137,6 +137,13 @@ const messages: AppMessages['fr'] = {
     carousel: {
       newProducts: 'Nouveaux produits',
       seeAll: 'Voir tout'
+    },
+    properties: {
+      size: 'Tailles comprises',
+      design: 'Modèles espagnols',
+      made: 'Fabriqué en Espagne',
+      return: 'Retours gratuits',
+      material: 'Matériaux durables'
     }
   },
   asides: {

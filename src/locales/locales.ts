@@ -13,6 +13,13 @@ export interface AppMessages {
         newProducts: string;
         seeAll: string;
       };
+      properties: {
+        size: string;
+        design: string;
+        made: string;
+        return: string;
+        material: string;
+      };
     };
     asides: {
       shop: {

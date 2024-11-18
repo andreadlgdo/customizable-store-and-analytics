@@ -184,6 +184,13 @@ const messages: AppMessages['en'] = {
     carousel: {
       newProducts: 'New products',
       seeAll: 'See all'
+    },
+    properties: {
+      size: 'Inclusive sizes',
+      design: 'Spanish designs',
+      made: 'Made in Spain',
+      return: 'Free returns',
+      material: 'Sustainable materials'
     }
   },
   asides: {
