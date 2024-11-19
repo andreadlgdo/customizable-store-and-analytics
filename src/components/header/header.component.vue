@@ -30,8 +30,9 @@
 
 <style scoped lang="scss">
   .header {
-    position: absolute;
+    position: fixed;
     width: 100%;
+    z-index: 1;
 
     &__wrapper {
       display: grid;
