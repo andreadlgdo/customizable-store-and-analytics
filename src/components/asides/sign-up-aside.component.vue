@@ -253,7 +253,7 @@
 
   onMounted(() => {
     const { user: userStore } = useCurrentUser();
-    if (userStore) {
+    if (userStore.value) {
       isUserCreated.value = true;
       userCreated.value = userStore.value;
     }

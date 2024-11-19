@@ -18,9 +18,13 @@ export function useUsers() {
 
   const login = async (username: string, password: string) => {
     const userData = { username, password };
-    const response = await userService.validUser(userData);
-    user.value = response.user;
-    localStorage.setItem('user', JSON.stringify(user.value));
+    try {
+      const response = await userService.validUser(userData);
+      user.value = response.user;
+      localStorage.setItem('user', JSON.stringify(user.value));
+    } catch (error) {
+      return error;
+    }
   };
 
   const logout = () => {

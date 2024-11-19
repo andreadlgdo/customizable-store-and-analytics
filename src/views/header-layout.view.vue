@@ -13,7 +13,6 @@
     @close="closeAllAsides"
     @openLogInAsideOpen="openLogInAsideOpen"
     :is-open="isSignUpAsideOpen"
-    :close-position="isMobileAndTable ? 'left' : 'right'"
   />
   <shop-aside @close="closeAllAsides" :is-open="isShoppingCartAsideOpen" />
   <menu-aside
@@ -27,9 +26,6 @@
   import { ref } from 'vue';
 
   import { Header, LogInAside, MenuAside, ShopAside, SignUpAside } from '../components';
-  import { useMobile } from '../composables';
-
-  const { isMobileAndTable } = useMobile();
 
   const isLogInAsideOpen = ref(false);
   const isSignUpAsideOpen = ref(false);

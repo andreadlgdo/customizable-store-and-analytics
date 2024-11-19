@@ -75,7 +75,7 @@ export const userService = {
 
       return await response.json();
     } catch (error) {
-      console.log('Error creating user:', error);
+      console.log('Invalid user:', error);
       throw error;
     }
   }
