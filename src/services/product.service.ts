@@ -1,9 +1,13 @@
 const apiUrl = process.env.VUE_APP_API_URL;
 
 export const productService = {
-  getProducts: async function () {
+  getProducts: async function (categories?: string[]) {
     try {
-      const response = await fetch(`${apiUrl}/api/products`);
+      const url = new URL(`${apiUrl}/api/products`);
+      if (categories?.length) {
+        categories.forEach(category => url.searchParams.append('categories', category));
+      }
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

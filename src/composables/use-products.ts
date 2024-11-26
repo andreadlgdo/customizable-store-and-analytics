@@ -5,8 +5,8 @@ import { productService } from '../services';
 export function useProducts() {
   const products = ref([]);
 
-  const loadProducts = async () => {
-    products.value = await productService.getProducts();
+  const loadProducts = async (categories?: string[]) => {
+    products.value = await productService.getProducts(categories);
   };
 
   return {

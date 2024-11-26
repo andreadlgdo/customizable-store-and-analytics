@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted } from 'vue';
+  import { computed, watch } from 'vue';
   import { useRoute } from 'vue-router';
 
   import { BaseText, Footer } from '../components';
@@ -26,9 +26,13 @@
 
   const category = computed<string>(() => route.params.category as string);
 
-  onMounted(async () => {
-    await loadProducts();
-  });
+  watch(
+    category,
+    async newCategory => {
+      await loadProducts(newCategory ? [newCategory] : []);
+    },
+    { immediate: true }
+  );
 </script>
 
 <style lang="scss" scoped>

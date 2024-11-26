@@ -94,13 +94,13 @@
           id: 22,
           label: t('menus.appMenu.items.shop.subItems.clothes'),
           image: getOneCategory(CategoryEnum.CLOTHES)?.imageUrl,
-          route: { name: 'Products', params: { category: 'clothes' } }
+          route: { name: 'Products', params: { category: 'ropa' } }
         },
         {
           id: 23,
           label: t('menus.appMenu.items.shop.subItems.accessories.title'),
           image: getOneCategory(CategoryEnum.BAGS)?.imageUrl,
-          route: { name: 'Products', params: { category: 'accessories' } },
+          route: { name: 'Products', params: { category: 'accesorios' } },
           subItem: [
             {
               id: 231,
@@ -114,13 +114,13 @@
           id: 24,
           label: t('menus.appMenu.items.shop.subItems.shoes'),
           image: getOneCategory(CategoryEnum.SHOES)?.imageUrl,
-          route: { name: 'Products', params: { category: 'shoes' } }
+          route: { name: 'Products', params: { category: 'zapatos' } }
         },
         {
           id: 25,
           label: t('menus.appMenu.items.shop.subItems.promotions'),
           image: getOneCategory(CategoryEnum.PROMOTION)?.imageUrl,
-          route: { name: 'Products', params: { category: 'promotions' } }
+          route: { name: 'Products', params: { category: 'promociones' } }
         }
       ]
     },
