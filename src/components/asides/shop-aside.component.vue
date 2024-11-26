@@ -82,10 +82,10 @@
     t('asides.shop.toggle.whistList')
   ]);
 
-  const toggleItem = computed(() => ({
+  const toggleItem = ref({
     first: { value: toggleValues.value[0], selected: true },
     second: { value: toggleValues.value[1], selected: false }
-  }));
+  });
 
   const toggleSelectedValue = computed(
     () => Object.values(toggleItem.value).find(item => item.selected)?.value
