@@ -4,7 +4,6 @@ export * from './header';
 export * from './icons';
 export * from './inputs';
 export * from './menu';
-export * from './product-cards';
 export * from './products';
 export * from './toggles';
 
