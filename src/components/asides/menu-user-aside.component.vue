@@ -1,5 +1,5 @@
 <template>
-  <base-aside @close="$emit('close')" :is-open="openAside"  type="round">
+  <base-aside @close="$emit('close')" :is-open="openAside" type="round">
     <div :class="baseClass">
       <svg-icon
         :src="require('../../assets/media/forms/menu-user.svg')"
@@ -82,7 +82,6 @@
   .menu-user-aside {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     padding: 0 2rem;
     height: 100vh;
@@ -110,12 +109,12 @@
 
     &__content {
       width: 100%;
-      margin-top: 4rem;
+      margin-top: 14rem;
     }
 
     &__items {
       width: 100%;
-      height: 20rem;
+      max-height: 40vh;
       overflow: scroll;
     }
 
