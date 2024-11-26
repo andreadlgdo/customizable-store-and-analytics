@@ -1,5 +1,5 @@
 <template>
-  <div :class="baseClass">
+  <div :class="baseClass" :id="baseClass">
     <div :class="[`${baseClass}__wrapper`]">
       <section :class="`${baseClass}__menu ${baseClass}__menu--left`">
         <icon-button @click="$emit('clickMenu')" icon="menu" />
@@ -26,13 +26,31 @@
   const baseClass = 'header';
 
   defineEmits(['clickUser', 'clickShoppingCart', 'clickMenu']);
+
+  window.addEventListener('scroll', function () {
+    const header = document.getElementById('header');
+    if (window.scrollY > 0) {
+      header?.classList.add(`${baseClass}--scrolled`);
+    } else {
+      header?.classList.remove(`${baseClass}--scrolled`);
+    }
+  });
 </script>
 
 <style scoped lang="scss">
   .header {
     position: fixed;
     width: 100%;
-    z-index: 1;
+    transition: background-color 0.3s ease;
+
+    &--scrolled {
+      border-radius: 20px;
+      width: 98%;
+      margin: 4px 1rem;
+      background-color: var(--color-primary);
+      box-shadow: var(--shadow-button);
+      z-index: 1;
+    }
 
     &__wrapper {
       display: grid;
