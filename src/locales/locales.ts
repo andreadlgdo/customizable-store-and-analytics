@@ -23,6 +23,7 @@ export interface AppMessages {
     };
     products: {
       allProducts: string;
+      results: string;
     };
     asides: {
       shop: {

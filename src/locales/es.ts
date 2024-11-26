@@ -148,7 +148,8 @@ const messages: AppMessages['es'] = {
     }
   },
   products: {
-    allProducts: 'Todos los productos'
+    allProducts: 'Todos los productos',
+    results: 'Resultados'
   },
   asides: {
     shop: {

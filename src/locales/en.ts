@@ -195,7 +195,8 @@ const messages: AppMessages['en'] = {
     }
   },
   products: {
-    allProducts: 'All products'
+    allProducts: 'All products',
+    results: 'Results'
   },
   asides: {
     shop: {

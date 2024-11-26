@@ -1,9 +1,12 @@
 <template>
   <header-layout colored />
   <div :class="baseClass">
-    <base-text tag="h3">
-      {{ category ? category.toUpperCase() : t('products.allProducts').toUpperCase() }}
-    </base-text>
+    <div>
+      <base-text tag="h3">
+        {{ category ? category.toUpperCase() : t('products.allProducts').toUpperCase() }}
+      </base-text>
+      <base-text tag="default">{{ products.length }} {{ t('products.results') }}</base-text>
+    </div>
     <div :class="`${baseClass}__content`">
       <base-product-card v-for="product in products" :key="product.id" :product="product" />
     </div>
