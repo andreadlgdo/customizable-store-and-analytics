@@ -7,7 +7,7 @@
           :class="`${baseClass}__image`"
           :style="{ backgroundImage: `url(${item.image})` }"
         ></div>
-        <base-text tag="h4" :class="`${baseClass}__text ${baseClass}__text--item`">
+        <base-text @click="$emit('clickItem', item)" tag="h4" :class="`${baseClass}__text ${baseClass}__text--item`">
           {{ item.label }}
         </base-text>
       </section>

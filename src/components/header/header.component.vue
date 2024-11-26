@@ -1,5 +1,5 @@
 <template>
-  <div :class="baseClass" :id="baseClass">
+  <div :class="[baseClass, { [`${baseClass}--colored`]: colored }]" :id="baseClass">
     <div :class="[`${baseClass}__wrapper`]">
       <section :class="`${baseClass}__menu ${baseClass}__menu--left`">
         <icon-button @click="$emit('clickMenu')" icon="menu" />
@@ -25,6 +25,8 @@
 
   const baseClass = 'header';
 
+  defineProps({ colored: Boolean });
+
   defineEmits(['clickUser', 'clickShoppingCart', 'clickMenu']);
 
   window.addEventListener('scroll', function () {
@@ -43,7 +45,12 @@
     width: 100%;
     transition: background-color 0.3s ease;
 
-    &--scrolled {
+    &--colored {
+      position: relative;
+    }
+
+    &--scrolled,
+    &--colored {
       border-radius: 20px;
       width: 98%;
       margin: 4px 1rem;
