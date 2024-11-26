@@ -89,6 +89,13 @@
     }
 
     @media only screen and (max-width: 768px) {
+      &--scrolled,
+      &--colored {
+        border-radius: 0;
+        margin: 0;
+        width: 100%;
+      }
+
       &__wrapper {
         padding: 0 1rem;
       }
