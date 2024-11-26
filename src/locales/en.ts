@@ -162,7 +162,8 @@ const appMenuMessages = {
         },
         shoes: 'Shoes',
         promotions: 'Promotions'
-      }
+      },
+      seeAll: 'See all'
     },
     contact: 'Contact',
     about: 'About',

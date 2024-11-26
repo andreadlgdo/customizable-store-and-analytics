@@ -115,7 +115,8 @@ const appMenuMessages = {
         },
         shoes: 'Zapatos',
         promotions: 'Promociones'
-      }
+      },
+      seeAll: 'Ver todo'
     },
     contact: 'Contacto',
     about: 'Conocenos',
