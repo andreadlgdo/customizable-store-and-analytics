@@ -1,7 +1,9 @@
 <template>
   <header-layout colored />
   <div :class="baseClass">
-    <base-text v-if="category" tag="h3">{{ category.toUpperCase() }}</base-text>
+    <base-text tag="h3">
+      {{ category ? category.toUpperCase() : t('products.allProducts').toUpperCase() }}
+    </base-text>
     <div :class="`${baseClass}__content`">
       <base-product-card v-for="product in products" :key="product.id" :product="product" />
     </div>
@@ -11,6 +13,7 @@
 
 <script lang="ts" setup>
   import { computed, watch } from 'vue';
+  import { useI18n } from 'vue-i18n';
   import { useRoute } from 'vue-router';
 
   import { BaseProductCard, BaseText, Footer } from '../components';
@@ -19,6 +22,8 @@
   import HeaderLayout from './header-layout.view.vue';
 
   const baseClass = 'products';
+
+  const { t } = useI18n();
 
   const { products, loadProducts } = useProducts();
 
@@ -39,6 +44,7 @@
   .products {
     display: flex;
     flex-direction: column;
+    gap: 12px;
     min-height: 90%;
     margin: 2rem 3rem;
 

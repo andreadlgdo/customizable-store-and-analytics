@@ -147,6 +147,9 @@ const messages: AppMessages['fr'] = {
       material: 'Matériaux durables'
     }
   },
+  products: {
+    allProducts: 'Tous les produits'
+  },
   asides: {
     shop: {
       toggle: {

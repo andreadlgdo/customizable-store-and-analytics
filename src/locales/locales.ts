@@ -21,6 +21,9 @@ export interface AppMessages {
         material: string;
       };
     };
+    products: {
+      allProducts: string;
+    };
     asides: {
       shop: {
         toggle: {

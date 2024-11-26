@@ -194,6 +194,9 @@ const messages: AppMessages['en'] = {
       material: 'Sustainable materials'
     }
   },
+  products: {
+    allProducts: 'All products'
+  },
   asides: {
     shop: {
       toggle: {

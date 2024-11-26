@@ -147,6 +147,9 @@ const messages: AppMessages['es'] = {
       material: 'Materiales sostenibles'
     }
   },
+  products: {
+    allProducts: 'Todos los productos'
+  },
   asides: {
     shop: {
       toggle: {
