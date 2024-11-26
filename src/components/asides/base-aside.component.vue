@@ -53,13 +53,14 @@
   .base-aside {
     $baseClass: &;
 
-    position: absolute;
+    position: fixed;
     top: 0;
     height: 100vh;
     width: 400px;
     background: var(--bg-main);
     box-shadow: var(--shadow-aside);
     overflow: hidden;
+    z-index: 1;
 
     &--right {
       right: 0;
