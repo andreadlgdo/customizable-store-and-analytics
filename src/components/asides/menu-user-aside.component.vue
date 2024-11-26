@@ -1,5 +1,5 @@
 <template>
-  <base-aside @close="$emit('close')" :is-open="openAside">
+  <base-aside @close="$emit('close')" :is-open="openAside"  type="round">
     <div :class="baseClass">
       <svg-icon
         :src="require('../../assets/media/forms/menu-user.svg')"
