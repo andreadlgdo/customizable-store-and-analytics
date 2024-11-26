@@ -75,7 +75,7 @@
   const subMenuSelected = ref<MenuItem[]>();
 
   const menuElements = computed((): MenuItem[] => [
-    { id: 1, label: t('menus.appMenu.items.home') },
+    { id: 1, label: t('menus.appMenu.items.home'), route: { name: 'Home' } },
     {
       id: 2,
       label: t('menus.appMenu.items.shop.title'),
@@ -118,6 +118,11 @@
     if (isSubmenuOpen.value) {
       router.push({ name: 'Products', params: { category: item.label } });
       emit('close');
+    } else if (item.route) {
+      router.push(item.route);
+      emit('close');
+    } else if (item.subItem) {
+      clickSubItem(item);
     }
   };
 
