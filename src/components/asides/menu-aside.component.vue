@@ -46,6 +46,7 @@
   import { useCategories, useMobile } from '../../composables';
   import { CategoryEnum } from '../../enums';
   import { MenuItem } from '../../interfaces';
+  import { generalService } from '../../services';
 
   import BaseText from '../base-text.component.vue';
   import { SvgIcon } from '../icons';
@@ -72,7 +73,10 @@
 
   const isSubmenuOpen = ref(false);
   const isWithSubCaterogies = ref(false);
+
   const subMenuSelected = ref<MenuItem[]>();
+
+  const sectionsImages = ref();
 
   const menuElements = computed((): MenuItem[] => [
     { id: 1, label: t('menus.appMenu.items.home'), route: { name: 'Home' } },
@@ -82,30 +86,41 @@
       subItem: [
         {
           id: 21,
-          label: t('menus.appMenu.items.shop.subItems.clothes'),
-          image: getOneCategory(CategoryEnum.CLOTHES)?.imageUrl
+          label: t('menus.appMenu.items.shop.seeAll'),
+          image: sectionsImages.value?.[0]?.imageUrl,
+          route: { name: 'Products' }
         },
         {
           id: 22,
-          label: t('menus.appMenu.items.shop.subItems.accessories.title'),
-          image: getOneCategory(CategoryEnum.BAGS)?.imageUrl,
-          subItem: [
-            {
-              id: 221,
-              label: t('menus.appMenu.items.shop.subItems.accessories.subItems.bags')
-            },
-            { id: 222, label: t('menus.appMenu.items.shop.subItems.accessories.subItems.jewelry') }
-          ]
+          label: t('menus.appMenu.items.shop.subItems.clothes'),
+          image: getOneCategory(CategoryEnum.CLOTHES)?.imageUrl,
+          route: { name: 'Products', params: { category: 'clothes' } }
         },
         {
           id: 23,
-          label: t('menus.appMenu.items.shop.subItems.shoes'),
-          image: getOneCategory(CategoryEnum.SHOES)?.imageUrl
+          label: t('menus.appMenu.items.shop.subItems.accessories.title'),
+          image: getOneCategory(CategoryEnum.BAGS)?.imageUrl,
+          route: { name: 'Products', params: { category: 'accessories' } },
+          subItem: [
+            {
+              id: 231,
+              label: t('menus.appMenu.items.shop.subItems.accessories.subItems.bags')
+            },
+            { id: 232, label: t('menus.appMenu.items.shop.subItems.accessories.subItems.jewelry') },
+            { id: 233, label: t('menus.appMenu.items.shop.seeAll') }
+          ]
         },
         {
           id: 24,
+          label: t('menus.appMenu.items.shop.subItems.shoes'),
+          image: getOneCategory(CategoryEnum.SHOES)?.imageUrl,
+          route: { name: 'Products', params: { category: 'shoes' } }
+        },
+        {
+          id: 25,
           label: t('menus.appMenu.items.shop.subItems.promotions'),
-          image: getOneCategory(CategoryEnum.PROMOTION)?.imageUrl
+          image: getOneCategory(CategoryEnum.PROMOTION)?.imageUrl,
+          route: { name: 'Products', params: { category: 'promotions' } }
         }
       ]
     },
@@ -115,10 +130,7 @@
   ]);
 
   const clickItem = (item: MenuItem) => {
-    if (isSubmenuOpen.value) {
-      router.push({ name: 'Products', params: { category: item.label } });
-      emit('close');
-    } else if (item.route) {
+    if (item.route) {
       router.push(item.route);
       emit('close');
     } else if (item.subItem) {
@@ -148,6 +160,7 @@
 
   onMounted(async () => {
     await loadCategories();
+    sectionsImages.value = await generalService.getSectionsImages();
   });
 </script>
 

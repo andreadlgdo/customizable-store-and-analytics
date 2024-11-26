@@ -243,6 +243,7 @@ export interface AppMenuMessages {
         shoes: string;
         promotions: string;
       };
+      seeAll: string;
     };
     contact: string;
     about: string;
