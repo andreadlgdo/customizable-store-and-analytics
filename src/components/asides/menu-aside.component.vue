@@ -28,6 +28,7 @@
         </base-text>
       </div>
       <list-items
+        @clickItem="clickItem"
         @clickSubItem="clickSubItem"
         :items="isSubmenuOpen ? subMenuSelected : menuElements"
         :expansible="isSubmenuOpen"
@@ -40,6 +41,7 @@
 <script lang="ts" setup>
   import { computed, onMounted, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
+  import { useRouter } from 'vue-router';
 
   import { useCategories, useMobile } from '../../composables';
   import { CategoryEnum } from '../../enums';
@@ -58,13 +60,15 @@
     isOpen: Boolean
   });
 
-  defineEmits(['close', 'openLogInAside']);
+  const emit = defineEmits(['close', 'openLogInAside']);
 
   const { loadCategories, getOneCategory } = useCategories();
 
   const { t } = useI18n();
 
   const { isMobileAndTable } = useMobile();
+
+  const router = useRouter();
 
   const isSubmenuOpen = ref(false);
   const isWithSubCaterogies = ref(false);
@@ -110,14 +114,17 @@
     { id: 5, label: t('menus.appMenu.items.faq') }
   ]);
 
+  const clickItem = (item: MenuItem) => {
+    if (isSubmenuOpen.value) {
+      router.push({ name: 'Products', params: { category: item.label } });
+      emit('close');
+    }
+  };
+
   const clickSubItem = (item: MenuItem) => {
     isSubmenuOpen.value = true;
-    if (!subMenuSelected.value) {
-      subMenuSelected.value = item.subItem;
-      isWithSubCaterogies.value = false;
-    } else {
-      isWithSubCaterogies.value = true;
-    }
+    subMenuSelected.value = item.subItem ?? [];
+    isWithSubCaterogies.value = !!item.subItem;
   };
 
   watch(
@@ -126,7 +133,7 @@
       if (subMenuSelected.value) {
         subMenuSelected.value = menuElements.value.flatMap(
           menuElement =>
-            menuElement.subItem?.filter(subItem =>
+            menuElement.subItem?.find(subItem =>
               subMenuSelected.value?.some(itemSelected => itemSelected.id === subItem.id)
             ) || []
         );

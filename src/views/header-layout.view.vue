@@ -3,6 +3,7 @@
     @clickUser="isLogInAsideOpen = true"
     @clickShoppingCart="isShoppingCartAsideOpen = true"
     @clickMenu="isMenuOpen = true"
+    :colored="colored"
   />
   <log-in-aside
     @close="closeAllAsides"
@@ -26,6 +27,8 @@
   import { ref } from 'vue';
 
   import { Header, LogInAside, MenuAside, ShopAside, SignUpAside } from '../components';
+
+  defineProps({ colored: Boolean });
 
   const isLogInAsideOpen = ref(false);
   const isSignUpAsideOpen = ref(false);
@@ -54,14 +57,3 @@
     isLogInAsideOpen.value = true;
   };
 </script>
-
-<style lang="scss" scoped>
-  // TODO: Remove when i change the inputs
-  .changePosition {
-    position: absolute;
-    top: 2rem;
-    &__theme {
-      right: 16rem;
-    }
-  }
-</style>
