@@ -1,7 +1,7 @@
 <template>
   <header-layout colored />
   <div :class="baseClass">
-    <base-text tag="h3">{{ category.toUpperCase() }}</base-text>
+    <base-text tag="h3">{{ category?.toUpperCase() }}</base-text>
   </div>
   <Footer />
 </template>
