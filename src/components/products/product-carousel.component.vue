@@ -2,7 +2,11 @@
   <section :class="baseClass">
     <div :class="`${baseClass}__header`">
       <base-text tag="h3">{{ label.toUpperCase() }}</base-text>
-      <base-text tag="p" :class="`${baseClass}__text ${baseClass}__text--see-all `">
+      <base-text
+        @click="router.push({ name: 'Products' })"
+        tag="p"
+        :class="`${baseClass}__text ${baseClass}__text--see-all `"
+      >
         {{ t('landing.carousel.seeAll') }}
         <icon-button icon="go-to" size="small" />
       </base-text>
@@ -27,6 +31,7 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
   import { useI18n } from 'vue-i18n';
+  import { useRouter } from 'vue-router';
 
   import { Product } from '../../interfaces';
 
@@ -47,6 +52,8 @@
   });
 
   const { t } = useI18n();
+
+  const router = useRouter();
 </script>
 
 <style lang="scss" scoped>

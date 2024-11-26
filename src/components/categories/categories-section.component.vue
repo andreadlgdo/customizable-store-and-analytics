@@ -5,7 +5,7 @@
   >
     <base-button
       v-if="text"
-      @click="$emit('navigateTo', text)"
+      @click="router.push({ name: 'Products', params: { category: text.toLowerCase() } })"
       :class="`${baseClass}__button`"
       :text="t('asides.shop.categories') + `${text}`"
       icon="go-to"
@@ -20,6 +20,7 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
   import { useI18n } from 'vue-i18n';
+  import { useRouter } from 'vue-router';
 
   import { SizeType } from '../../types';
 
@@ -41,6 +42,8 @@
   });
 
   const { t } = useI18n();
+
+  const router = useRouter();
 </script>
 
 <style lang="scss" scoped>

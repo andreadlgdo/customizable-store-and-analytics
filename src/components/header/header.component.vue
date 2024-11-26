@@ -47,13 +47,17 @@
 
     &--colored {
       position: relative;
+      margin: 8px 1rem;
+    }
+
+    &--scrolled {
+      margin: 4px 1rem;
     }
 
     &--scrolled,
     &--colored {
       border-radius: 20px;
       width: 98%;
-      margin: 4px 1rem;
       background-color: var(--color-primary);
       box-shadow: var(--shadow-button);
       z-index: 1;
