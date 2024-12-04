@@ -92,35 +92,86 @@
         },
         {
           id: 22,
-          label: t('menus.appMenu.items.shop.subItems.clothes'),
+          label: t('menus.appMenu.items.shop.subItems.clothes.title'),
           image: getOneCategory(CategoryEnum.CLOTHES)?.imageUrl,
-          route: { name: 'Products', params: { category: 'ropa' } }
+          route: { name: 'Products', params: { category: CategoryEnum.CLOTHES } },
+          subItem: [
+            {
+              id: 221,
+              label: t('menus.appMenu.items.shop.subItems.clothes.subItems.jackets'),
+              route: { name: 'Products', params: { category: CategoryEnum.JACKETS } }
+            },
+            {
+              id: 222,
+              label: t('menus.appMenu.items.shop.subItems.clothes.subItems.sweatshirts'),
+              route: { name: 'Products', params: { category: CategoryEnum.SWEARSHIRTS } }
+            },
+            {
+              id: 223,
+              label: t('menus.appMenu.items.shop.subItems.clothes.subItems.shirts'),
+              route: { name: 'Products', params: { category: CategoryEnum.SHIRTS } }
+            },
+            {
+              id: 224,
+              label: t('menus.appMenu.items.shop.subItems.clothes.subItems.tops'),
+              route: { name: 'Products', params: { category: CategoryEnum.TOPS } }
+            },
+            {
+              id: 225,
+              label: t('menus.appMenu.items.shop.subItems.clothes.subItems.pants'),
+              route: { name: 'Products', params: { category: CategoryEnum.JEANS } }
+            },
+            {
+              id: 226,
+              label: t('menus.appMenu.items.shop.subItems.clothes.subItems.skirts'),
+              route: { name: 'Products', params: { category: CategoryEnum.SKIRTS } }
+            },
+            {
+              id: 227,
+              label: t('menus.appMenu.items.shop.subItems.clothes.subItems.dresses'),
+              route: { name: 'Products', params: { category: CategoryEnum.DRESSES } }
+            },
+            {
+              id: 228,
+              label: t('menus.appMenu.items.shop.seeAll'),
+              route: { name: 'Products', params: { category: CategoryEnum.CLOTHES } }
+            }
+          ]
         },
         {
           id: 23,
           label: t('menus.appMenu.items.shop.subItems.accessories.title'),
           image: getOneCategory(CategoryEnum.BAGS)?.imageUrl,
-          route: { name: 'Products', params: { category: 'accesorios' } },
+          route: { name: 'Products', params: { category: CategoryEnum.ACCESSORIES } },
           subItem: [
             {
               id: 231,
-              label: t('menus.appMenu.items.shop.subItems.accessories.subItems.bags')
+              label: t('menus.appMenu.items.shop.subItems.accessories.subItems.bags'),
+              route: { name: 'Products', params: { category: CategoryEnum.BAGS } }
             },
-            { id: 232, label: t('menus.appMenu.items.shop.subItems.accessories.subItems.jewelry') },
-            { id: 233, label: t('menus.appMenu.items.shop.seeAll') }
+            {
+              id: 232,
+              label: t('menus.appMenu.items.shop.subItems.accessories.subItems.jewelry'),
+              route: { name: 'Products', params: { category: CategoryEnum.JEWELRY } }
+            },
+            {
+              id: 233,
+              label: t('menus.appMenu.items.shop.seeAll'),
+              route: { name: 'Products', params: { category: CategoryEnum.ACCESSORIES } }
+            }
           ]
         },
         {
           id: 24,
           label: t('menus.appMenu.items.shop.subItems.shoes'),
           image: getOneCategory(CategoryEnum.SHOES)?.imageUrl,
-          route: { name: 'Products', params: { category: 'zapatos' } }
+          route: { name: 'Products', params: { category: CategoryEnum.SHOES } }
         },
         {
           id: 25,
           label: t('menus.appMenu.items.shop.subItems.promotions'),
           image: getOneCategory(CategoryEnum.PROMOTION)?.imageUrl,
-          route: { name: 'Products', params: { category: 'promociones' } }
+          route: { name: 'Products', params: { category: CategoryEnum.PROMOTION } }
         }
       ]
     },
