@@ -15,7 +15,7 @@ export function useUserMenu() {
           {
             id: 1,
             label: t('asides.user.menu.items.general.personalData'),
-            icon: 'user'
+            icon: 'edit_user'
           },
           {
             id: 2,
@@ -30,14 +30,14 @@ export function useUserMenu() {
           {
             id: 4,
             label: t('asides.user.menu.items.client.orders'),
-            icon: 'heart'
+            icon: 'pack'
           }
         ]
       : [
           {
             id: 1,
             label: t('asides.user.menu.items.general.personalData'),
-            icon: 'user'
+            icon: 'edit_user'
           },
           {
             id: 2,
@@ -47,7 +47,7 @@ export function useUserMenu() {
           {
             id: 3,
             label: t('asides.user.menu.items.admin.ordersManagement'),
-            icon: 'shoppingCart'
+            icon: 'pack'
           },
           {
             id: 3,
@@ -57,12 +57,12 @@ export function useUserMenu() {
           {
             id: 5,
             label: t('asides.user.menu.items.admin.personalization'),
-            icon: 'shoppingCart'
+            icon: 'personalization'
           },
           {
             id: 6,
             label: t('asides.user.menu.items.admin.dataAnalytics'),
-            icon: 'shoppingCart'
+            icon: 'analytics'
           }
         ];
 
