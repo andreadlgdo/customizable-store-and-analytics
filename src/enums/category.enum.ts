@@ -1,9 +1,15 @@
 export enum CategoryEnum {
-  CLOTHES = 'ropa',
-  BAGS = 'bolsos',
-  SHOES = 'zapatos',
-  PROMOTION = 'promocion',
   ACCESSORIES = 'accesorios',
+  BAGS = 'bolsos',
+  CLOTHES = 'ropa',
+  DRESSES = 'vestidos',
   JACKETS = 'chaquetas',
-  JEANS = 'jeans',
+  JEANS = 'pantalones',
+  JEWELRY = 'joyas',
+  PROMOTION = 'promocion',
+  SHIRTS = 'camisetas',
+  SHOES = 'zapatos',
+  SKIRTS = 'faldas',
+  SWEARSHIRTS = 'sudaderas',
+  TOPS = 'tops'
 }
