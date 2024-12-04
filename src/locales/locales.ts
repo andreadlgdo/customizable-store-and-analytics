@@ -42,46 +42,19 @@ export interface AppMessages {
         menu: {
           items: {
             general: {
-              personalData: {
-                label: string;
-                description: string;
-              };
+              personalData: string;
             };
             client: {
-              cart: {
-                label: string;
-                description: string;
-              };
-              orders: {
-                label: string;
-                description: string;
-              };
-              whistList: {
-                label: string;
-                description: string;
-              };
+              cart: string;
+              orders: string;
+              whistList: string;
             };
             admin: {
-              productsManagement: {
-                label: string;
-                description: string;
-              };
-              stockManagement: {
-                label: string;
-                description: string;
-              };
-              ordersManagement: {
-                label: string;
-                description: string;
-              };
-              personalization: {
-                label: string;
-                description: string;
-              };
-              dataAnalytics: {
-                label: string;
-                description: string;
-              };
+              productsManagement: string;
+              ordersManagement: string;
+              userManagement: string;
+              personalization: string;
+              dataAnalytics: string;
             };
           };
           goProfile: string;

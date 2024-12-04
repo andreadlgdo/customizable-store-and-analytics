@@ -14,55 +14,55 @@ export function useUserMenu() {
       ? [
           {
             id: 1,
-            label: t('asides.user.menu.items.general.personalData.label'),
-            description: t('asides.user.menu..items.general.personalData.description')
+            label: t('asides.user.menu.items.general.personalData'),
+            icon: 'user'
           },
           {
             id: 2,
-            label: t('asides.user.menu.items.client.cart.label'),
-            description: t('asides.user.menu.items.client.cart.description')
+            label: t('asides.user.menu.items.client.cart'),
+            icon: 'shoppingCart'
           },
           {
             id: 3,
-            label: t('asides.user.menu.items.client.orders.label'),
-            description: t('asides.user.menu.items.client.orders.description')
+            label: t('asides.user.menu.items.client.whistList'),
+            icon: 'heart'
           },
           {
             id: 4,
-            label: t('asides.user.menu.items.client.whistList.label'),
-            description: t('asides.user.menu.items.client.whistList.description')
+            label: t('asides.user.menu.items.client.orders'),
+            icon: 'heart'
           }
         ]
       : [
           {
             id: 1,
-            label: t('asides.user.menu.items.general.personalData.label'),
-            description: t('asides.user.menu.items.general.personalData.description')
+            label: t('asides.user.menu.items.general.personalData'),
+            icon: 'user'
           },
           {
             id: 2,
-            label: t('asides.user.menu.items.admin.productsManagement.label'),
-            description: t('asides.user.menu.items.admin.productsManagement.description')
+            label: t('asides.user.menu.items.admin.productsManagement'),
+            icon: 'shoppingCart'
           },
           {
             id: 3,
-            label: t('asides.user.menu.items.admin.stockManagement.label'),
-            description: t('asides.user.menu.items.admin.stockManagement.description')
+            label: t('asides.user.menu.items.admin.ordersManagement'),
+            icon: 'shoppingCart'
           },
           {
-            id: 4,
-            label: t('asides.user.menu.items.admin.ordersManagement.label'),
-            description: t('asides.user.menu.items.admin.ordersManagement.description')
+            id: 3,
+            label: t('asides.user.menu.items.admin.userManagement'),
+            icon: 'user'
           },
           {
             id: 5,
-            label: t('asides.user.menu.items.admin.personalization.label'),
-            description: t('asides.user.menu.items.admin.personalization.description')
+            label: t('asides.user.menu.items.admin.personalization'),
+            icon: 'shoppingCart'
           },
           {
             id: 6,
-            label: t('asides.user.menu.items.admin.dataAnalytics.label'),
-            description: t('asides.user.menu.items.admin.dataAnalytics.description')
+            label: t('asides.user.menu.items.admin.dataAnalytics'),
+            icon: 'shoppingCart'
           }
         ];
 

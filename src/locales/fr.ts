@@ -179,48 +179,19 @@ const messages: AppMessages['fr'] = {
       menu: {
         items: {
           general: {
-            personalData: {
-              label: 'Données personnelles',
-              description: 'Mettez à jour et gérez vos informations personnelles.'
-            }
+            personalData: 'Données personnelles'
           },
           client: {
-            cart: {
-              label: 'Mon panier',
-              description: 'Visualisez et modifiez les produits que vous souhaitez acheter.'
-            },
-            orders: {
-              label: 'Mes commandes',
-              description: 'Vérifiez le statut et les détails de vos achats précédents.'
-            },
-            whistList: {
-              label: 'Ma liste de souhaits',
-              description: 'Enregistrez les produits que vous souhaitez acheter plus tard.'
-            }
+            cart: 'Mon panier',
+            orders: 'Mes commandes',
+            whistList: 'Ma liste de souhaits'
           },
           admin: {
-            productsManagement: {
-              label: 'Gestion des produits',
-              description: 'Ajoutez, modifiez ou supprimez des produits dans la boutique.'
-            },
-            stockManagement: {
-              label: 'Gestion des stocks',
-              description: 'Contrôler la disponibilité et la quantité des produits en inventaire.'
-            },
-            ordersManagement: {
-              label: 'Gestion des commandes',
-              description: 'Surveiller et organiser les commandes passées par les utilisateurs.'
-            },
-            personalization: {
-              label: 'Personnalisation',
-              description:
-                "Ajustez l'apparence et les fonctionnalités de l'application en fonction de vos besoins."
-            },
-            dataAnalytics: {
-              label: 'Analyse des données',
-              description:
-                'Accédez à des rapports et des statistiques pour améliorer les performances de votre entreprise.'
-            }
+            productsManagement: 'Gestion des produits',
+            ordersManagement: 'Gestion des commandes',
+            userManagement: 'Gestion des utilisateurs',
+            personalization: 'Personnalisation',
+            dataAnalytics: 'Analyse des données'
           }
         },
         goProfile: 'Aller sur mon profil',

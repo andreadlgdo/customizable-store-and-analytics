@@ -7,6 +7,7 @@
           :class="`${baseClass}__image`"
           :style="{ backgroundImage: `url(${item.image})` }"
         ></div>
+        <svg-icon v-if="item.icon" :src="require(`../assets/media/icons/${item.icon}.svg`)" />
         <base-text
           @click="clickItem(item)"
           tag="h4"
@@ -42,7 +43,7 @@
   import { PropType, ref, watch } from 'vue';
 
   import BaseText from './base-text.component.vue';
-  import { IconButton } from './icons';
+  import { IconButton, SvgIcon } from './icons';
 
   interface Item {
     id: number;
@@ -50,6 +51,7 @@
     description?: string;
     subItem?: Item[];
     image?: string;
+    icon?: string;
   }
 
   const baseClass = 'list-items';

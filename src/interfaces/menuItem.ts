@@ -5,8 +5,9 @@ export interface MenuItem {
   route?: {
     name: string;
     params?: any;
-  }
+  };
   description?: string;
   subItem?: MenuItem[];
   image?: string;
+  icon?: string;
 }
