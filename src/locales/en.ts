@@ -152,7 +152,18 @@ const appMenuMessages = {
     shop: {
       title: 'Shop',
       subItems: {
-        clothes: 'Clothes',
+        clothes: {
+          title: 'Clothes',
+          subItems: {
+            jackets: 'Jackets',
+            sweatshirts: 'Sweatshirts',
+            shirts: 'Shirts',
+            tops: 'Tops',
+            pants: 'Jeans',
+            skirts: 'Skirts',
+            dresses: 'Dresses'
+          }
+        },
         accessories: {
           title: 'Accessories',
           subItems: {
