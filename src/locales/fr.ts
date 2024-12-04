@@ -105,7 +105,18 @@ const appMenuMessages = {
     shop: {
       title: 'Magasin',
       subItems: {
-        clothes: 'Vêtements',
+        clothes: {
+          title: 'Vêtements',
+          subItems: {
+            jackets: 'Vestes',
+            sweatshirts: 'Sweat-shirts',
+            shirts: 'Chemises',
+            tops: 'Tops',
+            pants: 'Pantalon',
+            skirts: 'Jupes',
+            dresses: 'Vêtements'
+          }
+        },
         accessories: {
           title: 'Accessoires',
           subItems: {

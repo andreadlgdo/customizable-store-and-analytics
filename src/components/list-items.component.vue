@@ -1,5 +1,5 @@
 <template>
-  <section v-for="item in items" :key="item.id" :class="baseClass">
+  <section v-for="item in listItems" :key="item.id" :class="baseClass">
     <div :class="`${baseClass}__item`">
       <section :class="`${baseClass}__description`">
         <div
@@ -7,20 +7,25 @@
           :class="`${baseClass}__image`"
           :style="{ backgroundImage: `url(${item.image})` }"
         ></div>
-        <base-text @click="$emit('clickItem', item)" tag="h4" :class="`${baseClass}__text ${baseClass}__text--item`">
+        <base-text
+          @click="clickItem(item)"
+          tag="h4"
+          :class="`${baseClass}__text ${baseClass}__text--item`"
+        >
           {{ item.label }}
         </base-text>
       </section>
       <icon-button
         v-if="item.subItem"
-        :icon="expansible ? (isExpand ? 'less' : 'plus') : 'arrow'"
-        :size="expansible ? (isExpand ? 'small' : 'normal') : 'small'"
-        @click="expansible ? (isExpand = !isExpand) : $emit('clickSubItem', item)"
+        :icon="expansible ? (item.isExpand ? 'less' : 'plus') : 'arrow'"
+        :size="expansible ? (item.isExpand ? 'small' : 'normal') : 'small'"
+        @click="expansible ? (item.isExpand = !item.isExpand) : $emit('clickSubItem', item)"
       />
     </div>
     <transition :name="`${baseClass}__subItem--animation`">
-      <div v-if="item.subItem && expansible && isExpand" :class="`${baseClass}__subItem`">
+      <div v-if="item.subItem && expansible && item.isExpand" :class="`${baseClass}__subItem`">
         <base-text
+          @click="$emit('clickItem', subItem)"
           v-for="(subItem, index) in item.subItem"
           :key="index"
           tag="p"
@@ -34,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref } from 'vue';
+  import { PropType, ref, watch } from 'vue';
 
   import BaseText from './base-text.component.vue';
   import { IconButton } from './icons';
@@ -49,7 +54,7 @@
 
   const baseClass = 'list-items';
 
-  defineProps({
+  const props = defineProps({
     items: {
       type: Array as PropType<Item[]>,
       required: true
@@ -57,7 +62,26 @@
     expansible: Boolean
   });
 
-  const isExpand = ref(false);
+  const emit = defineEmits(['clickItem', 'clickSubItem']);
+
+  const listItems = ref(
+    props.expansible ? props.items.map(item => ({ ...item, isExpand: false })) : props.items
+  );
+
+  const selectedItem = ref<Item>();
+
+  const clickItem = (item: Item): void => {
+    selectedItem.value = item;
+    emit('clickItem', item);
+  };
+
+  watch(
+    () => props.items,
+    () =>
+      (listItems.value = props.expansible
+        ? props.items.map(item => ({ ...item, isExpand: false }))
+        : props.items)
+  );
 </script>
 
 <style lang="scss" scoped>

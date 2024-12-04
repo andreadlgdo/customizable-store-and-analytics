@@ -236,7 +236,18 @@ export interface AppMenuMessages {
     shop: {
       title: string;
       subItems: {
-        clothes: string;
+        clothes: {
+          title: string;
+          subItems: {
+            jackets: string;
+            sweatshirts: string;
+            shirts: string;
+            tops: string;
+            pants: string;
+            skirts: string;
+            dresses: string;
+          };
+        };
         accessories: {
           title: string;
           subItems: {
