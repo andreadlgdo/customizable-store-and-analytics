@@ -3,8 +3,22 @@ import {
   DashboardMessages,
   GeneralMessages,
   LogInMessages,
+  ShoppingCartMessages,
   SignUpMessages
 } from './locales';
+
+const shoppingCartMessages: ShoppingCartMessages = {
+  toggle: {
+    cart: 'Cart',
+    whistList: 'WhistList'
+  },
+  empty: {
+    you: 'You ',
+    description: ' is empty'
+  },
+  categories: 'See all of them ',
+  buy: 'Go shopping'
+};
 
 const generalMessages: GeneralMessages = {
   mobile: {
@@ -141,18 +155,7 @@ const messages: AppMessages['en'] = {
     results: 'Results'
   },
   asides: {
-    shop: {
-      toggle: {
-        cart: 'Cart',
-        whistList: 'WhistList'
-      },
-      empty: {
-        you: 'You ',
-        description: ' is empty'
-      },
-      categories: 'See all of them ',
-      buy: 'Go shopping'
-    },
+    shoppingCart: shoppingCartMessages,
     user: {
       menu: {
         items: {

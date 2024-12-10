@@ -26,18 +26,7 @@ export interface AppMessages {
       results: string;
     };
     asides: {
-      shop: {
-        toggle: {
-          cart: string;
-          whistList: string;
-        };
-        empty: {
-          you: string;
-          description: string;
-        };
-        categories: string;
-        buy: string;
-      };
+      shoppingCart: ShoppingCartMessages;
       user: {
         menu: {
           items: {
@@ -106,6 +95,19 @@ export interface AppMessages {
       };
     };
   };
+}
+
+export interface ShoppingCartMessages {
+  toggle: {
+    cart: string;
+    whistList: string;
+  };
+  empty: {
+    you: string;
+    description: string;
+  };
+  categories: string;
+  buy: string;
 }
 
 export interface GeneralMessages {
