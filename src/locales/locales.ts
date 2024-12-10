@@ -62,12 +62,12 @@ export interface AppMessages {
         };
       };
     };
-    userAsides: UserAsideMessages;
     menus: {
       general: GeneralMessages;
       dashboard: DashboardMessages;
       register: {
         logIn: LogInMessages;
+        signUp: SignUpMessages;
       };
     };
     footer: {
@@ -104,49 +104,6 @@ export interface AppMessages {
           visa: string;
         };
       };
-    };
-  };
-}
-
-export interface UserAsideMessages {
-  signUp: {
-    title: string;
-    inputsPlaceholders: {
-      username: {
-        title: string;
-        error: {
-          empty: string;
-          exits: string;
-        };
-      };
-      email: {
-        title: string;
-        error: {
-          empty: string;
-          incorrect: string;
-        };
-      };
-      password: {
-        title: string;
-        error: string;
-        requirements: {
-          letter: string;
-          characters: string;
-          uppercase: string;
-          specialCharacter: string;
-        };
-      };
-      repeatPassword: {
-        title: string;
-        error: string;
-      };
-      acceptTerms: string;
-    };
-    checkboxText: string;
-    action: string;
-    logIn: {
-      description: string;
-      action: string;
     };
   };
 }
@@ -213,6 +170,47 @@ export interface LogInMessages {
   forgotPassword: string;
   action: string;
   signUp: {
+    description: string;
+    action: string;
+  };
+}
+
+export interface SignUpMessages {
+  title: string;
+  inputsPlaceholders: {
+    username: {
+      title: string;
+      error: {
+        empty: string;
+        exits: string;
+      };
+    };
+    email: {
+      title: string;
+      error: {
+        empty: string;
+        incorrect: string;
+      };
+    };
+    password: {
+      title: string;
+      error: string;
+      requirements: {
+        letter: string;
+        characters: string;
+        uppercase: string;
+        specialCharacter: string;
+      };
+    };
+    repeatPassword: {
+      title: string;
+      error: string;
+    };
+    acceptTerms: string;
+  };
+  checkboxText: string;
+  action: string;
+  logIn: {
     description: string;
     action: string;
   };

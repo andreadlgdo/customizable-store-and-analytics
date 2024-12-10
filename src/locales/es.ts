@@ -1,47 +1,10 @@
-import { AppMessages, DashboardMessages, GeneralMessages, LogInMessages } from './locales';
-
-const userAsidesMessages = {
-  signUp: {
-    title: 'Registro de usuario',
-    inputsPlaceholders: {
-      username: {
-        title: 'Nombre de usuario',
-        error: {
-          empty: 'El campo nombre de usuario esta vacio',
-          exits: 'El nombre de usuario ya existe'
-        }
-      },
-      email: {
-        title: 'Correo electronico',
-        error: {
-          empty: 'El campo correo electronico esta vacio',
-          incorrect: 'El correo electronico es incorrecto'
-        }
-      },
-      password: {
-        title: 'Contraseña',
-        error: 'El campo contraseña esta vacio',
-        requirements: {
-          letter: 'Minimo una letra',
-          characters: 'Minimo 8 caracteres',
-          uppercase: 'Al menos una mayuscula',
-          specialCharacter: 'Al menos un numero'
-        }
-      },
-      repeatPassword: {
-        title: 'Repetir contraseña',
-        error: 'Las contraseñas no coinciden'
-      },
-      acceptTerms: 'Debes aceptar los terminos y condiciones'
-    },
-    checkboxText: 'Aceptar terminos y condiciones',
-    action: 'Registrarse',
-    logIn: {
-      description: '¿Ya tienes cuenta?',
-      action: 'Inicia sesion'
-    }
-  }
-};
+import {
+  AppMessages,
+  DashboardMessages,
+  GeneralMessages,
+  LogInMessages,
+  SignUpMessages
+} from './locales';
 
 const generalMessages: GeneralMessages = {
   mobile: {
@@ -110,6 +73,47 @@ const logInMessages: LogInMessages = {
   }
 };
 
+const signUpMessages: SignUpMessages = {
+  title: 'Registro de usuario',
+  inputsPlaceholders: {
+    username: {
+      title: 'Nombre de usuario',
+      error: {
+        empty: 'El campo nombre de usuario esta vacio',
+        exits: 'El nombre de usuario ya existe'
+      }
+    },
+    email: {
+      title: 'Correo electronico',
+      error: {
+        empty: 'El campo correo electronico esta vacio',
+        incorrect: 'El correo electronico es incorrecto'
+      }
+    },
+    password: {
+      title: 'Contraseña',
+      error: 'El campo contraseña esta vacio',
+      requirements: {
+        letter: 'Minimo una letra',
+        characters: 'Minimo 8 caracteres',
+        uppercase: 'Al menos una mayuscula',
+        specialCharacter: 'Al menos un numero'
+      }
+    },
+    repeatPassword: {
+      title: 'Repetir contraseña',
+      error: 'Las contraseñas no coinciden'
+    },
+    acceptTerms: 'Debes aceptar los terminos y condiciones'
+  },
+  checkboxText: 'Aceptar terminos y condiciones',
+  action: 'Registrarse',
+  logIn: {
+    description: '¿Ya tienes cuenta?',
+    action: 'Inicia sesion'
+  }
+};
+
 const messages: AppMessages['es'] = {
   languages: {
     es: 'Español',
@@ -173,12 +177,12 @@ const messages: AppMessages['es'] = {
       }
     }
   },
-  userAsides: userAsidesMessages,
   menus: {
     general: generalMessages,
     dashboard: dashboardMessages,
     register: {
-      logIn: logInMessages
+      logIn: logInMessages,
+      signUp: signUpMessages
     }
   },
   footer: {

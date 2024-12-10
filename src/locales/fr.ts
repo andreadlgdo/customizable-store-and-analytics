@@ -1,47 +1,10 @@
-import { AppMessages, DashboardMessages, GeneralMessages, LogInMessages } from './locales';
-
-const userAsidesMessages = {
-  signUp: {
-    title: 'Inscription des utilisateurs',
-    inputsPlaceholders: {
-      username: {
-        title: "Nom d'utilisateur",
-        error: {
-          empty: "Le champ du nom d'utilisateur est vide",
-          exits: "Le nom d'utilisateur existe déjà"
-        }
-      },
-      email: {
-        title: 'E-mail',
-        error: {
-          empty: 'Le champ email est vide',
-          incorrect: "L'e-mail est incorrect"
-        }
-      },
-      password: {
-        title: 'Mot de passe',
-        error: 'Le champ du mot de passe est vide',
-        requirements: {
-          letter: 'Au moins une lettre',
-          characters: 'Minimum 8 caractères',
-          uppercase: 'Au moins une lettre majuscule',
-          specialCharacter: 'Au moins un numéro'
-        }
-      },
-      repeatPassword: {
-        title: 'Répéter le mot de passe',
-        error: 'Les mots de passe ne correspondent pas'
-      },
-      acceptTerms: 'Vous devez accepter les termes et conditions'
-    },
-    checkboxText: 'Accepter les termes et conditions',
-    action: 'Registre',
-    logIn: {
-      description: 'Avez-vous déjà un compte ?',
-      action: 'Se connecter'
-    }
-  }
-};
+import {
+  AppMessages,
+  DashboardMessages,
+  GeneralMessages,
+  LogInMessages,
+  SignUpMessages
+} from './locales';
 
 const generalMessages: GeneralMessages = {
   mobile: {
@@ -110,6 +73,47 @@ const logInMessages: LogInMessages = {
   }
 };
 
+const signUpMessages: SignUpMessages = {
+  title: 'Inscription des utilisateurs',
+  inputsPlaceholders: {
+    username: {
+      title: "Nom d'utilisateur",
+      error: {
+        empty: "Le champ du nom d'utilisateur est vide",
+        exits: "Le nom d'utilisateur existe déjà"
+      }
+    },
+    email: {
+      title: 'E-mail',
+      error: {
+        empty: 'Le champ email est vide',
+        incorrect: "L'e-mail est incorrect"
+      }
+    },
+    password: {
+      title: 'Mot de passe',
+      error: 'Le champ du mot de passe est vide',
+      requirements: {
+        letter: 'Au moins une lettre',
+        characters: 'Minimum 8 caractères',
+        uppercase: 'Au moins une lettre majuscule',
+        specialCharacter: 'Au moins un numéro'
+      }
+    },
+    repeatPassword: {
+      title: 'Répéter le mot de passe',
+      error: 'Les mots de passe ne correspondent pas'
+    },
+    acceptTerms: 'Vous devez accepter les termes et conditions'
+  },
+  checkboxText: 'Accepter les termes et conditions',
+  action: 'Registre',
+  logIn: {
+    description: 'Avez-vous déjà un compte ?',
+    action: 'Se connecter'
+  }
+};
+
 const messages: AppMessages['fr'] = {
   languages: {
     es: 'Espagnol',
@@ -173,12 +177,12 @@ const messages: AppMessages['fr'] = {
       }
     }
   },
-  userAsides: userAsidesMessages,
   menus: {
     general: generalMessages,
     dashboard: dashboardMessages,
     register: {
-      logIn: logInMessages
+      logIn: logInMessages,
+      signUp: signUpMessages
     }
   },
   footer: {

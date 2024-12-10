@@ -14,23 +14,23 @@
       />
 
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--inputs`">
-        <base-text tag="h2" overline>{{ t('userAsides.signUp.title') }}</base-text>
+        <base-text tag="h2" overline>{{ t('menus.register.signUp.title') }}</base-text>
         <base-text-input
           @input="query => (userForm.username = query)"
-          :label="t('userAsides.signUp.inputsPlaceholders.username.title')"
+          :label="t('menus.register.signUp.inputsPlaceholders.username.title')"
           icon="user"
           :error="errorUser"
         />
         <base-text-input
           @input="query => (userForm.email = query)"
-          :label="t('userAsides.signUp.inputsPlaceholders.email.title')"
+          :label="t('menus.register.signUp.inputsPlaceholders.email.title')"
           icon="email"
           :error="errorEmail"
         />
         <div>
           <password-input
             @input="query => (userForm.password = query)"
-            :label="t('userAsides.signUp.inputsPlaceholders.password.title')"
+            :label="t('menus.register.signUp.inputsPlaceholders.password.title')"
             :error="errorPassword"
           />
           <div :class="`${baseClass}__wrapper-pill`">
@@ -45,7 +45,7 @@
         </div>
         <password-input
           @input="query => (userForm.repeatPassword = query)"
-          :label="t('userAsides.signUp.inputsPlaceholders.repeatPassword.title')"
+          :label="t('menus.register.signUp.inputsPlaceholders.repeatPassword.title')"
           :error="equalPassword"
         />
         <div>
@@ -56,7 +56,7 @@
               rel="noopener noreferrer"
               :class="`${baseClass}__text ${baseClass}__text--link`"
             >
-              <base-text tag="link">{{ t('userAsides.signUp.checkboxText') }}</base-text>
+              <base-text tag="link">{{ t('menus.register.signUp.checkboxText') }}</base-text>
             </a>
           </checkbox-input>
           <base-text
@@ -72,16 +72,16 @@
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--footer`">
         <base-button
           @click="addUser"
-          :text="t('userAsides.signUp.action')"
+          :text="t('menus.register.signUp.action')"
           color="primary"
           have-shadow
         />
         <div :class="`${baseClass}__wrapper-text`">
           <base-text tag="small">
-            {{ t('userAsides.signUp.logIn.description') }}
+            {{ t('menus.register.signUp.logIn.description') }}
           </base-text>
           <base-text @click="$emit('openLogInAsideOpen')" tag="link">
-            {{ t('userAsides.signUp.logIn.action') }}
+            {{ t('menus.register.signUp.logIn.action') }}
           </base-text>
         </div>
       </div>
@@ -153,19 +153,19 @@
 
   const passwordRequirements = ref([
     {
-      value: t('userAsides.signUp.inputsPlaceholders.password.requirements.characters'),
+      value: t('menus.register.signUp.inputsPlaceholders.password.requirements.characters'),
       status: 'default'
     },
     {
-      value: t('userAsides.signUp.inputsPlaceholders.password.requirements.letter'),
+      value: t('menus.register.signUp.inputsPlaceholders.password.requirements.letter'),
       status: 'default'
     },
     {
-      value: t('userAsides.signUp.inputsPlaceholders.password.requirements.uppercase'),
+      value: t('menus.register.signUp.inputsPlaceholders.password.requirements.uppercase'),
       status: 'default'
     },
     {
-      value: t('userAsides.signUp.inputsPlaceholders.password.requirements.specialCharacter'),
+      value: t('menus.register.signUp.inputsPlaceholders.password.requirements.specialCharacter'),
       status: 'default'
     }
   ]);
@@ -174,7 +174,7 @@
 
   const validPassword = (password: string, repeatPassword: string): void => {
     if (!password) {
-      errorPassword.value = t('userAsides.signUp.inputsPlaceholders.password.error');
+      errorPassword.value = t('menus.register.signUp.inputsPlaceholders.password.error');
     }
 
     const minLength = 8;
@@ -194,16 +194,16 @@
     });
 
     if (password !== repeatPassword) {
-      equalPassword.value = t('userAsides.signUp.inputsPlaceholders.repeatPassword.error');
+      equalPassword.value = t('menus.register.signUp.inputsPlaceholders.repeatPassword.error');
     }
   };
 
   const validEmail = (email: string): void => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) {
-      errorEmail.value = t('userAsides.signUp.inputsPlaceholders.email.error.empty');
+      errorEmail.value = t('menus.register.signUp.inputsPlaceholders.email.error.empty');
     } else if (!regex.test(email)) {
-      errorEmail.value = t('userAsides.signUp.inputsPlaceholders.email.error.incorrect');
+      errorEmail.value = t('menus.register.signUp.inputsPlaceholders.email.error.incorrect');
     }
   };
 
@@ -218,16 +218,16 @@
     validEmail(userForm.value.email);
 
     if (!userForm.value.username) {
-      errorUser.value = t('userAsides.signUp.inputsPlaceholders.username.error.empty');
+      errorUser.value = t('menus.register.signUp.inputsPlaceholders.username.error.empty');
     } else {
       const users = await getUsers();
       const userWithSameUsername = users.find(
         (user: User) => user.username === userForm.value.username
       );
       if (userWithSameUsername) {
-        errorUser.value = t('userAsides.signUp.inputsPlaceholders.username.error.exits');
+        errorUser.value = t('menus.register.signUp.inputsPlaceholders.username.error.exits');
       } else if (!isSelectCheckbox.value) {
-        errorAcceptTerms.value = t('userAsides.signUp.inputsPlaceholders.acceptTerms');
+        errorAcceptTerms.value = t('menus.register.signUp.inputsPlaceholders.acceptTerms');
       } else {
         userCreated.value = await createUser({
           username: userForm.value.username,
