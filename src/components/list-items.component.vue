@@ -1,5 +1,13 @@
 <template>
-  <section v-for="item in listItems" :key="item.id" :class="baseClass">
+  <section
+    v-for="item in listItems"
+    :key="item.id"
+    :class="[
+      baseClass,
+      { [`${baseClass}--border`]: !background },
+      { [`${baseClass}--background`]: background && item.id === selectedItem?.id }
+    ]"
+  >
     <div :class="`${baseClass}__item`">
       <section :class="`${baseClass}__description`">
         <div
@@ -61,7 +69,8 @@
       type: Array as PropType<Item[]>,
       required: true
     },
-    expansible: Boolean
+    expansible: Boolean,
+    background: Boolean
   });
 
   const emit = defineEmits(['clickItem', 'clickSubItem']);
@@ -88,11 +97,29 @@
 
 <style lang="scss" scoped>
   .list-items {
+    $baseClass: &;
+
     display: flex;
     width: 100%;
     flex-direction: column;
     padding: 16px;
-    border-bottom: 1px solid var(--color-medium);
+
+    &--border {
+      border-bottom: 1px solid var(--color-medium);
+
+      #{$baseClass}__text--item {
+        &:hover {
+          color: var(--color-border-primary);
+        }
+      }
+    }
+
+    &:hover:not(#{$baseClass}--border),
+    &--background {
+      background-color: var(--color-primary);
+      border: none;
+      border-radius: 25px;
+    }
 
     &__item {
       display: flex;
@@ -117,12 +144,6 @@
 
     &__text {
       cursor: pointer;
-
-      &--item {
-        &:hover {
-          color: var(--color-border-primary);
-        }
-      }
 
       &--subItem {
         &:hover {
