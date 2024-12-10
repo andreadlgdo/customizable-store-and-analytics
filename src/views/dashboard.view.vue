@@ -1,106 +1,104 @@
 <template>
-  <header-layout />
-  <div :class="baseClass">
-    <div :class="`${baseClass}__menu`">
-      <div :class="`${baseClass}__user-image`">
-        <img
-          @click="fileInput.click()"
-          :class="`${baseClass}__image`"
-          :src="user?.imageUrl ?? require('../assets/media/images/empty.png')"
-          alt="userImage"
-        />
-        <input
-          ref="fileInput"
-          @change="onFileSelected"
-          type="file"
-          accept="image/*"
-          :class="`${baseClass}__input ${baseClass}__input--file`"
-        />
+  <div :class="baseClass" v-if="user">
+    <base-aside
+      :is-closeable="false"
+      aside-position="left"
+      is-open="true"
+      type="round"
+      :class="`${baseClass}__menu`"
+    >
+      <section :class="`${baseClass}__user`">
+        <div :class="`${baseClass}__image`" :style="{ backgroundImage: `url(${user.imageUrl})` }" />
+        <div>
+          <base-text tag="h3">{{ user.username }}</base-text>
+          <base-text tag="p">{{ user.email }}</base-text>
+        </div>
+      </section>
+      <div :class="`${baseClass}__items`">
+        <list-items :items="menuElements" background />
       </div>
-      <menu-items :menu-items="menuElements" showDescription />
-    </div>
-    <div :class="`${baseClass}__landing`"></div>
+      <div :class="`${baseClass}__footer`">
+        <base-button
+          @click="goToHome"
+          text="Volver al inicio"
+          type="outline-solid"
+          color="primary"
+          have-shadow
+        />
+        <base-text @click="closeSession" :class="`${baseClass}__link`" tag="link">
+          Cerrar sesión
+        </base-text>
+      </div>
+    </base-aside>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-
-  import { MenuItems } from '../components';
-  import { useCurrentUser, useUserMenu } from '../composables';
-  import { imageService, userService } from '../services';
-
-  import HeaderLayout from './header-layout.view.vue';
+  import { BaseAside, BaseButton, BaseText, ListItems } from '../components';
+  import { useCurrentUser, useUserMenu, useUsers } from '../composables';
+  import { useRouter } from 'vue-router';
 
   const baseClass = 'dashboard';
 
   const { user } = useCurrentUser();
+  const router = useRouter();
   const { menuElements } = useUserMenu();
+  const { logout } = useUsers();
 
-  const fileInput = ref();
+  const goToHome = () => router.push('/');
 
-  const onFileSelected = async (event: Event) => {
-    const target = event.target as HTMLInputElement;
-
-    const selectedFile = target.files?.[0];
-
-    if (!selectedFile) {
-      alert('Por favor selecciona una imagen primero');
-      return;
-    } else {
-      const formData = new FormData();
-
-      formData.append('image', selectedFile);
-      formData.append('routeImage', `profile/${user.value._id}`);
-
-      const imageUrl = await imageService.addImage(formData);
-      if (imageUrl) {
-        user.value.imageUrl = imageUrl;
-        const newUser = await userService.updateUser(user.value);
-        localStorage.setItem('user', JSON.stringify(newUser));
-      }
-    }
+  const closeSession = () => {
+    goToHome();
+    logout();
   };
 </script>
 
 <style lang="scss" scoped>
   .dashboard {
-    display: flex;
-    height: calc(100vh - 80px);
+    background-color: var(--color-border-primary);
+    height: 100vh;
 
     &__menu {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 30%;
-      overflow-y: auto;
+      margin: 18px !important;
+      height: 95vh;
+      padding: 2rem;
     }
 
-    &__landing {
-      width: 70%;
-      // TODO: Change when add the landing sections
-      background: green;
-      overflow-y: auto;
-    }
-
-    &__user-image {
+    &__user {
       display: flex;
-      justify-content: center;
-      padding: 6rem 0 1rem;
-      border-bottom: 1px solid var(--color-medium);
+      align-items: center;
+      gap: 12px;
     }
 
     &__image {
-      position: relative;
-      width: 14rem;
-      height: 14rem;
       border-radius: 50%;
-      cursor: pointer;
+      height: 5rem;
+      width: 5rem;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
-    &__input {
-      &--file {
-        display: none;
+    &__items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 2rem 0.5rem;
+    }
+
+    &__footer {
+      position: fixed;
+      bottom: 68px;
+      left: 112px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    &__link {
+      &:hover {
+        text-decoration: underline;
       }
     }
   }
