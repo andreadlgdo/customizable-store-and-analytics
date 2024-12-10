@@ -13,19 +13,20 @@
     <div :class="`${baseClass}__footer`">
       <base-button
         @click="goToHome"
-        text="Volver al inicio"
+        :text="t('menus.dashboard.action')"
         type="outline-solid"
         color="primary"
         have-shadow
       />
       <base-text @click="closeSession" :class="`${baseClass}__text`" tag="default">
-        Cerrar sesión
+        {{ t('asides.user.menu.logOut') }}
       </base-text>
     </div>
   </base-aside>
 </template>
 
 <script lang="ts" setup>
+  import { useI18n } from 'vue-i18n';
   import { useRouter } from 'vue-router';
 
   import { useCurrentUser, useUserMenu, useUsers } from '../../composables';
@@ -38,6 +39,7 @@
 
   const baseClass = 'dashboard-menu-aside';
 
+  const { t } = useI18n();
   const { user } = useCurrentUser();
   const router = useRouter();
   const { menuElements } = useUserMenu();

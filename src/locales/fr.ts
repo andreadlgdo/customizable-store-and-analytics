@@ -96,7 +96,7 @@ const productAsidesMessages = {
   action: 'faire du shopping'
 };
 
-const appMenuMessages = {
+const generalMessages = {
   mobile: {
     login: 'Se connecter'
   },
@@ -134,6 +134,10 @@ const appMenuMessages = {
     faq: 'Questions fréquemment posées'
   },
   backToMenu: 'Retour au menu principal'
+};
+
+const dashboardMessages = {
+  action: 'Aller à la maison'
 };
 
 const messages: AppMessages['fr'] = {
@@ -202,7 +206,8 @@ const messages: AppMessages['fr'] = {
   userAsides: userAsidesMessages,
   productAsides: productAsidesMessages,
   menus: {
-    appMenu: appMenuMessages
+    general: generalMessages,
+    dashboard: dashboardMessages
   },
   footer: {
     company: {

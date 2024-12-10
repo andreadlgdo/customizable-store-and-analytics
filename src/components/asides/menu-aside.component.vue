@@ -24,7 +24,7 @@
           :tag="isSubmenuOpen ? 'default' : 'h4'"
           :class="{ [`${baseClass}__text`]: isSubmenuOpen }"
         >
-          {{ isSubmenuOpen ? t('menus.appMenu.backToMenu') : t('menus.appMenu.mobile.login') }}
+          {{ isSubmenuOpen ? t('menus.general.backToMenu') : t('menus.general.mobile.login') }}
         </base-text>
       </div>
       <list-items
@@ -79,105 +79,105 @@
   const sectionsImages = ref();
 
   const menuElements = computed((): MenuItem[] => [
-    { id: 1, label: t('menus.appMenu.items.home'), route: { name: 'Home' } },
+    { id: 1, label: t('menus.general.items.home'), route: { name: 'Home' } },
     {
       id: 2,
-      label: t('menus.appMenu.items.shop.title'),
+      label: t('menus.general.items.shop.title'),
       subItem: [
         {
           id: 21,
-          label: t('menus.appMenu.items.shop.seeAll'),
+          label: t('menus.general.items.shop.seeAll'),
           image: sectionsImages.value?.[0]?.imageUrl,
           route: { name: 'Products' }
         },
         {
           id: 22,
-          label: t('menus.appMenu.items.shop.subItems.clothes.title'),
+          label: t('menus.general.items.shop.subItems.clothes.title'),
           image: getOneCategory(CategoryEnum.CLOTHES)?.imageUrl,
           route: { name: 'Products', params: { category: CategoryEnum.CLOTHES } },
           subItem: [
             {
               id: 221,
-              label: t('menus.appMenu.items.shop.subItems.clothes.subItems.jackets'),
+              label: t('menus.general.items.shop.subItems.clothes.subItems.jackets'),
               route: { name: 'Products', params: { category: CategoryEnum.JACKETS } }
             },
             {
               id: 222,
-              label: t('menus.appMenu.items.shop.subItems.clothes.subItems.sweatshirts'),
+              label: t('menus.general.items.shop.subItems.clothes.subItems.sweatshirts'),
               route: { name: 'Products', params: { category: CategoryEnum.SWEARSHIRTS } }
             },
             {
               id: 223,
-              label: t('menus.appMenu.items.shop.subItems.clothes.subItems.shirts'),
+              label: t('menus.general.items.shop.subItems.clothes.subItems.shirts'),
               route: { name: 'Products', params: { category: CategoryEnum.SHIRTS } }
             },
             {
               id: 224,
-              label: t('menus.appMenu.items.shop.subItems.clothes.subItems.tops'),
+              label: t('menus.general.items.shop.subItems.clothes.subItems.tops'),
               route: { name: 'Products', params: { category: CategoryEnum.TOPS } }
             },
             {
               id: 225,
-              label: t('menus.appMenu.items.shop.subItems.clothes.subItems.pants'),
+              label: t('menus.general.items.shop.subItems.clothes.subItems.pants'),
               route: { name: 'Products', params: { category: CategoryEnum.JEANS } }
             },
             {
               id: 226,
-              label: t('menus.appMenu.items.shop.subItems.clothes.subItems.skirts'),
+              label: t('menus.general.items.shop.subItems.clothes.subItems.skirts'),
               route: { name: 'Products', params: { category: CategoryEnum.SKIRTS } }
             },
             {
               id: 227,
-              label: t('menus.appMenu.items.shop.subItems.clothes.subItems.dresses'),
+              label: t('menus.general.items.shop.subItems.clothes.subItems.dresses'),
               route: { name: 'Products', params: { category: CategoryEnum.DRESSES } }
             },
             {
               id: 228,
-              label: t('menus.appMenu.items.shop.seeAll'),
+              label: t('menus.general.items.shop.seeAll'),
               route: { name: 'Products', params: { category: CategoryEnum.CLOTHES } }
             }
           ]
         },
         {
           id: 23,
-          label: t('menus.appMenu.items.shop.subItems.accessories.title'),
+          label: t('menus.general.items.shop.subItems.accessories.title'),
           image: getOneCategory(CategoryEnum.BAGS)?.imageUrl,
           route: { name: 'Products', params: { category: CategoryEnum.ACCESSORIES } },
           subItem: [
             {
               id: 231,
-              label: t('menus.appMenu.items.shop.subItems.accessories.subItems.bags'),
+              label: t('menus.general.items.shop.subItems.accessories.subItems.bags'),
               route: { name: 'Products', params: { category: CategoryEnum.BAGS } }
             },
             {
               id: 232,
-              label: t('menus.appMenu.items.shop.subItems.accessories.subItems.jewelry'),
+              label: t('menus.general.items.shop.subItems.accessories.subItems.jewelry'),
               route: { name: 'Products', params: { category: CategoryEnum.JEWELRY } }
             },
             {
               id: 233,
-              label: t('menus.appMenu.items.shop.seeAll'),
+              label: t('menus.general.items.shop.seeAll'),
               route: { name: 'Products', params: { category: CategoryEnum.ACCESSORIES } }
             }
           ]
         },
         {
           id: 24,
-          label: t('menus.appMenu.items.shop.subItems.shoes'),
+          label: t('menus.general.items.shop.subItems.shoes'),
           image: getOneCategory(CategoryEnum.SHOES)?.imageUrl,
           route: { name: 'Products', params: { category: CategoryEnum.SHOES } }
         },
         {
           id: 25,
-          label: t('menus.appMenu.items.shop.subItems.promotions'),
+          label: t('menus.general.items.shop.subItems.promotions'),
           image: getOneCategory(CategoryEnum.PROMOTION)?.imageUrl,
           route: { name: 'Products', params: { category: CategoryEnum.PROMOTION } }
         }
       ]
     },
-    { id: 3, label: t('menus.appMenu.items.contact') },
-    { id: 4, label: t('menus.appMenu.items.about') },
-    { id: 5, label: t('menus.appMenu.items.faq') }
+    { id: 3, label: t('menus.general.items.contact') },
+    { id: 4, label: t('menus.general.items.about') },
+    { id: 5, label: t('menus.general.items.faq') }
   ]);
 
   const clickItem = (item: MenuItem) => {

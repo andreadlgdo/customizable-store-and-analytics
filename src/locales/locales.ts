@@ -65,7 +65,8 @@ export interface AppMessages {
     userAsides: UserAsideMessages;
     productAsides: ProductAsideMessages;
     menus: {
-      appMenu: AppMenuMessages;
+      general: GeneralMessages;
+      dashboard: DashboardMessages;
     };
     footer: {
       company: {
@@ -200,7 +201,7 @@ export interface ProductAsideMessages {
   action: string;
 }
 
-export interface AppMenuMessages {
+export interface GeneralMessages {
   mobile: {
     login: string;
   };
@@ -238,4 +239,8 @@ export interface AppMenuMessages {
     faq: string;
   };
   backToMenu: string;
+}
+
+export interface DashboardMessages {
+  action: string;
 }
