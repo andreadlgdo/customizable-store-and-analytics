@@ -28,7 +28,7 @@
 
     &__content {
       width: 600px;
-      height: 120vh;
+      height: 100vh;
       background-color: white;
     }
   }
