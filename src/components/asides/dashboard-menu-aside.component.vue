@@ -19,7 +19,7 @@
         have-shadow
       />
       <base-text @click="closeSession" :class="`${baseClass}__text`" tag="default">
-        {{ t('asides.user.menu.logOut') }}
+        {{ t('menus.user.logOut') }}
       </base-text>
     </div>
   </base-aside>

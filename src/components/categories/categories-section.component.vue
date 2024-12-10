@@ -7,7 +7,7 @@
       v-if="text"
       @click="router.push({ name: 'Products', params: { category: text.toLowerCase() } })"
       :class="`${baseClass}__button`"
-      :text="t('asides.shop.categories') + `${text}`"
+      :text="t('asides.shoppingCart.categories') + `${text}`"
       icon="go-to"
       size="large"
       color="white"

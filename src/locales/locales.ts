@@ -26,47 +26,16 @@ export interface AppMessages {
       results: string;
     };
     asides: {
-      shop: {
-        toggle: {
-          cart: string;
-          whistList: string;
-        };
-        empty: {
-          you: string;
-          description: string;
-        };
-        categories: string;
-        buy: string;
-      };
-      user: {
-        menu: {
-          items: {
-            general: {
-              personalData: string;
-            };
-            client: {
-              cart: string;
-              orders: string;
-              whistList: string;
-            };
-            admin: {
-              productsManagement: string;
-              ordersManagement: string;
-              userManagement: string;
-              personalization: string;
-              dataAnalytics: string;
-            };
-          };
-          goProfile: string;
-          logOut: string;
-        };
+      shoppingCart: ShoppingCartMessages;
+      register: {
+        logIn: LogInMessages;
+        signUp: SignUpMessages;
       };
     };
-    userAsides: UserAsideMessages;
-    productAsides: ProductAsideMessages;
     menus: {
       general: GeneralMessages;
       dashboard: DashboardMessages;
+      user: UserMessages;
     };
     footer: {
       company: {
@@ -106,99 +75,81 @@ export interface AppMessages {
   };
 }
 
-export interface UserAsideMessages {
-  logIn: {
-    title: string;
-    inputsPlaceholders: {
-      username: {
-        title: string;
-        error: string;
-      };
-      password: {
-        title: string;
-        error: string;
-        showPassword: string;
-        rememberMe: string;
-      };
-      generalError: string;
-    };
-    forgotPassword: string;
-    action: string;
-    signUp: {
-      description: string;
-      action: string;
-    };
+export interface ShoppingCartMessages {
+  toggle: {
+    cart: string;
+    whistList: string;
   };
+  empty: {
+    you: string;
+    description: string;
+  };
+  categories: string;
+  buy: string;
+}
+
+export interface LogInMessages {
+  title: string;
+  inputsPlaceholders: {
+    username: {
+      title: string;
+      error: string;
+    };
+    password: {
+      title: string;
+      error: string;
+      showPassword: string;
+      rememberMe: string;
+    };
+    generalError: string;
+  };
+  forgotPassword: string;
+  action: string;
   signUp: {
-    title: string;
-    inputsPlaceholders: {
-      username: {
-        title: string;
-        error: {
-          empty: string;
-          exits: string;
-        };
-      };
-      email: {
-        title: string;
-        error: {
-          empty: string;
-          incorrect: string;
-        };
-      };
-      password: {
-        title: string;
-        error: string;
-        requirements: {
-          letter: string;
-          characters: string;
-          uppercase: string;
-          specialCharacter: string;
-        };
-      };
-      repeatPassword: {
-        title: string;
-        error: string;
-      };
-      acceptTerms: string;
-    };
-    checkboxText: string;
+    description: string;
     action: string;
-    logIn: {
-      description: string;
-      action: string;
-    };
   };
 }
-export interface ProductAsideMessages {
-  // TO DO: Review if the messages are in use
-  cart: {
-    title: string;
-    empty: {
+
+export interface SignUpMessages {
+  title: string;
+  inputsPlaceholders: {
+    username: {
       title: string;
-      description: string;
-    };
-    button: string;
-    products: {
-      discount: string;
-      buttons: {
-        buy: string;
-        pay: string;
+      error: {
+        empty: string;
+        exits: string;
       };
     };
-  };
-  whistList: {
-    title: string;
-    empty: {
+    email: {
       title: string;
-      description: string;
+      error: {
+        empty: string;
+        incorrect: string;
+      };
     };
-    button: string;
-    products: {
-      action: string;
+    password: {
+      title: string;
+      error: string;
+      requirements: {
+        letter: string;
+        characters: string;
+        uppercase: string;
+        specialCharacter: string;
+      };
     };
+    repeatPassword: {
+      title: string;
+      error: string;
+    };
+    acceptTerms: string;
   };
+  checkboxText: string;
   action: string;
+  logIn: {
+    description: string;
+    action: string;
+  };
 }
 
 export interface GeneralMessages {
@@ -243,4 +194,26 @@ export interface GeneralMessages {
 
 export interface DashboardMessages {
   action: string;
+}
+
+export interface UserMessages {
+  items: {
+    general: {
+      personalData: string;
+    };
+    client: {
+      cart: string;
+      orders: string;
+      whistList: string;
+    };
+    admin: {
+      productsManagement: string;
+      ordersManagement: string;
+      userManagement: string;
+      personalization: string;
+      dataAnalytics: string;
+    };
+  };
+  goProfile: string;
+  logOut: string;
 }

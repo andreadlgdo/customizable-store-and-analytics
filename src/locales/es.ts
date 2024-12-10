@@ -1,102 +1,91 @@
-import { AppMessages } from './locales';
+import {
+  AppMessages,
+  DashboardMessages,
+  GeneralMessages,
+  LogInMessages,
+  ShoppingCartMessages,
+  SignUpMessages,
+  UserMessages
+} from './locales';
 
-const userAsidesMessages = {
-  logIn: {
-    title: 'Inicio de sesion',
-    inputsPlaceholders: {
-      username: {
-        title: 'Nombre de usuario',
-        error: 'El campo nombre de usuario esta vacio'
-      },
-      password: {
-        title: 'Contraseña',
-        error: 'El campo contraseña esta vacio',
-        showPassword: 'Mostrar contraseña',
-        rememberMe: 'Recuerdame'
-      },
-      generalError: 'El usuario o la contraseña no son correctos'
-    },
-    forgotPassword: '¿Has olvidado tu contraseña?',
-    action: 'Iniciar sesión',
-    signUp: {
-      description: '¿No tienes cuenta aun?',
-      action: 'Registrate'
-    }
+const shoppingCartMessages: ShoppingCartMessages = {
+  toggle: {
+    cart: 'Carrito',
+    whistList: 'WhistList'
   },
-  signUp: {
-    title: 'Registro de usuario',
-    inputsPlaceholders: {
-      username: {
-        title: 'Nombre de usuario',
-        error: {
-          empty: 'El campo nombre de usuario esta vacio',
-          exits: 'El nombre de usuario ya existe'
-        }
-      },
-      email: {
-        title: 'Correo electronico',
-        error: {
-          empty: 'El campo correo electronico esta vacio',
-          incorrect: 'El correo electronico es incorrecto'
-        }
-      },
-      password: {
-        title: 'Contraseña',
-        error: 'El campo contraseña esta vacio',
-        requirements: {
-          letter: 'Minimo una letra',
-          characters: 'Minimo 8 caracteres',
-          uppercase: 'Al menos una mayuscula',
-          specialCharacter: 'Al menos un numero'
-        }
-      },
-      repeatPassword: {
-        title: 'Repetir contraseña',
-        error: 'Las contraseñas no coinciden'
-      },
-      acceptTerms: 'Debes aceptar los terminos y condiciones'
+  empty: {
+    you: 'Tu ',
+    description: ' esta vacia'
+  },
+  categories: 'Ver todos los ',
+  buy: 'Continuar comprando'
+};
+
+const logInMessages: LogInMessages = {
+  title: 'Inicio de sesion',
+  inputsPlaceholders: {
+    username: {
+      title: 'Nombre de usuario',
+      error: 'El campo nombre de usuario esta vacio'
     },
-    checkboxText: 'Aceptar terminos y condiciones',
-    action: 'Registrarse',
-    logIn: {
-      description: '¿Ya tienes cuenta?',
-      action: 'Inicia sesion'
-    }
+    password: {
+      title: 'Contraseña',
+      error: 'El campo contraseña esta vacio',
+      showPassword: 'Mostrar contraseña',
+      rememberMe: 'Recuerdame'
+    },
+    generalError: 'El usuario o la contraseña no son correctos'
+  },
+  forgotPassword: '¿Has olvidado tu contraseña?',
+  action: 'Iniciar sesión',
+  signUp: {
+    description: '¿No tienes cuenta aun?',
+    action: 'Registrate'
   }
 };
 
-const productAsidesMessages = {
-  cart: {
-    title: 'Carrito (X)',
-    empty: {
-      title: 'Tu cesta esta vacia',
-      description:
-        'Añade productos a tu carrito para poder disfrutar de una experiencia de compra completa'
-    },
-    button: 'Ver la lista de deseos',
-    products: {
-      discount: 'Código promocional',
-      buttons: {
-        buy: 'Seguir comprando',
-        pay: 'Realizar pedido'
+const signUpMessages: SignUpMessages = {
+  title: 'Registro de usuario',
+  inputsPlaceholders: {
+    username: {
+      title: 'Nombre de usuario',
+      error: {
+        empty: 'El campo nombre de usuario esta vacio',
+        exits: 'El nombre de usuario ya existe'
       }
-    }
-  },
-  whistList: {
-    title: 'Lista de deseos (X)',
-    empty: {
-      title: 'Tu whist list esta vacia',
-      description: 'Guarda tus favoritos para poder acceder a ellos en cualquier momento'
     },
-    button: 'Ver el carrito',
-    products: {
-      action: 'Añadir al carrito'
-    }
+    email: {
+      title: 'Correo electronico',
+      error: {
+        empty: 'El campo correo electronico esta vacio',
+        incorrect: 'El correo electronico es incorrecto'
+      }
+    },
+    password: {
+      title: 'Contraseña',
+      error: 'El campo contraseña esta vacio',
+      requirements: {
+        letter: 'Minimo una letra',
+        characters: 'Minimo 8 caracteres',
+        uppercase: 'Al menos una mayuscula',
+        specialCharacter: 'Al menos un numero'
+      }
+    },
+    repeatPassword: {
+      title: 'Repetir contraseña',
+      error: 'Las contraseñas no coinciden'
+    },
+    acceptTerms: 'Debes aceptar los terminos y condiciones'
   },
-  action: 'Ir a comprar'
+  checkboxText: 'Aceptar terminos y condiciones',
+  action: 'Registrarse',
+  logIn: {
+    description: '¿Ya tienes cuenta?',
+    action: 'Inicia sesion'
+  }
 };
 
-const generalMessages = {
+const generalMessages: GeneralMessages = {
   mobile: {
     login: 'Iniciar sesion'
   },
@@ -136,8 +125,30 @@ const generalMessages = {
   backToMenu: 'Volver al menu principal'
 };
 
-const dashboardMessages = {
+const dashboardMessages: DashboardMessages = {
   action: 'Volver al inicio'
+};
+
+const userMessages: UserMessages = {
+  items: {
+    general: {
+      personalData: 'Datos personales'
+    },
+    client: {
+      cart: 'Mi carrito',
+      orders: 'Mis pedidos',
+      whistList: 'Mi lista de deseos'
+    },
+    admin: {
+      productsManagement: 'Gestión de productos',
+      ordersManagement: 'Gestión de pedidos',
+      userManagement: 'Gestión de usuarios',
+      personalization: 'Personalización',
+      dataAnalytics: 'Analiticas de datos'
+    }
+  },
+  goProfile: 'Ir a mi perfil',
+  logOut: 'Cerrar sesión'
 };
 
 const messages: AppMessages['es'] = {
@@ -167,47 +178,16 @@ const messages: AppMessages['es'] = {
     results: 'Resultados'
   },
   asides: {
-    shop: {
-      toggle: {
-        cart: 'Carrito',
-        whistList: 'WhistList'
-      },
-      empty: {
-        you: 'Tu ',
-        description: ' esta vacia'
-      },
-      categories: 'Ver todos los ',
-      buy: 'Continuar comprando'
-    },
-    user: {
-      menu: {
-        items: {
-          general: {
-            personalData: 'Datos personales'
-          },
-          client: {
-            cart: 'Mi carrito',
-            orders: 'Mis pedidos',
-            whistList: 'Mi lista de deseos'
-          },
-          admin: {
-            productsManagement: 'Gestión de productos',
-            ordersManagement: 'Gestión de pedidos',
-            userManagement: 'Gestión de usuarios',
-            personalization: 'Personalización',
-            dataAnalytics: 'Analiticas de datos'
-          }
-        },
-        goProfile: 'Ir a mi perfil',
-        logOut: 'Cerrar sesión'
-      }
+    shoppingCart: shoppingCartMessages,
+    register: {
+      logIn: logInMessages,
+      signUp: signUpMessages
     }
   },
-  userAsides: userAsidesMessages,
-  productAsides: productAsidesMessages,
   menus: {
     general: generalMessages,
-    dashboard: dashboardMessages
+    dashboard: dashboardMessages,
+    user: userMessages
   },
   footer: {
     company: {
