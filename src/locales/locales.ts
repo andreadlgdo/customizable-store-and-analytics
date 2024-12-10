@@ -27,15 +27,15 @@ export interface AppMessages {
     };
     asides: {
       shoppingCart: ShoppingCartMessages;
+      register: {
+        logIn: LogInMessages;
+        signUp: SignUpMessages;
+      };
     };
     menus: {
       general: GeneralMessages;
       dashboard: DashboardMessages;
       user: UserMessages;
-      register: {
-        logIn: LogInMessages;
-        signUp: SignUpMessages;
-      };
     };
     footer: {
       company: {
@@ -86,6 +86,70 @@ export interface ShoppingCartMessages {
   };
   categories: string;
   buy: string;
+}
+
+export interface LogInMessages {
+  title: string;
+  inputsPlaceholders: {
+    username: {
+      title: string;
+      error: string;
+    };
+    password: {
+      title: string;
+      error: string;
+      showPassword: string;
+      rememberMe: string;
+    };
+    generalError: string;
+  };
+  forgotPassword: string;
+  action: string;
+  signUp: {
+    description: string;
+    action: string;
+  };
+}
+
+export interface SignUpMessages {
+  title: string;
+  inputsPlaceholders: {
+    username: {
+      title: string;
+      error: {
+        empty: string;
+        exits: string;
+      };
+    };
+    email: {
+      title: string;
+      error: {
+        empty: string;
+        incorrect: string;
+      };
+    };
+    password: {
+      title: string;
+      error: string;
+      requirements: {
+        letter: string;
+        characters: string;
+        uppercase: string;
+        specialCharacter: string;
+      };
+    };
+    repeatPassword: {
+      title: string;
+      error: string;
+    };
+    acceptTerms: string;
+  };
+  checkboxText: string;
+  action: string;
+  logIn: {
+    description: string;
+    action: string;
+  };
 }
 
 export interface GeneralMessages {
@@ -152,68 +216,4 @@ export interface UserMessages {
   };
   goProfile: string;
   logOut: string;
-}
-
-export interface LogInMessages {
-  title: string;
-  inputsPlaceholders: {
-    username: {
-      title: string;
-      error: string;
-    };
-    password: {
-      title: string;
-      error: string;
-      showPassword: string;
-      rememberMe: string;
-    };
-    generalError: string;
-  };
-  forgotPassword: string;
-  action: string;
-  signUp: {
-    description: string;
-    action: string;
-  };
-}
-
-export interface SignUpMessages {
-  title: string;
-  inputsPlaceholders: {
-    username: {
-      title: string;
-      error: {
-        empty: string;
-        exits: string;
-      };
-    };
-    email: {
-      title: string;
-      error: {
-        empty: string;
-        incorrect: string;
-      };
-    };
-    password: {
-      title: string;
-      error: string;
-      requirements: {
-        letter: string;
-        characters: string;
-        uppercase: string;
-        specialCharacter: string;
-      };
-    };
-    repeatPassword: {
-      title: string;
-      error: string;
-    };
-    acceptTerms: string;
-  };
-  checkboxText: string;
-  action: string;
-  logIn: {
-    description: string;
-    action: string;
-  };
 }

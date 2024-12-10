@@ -21,6 +21,70 @@ const shoppingCartMessages: ShoppingCartMessages = {
   buy: 'Continuar comprando'
 };
 
+const logInMessages: LogInMessages = {
+  title: 'Inicio de sesion',
+  inputsPlaceholders: {
+    username: {
+      title: 'Nombre de usuario',
+      error: 'El campo nombre de usuario esta vacio'
+    },
+    password: {
+      title: 'Contraseña',
+      error: 'El campo contraseña esta vacio',
+      showPassword: 'Mostrar contraseña',
+      rememberMe: 'Recuerdame'
+    },
+    generalError: 'El usuario o la contraseña no son correctos'
+  },
+  forgotPassword: '¿Has olvidado tu contraseña?',
+  action: 'Iniciar sesión',
+  signUp: {
+    description: '¿No tienes cuenta aun?',
+    action: 'Registrate'
+  }
+};
+
+const signUpMessages: SignUpMessages = {
+  title: 'Registro de usuario',
+  inputsPlaceholders: {
+    username: {
+      title: 'Nombre de usuario',
+      error: {
+        empty: 'El campo nombre de usuario esta vacio',
+        exits: 'El nombre de usuario ya existe'
+      }
+    },
+    email: {
+      title: 'Correo electronico',
+      error: {
+        empty: 'El campo correo electronico esta vacio',
+        incorrect: 'El correo electronico es incorrecto'
+      }
+    },
+    password: {
+      title: 'Contraseña',
+      error: 'El campo contraseña esta vacio',
+      requirements: {
+        letter: 'Minimo una letra',
+        characters: 'Minimo 8 caracteres',
+        uppercase: 'Al menos una mayuscula',
+        specialCharacter: 'Al menos un numero'
+      }
+    },
+    repeatPassword: {
+      title: 'Repetir contraseña',
+      error: 'Las contraseñas no coinciden'
+    },
+    acceptTerms: 'Debes aceptar los terminos y condiciones'
+  },
+  checkboxText: 'Aceptar terminos y condiciones',
+  action: 'Registrarse',
+  logIn: {
+    description: '¿Ya tienes cuenta?',
+    action: 'Inicia sesion'
+  }
+};
+
 const generalMessages: GeneralMessages = {
   mobile: {
     login: 'Iniciar sesion'
@@ -87,70 +151,6 @@ const userMessages: UserMessages = {
   logOut: 'Cerrar sesión'
 };
 
-const logInMessages: LogInMessages = {
-  title: 'Inicio de sesion',
-  inputsPlaceholders: {
-    username: {
-      title: 'Nombre de usuario',
-      error: 'El campo nombre de usuario esta vacio'
-    },
-    password: {
-      title: 'Contraseña',
-      error: 'El campo contraseña esta vacio',
-      showPassword: 'Mostrar contraseña',
-      rememberMe: 'Recuerdame'
-    },
-    generalError: 'El usuario o la contraseña no son correctos'
-  },
-  forgotPassword: '¿Has olvidado tu contraseña?',
-  action: 'Iniciar sesión',
-  signUp: {
-    description: '¿No tienes cuenta aun?',
-    action: 'Registrate'
-  }
-};
-
-const signUpMessages: SignUpMessages = {
-  title: 'Registro de usuario',
-  inputsPlaceholders: {
-    username: {
-      title: 'Nombre de usuario',
-      error: {
-        empty: 'El campo nombre de usuario esta vacio',
-        exits: 'El nombre de usuario ya existe'
-      }
-    },
-    email: {
-      title: 'Correo electronico',
-      error: {
-        empty: 'El campo correo electronico esta vacio',
-        incorrect: 'El correo electronico es incorrecto'
-      }
-    },
-    password: {
-      title: 'Contraseña',
-      error: 'El campo contraseña esta vacio',
-      requirements: {
-        letter: 'Minimo una letra',
-        characters: 'Minimo 8 caracteres',
-        uppercase: 'Al menos una mayuscula',
-        specialCharacter: 'Al menos un numero'
-      }
-    },
-    repeatPassword: {
-      title: 'Repetir contraseña',
-      error: 'Las contraseñas no coinciden'
-    },
-    acceptTerms: 'Debes aceptar los terminos y condiciones'
-  },
-  checkboxText: 'Aceptar terminos y condiciones',
-  action: 'Registrarse',
-  logIn: {
-    description: '¿Ya tienes cuenta?',
-    action: 'Inicia sesion'
-  }
-};
-
 const messages: AppMessages['es'] = {
   languages: {
     es: 'Español',
@@ -178,16 +178,16 @@ const messages: AppMessages['es'] = {
     results: 'Resultados'
   },
   asides: {
-    shoppingCart: shoppingCartMessages
-  },
-  menus: {
-    general: generalMessages,
-    dashboard: dashboardMessages,
-    user: userMessages,
+    shoppingCart: shoppingCartMessages,
     register: {
       logIn: logInMessages,
       signUp: signUpMessages
     }
+  },
+  menus: {
+    general: generalMessages,
+    dashboard: dashboardMessages,
+    user: userMessages
   },
   footer: {
     company: {

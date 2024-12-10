@@ -14,7 +14,7 @@
       />
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--inputs`">
         <base-text tag="h2" overline>
-          {{ t('menus.register.logIn.title') }}
+          {{ t('asides.register.logIn.title') }}
         </base-text>
         <base-text
           v-if="invalidCredentials"
@@ -26,13 +26,13 @@
         </base-text>
         <base-text-input
           @input="query => (userForm.username = query)"
-          :label="t('menus.register.logIn.inputsPlaceholders.username.title')"
+          :label="t('asides.register.logIn.inputsPlaceholders.username.title')"
           icon="user"
           :error="errorUsername"
         />
         <password-input
           @input="query => (userForm.password = query)"
-          :label="t('menus.register.logIn.inputsPlaceholders.password.title')"
+          :label="t('asides.register.logIn.inputsPlaceholders.password.title')"
           :error="errorPassword"
           isNewPassword
         />
@@ -40,16 +40,16 @@
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--footer`">
         <base-button
           @click="logInUser"
-          :text="t('menus.register.logIn.action')"
+          :text="t('asides.register.logIn.action')"
           color="primary"
           have-shadow
         />
         <div :class="`${baseClass}__wrapper-text`">
           <base-text tag="small">
-            {{ t('menus.register.logIn.signUp.description') }}
+            {{ t('asides.register.logIn.signUp.description') }}
           </base-text>
           <base-text @click="$emit('openSignUpAsideOpen')" tag="link">
-            {{ t('menus.register.logIn.signUp.action') }}
+            {{ t('asides.register.logIn.signUp.action') }}
           </base-text>
         </div>
       </div>
@@ -117,16 +117,16 @@
     invalidCredentials.value = '';
     errorUsername.value = '';
     if (!userForm.value.username && !userForm.value.password) {
-      errorUsername.value = t('menus.register.logIn.inputsPlaceholders.username.error');
-      errorPassword.value = t('menus.register.logIn.inputsPlaceholders.password.error');
+      errorUsername.value = t('asides.register.logIn.inputsPlaceholders.username.error');
+      errorPassword.value = t('asides.register.logIn.inputsPlaceholders.password.error');
     } else if (!userForm.value.username) {
-      errorUsername.value = t('menus.register.logIn.inputsPlaceholders.username.error');
+      errorUsername.value = t('asides.register.logIn.inputsPlaceholders.username.error');
     } else if (!userForm.value.password) {
-      errorPassword.value = t('menus.register.logIn.inputsPlaceholders.password.error');
+      errorPassword.value = t('asides.register.logIn.inputsPlaceholders.password.error');
     } else {
       const error = await login(userForm.value.username, userForm.value.password);
       if (error) {
-        invalidCredentials.value = t('menus.register.logIn.inputsPlaceholders.generalError');
+        invalidCredentials.value = t('asides.register.logIn.inputsPlaceholders.generalError');
       } else {
         isUserRegister.value = !!user.value;
         isOpenAside.value = isUserRegister.value;

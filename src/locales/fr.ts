@@ -21,6 +21,70 @@ const shoppingCartMessages: ShoppingCartMessages = {
   buy: 'Continuer mes achats'
 };
 
+const logInMessages: LogInMessages = {
+  title: 'Se connecter',
+  inputsPlaceholders: {
+    username: {
+      title: "Nom d'utilisateur",
+      error: "Le champ du nom d'utilisateur est vide"
+    },
+    password: {
+      title: 'Mot de passe',
+      error: 'Le champ du mot de passe est vide',
+      showPassword: 'Afficher le mot de passe',
+      rememberMe: 'Souviens-toi de moi'
+    },
+    generalError: "Le nom d'utilisateur ou le mot de passe n'est pas correct"
+  },
+  forgotPassword: 'Avez-vous oublié votre mot de passe ?',
+  action: 'Se connecter',
+  signUp: {
+    description: "Vous n'avez pas encore de compte ?",
+    action: 'Registre'
+  }
+};
+
+const signUpMessages: SignUpMessages = {
+  title: 'Inscription des utilisateurs',
+  inputsPlaceholders: {
+    username: {
+      title: "Nom d'utilisateur",
+      error: {
+        empty: "Le champ du nom d'utilisateur est vide",
+        exits: "Le nom d'utilisateur existe déjà"
+      }
+    },
+    email: {
+      title: 'E-mail',
+      error: {
+        empty: 'Le champ email est vide',
+        incorrect: "L'e-mail est incorrect"
+      }
+    },
+    password: {
+      title: 'Mot de passe',
+      error: 'Le champ du mot de passe est vide',
+      requirements: {
+        letter: 'Au moins une lettre',
+        characters: 'Minimum 8 caractères',
+        uppercase: 'Au moins une lettre majuscule',
+        specialCharacter: 'Au moins un numéro'
+      }
+    },
+    repeatPassword: {
+      title: 'Répéter le mot de passe',
+      error: 'Les mots de passe ne correspondent pas'
+    },
+    acceptTerms: 'Vous devez accepter les termes et conditions'
+  },
+  checkboxText: 'Accepter les termes et conditions',
+  action: 'Registre',
+  logIn: {
+    description: 'Avez-vous déjà un compte ?',
+    action: 'Se connecter'
+  }
+};
+
 const generalMessages: GeneralMessages = {
   mobile: {
     login: 'Se connecter'
@@ -87,70 +151,6 @@ const userMessages: UserMessages = {
   logOut: 'Se déconnecter'
 };
 
-const logInMessages: LogInMessages = {
-  title: 'Se connecter',
-  inputsPlaceholders: {
-    username: {
-      title: "Nom d'utilisateur",
-      error: "Le champ du nom d'utilisateur est vide"
-    },
-    password: {
-      title: 'Mot de passe',
-      error: 'Le champ du mot de passe est vide',
-      showPassword: 'Afficher le mot de passe',
-      rememberMe: 'Souviens-toi de moi'
-    },
-    generalError: "Le nom d'utilisateur ou le mot de passe n'est pas correct"
-  },
-  forgotPassword: 'Avez-vous oublié votre mot de passe ?',
-  action: 'Se connecter',
-  signUp: {
-    description: "Vous n'avez pas encore de compte ?",
-    action: 'Registre'
-  }
-};
-
-const signUpMessages: SignUpMessages = {
-  title: 'Inscription des utilisateurs',
-  inputsPlaceholders: {
-    username: {
-      title: "Nom d'utilisateur",
-      error: {
-        empty: "Le champ du nom d'utilisateur est vide",
-        exits: "Le nom d'utilisateur existe déjà"
-      }
-    },
-    email: {
-      title: 'E-mail',
-      error: {
-        empty: 'Le champ email est vide',
-        incorrect: "L'e-mail est incorrect"
-      }
-    },
-    password: {
-      title: 'Mot de passe',
-      error: 'Le champ du mot de passe est vide',
-      requirements: {
-        letter: 'Au moins une lettre',
-        characters: 'Minimum 8 caractères',
-        uppercase: 'Au moins une lettre majuscule',
-        specialCharacter: 'Au moins un numéro'
-      }
-    },
-    repeatPassword: {
-      title: 'Répéter le mot de passe',
-      error: 'Les mots de passe ne correspondent pas'
-    },
-    acceptTerms: 'Vous devez accepter les termes et conditions'
-  },
-  checkboxText: 'Accepter les termes et conditions',
-  action: 'Registre',
-  logIn: {
-    description: 'Avez-vous déjà un compte ?',
-    action: 'Se connecter'
-  }
-};
-
 const messages: AppMessages['fr'] = {
   languages: {
     es: 'Espagnol',
@@ -178,16 +178,16 @@ const messages: AppMessages['fr'] = {
     results: 'Résultats'
   },
   asides: {
-    shoppingCart: shoppingCartMessages
-  },
-  menus: {
-    general: generalMessages,
-    dashboard: dashboardMessages,
-    user: userMessages,
+    shoppingCart: shoppingCartMessages,
     register: {
       logIn: logInMessages,
       signUp: signUpMessages
     }
+  },
+  menus: {
+    general: generalMessages,
+    dashboard: dashboardMessages,
+    user: userMessages
   },
   footer: {
     company: {
