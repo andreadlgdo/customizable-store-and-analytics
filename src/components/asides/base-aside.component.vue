@@ -9,7 +9,7 @@
         `${baseClass}--icon-${closePosition}`
       ]"
     >
-      <div :class="`${baseClass}__header`">
+      <div v-if="isCloseable" :class="`${baseClass}__header`">
         <icon-button
           @click="$emit('close')"
           :class="`${baseClass}__icon ${baseClass}__icon--close`"
@@ -31,7 +31,6 @@
   const baseClass = 'base-aside';
 
   defineProps({
-    isOpen: Boolean,
     type: {
       type: String as PropType<AsideType>,
       default: 'square'
@@ -43,6 +42,11 @@
     asidePosition: {
       type: String as PropType<PositionType>,
       default: 'right'
+    },
+    isOpen: Boolean,
+    isCloseable: {
+      type: Boolean,
+      default: () => true
     }
   });
 
