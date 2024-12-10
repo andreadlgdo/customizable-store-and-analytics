@@ -63,10 +63,12 @@ export interface AppMessages {
       };
     };
     userAsides: UserAsideMessages;
-    productAsides: ProductAsideMessages;
     menus: {
       general: GeneralMessages;
       dashboard: DashboardMessages;
+      register: {
+        logIn: LogInMessages;
+      };
     };
     footer: {
       company: {
@@ -107,28 +109,6 @@ export interface AppMessages {
 }
 
 export interface UserAsideMessages {
-  logIn: {
-    title: string;
-    inputsPlaceholders: {
-      username: {
-        title: string;
-        error: string;
-      };
-      password: {
-        title: string;
-        error: string;
-        showPassword: string;
-        rememberMe: string;
-      };
-      generalError: string;
-    };
-    forgotPassword: string;
-    action: string;
-    signUp: {
-      description: string;
-      action: string;
-    };
-  };
   signUp: {
     title: string;
     inputsPlaceholders: {
@@ -169,36 +149,6 @@ export interface UserAsideMessages {
       action: string;
     };
   };
-}
-export interface ProductAsideMessages {
-  // TO DO: Review if the messages are in use
-  cart: {
-    title: string;
-    empty: {
-      title: string;
-      description: string;
-    };
-    button: string;
-    products: {
-      discount: string;
-      buttons: {
-        buy: string;
-        pay: string;
-      };
-    };
-  };
-  whistList: {
-    title: string;
-    empty: {
-      title: string;
-      description: string;
-    };
-    button: string;
-    products: {
-      action: string;
-    };
-  };
-  action: string;
 }
 
 export interface GeneralMessages {
@@ -243,4 +193,27 @@ export interface GeneralMessages {
 
 export interface DashboardMessages {
   action: string;
+}
+
+export interface LogInMessages {
+  title: string;
+  inputsPlaceholders: {
+    username: {
+      title: string;
+      error: string;
+    };
+    password: {
+      title: string;
+      error: string;
+      showPassword: string;
+      rememberMe: string;
+    };
+    generalError: string;
+  };
+  forgotPassword: string;
+  action: string;
+  signUp: {
+    description: string;
+    action: string;
+  };
 }

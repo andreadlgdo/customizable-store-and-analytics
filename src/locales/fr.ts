@@ -1,28 +1,6 @@
-import { AppMessages } from './locales';
+import { AppMessages, DashboardMessages, GeneralMessages, LogInMessages } from './locales';
 
 const userAsidesMessages = {
-  logIn: {
-    title: 'Se connecter',
-    inputsPlaceholders: {
-      username: {
-        title: "Nom d'utilisateur",
-        error: "Le champ du nom d'utilisateur est vide"
-      },
-      password: {
-        title: 'Mot de passe',
-        error: 'Le champ du mot de passe est vide',
-        showPassword: 'Afficher le mot de passe',
-        rememberMe: 'Souviens-toi de moi'
-      },
-      generalError: "Le nom d'utilisateur ou le mot de passe n'est pas correct"
-    },
-    forgotPassword: 'Avez-vous oublié votre mot de passe ?',
-    action: 'Se connecter',
-    signUp: {
-      description: "Vous n'avez pas encore de compte ?",
-      action: 'Registre'
-    }
-  },
   signUp: {
     title: 'Inscription des utilisateurs',
     inputsPlaceholders: {
@@ -65,38 +43,7 @@ const userAsidesMessages = {
   }
 };
 
-const productAsidesMessages = {
-  cart: {
-    title: 'Panier (X)',
-    empty: {
-      title: 'Votre panier est vide',
-      description:
-        "Ajoutez des produits à votre panier pour profiter d'une expérience d'achat complète"
-    },
-    button: 'Afficher la liste de souhaits',
-    products: {
-      discount: 'Code promotionnel',
-      buttons: {
-        buy: 'Continuer mes achats',
-        pay: 'Passer la commande'
-      }
-    }
-  },
-  whistList: {
-    title: 'Liste de souhaits (X)',
-    empty: {
-      title: 'Votre liste de souhaits est vide',
-      description: 'Enregistrez vos favoris pour pouvoir y accéder à tout moment'
-    },
-    button: 'Voir le panier',
-    products: {
-      action: 'Ajouter au panier'
-    }
-  },
-  action: 'faire du shopping'
-};
-
-const generalMessages = {
+const generalMessages: GeneralMessages = {
   mobile: {
     login: 'Se connecter'
   },
@@ -136,8 +83,31 @@ const generalMessages = {
   backToMenu: 'Retour au menu principal'
 };
 
-const dashboardMessages = {
+const dashboardMessages: DashboardMessages = {
   action: 'Aller à la maison'
+};
+
+const logInMessages: LogInMessages = {
+  title: 'Se connecter',
+  inputsPlaceholders: {
+    username: {
+      title: "Nom d'utilisateur",
+      error: "Le champ du nom d'utilisateur est vide"
+    },
+    password: {
+      title: 'Mot de passe',
+      error: 'Le champ du mot de passe est vide',
+      showPassword: 'Afficher le mot de passe',
+      rememberMe: 'Souviens-toi de moi'
+    },
+    generalError: "Le nom d'utilisateur ou le mot de passe n'est pas correct"
+  },
+  forgotPassword: 'Avez-vous oublié votre mot de passe ?',
+  action: 'Se connecter',
+  signUp: {
+    description: "Vous n'avez pas encore de compte ?",
+    action: 'Registre'
+  }
 };
 
 const messages: AppMessages['fr'] = {
@@ -204,10 +174,12 @@ const messages: AppMessages['fr'] = {
     }
   },
   userAsides: userAsidesMessages,
-  productAsides: productAsidesMessages,
   menus: {
     general: generalMessages,
-    dashboard: dashboardMessages
+    dashboard: dashboardMessages,
+    register: {
+      logIn: logInMessages
+    }
   },
   footer: {
     company: {

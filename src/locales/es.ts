@@ -1,28 +1,6 @@
-import { AppMessages } from './locales';
+import { AppMessages, DashboardMessages, GeneralMessages, LogInMessages } from './locales';
 
 const userAsidesMessages = {
-  logIn: {
-    title: 'Inicio de sesion',
-    inputsPlaceholders: {
-      username: {
-        title: 'Nombre de usuario',
-        error: 'El campo nombre de usuario esta vacio'
-      },
-      password: {
-        title: 'Contraseña',
-        error: 'El campo contraseña esta vacio',
-        showPassword: 'Mostrar contraseña',
-        rememberMe: 'Recuerdame'
-      },
-      generalError: 'El usuario o la contraseña no son correctos'
-    },
-    forgotPassword: '¿Has olvidado tu contraseña?',
-    action: 'Iniciar sesión',
-    signUp: {
-      description: '¿No tienes cuenta aun?',
-      action: 'Registrate'
-    }
-  },
   signUp: {
     title: 'Registro de usuario',
     inputsPlaceholders: {
@@ -65,38 +43,7 @@ const userAsidesMessages = {
   }
 };
 
-const productAsidesMessages = {
-  cart: {
-    title: 'Carrito (X)',
-    empty: {
-      title: 'Tu cesta esta vacia',
-      description:
-        'Añade productos a tu carrito para poder disfrutar de una experiencia de compra completa'
-    },
-    button: 'Ver la lista de deseos',
-    products: {
-      discount: 'Código promocional',
-      buttons: {
-        buy: 'Seguir comprando',
-        pay: 'Realizar pedido'
-      }
-    }
-  },
-  whistList: {
-    title: 'Lista de deseos (X)',
-    empty: {
-      title: 'Tu whist list esta vacia',
-      description: 'Guarda tus favoritos para poder acceder a ellos en cualquier momento'
-    },
-    button: 'Ver el carrito',
-    products: {
-      action: 'Añadir al carrito'
-    }
-  },
-  action: 'Ir a comprar'
-};
-
-const generalMessages = {
+const generalMessages: GeneralMessages = {
   mobile: {
     login: 'Iniciar sesion'
   },
@@ -136,8 +83,31 @@ const generalMessages = {
   backToMenu: 'Volver al menu principal'
 };
 
-const dashboardMessages = {
+const dashboardMessages: DashboardMessages = {
   action: 'Volver al inicio'
+};
+
+const logInMessages: LogInMessages = {
+  title: 'Inicio de sesion',
+  inputsPlaceholders: {
+    username: {
+      title: 'Nombre de usuario',
+      error: 'El campo nombre de usuario esta vacio'
+    },
+    password: {
+      title: 'Contraseña',
+      error: 'El campo contraseña esta vacio',
+      showPassword: 'Mostrar contraseña',
+      rememberMe: 'Recuerdame'
+    },
+    generalError: 'El usuario o la contraseña no son correctos'
+  },
+  forgotPassword: '¿Has olvidado tu contraseña?',
+  action: 'Iniciar sesión',
+  signUp: {
+    description: '¿No tienes cuenta aun?',
+    action: 'Registrate'
+  }
 };
 
 const messages: AppMessages['es'] = {
@@ -204,10 +174,12 @@ const messages: AppMessages['es'] = {
     }
   },
   userAsides: userAsidesMessages,
-  productAsides: productAsidesMessages,
   menus: {
     general: generalMessages,
-    dashboard: dashboardMessages
+    dashboard: dashboardMessages,
+    register: {
+      logIn: logInMessages
+    }
   },
   footer: {
     company: {
