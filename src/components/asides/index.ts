@@ -1,4 +1,5 @@
 export { default as BaseAside } from './base-aside.component.vue';
+export { default as DashboardMenuAside } from './dashboard-menu-aside.component.vue';
 export { default as LogInAside } from './log-in-aside.component.vue';
 export { default as MenuAside } from './menu-aside.component.vue';
 export { default as MenuUserAside } from './menu-user-aside.component.vue';

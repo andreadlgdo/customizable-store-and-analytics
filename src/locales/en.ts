@@ -143,7 +143,7 @@ const productAsidesMessages = {
   action: 'Go shopping'
 };
 
-const appMenuMessages = {
+const generalMessages = {
   mobile: {
     login: 'Login'
   },
@@ -181,6 +181,10 @@ const appMenuMessages = {
     faq: 'FAQ'
   },
   backToMenu: 'Back to the main menu'
+};
+
+const dashboardMessages = {
+  action: 'Go to home'
 };
 
 const messages: AppMessages['en'] = {
@@ -249,7 +253,8 @@ const messages: AppMessages['en'] = {
   userAsides: userAsidesMessages,
   productAsides: productAsidesMessages,
   menus: {
-    appMenu: appMenuMessages
+    general: generalMessages,
+    dashboard: dashboardMessages
   },
   footer: {
     company: {
