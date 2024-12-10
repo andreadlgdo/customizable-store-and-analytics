@@ -8,7 +8,7 @@
       </div>
     </section>
     <div :class="`${baseClass}__items`">
-      <list-items :items="menuElements" background />
+      <list-items @clickItem="$emit('clickItem', $event)" :items="menuElements" background />
     </div>
     <div :class="`${baseClass}__footer`">
       <base-button
@@ -45,6 +45,8 @@
   const { menuElements } = useUserMenu();
   const { logout } = useUsers();
 
+  defineEmits(['clickItem']);
+
   const goToHome = () => router.push('/');
 
   const closeSession = () => {
@@ -55,6 +57,7 @@
 
 <style lang="scss" scoped>
   .dashboard-menu-aside {
+    position: relative;
     margin: 18px !important;
     height: 95vh;
     padding: 2rem;
