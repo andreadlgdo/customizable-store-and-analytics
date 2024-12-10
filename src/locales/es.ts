@@ -4,7 +4,8 @@ import {
   GeneralMessages,
   LogInMessages,
   ShoppingCartMessages,
-  SignUpMessages
+  SignUpMessages,
+  UserMessages
 } from './locales';
 
 const shoppingCartMessages: ShoppingCartMessages = {
@@ -62,6 +63,28 @@ const generalMessages: GeneralMessages = {
 
 const dashboardMessages: DashboardMessages = {
   action: 'Volver al inicio'
+};
+
+const userMessages: UserMessages = {
+  items: {
+    general: {
+      personalData: 'Datos personales'
+    },
+    client: {
+      cart: 'Mi carrito',
+      orders: 'Mis pedidos',
+      whistList: 'Mi lista de deseos'
+    },
+    admin: {
+      productsManagement: 'Gestión de productos',
+      ordersManagement: 'Gestión de pedidos',
+      userManagement: 'Gestión de usuarios',
+      personalization: 'Personalización',
+      dataAnalytics: 'Analiticas de datos'
+    }
+  },
+  goProfile: 'Ir a mi perfil',
+  logOut: 'Cerrar sesión'
 };
 
 const logInMessages: LogInMessages = {
@@ -155,34 +178,12 @@ const messages: AppMessages['es'] = {
     results: 'Resultados'
   },
   asides: {
-    shoppingCart: shoppingCartMessages,
-    user: {
-      menu: {
-        items: {
-          general: {
-            personalData: 'Datos personales'
-          },
-          client: {
-            cart: 'Mi carrito',
-            orders: 'Mis pedidos',
-            whistList: 'Mi lista de deseos'
-          },
-          admin: {
-            productsManagement: 'Gestión de productos',
-            ordersManagement: 'Gestión de pedidos',
-            userManagement: 'Gestión de usuarios',
-            personalization: 'Personalización',
-            dataAnalytics: 'Analiticas de datos'
-          }
-        },
-        goProfile: 'Ir a mi perfil',
-        logOut: 'Cerrar sesión'
-      }
-    }
+    shoppingCart: shoppingCartMessages
   },
   menus: {
     general: generalMessages,
     dashboard: dashboardMessages,
+    user: userMessages,
     register: {
       logIn: logInMessages,
       signUp: signUpMessages

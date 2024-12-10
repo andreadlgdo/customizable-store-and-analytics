@@ -4,7 +4,8 @@ import {
   GeneralMessages,
   LogInMessages,
   ShoppingCartMessages,
-  SignUpMessages
+  SignUpMessages,
+  UserMessages
 } from './locales';
 
 const shoppingCartMessages: ShoppingCartMessages = {
@@ -62,6 +63,28 @@ const generalMessages: GeneralMessages = {
 
 const dashboardMessages: DashboardMessages = {
   action: 'Aller à la maison'
+};
+
+const userMessages: UserMessages = {
+  items: {
+    general: {
+      personalData: 'Données personnelles'
+    },
+    client: {
+      cart: 'Mon panier',
+      orders: 'Mes commandes',
+      whistList: 'Ma liste de souhaits'
+    },
+    admin: {
+      productsManagement: 'Gestion des produits',
+      ordersManagement: 'Gestion des commandes',
+      userManagement: 'Gestion des utilisateurs',
+      personalization: 'Personnalisation',
+      dataAnalytics: 'Analyse des données'
+    }
+  },
+  goProfile: 'Aller sur mon profil',
+  logOut: 'Se déconnecter'
 };
 
 const logInMessages: LogInMessages = {
@@ -155,34 +178,12 @@ const messages: AppMessages['fr'] = {
     results: 'Résultats'
   },
   asides: {
-    shoppingCart: shoppingCartMessages,
-    user: {
-      menu: {
-        items: {
-          general: {
-            personalData: 'Données personnelles'
-          },
-          client: {
-            cart: 'Mon panier',
-            orders: 'Mes commandes',
-            whistList: 'Ma liste de souhaits'
-          },
-          admin: {
-            productsManagement: 'Gestion des produits',
-            ordersManagement: 'Gestion des commandes',
-            userManagement: 'Gestion des utilisateurs',
-            personalization: 'Personnalisation',
-            dataAnalytics: 'Analyse des données'
-          }
-        },
-        goProfile: 'Aller sur mon profil',
-        logOut: 'Se déconnecter'
-      }
-    }
+    shoppingCart: shoppingCartMessages
   },
   menus: {
     general: generalMessages,
     dashboard: dashboardMessages,
+    user: userMessages,
     register: {
       logIn: logInMessages,
       signUp: signUpMessages

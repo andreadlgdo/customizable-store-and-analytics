@@ -27,33 +27,11 @@ export interface AppMessages {
     };
     asides: {
       shoppingCart: ShoppingCartMessages;
-      user: {
-        menu: {
-          items: {
-            general: {
-              personalData: string;
-            };
-            client: {
-              cart: string;
-              orders: string;
-              whistList: string;
-            };
-            admin: {
-              productsManagement: string;
-              ordersManagement: string;
-              userManagement: string;
-              personalization: string;
-              dataAnalytics: string;
-            };
-          };
-          goProfile: string;
-          logOut: string;
-        };
-      };
     };
     menus: {
       general: GeneralMessages;
       dashboard: DashboardMessages;
+      user: UserMessages;
       register: {
         logIn: LogInMessages;
         signUp: SignUpMessages;
@@ -152,6 +130,28 @@ export interface GeneralMessages {
 
 export interface DashboardMessages {
   action: string;
+}
+
+export interface UserMessages {
+  items: {
+    general: {
+      personalData: string;
+    };
+    client: {
+      cart: string;
+      orders: string;
+      whistList: string;
+    };
+    admin: {
+      productsManagement: string;
+      ordersManagement: string;
+      userManagement: string;
+      personalization: string;
+      dataAnalytics: string;
+    };
+  };
+  goProfile: string;
+  logOut: string;
 }
 
 export interface LogInMessages {

@@ -4,7 +4,8 @@ import {
   GeneralMessages,
   LogInMessages,
   ShoppingCartMessages,
-  SignUpMessages
+  SignUpMessages,
+  UserMessages
 } from './locales';
 
 const shoppingCartMessages: ShoppingCartMessages = {
@@ -62,6 +63,28 @@ const generalMessages: GeneralMessages = {
 
 const dashboardMessages: DashboardMessages = {
   action: 'Go to home'
+};
+
+const userMessages: UserMessages = {
+  items: {
+    general: {
+      personalData: 'Personal Data'
+    },
+    client: {
+      cart: 'My Cart',
+      orders: 'My Orders',
+      whistList: 'My Whist List'
+    },
+    admin: {
+      productsManagement: 'Product management',
+      ordersManagement: 'Order management',
+      userManagement: 'User management',
+      personalization: 'Personalization',
+      dataAnalytics: 'Data analytics'
+    }
+  },
+  goProfile: 'Go to profile',
+  logOut: 'Log out'
 };
 
 const logInMessages: LogInMessages = {
@@ -156,33 +179,11 @@ const messages: AppMessages['en'] = {
   },
   asides: {
     shoppingCart: shoppingCartMessages,
-    user: {
-      menu: {
-        items: {
-          general: {
-            personalData: 'Personal Data'
-          },
-          client: {
-            cart: 'My Cart',
-            orders: 'My Orders',
-            whistList: 'My Whist List'
-          },
-          admin: {
-            productsManagement: 'Product management',
-            ordersManagement: 'Order management',
-            userManagement: 'User management',
-            personalization: 'Personalization',
-            dataAnalytics: 'Data analytics'
-          }
-        },
-        goProfile: 'Go to profile',
-        logOut: 'Log out'
-      }
-    }
   },
   menus: {
     general: generalMessages,
     dashboard: dashboardMessages,
+    user: userMessages,
     register: {
       logIn: logInMessages,
       signUp: signUpMessages

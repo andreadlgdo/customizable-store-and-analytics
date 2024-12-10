@@ -23,11 +23,11 @@
           @click="goToProfile"
           color="primary"
           type="outline-solid"
-          :text="t('asides.user.menu.goProfile')"
+          :text="t('menus.user.goProfile')"
           have-shadow
         />
         <base-text @click="logOut" tag="default" :class="`${baseClass}__text`">
-          {{ t('asides.user.menu.logOut') }}
+          {{ t('menus.user.logOut') }}
         </base-text>
       </div>
     </div>
