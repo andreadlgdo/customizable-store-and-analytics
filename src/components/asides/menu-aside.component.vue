@@ -221,6 +221,7 @@
     flex-direction: column;
     padding: 6rem 2rem;
     height: 100vh;
+    overflow-y: scroll;
 
     &__header {
       display: flex;

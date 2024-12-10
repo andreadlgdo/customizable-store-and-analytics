@@ -5,7 +5,7 @@
       <transition-group :name="baseClass" mode="out-in">
         <base-text tag="h3">
           {{
-            t('asides.shop.empty.you') + toggleSelectedValue + t('asides.shop.empty.description')
+            t('asides.shoppingCart.empty.you') + toggleSelectedValue + t('asides.shoppingCart.empty.description')
           }}
         </base-text>
         <svg-icon
@@ -41,7 +41,7 @@
         @click="$emit('close')"
         type="outline-solid"
         color="primary"
-        :text="t('asides.shop.buy')"
+        :text="t('asides.shoppingCart.buy')"
         size="large"
       />
     </div>
@@ -78,8 +78,8 @@
   const categories = ref<Category[]>([]);
 
   const toggleValues = computed(() => [
-    t('asides.shop.toggle.cart'),
-    t('asides.shop.toggle.whistList')
+    t('asides.shoppingCart.toggle.cart'),
+    t('asides.shoppingCart.toggle.whistList')
   ]);
 
   const toggleItem = ref({

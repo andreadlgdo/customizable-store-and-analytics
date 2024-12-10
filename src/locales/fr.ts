@@ -1,102 +1,91 @@
-import { AppMessages } from './locales';
+import {
+  AppMessages,
+  DashboardMessages,
+  GeneralMessages,
+  LogInMessages,
+  ShoppingCartMessages,
+  SignUpMessages,
+  UserMessages
+} from './locales';
 
-const userAsidesMessages = {
-  logIn: {
-    title: 'Se connecter',
-    inputsPlaceholders: {
-      username: {
-        title: "Nom d'utilisateur",
-        error: "Le champ du nom d'utilisateur est vide"
-      },
-      password: {
-        title: 'Mot de passe',
-        error: 'Le champ du mot de passe est vide',
-        showPassword: 'Afficher le mot de passe',
-        rememberMe: 'Souviens-toi de moi'
-      },
-      generalError: "Le nom d'utilisateur ou le mot de passe n'est pas correct"
-    },
-    forgotPassword: 'Avez-vous oublié votre mot de passe ?',
-    action: 'Se connecter',
-    signUp: {
-      description: "Vous n'avez pas encore de compte ?",
-      action: 'Registre'
-    }
+const shoppingCartMessages: ShoppingCartMessages = {
+  toggle: {
+    cart: 'Panier',
+    whistList: 'WhistList'
   },
-  signUp: {
-    title: 'Inscription des utilisateurs',
-    inputsPlaceholders: {
-      username: {
-        title: "Nom d'utilisateur",
-        error: {
-          empty: "Le champ du nom d'utilisateur est vide",
-          exits: "Le nom d'utilisateur existe déjà"
-        }
-      },
-      email: {
-        title: 'E-mail',
-        error: {
-          empty: 'Le champ email est vide',
-          incorrect: "L'e-mail est incorrect"
-        }
-      },
-      password: {
-        title: 'Mot de passe',
-        error: 'Le champ du mot de passe est vide',
-        requirements: {
-          letter: 'Au moins une lettre',
-          characters: 'Minimum 8 caractères',
-          uppercase: 'Au moins une lettre majuscule',
-          specialCharacter: 'Au moins un numéro'
-        }
-      },
-      repeatPassword: {
-        title: 'Répéter le mot de passe',
-        error: 'Les mots de passe ne correspondent pas'
-      },
-      acceptTerms: 'Vous devez accepter les termes et conditions'
+  empty: {
+    you: 'Toi ',
+    description: " c'est vide"
+  },
+  categories: 'Voir tous les ',
+  buy: 'Continuer mes achats'
+};
+
+const logInMessages: LogInMessages = {
+  title: 'Se connecter',
+  inputsPlaceholders: {
+    username: {
+      title: "Nom d'utilisateur",
+      error: "Le champ du nom d'utilisateur est vide"
     },
-    checkboxText: 'Accepter les termes et conditions',
-    action: 'Registre',
-    logIn: {
-      description: 'Avez-vous déjà un compte ?',
-      action: 'Se connecter'
-    }
+    password: {
+      title: 'Mot de passe',
+      error: 'Le champ du mot de passe est vide',
+      showPassword: 'Afficher le mot de passe',
+      rememberMe: 'Souviens-toi de moi'
+    },
+    generalError: "Le nom d'utilisateur ou le mot de passe n'est pas correct"
+  },
+  forgotPassword: 'Avez-vous oublié votre mot de passe ?',
+  action: 'Se connecter',
+  signUp: {
+    description: "Vous n'avez pas encore de compte ?",
+    action: 'Registre'
   }
 };
 
-const productAsidesMessages = {
-  cart: {
-    title: 'Panier (X)',
-    empty: {
-      title: 'Votre panier est vide',
-      description:
-        "Ajoutez des produits à votre panier pour profiter d'une expérience d'achat complète"
-    },
-    button: 'Afficher la liste de souhaits',
-    products: {
-      discount: 'Code promotionnel',
-      buttons: {
-        buy: 'Continuer mes achats',
-        pay: 'Passer la commande'
+const signUpMessages: SignUpMessages = {
+  title: 'Inscription des utilisateurs',
+  inputsPlaceholders: {
+    username: {
+      title: "Nom d'utilisateur",
+      error: {
+        empty: "Le champ du nom d'utilisateur est vide",
+        exits: "Le nom d'utilisateur existe déjà"
       }
-    }
-  },
-  whistList: {
-    title: 'Liste de souhaits (X)',
-    empty: {
-      title: 'Votre liste de souhaits est vide',
-      description: 'Enregistrez vos favoris pour pouvoir y accéder à tout moment'
     },
-    button: 'Voir le panier',
-    products: {
-      action: 'Ajouter au panier'
-    }
+    email: {
+      title: 'E-mail',
+      error: {
+        empty: 'Le champ email est vide',
+        incorrect: "L'e-mail est incorrect"
+      }
+    },
+    password: {
+      title: 'Mot de passe',
+      error: 'Le champ du mot de passe est vide',
+      requirements: {
+        letter: 'Au moins une lettre',
+        characters: 'Minimum 8 caractères',
+        uppercase: 'Au moins une lettre majuscule',
+        specialCharacter: 'Au moins un numéro'
+      }
+    },
+    repeatPassword: {
+      title: 'Répéter le mot de passe',
+      error: 'Les mots de passe ne correspondent pas'
+    },
+    acceptTerms: 'Vous devez accepter les termes et conditions'
   },
-  action: 'faire du shopping'
+  checkboxText: 'Accepter les termes et conditions',
+  action: 'Registre',
+  logIn: {
+    description: 'Avez-vous déjà un compte ?',
+    action: 'Se connecter'
+  }
 };
 
-const generalMessages = {
+const generalMessages: GeneralMessages = {
   mobile: {
     login: 'Se connecter'
   },
@@ -136,8 +125,30 @@ const generalMessages = {
   backToMenu: 'Retour au menu principal'
 };
 
-const dashboardMessages = {
+const dashboardMessages: DashboardMessages = {
   action: 'Aller à la maison'
+};
+
+const userMessages: UserMessages = {
+  items: {
+    general: {
+      personalData: 'Données personnelles'
+    },
+    client: {
+      cart: 'Mon panier',
+      orders: 'Mes commandes',
+      whistList: 'Ma liste de souhaits'
+    },
+    admin: {
+      productsManagement: 'Gestion des produits',
+      ordersManagement: 'Gestion des commandes',
+      userManagement: 'Gestion des utilisateurs',
+      personalization: 'Personnalisation',
+      dataAnalytics: 'Analyse des données'
+    }
+  },
+  goProfile: 'Aller sur mon profil',
+  logOut: 'Se déconnecter'
 };
 
 const messages: AppMessages['fr'] = {
@@ -167,47 +178,16 @@ const messages: AppMessages['fr'] = {
     results: 'Résultats'
   },
   asides: {
-    shop: {
-      toggle: {
-        cart: 'Panier',
-        whistList: 'WhistList'
-      },
-      empty: {
-        you: 'Toi ',
-        description: " c'est vide"
-      },
-      categories: 'Voir tous les ',
-      buy: 'Continuer mes achats'
-    },
-    user: {
-      menu: {
-        items: {
-          general: {
-            personalData: 'Données personnelles'
-          },
-          client: {
-            cart: 'Mon panier',
-            orders: 'Mes commandes',
-            whistList: 'Ma liste de souhaits'
-          },
-          admin: {
-            productsManagement: 'Gestion des produits',
-            ordersManagement: 'Gestion des commandes',
-            userManagement: 'Gestion des utilisateurs',
-            personalization: 'Personnalisation',
-            dataAnalytics: 'Analyse des données'
-          }
-        },
-        goProfile: 'Aller sur mon profil',
-        logOut: 'Se déconnecter'
-      }
+    shoppingCart: shoppingCartMessages,
+    register: {
+      logIn: logInMessages,
+      signUp: signUpMessages
     }
   },
-  userAsides: userAsidesMessages,
-  productAsides: productAsidesMessages,
   menus: {
     general: generalMessages,
-    dashboard: dashboardMessages
+    dashboard: dashboardMessages,
+    user: userMessages
   },
   footer: {
     company: {

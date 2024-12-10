@@ -14,54 +14,54 @@ export function useUserMenu() {
       ? [
           {
             id: 1,
-            label: t('asides.user.menu.items.general.personalData'),
+            label: t('menus.user.items.general.personalData'),
             icon: 'edit_user'
           },
           {
             id: 2,
-            label: t('asides.user.menu.items.client.cart'),
+            label: t('menus.user.items.client.cart'),
             icon: 'shoppingCart'
           },
           {
             id: 3,
-            label: t('asides.user.menu.items.client.whistList'),
+            label: t('menus.user.items.client.whistList'),
             icon: 'heart'
           },
           {
             id: 4,
-            label: t('asides.user.menu.items.client.orders'),
+            label: t('menus.user.items.client.orders'),
             icon: 'pack'
           }
         ]
       : [
           {
             id: 1,
-            label: t('asides.user.menu.items.general.personalData'),
+            label: t('menus.user.items.general.personalData'),
             icon: 'edit_user'
           },
           {
             id: 2,
-            label: t('asides.user.menu.items.admin.productsManagement'),
+            label: t('menus.user.items.admin.productsManagement'),
             icon: 'shoppingCart'
           },
           {
             id: 3,
-            label: t('asides.user.menu.items.admin.ordersManagement'),
+            label: t('menus.user.items.admin.ordersManagement'),
             icon: 'pack'
           },
           {
             id: 3,
-            label: t('asides.user.menu.items.admin.userManagement'),
+            label: t('menus.user.items.admin.userManagement'),
             icon: 'user'
           },
           {
             id: 5,
-            label: t('asides.user.menu.items.admin.personalization'),
+            label: t('menus.user.items.admin.personalization'),
             icon: 'personalization'
           },
           {
             id: 6,
-            label: t('asides.user.menu.items.admin.dataAnalytics'),
+            label: t('menus.user.items.admin.dataAnalytics'),
             icon: 'analytics'
           }
         ];

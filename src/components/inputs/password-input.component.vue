@@ -10,7 +10,7 @@
     <template v-slot:header>
       <checkbox-input size="small">
         <base-text tag="small">
-          {{ t('userAsides.logIn.inputsPlaceholders.password.showPassword') }}
+          {{ t('asides.register.logIn.inputsPlaceholders.password.showPassword') }}
         </base-text>
       </checkbox-input>
     </template>
@@ -18,11 +18,11 @@
       <div v-if="isNewPassword" :class="`${baseClass}__footer`">
         <checkbox-input size="small">
           <base-text tag="small">
-            {{ t('userAsides.logIn.inputsPlaceholders.password.rememberMe') }}
+            {{ t('asides.register.logIn.inputsPlaceholders.password.rememberMe') }}
           </base-text>
         </checkbox-input>
         <base-text tag="link">
-          {{ t('userAsides.logIn.forgotPassword') }}
+          {{ t('asides.register.logIn.forgotPassword') }}
         </base-text>
       </div>
     </template>
