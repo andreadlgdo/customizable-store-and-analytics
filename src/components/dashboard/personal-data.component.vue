@@ -65,7 +65,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 0.5rem 0.5rem 2rem 0.5rem;
+      margin: 0 0.5rem 2rem 0.5rem;
     }
 
     &__content {

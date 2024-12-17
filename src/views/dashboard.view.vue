@@ -5,6 +5,9 @@
     </div>
     <div :class="`${baseClass}__content`">
       <personal-data v-if="selectedItem.id === 0" />
+      <base-wrapper v-else :class="`${baseClass}__wrapper`">
+        <base-text tag="h3">{{ selectedItem.label }}</base-text>
+      </base-wrapper>
     </div>
   </div>
 </template>
@@ -12,7 +15,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
 
-  import { DashboardMenuAside, PersonalData } from '../components';
+  import { BaseText, BaseWrapper, DashboardMenuAside, PersonalData } from '../components';
   import { useCurrentUser, useUserMenu } from '../composables';
 
   const baseClass = 'dashboard';
@@ -33,6 +36,10 @@
     &__content {
       height: 100vh;
       width: calc(100% - 400px);
+    }
+
+    &__wrapper {
+      height: 95vh;
     }
   }
 </style>
