@@ -198,7 +198,11 @@ const messages: AppMessages['en'] = {
     }
   },
   dashboard: {
-    personalData: personalDataMessages
+    personalData: personalDataMessages,
+    emptyView: {
+      title: 'is empty',
+      action: 'Continue shopping'
+    }
   },
   menus: {
     general: generalMessages,
