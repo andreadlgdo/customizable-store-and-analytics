@@ -50,7 +50,7 @@ export function useUserMenu() {
             icon: 'pack'
           },
           {
-            id: 3,
+            id: 4,
             label: t('menus.user.items.admin.userManagement'),
             icon: 'user'
           },
