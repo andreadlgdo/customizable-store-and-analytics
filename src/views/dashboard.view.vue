@@ -4,9 +4,7 @@
       <dashboard-menu-aside @clickItem="selectedItem = $event" />
     </div>
     <div :class="`${baseClass}__content`">
-      <base-wrapper>
-        {{ selectedItem }}
-      </base-wrapper>
+      <personal-data v-if="selectedItem.id === 0" />
     </div>
   </div>
 </template>
@@ -14,7 +12,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
 
-  import { BaseWrapper, DashboardMenuAside } from '../components';
+  import { DashboardMenuAside, PersonalData } from '../components';
   import { useCurrentUser, useUserMenu } from '../composables';
 
   const baseClass = 'dashboard';
