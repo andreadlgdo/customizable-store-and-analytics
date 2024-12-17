@@ -5,6 +5,11 @@
     </div>
     <div :class="`${baseClass}__content`">
       <personal-data v-if="selectedItem.id === 0" />
+      <empty-product-view
+        v-else-if="user.type !== 'admin' && (selectedItem.id === 1 || selectedItem.id === 2)"
+        :selectedItem="selectedItem"
+        :class="`${baseClass}__wrapper`"
+      />
       <base-wrapper v-else :class="`${baseClass}__wrapper`">
         <base-text tag="h3">{{ selectedItem.label }}</base-text>
       </base-wrapper>
@@ -15,7 +20,13 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
 
-  import { BaseText, BaseWrapper, DashboardMenuAside, PersonalData } from '../components';
+  import {
+    BaseText,
+    BaseWrapper,
+    DashboardMenuAside,
+    EmptyProductView,
+    PersonalData
+  } from '../components';
   import { useCurrentUser, useUserMenu } from '../composables';
 
   const baseClass = 'dashboard';

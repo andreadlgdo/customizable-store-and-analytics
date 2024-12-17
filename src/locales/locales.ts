@@ -34,6 +34,10 @@ export interface AppMessages {
     };
     dashboard: {
       personalData: PersonalDataMessages;
+      emptyView: {
+        title: string;
+        action: string;
+      };
     };
     menus: {
       general: GeneralMessages;
