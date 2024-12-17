@@ -3,6 +3,7 @@ import {
   DashboardMessages,
   GeneralMessages,
   LogInMessages,
+  PersonalDataMessages,
   ShoppingCartMessages,
   SignUpMessages,
   UserMessages
@@ -82,6 +83,18 @@ const signUpMessages: SignUpMessages = {
   logIn: {
     description: 'Already have an account?',
     action: 'Log in'
+  }
+};
+
+const personalDataMessages: PersonalDataMessages = {
+  personal: {
+    title: 'Personal data',
+    label: {
+      username: 'Username',
+      email: 'Email',
+      password: 'Password'
+    },
+    action: 'Edit'
   }
 };
 
@@ -183,6 +196,9 @@ const messages: AppMessages['en'] = {
       logIn: logInMessages,
       signUp: signUpMessages
     }
+  },
+  dashboard: {
+    personalData: personalDataMessages
   },
   menus: {
     general: generalMessages,

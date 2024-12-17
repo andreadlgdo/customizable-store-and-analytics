@@ -32,6 +32,9 @@ export interface AppMessages {
         signUp: SignUpMessages;
       };
     };
+    dashboard: {
+      personalData: PersonalDataMessages;
+    };
     menus: {
       general: GeneralMessages;
       dashboard: DashboardMessages;
@@ -148,6 +151,18 @@ export interface SignUpMessages {
   action: string;
   logIn: {
     description: string;
+    action: string;
+  };
+}
+
+export interface PersonalDataMessages {
+  personal: {
+    title: string;
+    label: {
+      username: string;
+      email: string;
+      password: string;
+    };
     action: string;
   };
 }
