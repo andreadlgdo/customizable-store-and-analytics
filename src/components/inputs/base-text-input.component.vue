@@ -1,5 +1,5 @@
 <template>
-  <div :class="[baseClass, `${baseClass}--${form}`]">
+  <div :class="[baseClass, `${baseClass}--${form}`, { [`${baseClass}--disabled`]: disabled }]">
     <div :class="`${baseClass}__header`">
       <base-text v-if="label" tag="default" :class="`${baseClass}__text`">
         {{ label }}
@@ -15,6 +15,7 @@
         '--background-color': type !== 'outline' ? `var(--color-${inputColor})` : 'transparent',
         '--border-color': type !== 'solid' ? `3px var(--color-border-${inputColor}) solid` : 'none'
       }"
+      :disabled="disabled"
     />
     <svg-icon
       v-if="icon"
@@ -25,6 +26,7 @@
       size="small"
     />
     <icon-button
+      v-if="!disabled"
       @click="clearQuery"
       icon="close"
       size="small"
@@ -82,7 +84,8 @@
     type: {
       type: String as PropType<InputType>,
       default: 'solid'
-    }
+    },
+    disabled: Boolean
   });
 
   const emit = defineEmits(['input']);
@@ -116,6 +119,11 @@
       display: flex;
       justify-content: space-between;
       padding-right: 14px;
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: none;
     }
 
     &--round {
