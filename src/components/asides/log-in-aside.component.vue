@@ -63,7 +63,7 @@
       <menu-user-aside
         v-if="user"
         @close="closeAside"
-        @logout="logOut"
+        @logOut="logOut"
         :is-open="isOpenAside"
         :user="user"
       />

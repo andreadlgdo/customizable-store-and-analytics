@@ -63,7 +63,7 @@
     }
   });
 
-  const emit = defineEmits(['logout']);
+  const emit = defineEmits(['logOut', 'close']);
 
   const openAside = ref(props.isOpen);
 
@@ -74,7 +74,7 @@
 
   const logOut = () => {
     router.push('/');
-    emit('logout');
+    emit('logOut');
   };
 </script>
 

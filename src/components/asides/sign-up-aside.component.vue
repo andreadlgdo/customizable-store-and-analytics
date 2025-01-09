@@ -95,6 +95,7 @@
       <menu-user-aside
         v-if="userCreated"
         @close="closeAside"
+        @logOut="logOut"
         :is-open="isOpenAside"
         :user="userCreated"
       />
@@ -123,7 +124,7 @@
 
   const { isMobileAndTable } = useMobile();
 
-  const { getUsers, createUser } = useUsers();
+  const { getUsers, createUser, logout } = useUsers();
 
   const props = defineProps({
     isOpen: Boolean
@@ -242,6 +243,21 @@
   const closeAside = () => {
     isOpenAside.value = false;
     emits('close');
+  };
+
+  const logOut = () => {
+    logout();
+    isUserCreated.value = false;
+    userForm.value = {
+      username: '',
+      email: '',
+      password: '',
+      repeatPassword: ''
+    };
+    passwordRequirements.value = passwordRequirements.value.map(passwordRequirement => ({
+      ...passwordRequirement,
+      status: 'default'
+    }));
   };
 
   watch(
