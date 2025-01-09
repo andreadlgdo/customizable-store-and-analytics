@@ -1,7 +1,7 @@
 <template>
   <div :class="baseClass" v-if="user">
     <div :class="`${baseClass}__aside`">
-      <dashboard-menu-aside @clickItem="selectedItem = $event" />
+      <dashboard-menu-aside @clickItem="selectedItem = $event" :selectedItem="selectedItem" />
     </div>
     <div :class="`${baseClass}__content`">
       <personal-data v-if="selectedItem.id === 0" />
@@ -29,12 +29,21 @@
   } from '../components';
   import { useCurrentUser, useUserMenu } from '../composables';
 
+  const props = defineProps({
+    index: {
+      type: String,
+      default: undefined
+    }
+  });
+
   const baseClass = 'dashboard';
 
   const { user } = useCurrentUser();
   const { menuElements } = useUserMenu();
 
-  const selectedItem = ref(menuElements[0]);
+  const selectedItem = ref(
+    props.index ? menuElements[Number.parseInt(props.index)] : menuElements[0]
+  );
 </script>
 
 <style lang="scss" scoped>

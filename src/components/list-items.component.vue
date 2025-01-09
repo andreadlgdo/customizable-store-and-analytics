@@ -69,6 +69,10 @@
       type: Array as PropType<Item[]>,
       required: true
     },
+    selectedItem: {
+      type: Object as PropType<Item>,
+      required: true
+    },
     expansible: Boolean,
     background: Boolean
   });
@@ -79,10 +83,7 @@
     props.expansible ? props.items.map(item => ({ ...item, isExpand: false })) : props.items
   );
 
-  const selectedItem = ref<Item>(listItems.value[0]);
-
   const clickItem = (item: Item): void => {
-    selectedItem.value = item;
     emit('clickItem', item);
   };
 

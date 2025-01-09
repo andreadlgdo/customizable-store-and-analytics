@@ -9,7 +9,13 @@ import { useCurrentUser } from '../composables';
 
 const routes = [
   { name: 'Home', path: '/', component: Home },
-  { name: 'Dashboard', path: '/dashboard', component: Dashboard, meta: { requiresAuth: true } },
+  {
+    name: 'Dashboard',
+    path: '/dashboard/:index?',
+    component: Dashboard,
+    meta: { requiresAuth: true },
+    props: true
+  },
   { name: 'Products', path: '/products/:category?', component: Products },
   { name: 'Terms and conditions', path: '/terms-and-conditions', component: TermsAndConditions }
 ];

@@ -16,11 +16,13 @@
           <base-text tag="h4">{{ user.username }}</base-text>
           <base-text tag="default">{{ user.email }}</base-text>
         </div>
-        <div :class="`${baseClass}__items`"><list-items :items="menuElements" /></div>
+        <div :class="`${baseClass}__items`">
+          <list-items @clickItem="item => goToProfile(item)" :items="menuElements" />
+        </div>
       </div>
       <div :class="`${baseClass}__footer`">
         <base-button
-          @click="goToProfile"
+          @click="goToProfile(menuElements[0])"
           color="primary"
           type="outline-solid"
           :text="t('menus.user.goProfile')"
@@ -40,7 +42,7 @@
   import { useRouter } from 'vue-router';
 
   import { useUserMenu } from '../../composables';
-  import { User } from '../../interfaces';
+  import { MenuItem, User } from '../../interfaces';
 
   import BaseAside from './base-aside.component.vue';
   import BaseText from '../base-text.component.vue';
@@ -67,8 +69,11 @@
 
   const openAside = ref(props.isOpen);
 
-  const goToProfile = () => {
-    router.push('/dashboard');
+  const goToProfile = (itemMenu: MenuItem) => {
+    router.push({
+      name: 'Dashboard',
+      params: { index: menuElements.findIndex(menu => menu.id === itemMenu.id).toString() }
+    });
     openAside.value = false;
   };
 

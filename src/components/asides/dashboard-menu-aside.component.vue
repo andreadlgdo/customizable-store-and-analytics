@@ -8,7 +8,12 @@
       </div>
     </section>
     <div :class="`${baseClass}__items`">
-      <list-items @clickItem="$emit('clickItem', $event)" :items="menuElements" background />
+      <list-items
+        @clickItem="$emit('clickItem', $event)"
+        :items="menuElements"
+        :selectedItem="selectedItem"
+        background
+      />
     </div>
     <div :class="`${baseClass}__footer`">
       <base-button
@@ -26,10 +31,12 @@
 </template>
 
 <script lang="ts" setup>
+  import { PropType } from 'vue';
   import { useI18n } from 'vue-i18n';
   import { useRouter } from 'vue-router';
 
   import { useCurrentUser, useUserMenu, useUsers } from '../../composables';
+  import { MenuItem } from '../../interfaces';
 
   import BaseText from '../base-text.component.vue';
   import { BaseButton } from '../inputs';
@@ -44,6 +51,13 @@
   const router = useRouter();
   const { menuElements } = useUserMenu();
   const { logout } = useUsers();
+
+  defineProps({
+    selectedItem: {
+      type: Object as PropType<MenuItem>,
+      required: true
+    }
+  });
 
   defineEmits(['clickItem']);
 
