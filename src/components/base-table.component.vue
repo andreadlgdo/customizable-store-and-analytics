@@ -2,7 +2,12 @@
   <table v-if="data.length" :class="baseClass">
     <thead>
       <tr>
-        <th v-for="column in columns" :key="column.id" :class="`${baseClass}__column`">
+        <th
+          v-for="column in columns"
+          :key="column.id"
+          :class="`${baseClass}__column`"
+          :style="{ textAlign: column.textAlign ?? 'left' }"
+        >
           {{ column.label }}
         </th>
       </tr>
