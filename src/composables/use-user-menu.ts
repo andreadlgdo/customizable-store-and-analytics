@@ -10,7 +10,7 @@ export function useUserMenu() {
   const { user } = useCurrentUser();
 
   const menuElements: MenuItem[] =
-    user.value.type !== 'admin'
+    user.value?.type !== 'admin'
       ? [
           {
             id: 0,

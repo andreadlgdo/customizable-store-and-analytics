@@ -152,22 +152,26 @@
   const errorEmail = ref('');
   const errorAcceptTerms = ref('');
 
-  const passwordRequirements = ref([
+  const hasLetter = computed(() => /[a-zA-Z]/.test(userForm.value.password));
+  const hasUpperCase = computed(() => /[A-Z]/.test(userForm.value.password));
+  const hasNumber = computed(() => /\d/.test(userForm.value.password));
+
+  const passwordRequirements = computed(() => [
     {
       value: t('asides.register.signUp.inputsPlaceholders.password.requirements.characters'),
-      status: 'default'
+      status: userForm.value.password.length >= 8 ? 'success' : 'error'
     },
     {
       value: t('asides.register.signUp.inputsPlaceholders.password.requirements.letter'),
-      status: 'default'
+      status: hasLetter.value ? 'success' : 'error'
     },
     {
       value: t('asides.register.signUp.inputsPlaceholders.password.requirements.uppercase'),
-      status: 'default'
+      status: hasUpperCase.value ? 'success' : 'error'
     },
     {
       value: t('asides.register.signUp.inputsPlaceholders.password.requirements.specialCharacter'),
-      status: 'default'
+      status: hasNumber.value ? 'success' : 'error'
     }
   ]);
 
@@ -177,22 +181,6 @@
     if (!password) {
       errorPassword.value = t('asides.register.signUp.inputsPlaceholders.password.error');
     }
-
-    const minLength = 8;
-    const hasLetter = /[a-zA-Z]/.test(password);
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasNumber = /\d/.test(password);
-
-    const requirements = [
-      { check: () => password.length >= minLength, index: 0 },
-      { check: () => hasLetter, index: 1 },
-      { check: () => hasUpperCase, index: 2 },
-      { check: () => hasNumber, index: 3 }
-    ];
-
-    requirements.forEach(({ check, index }) => {
-      passwordRequirements.value[index].status = check() ? 'success' : 'error';
-    });
 
     if (password !== repeatPassword) {
       equalPassword.value = t('asides.register.signUp.inputsPlaceholders.repeatPassword.error');
