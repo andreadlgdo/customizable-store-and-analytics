@@ -202,6 +202,15 @@ const messages: AppMessages['es'] = {
     emptyView: {
       title: 'esta vacia',
       action: 'Seguir comprando'
+    },
+    products: {
+      table: {
+        id: 'ID',
+        name: 'Nombre',
+        categories: 'Categorias',
+        price: 'Precio',
+        stock: 'Cantidad'
+      }
     }
   },
   menus: {

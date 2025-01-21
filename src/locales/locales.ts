@@ -38,6 +38,15 @@ export interface AppMessages {
         title: string;
         action: string;
       };
+      products: {
+        table: {
+          id: string;
+          name: string;
+          categories: string;
+          price: string;
+          stock: string;
+        };
+      };
     };
     menus: {
       general: GeneralMessages;

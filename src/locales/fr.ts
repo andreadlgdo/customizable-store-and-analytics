@@ -200,8 +200,17 @@ const messages: AppMessages['fr'] = {
   dashboard: {
     personalData: personalDataMessages,
     emptyView: {
-      title: 'c\'est vide',
+      title: "c'est vide",
       action: 'Continuer mes achats'
+    },
+    products: {
+      table: {
+        id: 'ID',
+        name: 'Nom',
+        categories: 'Catégories',
+        price: 'Prix',
+        stock: 'Stock'
+      }
     }
   },
   menus: {

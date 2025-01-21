@@ -12,6 +12,9 @@
       />
       <base-wrapper v-else :class="`${baseClass}__wrapper`">
         <base-text tag="h3">{{ selectedItem.label }}</base-text>
+        <div v-if="user.type === 'admin' && selectedItem.id === 1" :class="`${baseClass}__table`">
+          <products-table />
+        </div>
       </base-wrapper>
     </div>
   </div>
@@ -25,7 +28,8 @@
     BaseWrapper,
     DashboardMenuAside,
     EmptyProductView,
-    PersonalData
+    PersonalData,
+    ProductsTable
   } from '../components';
   import { useCurrentUser, useUserMenu } from '../composables';
 
@@ -59,7 +63,16 @@
     }
 
     &__wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 1rem;
       height: 95vh;
+    }
+
+    &__table {
+      height: 90%;
+      overflow-y: scroll;
     }
   }
 </style>
