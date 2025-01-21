@@ -4,6 +4,5 @@ export interface Product {
   description: string;
   price: number;
   imageUrl?: string;
-  isFavorite?: boolean;
   quantity?: number;
 }
