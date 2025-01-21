@@ -1,0 +1,40 @@
+<template>
+  <base-table :columns="columns" :data="products">
+    <template v-slot:categories="{ data: categories }">
+      <span v-if="categories">
+        <base-pill
+          v-for="category in categories"
+          :key="category"
+          :text="category"
+          text-size="small"
+          color="primary"
+        />
+      </span>
+    </template>
+  </base-table>
+</template>
+
+<script lang="ts" setup>
+  import { computed, onMounted } from 'vue';
+  import { useI18n } from 'vue-i18n';
+
+  import { useProducts } from '../../composables';
+
+  import BasePill from '../base-pill.component.vue';
+  import BaseTable from '../base-table.component.vue';
+
+  const { t } = useI18n();
+  const { loadProducts, products } = useProducts();
+
+  const columns = computed(() => [
+    { id: '_id', label: t('dashboard.products.table.id') },
+    { id: 'name', label:t('dashboard.products.table.name')  },
+    { id: 'categories', label: t('dashboard.products.table.categories')  },
+    { id: 'price', label: t('dashboard.products.table.price') , textAlign: 'center' },
+    { id: 'price', label: t('dashboard.products.table.stock') , textAlign: 'center' }
+  ]);
+
+  onMounted(async () => await loadProducts());
+</script>
+
+<style lang="scss" scoped></style>
