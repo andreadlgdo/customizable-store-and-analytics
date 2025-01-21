@@ -12,7 +12,9 @@
       <products-table />
     </div>
     <div v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--add`">
+      <base-text-input label="Imagen" form="semi-round" />
       <base-text-input label="Nombre" form="semi-round" />
+      <base-text-input label="Descripcion" form="semi-round" />
       <base-text-input label="Categorias" form="semi-round" />
       <base-text-input label="Precio" form="semi-round" />
       <base-text-input label="Cantidad" form="semi-round" />
