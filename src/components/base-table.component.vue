@@ -47,6 +47,7 @@
 
 <style lang="scss" scoped>
   .base-table {
+    width: 100%;
     border-collapse: collapse;
 
     &__column {
