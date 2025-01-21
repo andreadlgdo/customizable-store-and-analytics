@@ -6,11 +6,15 @@
     }"
   >
     <svg-icon v-if="icon" :src="require(`../assets/media/icons/${icon}.svg`)" size="mini" />
-    <base-text tag="extra-small" :class="`${baseClass}__text`">{{ text }}</base-text>
+    <base-text :tag="textSize" :class="`${baseClass}__text`">{{ text }}</base-text>
   </div>
 </template>
 
 <script lang="ts" setup>
+  import { PropType } from 'vue';
+
+  import { ColorType, TextTagType } from '../types';
+
   import BaseText from './base-text.component.vue';
   import { SvgIcon } from './icons';
 
@@ -21,8 +25,12 @@
       type: String,
       required: true
     },
+    textSize: {
+      type: String as PropType<TextTagType>,
+      default: 'extra-small'
+    },
     color: {
-      type: String,
+      type: String as PropType<ColorType>,
       default: 'default'
     },
     icon: String
