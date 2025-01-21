@@ -12,6 +12,10 @@
       <products-table />
     </div>
     <div v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--add`">
+      <base-text-input label="Nombre" form="semi-round" />
+      <base-text-input label="Categorias" form="semi-round" />
+      <base-text-input label="Precio" form="semi-round" />
+      <base-text-input label="Cantidad" form="semi-round" />
       <base-button
         @click="isAddingProduct = false"
         text="Save"
@@ -32,7 +36,7 @@
   import { ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { BaseButton, BaseText, ProductsTable } from '../../components';
+  import { BaseButton, BaseText, BaseTextInput, ProductsTable } from '../../components';
 
   const { t } = useI18n();
 
@@ -52,6 +56,7 @@
 
       &--add {
         position: relative;
+        gap: 1rem;
       }
     }
 
