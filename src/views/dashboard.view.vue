@@ -11,10 +11,7 @@
         :class="`${baseClass}__wrapper`"
       />
       <base-wrapper v-else :class="`${baseClass}__wrapper`">
-        <base-text tag="h3">{{ selectedItem.label }}</base-text>
-        <div v-if="user.type === 'admin' && selectedItem.id === 1">
-          <products-table />
-        </div>
+        <products-management v-if="user.type === 'admin' && selectedItem.id === 1" />
       </base-wrapper>
     </div>
   </div>
@@ -23,15 +20,10 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
 
-  import {
-    BaseText,
-    BaseWrapper,
-    DashboardMenuAside,
-    EmptyProductView,
-    PersonalData,
-    ProductsTable
-  } from '../components';
+  import { BaseWrapper, DashboardMenuAside, EmptyProductView, PersonalData } from '../components';
   import { useCurrentUser, useUserMenu } from '../composables';
+
+  import { ProductsManagement } from './dashboard';
 
   const props = defineProps({
     index: {
