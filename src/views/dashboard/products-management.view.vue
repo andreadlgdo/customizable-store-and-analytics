@@ -1,17 +1,35 @@
 <template>
-  <base-text tag="h3">Gestión de productos</base-text>
-  <div :class="baseClass">
-    <base-button
-      icon="plus"
-      :text="t('dashboard.products.action.add')"
-      color="primary"
-      :class="`${baseClass}__button`"
-    />
-    <products-table />
-  </div>
+  <base-text tag="h3">{{ isAddingProduct ? 'Añadir producto' : 'Gestión de productos' }}</base-text>
+  <section :class="baseClass">
+    <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--list`" v-if="!isAddingProduct">
+      <base-button
+        @click="isAddingProduct = true"
+        icon="plus"
+        :text="t('dashboard.products.action.add')"
+        color="primary"
+        :class="`${baseClass}__button ${baseClass}__button--add`"
+      />
+      <products-table />
+    </div>
+    <div v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--add`">
+      <base-button
+        @click="isAddingProduct = false"
+        text="Save"
+        color="primary"
+        :class="`${baseClass}__button ${baseClass}__button--save`"
+      />
+      <base-button
+        @click="isAddingProduct = false"
+        text="Cancel"
+        color="default"
+        :class="`${baseClass}__button ${baseClass}__button--cancel`"
+      />
+    </div>
+  </section>
 </template>
 
 <script lang="ts" setup>
+  import { ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { BaseButton, BaseText, ProductsTable } from '../../components';
@@ -19,16 +37,41 @@
   const { t } = useI18n();
 
   const baseClass = 'products-management';
+
+  const isAddingProduct = ref(false);
 </script>
 
 <style lang="scss" scoped>
   .products-management {
-    display: flex;
-    flex-direction: column;
+    height: 100%;
+
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      &--add {
+        position: relative;
+      }
+    }
 
     &__button {
-      align-self: flex-end;
       margin-bottom: 1rem;
+
+      &--add {
+        align-self: flex-end;
+      }
+
+      &--save,
+      &--cancel {
+        position: absolute;
+        bottom: 0;
+        width: 6rem;
+      }
+
+      &--cancel {
+        left: 7rem;
+      }
     }
   }
 </style>
