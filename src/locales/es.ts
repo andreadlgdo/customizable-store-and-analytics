@@ -210,6 +210,9 @@ const messages: AppMessages['es'] = {
         categories: 'Categorias',
         price: 'Precio',
         stock: 'Cantidad'
+      },
+      action: {
+        add: 'Añadir producto'
       }
     }
   },

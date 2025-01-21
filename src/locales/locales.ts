@@ -46,6 +46,9 @@ export interface AppMessages {
           price: string;
           stock: string;
         };
+        action: {
+          add: string;
+        }
       };
     };
     menus: {

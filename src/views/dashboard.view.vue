@@ -12,7 +12,7 @@
       />
       <base-wrapper v-else :class="`${baseClass}__wrapper`">
         <base-text tag="h3">{{ selectedItem.label }}</base-text>
-        <div v-if="user.type === 'admin' && selectedItem.id === 1" :class="`${baseClass}__table`">
+        <div v-if="user.type === 'admin' && selectedItem.id === 1">
           <products-table />
         </div>
       </base-wrapper>
@@ -68,11 +68,6 @@
       justify-content: flex-start;
       gap: 1rem;
       height: 95vh;
-    }
-
-    &__table {
-      height: 90%;
-      overflow-y: scroll;
     }
   }
 </style>
