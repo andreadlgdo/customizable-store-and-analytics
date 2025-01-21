@@ -44,7 +44,7 @@
     { id: 'name', label: t('dashboard.products.table.name') },
     { id: 'categories', label: t('dashboard.products.table.categories') },
     { id: 'price', label: t('dashboard.products.table.price'), textAlign: 'center' },
-    { id: 'price', label: t('dashboard.products.table.stock'), textAlign: 'center' }
+    { id: 'quantity', label: t('dashboard.products.table.stock'), textAlign: 'center' }
   ]);
 
   onMounted(async () => await loadProducts());

@@ -20,7 +20,7 @@
           :class="`${baseClass}__cell`"
           :style="{ textAlign: column.textAlign ?? 'left' }"
         >
-          <slot :name="column.id" :data="item[column?.id]">{{ item[column?.id] }}</slot>
+          <slot :name="column.id" :data="item[column?.id]">{{ item[column?.id] ?? '-' }}</slot>
         </td>
       </tr>
     </tbody>
