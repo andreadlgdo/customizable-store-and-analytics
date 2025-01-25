@@ -30,6 +30,7 @@
           :class="`${baseClass}__cell ${baseClass}__cell--icon`"
         >
           <icon-button
+            @click="$emit('edit', item)"
             icon="edit"
             size="small"
             color-attribute="fill"
@@ -43,6 +44,7 @@
           :class="`${baseClass}__cell ${baseClass}__cell--icon`"
         >
           <icon-button
+            @click="$emit('delete', item)"
             icon="delete"
             size="small"
             color-attribute="stroke"
