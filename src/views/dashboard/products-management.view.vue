@@ -1,7 +1,7 @@
 <template>
   <base-text tag="h3">{{ isAddingProduct ? 'Añadir producto' : 'Gestión de productos' }}</base-text>
   <section :class="baseClass">
-    <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--list`" v-if="!isAddingProduct">
+    <div v-if="!isAddingProduct" :class="`${baseClass}__wrapper ${baseClass}__wrapper--list`">
       <base-button
         @click="isAddingProduct = true"
         icon="plus"
