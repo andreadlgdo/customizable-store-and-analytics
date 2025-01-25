@@ -15,24 +15,12 @@
         icon="plus"
         :text="t('dashboard.products.action.add')"
         color="primary"
-        :class="`${baseClass}__button ${baseClass}__button--add`"
+        :class="`${baseClass}__button`"
       />
       <products-table @edit="item => editProduct(item)" />
     </div>
     <div v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--add`">
-      <product-form :item-to-edit="itemToEdit" />
-      <base-button
-        @click="formProduct = false"
-        :text="itemToEdit ? 'Edit' : t('dashboard.products.form.action.save')"
-        color="primary"
-        :class="`${baseClass}__button ${baseClass}__button--save`"
-      />
-      <base-button
-        @click="formProduct = false"
-        :text="t('dashboard.products.form.action.cancel')"
-        color="default"
-        :class="`${baseClass}__button ${baseClass}__button--cancel`"
-      />
+      <product-form @action="formProduct = false" :item-to-edit="itemToEdit" />
     </div>
   </section>
 </template>
@@ -80,21 +68,7 @@
 
     &__button {
       margin-bottom: 1rem;
-
-      &--add {
-        align-self: flex-end;
-      }
-
-      &--save,
-      &--cancel {
-        position: absolute;
-        bottom: 0;
-        width: 6rem;
-      }
-
-      &--cancel {
-        left: 7rem;
-      }
+      align-self: flex-end;
     }
   }
 </style>
