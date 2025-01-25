@@ -1,6 +1,6 @@
 <template>
   <div :class="baseClass">
-    <base-table :columns="columns" :data="products">
+    <base-table :columns="columns" :data="products" editable removable>
       <template v-slot:categories="{ data: categories }">
         <span v-if="categories">
           <base-pill
@@ -45,5 +45,6 @@
   .products-table {
     height: 72vh;
     overflow-y: scroll;
+    overflow-x: hidden;
   }
 </style>
