@@ -8,6 +8,9 @@
         [`${baseClass}__${colorAttribute}--error`]: error
       }
     ]"
+    :style="{
+      '--color': `var(--color-strong-${color})`
+    }"
     v-html="svgContent"
   ></div>
 </template>
@@ -15,7 +18,7 @@
 <script lang="ts" setup>
   import { ref, onMounted, PropType, watch } from 'vue';
 
-  import { SizeType, SvgIconType } from '../../types';
+  import { ColorType, SizeType, SvgIconType } from '../../types';
 
   const baseClass = 'svg-icon';
 
@@ -31,6 +34,10 @@
     colorAttribute: {
       type: String as PropType<SvgIconType>,
       default: undefined
+    },
+    color: {
+      type: String as PropType<ColorType>,
+      default: 'white'
     },
     error: Boolean
   });
@@ -92,7 +99,7 @@
 
     &__fill {
       & svg {
-        fill: var(--color-main);
+        fill: var(--color);
       }
 
       &--error svg {
@@ -102,7 +109,7 @@
 
     &__stroke {
       & svg {
-        stroke: var(--color-main);
+        stroke: var(--color);
       }
 
       &--error svg {
@@ -112,8 +119,8 @@
 
     &__both {
       & svg {
-        fill: var(--color-main);
-        stroke: var(--color-main);
+        fill: var(--color);
+        stroke: var(--color);
       }
 
       &--error svg {

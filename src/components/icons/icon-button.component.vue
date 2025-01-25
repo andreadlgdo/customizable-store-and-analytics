@@ -8,6 +8,7 @@
       :src="require(`../../assets/media/icons/${icon}.svg`)"
       :size="size"
       :color-attribute="colorAttribute"
+      :color="color"
       :error="error"
     />
   </button>
@@ -16,7 +17,7 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import { SizeType, SvgIconType } from '../../types';
+  import { ColorType, SizeType, SvgIconType } from '../../types';
 
   import SvgIcon from './svg-icon.component.vue';
 
@@ -34,6 +35,10 @@
     colorAttribute: {
       type: String as PropType<SvgIconType>,
       default: undefined
+    },
+    color: {
+      type: String as PropType<ColorType>,
+      default: 'white'
     },
     haveBorder: Boolean,
     error: Boolean
