@@ -213,6 +213,14 @@ const messages: AppMessages['fr'] = {
       },
       action: {
         add: 'Ajouter un produit'
+      },
+      form: {
+        image: 'Image',
+        name: 'Nom',
+        description: 'Description',
+        categories: 'Catégories',
+        price: 'Prix',
+        quantity: 'Quantité'
       }
     }
   },

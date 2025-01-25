@@ -49,6 +49,14 @@ export interface AppMessages {
         action: {
           add: string;
         };
+        form: {
+          image: string;
+          name: string;
+          description: string;
+          categories: string;
+          price: string;
+          quantity: string;
+        };
       };
     };
     menus: {
