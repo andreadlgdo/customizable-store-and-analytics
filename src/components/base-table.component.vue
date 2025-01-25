@@ -81,6 +81,8 @@
     removable: Boolean
   });
 
+  defineEmits(['edit', 'delete']);
+
   const baseClass = 'base-table';
 </script>
 

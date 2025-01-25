@@ -1,6 +1,13 @@
 <template>
   <div :class="baseClass">
-    <base-table :columns="columns" :data="products" editable removable>
+    <base-table
+      @edit="item => $emit('edit', item)"
+      @delete="item => $emit('delete', item)"
+      :columns="columns"
+      :data="products"
+      editable
+      removable
+    >
       <template v-slot:categories="{ data: categories }">
         <span v-if="categories">
           <base-pill
@@ -29,6 +36,8 @@
   const { loadProducts, products } = useProducts();
 
   const baseClass = 'products-table';
+
+  defineEmits(['edit', 'delete']);
 
   const columns = computed(() => [
     { id: '_id', label: t('dashboard.products.table.id') },
