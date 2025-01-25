@@ -255,6 +255,10 @@ const messages: AppMessages['es'] = {
         visa: 'VISA'
       }
     }
+  },
+  keyword: {
+    error: 'Esta palabra clave ya ha sido añadida',
+    help: 'Utilice punto y coma (;) para agregar varias categorías'
   }
 };
 

@@ -48,7 +48,7 @@ export interface AppMessages {
         };
         action: {
           add: string;
-        }
+        };
       };
     };
     menus: {
@@ -90,6 +90,10 @@ export interface AppMessages {
           visa: string;
         };
       };
+    };
+    keyword: {
+      error: string;
+      help: string;
     };
   };
 }

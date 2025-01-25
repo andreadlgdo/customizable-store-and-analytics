@@ -255,6 +255,10 @@ const messages: AppMessages['fr'] = {
         visa: 'VISA'
       }
     }
+  },
+  keyword: {
+    error: 'Ce mot-clé a déjà été ajouté',
+    help: 'Utilisez des points-virgules (;) pour ajouter plusieurs catégories'
   }
 };
 
