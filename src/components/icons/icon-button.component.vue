@@ -4,6 +4,8 @@
     @click="$emit('click')"
   >
     <svg-icon
+      @mouseenter="isHovered = true"
+      @mouseleave="isHovered = false"
       :class="`${baseClass}__icon`"
       :src="require(`../../assets/media/icons/${icon}.svg`)"
       :size="size"
@@ -11,13 +13,16 @@
       :color="color"
       :error="error"
     />
+    <base-tooltip v-if="isHovered && tooltipText" :text="tooltipText" />
   </button>
 </template>
 
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { PropType, ref } from 'vue';
 
   import { ColorType, SizeType, SvgIconType } from '../../types';
+
+  import { BaseTooltip } from '../inputs';
 
   import SvgIcon from './svg-icon.component.vue';
 
@@ -40,15 +45,19 @@
       type: String as PropType<ColorType>,
       default: 'white'
     },
+    tooltipText: String,
     haveBorder: Boolean,
     error: Boolean
   });
 
   defineEmits(['click']);
+
+  const isHovered = ref(false);
 </script>
 
 <style scoped lang="scss">
   .icon-button {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
