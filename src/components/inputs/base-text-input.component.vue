@@ -8,6 +8,7 @@
     </div>
     <input
       v-model="query"
+      @keyup.enter="$emit('onEnterPress', query)"
       :type="tag"
       :class="[`${baseClass}__input`, { [`${baseClass}__input--icon`]: icon }]"
       :placeholder="placeholder"
@@ -27,7 +28,7 @@
     />
     <icon-button
       v-if="!disabled"
-      @click="clearQuery"
+      @click="query = ''"
       icon="close"
       size="small"
       :error="!!error"
@@ -37,7 +38,7 @@
       v-if="help || error"
       tag="small"
       :class="`${baseClass}__text`"
-      :color="!!error ? 'error' : 'default'"
+      :color="!!error ? 'error' : color"
     >
       {{ help ?? error }}
     </base-text>
@@ -88,21 +89,25 @@
     disabled: Boolean
   });
 
-  const emit = defineEmits(['input']);
+  const emit = defineEmits(['input', 'clearQuery']);
 
-  const query = ref(props.value ?? '');
+  const query = ref(props.value);
 
   const inputColor = computed(() => (props.error ? 'error' : props.color));
-
-  const clearQuery = () => {
-    query.value = '';
-  };
 
   watch(
     () => query.value,
     () => {
-      emit('input', query);
+      emit('input', query.value);
     }
+  );
+
+  watch(
+    () => props.value,
+    newValue => {
+      query.value = newValue;
+    },
+    { immediate: true }
   );
 </script>
 
