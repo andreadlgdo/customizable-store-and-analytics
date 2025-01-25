@@ -39,6 +39,13 @@ export interface AppMessages {
         action: string;
       };
       products: {
+        title: {
+          list: string;
+          form: {
+            create: string;
+            edit: string;
+          };
+        };
         table: {
           id: string;
           name: string;
@@ -56,6 +63,10 @@ export interface AppMessages {
           categories: string;
           price: string;
           quantity: string;
+          action: {
+            save: string;
+            cancel: string;
+          };
         };
       };
     };

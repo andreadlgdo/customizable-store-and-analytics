@@ -204,6 +204,13 @@ const messages: AppMessages['fr'] = {
       action: 'Continuer mes achats'
     },
     products: {
+      title: {
+        list: 'Gestion des produits',
+        form: {
+          create: 'Ajouter un produit',
+          edit: 'Modifier un produit'
+        }
+      },
       table: {
         id: 'ID',
         name: 'Nom',
@@ -220,7 +227,11 @@ const messages: AppMessages['fr'] = {
         description: 'Description',
         categories: 'Catégories',
         price: 'Prix',
-        quantity: 'Quantité'
+        quantity: 'Quantité',
+        action: {
+          save: 'Enregistrer',
+          cancel: 'Annuler'
+        }
       }
     }
   },

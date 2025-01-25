@@ -1,5 +1,11 @@
 <template>
-  <base-text tag="h3">{{ isAddingProduct ? 'Añadir producto' : 'Gestión de productos' }}</base-text>
+  <base-text tag="h3">
+    {{
+      isAddingProduct
+        ? t('dashboard.products.title.form.create')
+        : t('dashboard.products.title.list')
+    }}
+  </base-text>
   <section :class="baseClass">
     <div v-if="!isAddingProduct" :class="`${baseClass}__wrapper ${baseClass}__wrapper--list`">
       <base-button
@@ -15,13 +21,13 @@
       <product-form />
       <base-button
         @click="isAddingProduct = false"
-        text="Save"
+        :text="t('dashboard.products.form.action.save')"
         color="primary"
         :class="`${baseClass}__button ${baseClass}__button--save`"
       />
       <base-button
         @click="isAddingProduct = false"
-        text="Cancel"
+        :text="t('dashboard.products.form.action.cancel')"
         color="default"
         :class="`${baseClass}__button ${baseClass}__button--cancel`"
       />
