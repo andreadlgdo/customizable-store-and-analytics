@@ -34,17 +34,17 @@
       type="outline"
     />
     <base-text-input
-      @input="value => (item.price = value)"
+      @input="value => (item.price = Number.parseInt(value))"
       :label="t('dashboard.products.form.price')"
-      :value="item?.price"
+      :value="item?.price.toString()"
       form="semi-round"
       color="white"
       type="outline"
     />
     <base-text-input
-      @input="value => (item.quantity = value)"
+      @input="value => (item.quantity = Number.parseInt(value))"
       :label="t('dashboard.products.form.quantity')"
-      :value="item?.quantity"
+      :value="item?.quantity.toString()"
       form="semi-round"
       color="white"
       type="outline"
@@ -111,6 +111,8 @@
   const save = async () => {
     if (props.itemToEdit) {
       await productService.updateProduct(item.value);
+    } else {
+      await productService.createProduct(item.value);
     }
     emit('action');
   };
