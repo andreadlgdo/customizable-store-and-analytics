@@ -20,10 +20,10 @@
   import { computed, onMounted } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { useProducts } from '../../composables';
+  import { useProducts } from '../../../composables';
 
-  import BasePill from '../base-pill.component.vue';
-  import BaseTable from '../base-table.component.vue';
+  import BasePill from '../../base-pill.component.vue';
+  import BaseTable from '../../base-table.component.vue';
 
   const { t } = useI18n();
   const { loadProducts, products } = useProducts();
