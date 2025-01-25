@@ -255,6 +255,10 @@ const messages: AppMessages['en'] = {
         visa: 'VISA'
       }
     }
+  },
+  keyword: {
+    error: 'This keyword has already been added',
+    help: 'Use semicolons (;) to add multiple categories'
   }
 };
 
