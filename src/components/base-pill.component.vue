@@ -1,22 +1,34 @@
 <template>
   <div
-    :class="baseClass"
+    :class="[baseClass, { [`${baseClass}--right`]: iconPosition === 'right' }]"
     :style="{
       '--color-background': `var(--color-${color})`
     }"
   >
-    <svg-icon v-if="icon" :src="require(`../assets/media/icons/${icon}.svg`)" size="mini" />
+    <svg-icon
+      v-if="icon"
+      :src="require(`../assets/media/icons/${icon}.svg`)"
+      :class="`${baseClass}__icon ${baseClass}__icon--info`"
+      size="mini"
+    />
     <base-text :tag="textSize" :class="`${baseClass}__text`">{{ text }}</base-text>
+    <icon-button
+      v-if="isRemovable"
+      @click="$emit('remove', text)"
+      :class="`${baseClass}__icon ${baseClass}__icon--close`"
+      icon="close"
+      size="mini"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import { ColorType, TextTagType } from '../types';
+  import { ColorType, PositionType, TextTagType } from '../types';
 
   import BaseText from './base-text.component.vue';
-  import { SvgIcon } from './icons';
+  import { IconButton, SvgIcon } from './icons';
 
   const baseClass = 'base-pìll';
 
@@ -33,12 +45,21 @@
       type: String as PropType<ColorType>,
       default: 'default'
     },
-    icon: String
+    icon: String,
+    iconPosition: {
+      type: String as PropType<PositionType>,
+      default: 'left'
+    },
+    isRemovable: Boolean
   });
+
+  defineEmits(['remove']);
 </script>
 
 <style lang="scss" scoped>
   .base-pìll {
+    $baseClass: &;
+
     display: flex;
     align-items: center;
     width: fit-content;
@@ -51,6 +72,25 @@
 
     &__text {
       white-space: nowrap;
+    }
+
+    &--right {
+      #{$baseClass}__icon--info {
+        order: 2;
+      }
+
+      #{$baseClass}__text {
+        order: 1;
+      }
+    }
+
+    &__icon--close {
+      padding: 4px;
+      border-radius: 50%;
+
+      &:hover {
+        background-color: var(--color-border-default);
+      }
     }
   }
 </style>
