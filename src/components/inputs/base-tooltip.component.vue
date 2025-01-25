@@ -1,5 +1,7 @@
 <template>
-  <base-text :class="baseClass" tag="small" color="main">{{ text }}</base-text>
+  <div :style="{ position: 'relative' }">
+    <base-text :class="baseClass" tag="small" color="main">{{ text }}</base-text>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -18,7 +20,8 @@
 <style lang="scss" scoped>
   .base-tooltip {
     position: absolute;
-    top: -22px;
+    top: 12px;
+    left: -52px;
     background-color: var(--color-main);
     padding: 4px 8px;
     z-index: 999;

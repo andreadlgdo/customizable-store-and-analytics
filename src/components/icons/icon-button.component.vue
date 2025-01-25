@@ -57,7 +57,6 @@
 
 <style scoped lang="scss">
   .icon-button {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
