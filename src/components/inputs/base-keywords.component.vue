@@ -74,7 +74,7 @@
   const repeatError = ref('');
 
   const existKeyword = (query: string) =>
-    keywords.value.findIndex(keyword => keyword === query) !== -1;
+    keywords.value.findIndex(keyword => keyword === query.toLowerCase()) !== -1;
 
   const setQuery = (query: string) => {
     value.value = query;
@@ -83,7 +83,7 @@
 
   const setKeywords = async (query: string) => {
     if (!existKeyword(query)) {
-      emit('add', query);
+      emit('add', query.toLowerCase());
       value.value = '';
     }
   };
