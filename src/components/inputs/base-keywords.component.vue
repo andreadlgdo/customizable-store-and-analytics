@@ -20,6 +20,8 @@
         :key="keyword"
         @remove="query => $emit('remove', query)"
         :text="keyword"
+        text-size="small"
+        color="primary"
         is-removable
       />
     </div>

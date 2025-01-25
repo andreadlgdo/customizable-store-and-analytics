@@ -2,7 +2,8 @@
   <div
     :class="[baseClass, { [`${baseClass}--right`]: iconPosition === 'right' }]"
     :style="{
-      '--color-background': `var(--color-${color})`
+      '--color-background': `var(--color-${color})`,
+      '--color-hover-icon': `var(--color-border-${color})`
     }"
   >
     <svg-icon
@@ -89,7 +90,7 @@
       border-radius: 50%;
 
       &:hover {
-        background-color: var(--color-border-default);
+        background-color: var(--color-hover-icon);
       }
     }
   }
