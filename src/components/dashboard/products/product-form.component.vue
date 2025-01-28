@@ -1,11 +1,6 @@
 <template>
   <div :class="baseClass">
-    <img
-      :class="`${baseClass}__image`"
-      :src="productImage ?? require('../../../assets/media/images/empty.png')"
-      alt="userImage"
-    />
-    <input @change="changeImage" type="file" accept="image/*" />
+    <input @change="changeImage" type="file" accept="image/*" :disabled="true" />
     <base-text-input
       @input="value => (item.name = value)"
       :label="t('dashboard.products.form.name')"
@@ -64,7 +59,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, PropType, ref } from 'vue';
+  import { PropType, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { Product } from '../../../interfaces';
@@ -97,10 +92,6 @@
   );
 
   const categories = ref<string[]>(item.value?.categories ?? []);
-
-  const productImage = computed(() =>
-    item.value?.imageUrl !== '' ? item.value.imageUrl : undefined
-  );
 
   const addCategories = (query: string) => {
     categories.value.push(query);

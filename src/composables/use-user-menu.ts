@@ -71,7 +71,7 @@ export function useUserMenu() {
 
   const changeMenuSection = (itemMenu: MenuItem) => {
     router.push({
-      name: 'DashboardIndex',
+      name: 'Dashboard',
       params: { index: menuElements.findIndex(menu => menu.id === itemMenu.id).toString() }
     });
   };
