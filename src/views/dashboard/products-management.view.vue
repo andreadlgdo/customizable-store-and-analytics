@@ -1,36 +1,26 @@
 <template>
   <base-text tag="h3">
     {{
-      isAddingProduct
-        ? t('dashboard.products.title.form.create')
+      formProduct
+        ? itemToEdit
+          ? 'Edit'
+          : t('dashboard.products.title.form.create')
         : t('dashboard.products.title.list')
     }}
   </base-text>
   <section :class="baseClass">
-    <div v-if="!isAddingProduct" :class="`${baseClass}__wrapper ${baseClass}__wrapper--list`">
+    <div v-if="!formProduct" :class="`${baseClass}__wrapper ${baseClass}__wrapper--list`">
       <base-button
-        @click="isAddingProduct = true"
+        @click="addProduct"
         icon="plus"
         :text="t('dashboard.products.action.add')"
         color="primary"
-        :class="`${baseClass}__button ${baseClass}__button--add`"
+        :class="`${baseClass}__button`"
       />
-      <products-table />
+      <products-table @edit="item => editProduct(item)" />
     </div>
     <div v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--add`">
-      <product-form />
-      <base-button
-        @click="isAddingProduct = false"
-        :text="t('dashboard.products.form.action.save')"
-        color="primary"
-        :class="`${baseClass}__button ${baseClass}__button--save`"
-      />
-      <base-button
-        @click="isAddingProduct = false"
-        :text="t('dashboard.products.form.action.cancel')"
-        color="default"
-        :class="`${baseClass}__button ${baseClass}__button--cancel`"
-      />
+      <product-form @action="formProduct = false" :item-to-edit="itemToEdit" />
     </div>
   </section>
 </template>
@@ -40,12 +30,25 @@
   import { useI18n } from 'vue-i18n';
 
   import { BaseButton, BaseText, ProductForm, ProductsTable } from '../../components';
+  import { Product } from '../../interfaces';
 
   const { t } = useI18n();
 
   const baseClass = 'products-management';
 
-  const isAddingProduct = ref(false);
+  const formProduct = ref(false);
+
+  const itemToEdit = ref<Product | undefined>(undefined);
+
+  const addProduct = () => {
+    formProduct.value = true;
+    itemToEdit.value = undefined;
+  };
+
+  const editProduct = (item: Product) => {
+    itemToEdit.value = item;
+    formProduct.value = true;
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -65,21 +68,7 @@
 
     &__button {
       margin-bottom: 1rem;
-
-      &--add {
-        align-self: flex-end;
-      }
-
-      &--save,
-      &--cancel {
-        position: absolute;
-        bottom: 0;
-        width: 6rem;
-      }
-
-      &--cancel {
-        left: 7rem;
-      }
+      align-self: flex-end;
     }
   }
 </style>

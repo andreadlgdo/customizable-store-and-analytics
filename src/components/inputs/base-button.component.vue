@@ -5,6 +5,7 @@
       `${baseClass}--${form}`,
       `${baseClass}--${size}`,
       { [`${baseClass}--shadow`]: haveShadow },
+      { [`${baseClass}--disabled`]: disabled },
       { [`${baseClass}--right`]: iconPosition === 'right' }
     ]"
     :style="{
@@ -67,7 +68,8 @@
       type: String as PropType<ColorType>,
       default: 'default'
     },
-    haveShadow: Boolean
+    haveShadow: Boolean,
+    disabled: Boolean
   });
 </script>
 
@@ -121,6 +123,11 @@
 
     &--shadow {
       box-shadow: var(--shadow-button);
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      pointer-events: none;
     }
 
     &--right {

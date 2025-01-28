@@ -66,7 +66,7 @@
       default: 'round'
     },
     value: {
-      type: String,
+      type: [String, Number],
       default: ''
     },
     label: String,
