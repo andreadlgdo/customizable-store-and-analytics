@@ -18,7 +18,10 @@ export function useUserMenu() {
           {
             id: 0,
             label: t('menus.user.items.general.personalData'),
-            icon: 'edit_user'
+            icon: 'edit_user',
+            route: {
+              name: 'PersonalDataDashboard'
+            }
           },
           {
             id: 1,
@@ -40,12 +43,18 @@ export function useUserMenu() {
           {
             id: 0,
             label: t('menus.user.items.general.personalData'),
-            icon: 'edit_user'
+            icon: 'edit_user',
+            route: {
+              name: 'PersonalDataDashboard'
+            }
           },
           {
             id: 1,
             label: t('menus.user.items.admin.productsManagement'),
-            icon: 'shoppingCart'
+            icon: 'shoppingCart',
+            route: {
+              name: 'ProductsDashboard'
+            }
           },
           {
             id: 2,
@@ -71,8 +80,7 @@ export function useUserMenu() {
 
   const changeMenuSection = (itemMenu: MenuItem) => {
     router.push({
-      name: 'Dashboard',
-      params: { index: menuElements.findIndex(menu => menu.id === itemMenu.id).toString() }
+      name: itemMenu.route?.name ?? 'Dashboard'
     });
   };
 

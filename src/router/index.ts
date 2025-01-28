@@ -6,6 +6,7 @@ import Products from '../views/products.view.vue';
 import TermsAndConditions from '../views/terms-and-conditions.view.vue';
 
 import { useCurrentUser } from '../composables';
+import { PersonalDataManagement, ProductsManagement } from '../views/dashboard';
 
 const routes = [
   { name: 'Home', path: '/', component: Home },
@@ -13,6 +14,20 @@ const routes = [
     name: 'Dashboard',
     path: '/dashboard/:index?',
     component: Dashboard,
+    meta: { requiresAuth: true },
+    props: true
+  },
+  {
+    name: 'PersonalDataDashboard',
+    path: '/dashboard/personalData',
+    component: PersonalDataManagement,
+    meta: { requiresAuth: true },
+    props: true
+  },
+  {
+    name: 'ProductsDashboard',
+    path: '/dashboard/products/:action?/:itemId?',
+    component: ProductsManagement,
     meta: { requiresAuth: true },
     props: true
   },

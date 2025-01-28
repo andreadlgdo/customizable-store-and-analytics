@@ -4,15 +4,15 @@
       <dashboard-menu-aside @clickItem="changeSection($event)" :selected-item="selectedItem" />
     </div>
     <div :class="`${baseClass}__content`">
-      <personal-data v-if="selectedItem.id === 0" />
-      <empty-product-view
+      <slot name="custom" />
+      <base-wrapper v-if="!$slots.custom" :class="`${baseClass}__wrapper`">
+        <slot />
+      </base-wrapper>
+      <!--<empty-product-view
         v-else-if="user.type !== 'admin' && (selectedItem.id === 1 || selectedItem.id === 2)"
         :selected-item="selectedItem"
         :class="`${baseClass}__wrapper`"
-      />
-      <base-wrapper v-else :class="`${baseClass}__wrapper`">
-        <products-management v-if="user.type === 'admin' && selectedItem.id === 1" />
-      </base-wrapper>
+      />-->
     </div>
   </div>
 </template>
@@ -20,10 +20,8 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
 
-  import { BaseWrapper, DashboardMenuAside, EmptyProductView, PersonalData } from '../components';
+  import { BaseWrapper, DashboardMenuAside } from '../components';
   import { useCurrentUser, useUserMenu } from '../composables';
-
-  import { ProductsManagement } from './dashboard';
 
   const props = defineProps({
     index: {
