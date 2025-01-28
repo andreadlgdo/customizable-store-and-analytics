@@ -125,10 +125,10 @@
     gap: 1rem;
 
     &__button {
-      margin-bottom: 1rem;
       position: absolute;
       bottom: 0;
       width: 6rem;
+      margin-bottom: 1rem;
 
       &--cancel {
         left: 7rem;
