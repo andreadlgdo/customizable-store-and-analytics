@@ -54,6 +54,5 @@
   .products-table {
     height: 72vh;
     overflow-y: scroll;
-    overflow-x: hidden;
   }
 </style>

@@ -55,7 +55,7 @@
   const { t } = useI18n();
   const router = useRouter();
 
-  const { menuElements } = useUserMenu();
+  const { menuElements, changeMenuSection } = useUserMenu();
 
   const props = defineProps({
     isOpen: Boolean,
@@ -70,10 +70,7 @@
   const openAside = ref(props.isOpen);
 
   const goToProfile = (itemMenu: MenuItem) => {
-    router.push({
-      name: 'Dashboard',
-      params: { index: menuElements.findIndex(menu => menu.id === itemMenu.id).toString() }
-    });
+    changeMenuSection(itemMenu);
     openAside.value = false;
   };
 

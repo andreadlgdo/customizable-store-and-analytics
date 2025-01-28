@@ -1,13 +1,11 @@
 <template>
   <div :class="baseClass">
-    <base-text-input
-      @input="value => (item.imageUrl = value)"
-      :label="t('dashboard.products.form.image')"
-      :value="item?.imageUrl"
-      form="semi-round"
-      color="white"
-      type="outline"
+    <img
+      :class="`${baseClass}__image`"
+      :src="productImage ?? require('../../../assets/media/images/empty.png')"
+      alt="userImage"
     />
+    <input @change="changeImage" type="file" accept="image/*" />
     <base-text-input
       @input="value => (item.name = value)"
       :label="t('dashboard.products.form.name')"
@@ -66,11 +64,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref } from 'vue';
+  import { computed, PropType, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { Product } from '../../../interfaces';
-  import { productService } from '../../../services';
+  import { imageService, productService } from '../../../services';
 
   import { BaseButton, BaseKeywords, BaseTextInput } from '../../inputs';
 
@@ -100,6 +98,10 @@
 
   const categories = ref<string[]>(item.value?.categories ?? []);
 
+  const productImage = computed(() =>
+    item.value?.imageUrl !== '' ? item.value.imageUrl : undefined
+  );
+
   const addCategories = (query: string) => {
     categories.value.push(query);
   };
@@ -116,6 +118,27 @@
     }
     emit('action');
   };
+
+  const changeImage = async (event: Event) => {
+    const target = event.target as HTMLInputElement;
+
+    const selectedFile = target.files?.[0];
+
+    if (!selectedFile) {
+      alert('Por favor selecciona una imagen primero');
+      return;
+    } else {
+      const formData = new FormData();
+
+      formData.append('image', selectedFile);
+      formData.append('routeImage', `products/${item.value._id}`);
+
+      const imageUrl = await imageService.addImage(formData);
+      if (imageUrl) {
+        item.value.imageUrl = imageUrl;
+      }
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -123,12 +146,19 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    height: 90%;
+    overflow: scroll;
+
+    &__image {
+      width: 12rem;
+      height: 14rem;
+      cursor: pointer;
+    }
 
     &__button {
       position: absolute;
       bottom: 0;
       width: 6rem;
-      margin-bottom: 1rem;
 
       &--cancel {
         left: 7rem;

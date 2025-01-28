@@ -1,4 +1,5 @@
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 
 import { MenuItem } from '../interfaces';
 
@@ -8,6 +9,8 @@ export function useUserMenu() {
   const { t } = useI18n();
 
   const { user } = useCurrentUser();
+
+  const router = useRouter();
 
   const menuElements: MenuItem[] =
     user.value?.type !== 'admin'
@@ -66,7 +69,15 @@ export function useUserMenu() {
           }
         ];
 
+  const changeMenuSection = (itemMenu: MenuItem) => {
+    router.push({
+      name: 'DashboardIndex',
+      params: { index: menuElements.findIndex(menu => menu.id === itemMenu.id).toString() }
+    });
+  };
+
   return {
-    menuElements
+    menuElements,
+    changeMenuSection
   };
 }

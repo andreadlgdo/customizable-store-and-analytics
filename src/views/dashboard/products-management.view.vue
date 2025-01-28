@@ -54,6 +54,7 @@
 <style lang="scss" scoped>
   .products-management {
     height: 100%;
+    overflow: hidden;
 
     &__wrapper {
       display: flex;

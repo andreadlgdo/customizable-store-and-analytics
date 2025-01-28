@@ -1,13 +1,13 @@
 <template>
   <div :class="baseClass" v-if="user">
     <div :class="`${baseClass}__aside`">
-      <dashboard-menu-aside @clickItem="selectedItem = $event" :selectedItem="selectedItem" />
+      <dashboard-menu-aside @clickItem="changeSection($event)" :selected-item="selectedItem" />
     </div>
     <div :class="`${baseClass}__content`">
       <personal-data v-if="selectedItem.id === 0" />
       <empty-product-view
         v-else-if="user.type !== 'admin' && (selectedItem.id === 1 || selectedItem.id === 2)"
-        :selectedItem="selectedItem"
+        :selected-item="selectedItem"
         :class="`${baseClass}__wrapper`"
       />
       <base-wrapper v-else :class="`${baseClass}__wrapper`">
@@ -35,11 +35,16 @@
   const baseClass = 'dashboard';
 
   const { user } = useCurrentUser();
-  const { menuElements } = useUserMenu();
+  const { menuElements, changeMenuSection } = useUserMenu();
 
   const selectedItem = ref(
     props.index ? menuElements[Number.parseInt(props.index)] : menuElements[0]
   );
+
+  const changeSection = (event: any) => {
+    selectedItem.value = event;
+    changeMenuSection(selectedItem.value);
+  };
 </script>
 
 <style lang="scss" scoped>
