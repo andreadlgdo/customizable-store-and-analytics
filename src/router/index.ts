@@ -26,7 +26,7 @@ const routes = [
   },
   {
     name: 'ProductsDashboard',
-    path: '/dashboard/products/:action?',
+    path: '/dashboard/products/:action?/:itemId?',
     component: ProductsManagement,
     meta: { requiresAuth: true },
     props: true

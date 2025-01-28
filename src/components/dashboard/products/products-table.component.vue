@@ -24,19 +24,24 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted } from 'vue';
+  import { computed, PropType } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { useProducts } from '../../../composables';
+  import { Product } from '../../../interfaces';
 
   import BasePill from '../../base-pill.component.vue';
   import BaseTable from '../../base-table.component.vue';
 
   const { t } = useI18n();
-  const { loadProducts, products } = useProducts();
 
   const baseClass = 'products-table';
 
+  defineProps({
+    products: {
+      type: Array as PropType<Product[]>,
+      required: true
+    }
+  });
   defineEmits(['edit', 'delete']);
 
   const columns = computed(() => [
@@ -46,8 +51,6 @@
     { id: 'price', label: t('dashboard.products.table.price'), textAlign: 'center' },
     { id: 'quantity', label: t('dashboard.products.table.stock'), textAlign: 'center' }
   ]);
-
-  onMounted(async () => await loadProducts());
 </script>
 
 <style lang="scss" scoped>
