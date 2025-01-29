@@ -21,7 +21,7 @@
         <products-table @edit="item => editProduct(item)" :products="products" />
       </div>
       <div v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--add`">
-        <product-form @action="formProduct = false" :item-to-edit="itemToEdit" />
+        <product-form @action="closeForm" :item-to-edit="itemToEdit" />
       </div>
     </section>
   </dashboard>
@@ -76,6 +76,13 @@
       name: 'ProductsDashboard',
       params: { action: 'edit', itemId: item._id }
     });
+  };
+
+  const closeForm = () => {
+    router.push({
+      name: 'ProductsDashboard'
+    });
+    formProduct.value = false;
   };
 
   watch(
