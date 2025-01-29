@@ -1,5 +1,12 @@
 <template>
-  <div :class="[baseClass, `${baseClass}--${form}`, { [`${baseClass}--disabled`]: disabled }]">
+  <div
+    :class="[
+      baseClass,
+      `${baseClass}--${form}`,
+      { [`${baseClass}--disabled`]: disabled },
+      { [`${baseClass}--number`]: tag === 'number' }
+    ]"
+  >
     <div :class="`${baseClass}__header`">
       <base-text v-if="label" tag="default" :class="`${baseClass}__text`">
         {{ label }}
@@ -17,6 +24,8 @@
         '--border-color': type !== 'solid' ? `3px var(--color-border-${inputColor}) solid` : 'none'
       }"
       :disabled="disabled"
+      :min="min"
+      :max="max"
     />
     <svg-icon
       v-if="icon"
@@ -27,7 +36,7 @@
       size="small"
     />
     <icon-button
-      v-if="!disabled"
+      v-if="removable && !disabled"
       @click="query = ''"
       icon="close"
       size="small"
@@ -58,7 +67,7 @@
 
   const props = defineProps({
     tag: {
-      type: String as PropType<'text' | 'password'>,
+      type: String as PropType<'text' | 'password' | 'number'>,
       default: 'text'
     },
     form: {
@@ -86,7 +95,19 @@
       type: String as PropType<InputType>,
       default: 'solid'
     },
-    disabled: Boolean
+    disabled: Boolean,
+    removable: {
+      type: Boolean,
+      default: true
+    },
+    min: {
+      type: Number,
+      default: 0
+    },
+    max: {
+      type: Number,
+      default: undefined
+    }
   });
 
   const emit = defineEmits(['input', 'clearQuery']);
@@ -129,6 +150,12 @@
     &--disabled {
       opacity: 0.5;
       cursor: none;
+    }
+
+    &--number {
+      & #{$baseClass}__input {
+        padding: 16px;
+      }
     }
 
     &--round {

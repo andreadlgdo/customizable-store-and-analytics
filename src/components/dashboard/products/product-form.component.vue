@@ -27,20 +27,26 @@
       type="outline"
     />
     <base-text-input
-      @input="value => (item.price = Number.parseInt(value))"
+      @input="value => (item.price = value)"
       :label="t('dashboard.products.form.price')"
-      :value="item?.price.toString()"
+      :value="item?.price"
+      :removable="false"
+      tag="number"
       form="semi-round"
       color="white"
       type="outline"
+      :class="`${baseClass}__input ${baseClass}__input--number`"
     />
     <base-text-input
-      @input="value => (item.quantity = Number.parseInt(value))"
+      @input="value => (item.quantity = value)"
       :label="t('dashboard.products.form.quantity')"
-      :value="item?.quantity.toString()"
+      :value="item?.quantity"
+      :removable="false"
+      tag="number"
       form="semi-round"
       color="white"
       type="outline"
+      :class="`${baseClass}__input ${baseClass}__input--number`"
     />
   </div>
   <base-button
@@ -144,6 +150,12 @@
       width: 12rem;
       height: 14rem;
       cursor: pointer;
+    }
+
+    &__input {
+      &--number {
+        width: 6rem;
+      }
     }
 
     &__button {
