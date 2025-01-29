@@ -82,7 +82,7 @@
     () => props.itemId,
     async () => {
       await loadProducts();
-      formProduct.value = true;
+      formProduct.value = !!props.action;
       itemToEdit.value = props.itemId
         ? products.value.find((product: Product) => product._id === props.itemId)
         : undefined;
