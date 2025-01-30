@@ -96,7 +96,7 @@
       name: 'ProductsDashboard'
     });
     formProduct.value = false;
-    await loadProducts();
+    window.location.reload();
   };
 
   watch(

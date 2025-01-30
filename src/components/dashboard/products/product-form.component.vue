@@ -130,8 +130,14 @@
     } else {
       const newProduct = await productService.createProduct(item.value);
 
-      if (item.value.imageUrl) {
-        await imageService.updateImage('products', 'undefined', newProduct.product._id ?? '');
+      if (newProduct.product.imageUrl) {
+        const image = await imageService.updateImage(
+          'products',
+          'undefined',
+          newProduct.product._id ?? ''
+        );
+        newProduct.product.imageUrl = image.imageUrl;
+        await productService.updateProduct(newProduct.product);
       }
     }
     emit('action');
@@ -156,7 +162,7 @@
       loading.value = true;
       const formData = new FormData();
       formData.append('image', selectedFile);
-      formData.append('routeImage', `products/${item.value._id}`);
+      formData.append('routeImage', `products/${item.value._id ?? 'undefined'}`);
 
       if (item.value.imageUrl) {
         await imageService.updateImage('products', item.value._id ?? '', `old-${item.value._id}`);
