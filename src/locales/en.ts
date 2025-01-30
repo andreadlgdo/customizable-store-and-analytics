@@ -203,6 +203,11 @@ const messages: AppMessages['en'] = {
       title: 'is empty',
       action: 'Continue shopping'
     },
+    action: {
+      save: 'Save',
+      cancel: 'Cancel',
+      edit: 'Edit'
+    },
     products: {
       title: {
         list: 'Product management',
@@ -227,11 +232,32 @@ const messages: AppMessages['en'] = {
         description: 'Description',
         categories: 'Categories',
         price: 'Price',
-        quantity: 'Quantity',
-        action: {
-          save: 'Save',
-          cancel: 'Cancel'
+        quantity: 'Quantity'
+      }
+    },
+    users: {
+      title: {
+        list: 'User management',
+        form: {
+          create: 'Add user',
+          edit: 'Edit user'
         }
+      },
+      table: {
+        id: 'ID',
+        username: 'Username',
+        email: 'Email',
+        type: 'Type'
+      },
+      action: {
+        add: 'Add user'
+      },
+      form: {
+        id: 'ID',
+        username: 'Username',
+        email: 'Email',
+        password: 'Password',
+        type: 'Type'
       }
     }
   },

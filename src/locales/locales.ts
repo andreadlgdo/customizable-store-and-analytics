@@ -38,6 +38,11 @@ export interface AppMessages {
         title: string;
         action: string;
       };
+      action: {
+        save: string;
+        cancel: string;
+        edit: string;
+      };
       products: {
         title: {
           list: string;
@@ -63,10 +68,31 @@ export interface AppMessages {
           categories: string;
           price: string;
           quantity: string;
-          action: {
-            save: string;
-            cancel: string;
+        };
+      };
+      users: {
+        title: {
+          list: string;
+          form: {
+            create: string;
+            edit: string;
           };
+        };
+        table: {
+          id: string;
+          username: string;
+          email: string;
+          type: string;
+        };
+        action: {
+          add: string;
+        };
+        form: {
+          id: string;
+          username: string;
+          email: string;
+          password: string;
+          type: string;
         };
       };
     };

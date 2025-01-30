@@ -203,6 +203,11 @@ const messages: AppMessages['fr'] = {
       title: "c'est vide",
       action: 'Continuer mes achats'
     },
+    action: {
+      save: 'Enregistrer',
+      cancel: 'Annuler',
+      edit: 'Modifier'
+    },
     products: {
       title: {
         list: 'Gestion des produits',
@@ -227,11 +232,32 @@ const messages: AppMessages['fr'] = {
         description: 'Description',
         categories: 'Catégories',
         price: 'Prix',
-        quantity: 'Quantité',
-        action: {
-          save: 'Enregistrer',
-          cancel: 'Annuler'
+        quantity: 'Quantité'
+      }
+    },
+    users: {
+      title: {
+        list: 'Gestion des utilisateurs',
+        form: {
+          create: 'Ajouter un utilisateur',
+          edit: 'Modifier un utilisateur'
         }
+      },
+      table: {
+        id: 'ID',
+        username: "Nom d'utilisateur",
+        email: 'Courriel',
+        type: 'Type'
+      },
+      action: {
+        add: 'Ajouter un utilisateur'
+      },
+      form: {
+        id: 'ID',
+        username: "Nom d'utilisateur",
+        email: 'Email',
+        password: 'Mot de passe',
+        type: 'Gars'
       }
     }
   },
@@ -280,5 +306,4 @@ const messages: AppMessages['fr'] = {
     help: 'Utilisez des points-virgules (;) pour ajouter plusieurs catégories'
   }
 };
-
 export default messages;
