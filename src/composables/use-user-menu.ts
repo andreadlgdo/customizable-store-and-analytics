@@ -64,7 +64,10 @@ export function useUserMenu() {
           {
             id: 3,
             label: t('menus.user.items.admin.userManagement'),
-            icon: 'user'
+            icon: 'user',
+            route: {
+              name: 'UserDashboard'
+            }
           },
           {
             id: 4,
