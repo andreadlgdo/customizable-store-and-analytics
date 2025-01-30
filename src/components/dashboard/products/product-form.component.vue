@@ -2,6 +2,7 @@
   <div :class="baseClass">
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--image`">
       <img
+        v-if="!loading"
         :src="productImage ?? require('../../../assets/media/images/empty.png')"
         alt="Product image"
         :class="`${baseClass}__image`"
@@ -68,7 +69,7 @@
     :disabled="!(item.name && item.price && item.price !== 0)"
   />
   <base-button
-    @click="$emit('action')"
+    @click="cancel"
     :text="t('dashboard.products.form.action.cancel')"
     color="default"
     :class="`${baseClass}__button ${baseClass}__button--cancel`"
@@ -109,6 +110,7 @@
   );
 
   const categories = ref<string[]>(item.value?.categories ?? []);
+  const loading = ref(false);
 
   const productImage = computed(() =>
     item.value?.imageUrl !== '' ? item.value?.imageUrl : undefined
@@ -126,29 +128,49 @@
     if (props.itemToEdit) {
       await productService.updateProduct(item.value);
     } else {
-      await productService.createProduct(item.value);
+      const newProduct = await productService.createProduct(item.value);
+
+      if (item.value.imageUrl) {
+        await imageService.updateImage('products', 'undefined', newProduct.product._id ?? '');
+      }
+    }
+    emit('action');
+  };
+
+  const cancel = async () => {
+    if (props.itemToEdit && props.itemToEdit.imageUrl !== item.value.imageUrl) {
+      await imageService.updateImage('products', `old-${item.value._id}`, item.value._id ?? '');
     }
     emit('action');
   };
 
   const changeImage = async (event: Event) => {
     const target = event.target as HTMLInputElement;
-
     const selectedFile = target.files?.[0];
 
     if (!selectedFile) {
-      alert('Por favor selecciona una imagen primero');
-      return;
-    } else {
-      const formData = new FormData();
+      return alert('Por favor selecciona una imagen primero');
+    }
 
+    try {
+      loading.value = true;
+      const formData = new FormData();
       formData.append('image', selectedFile);
       formData.append('routeImage', `products/${item.value._id}`);
 
+      if (item.value.imageUrl) {
+        await imageService.updateImage('products', item.value._id ?? '', `old-${item.value._id}`);
+      }
+
       const imageUrl = await imageService.addImage(formData);
+
       if (imageUrl) {
         item.value.imageUrl = imageUrl;
       }
+    } catch (error) {
+      console.error('Error al actualizar la imagen:', error);
+    } finally {
+      loading.value = false;
     }
   };
 </script>
