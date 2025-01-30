@@ -18,7 +18,11 @@
           color="primary"
           :class="`${baseClass}__button`"
         />
-        <products-table @edit="item => editProduct(item)" :products="products" />
+        <products-table
+          @delete="item => deleteProduct(item)"
+          @edit="item => editProduct(item)"
+          :products="products"
+        />
       </div>
       <div v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--add`">
         <product-form @action="closeForm" :item-to-edit="itemToEdit" />
@@ -35,6 +39,7 @@
   import { BaseButton, BaseText, ProductForm, ProductsTable } from '../../components';
   import { useProducts } from '../../composables';
   import { Product } from '../../interfaces';
+  import { imageService, productService } from '../../services';
 
   import Dashboard from '../dashboard.view.vue';
 
@@ -78,11 +83,20 @@
     });
   };
 
-  const closeForm = () => {
-    router.push({
+  const deleteProduct = async (item: Product) => {
+    if (item.imageUrl && item._id) {
+      await imageService.deleteImage('products', item._id);
+    }
+    await productService.deleteProduct(item._id ?? '');
+    await loadProducts();
+  };
+
+  const closeForm = async () => {
+    await router.push({
       name: 'ProductsDashboard'
     });
     formProduct.value = false;
+    await loadProducts();
   };
 
   watch(

@@ -52,5 +52,19 @@ export const productService = {
 
     const responseJson = await response.json();
     return responseJson.product;
+  },
+  deleteProduct: async function (_id: string) {
+    if (!_id) {
+      console.log('El producto no tiene un ID');
+      return;
+    }
+
+    const response = await fetch(`${apiUrl}/api/products/${_id}`, {
+      method: 'DELETE'
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al eliminar el producto');
+    }
   }
 };

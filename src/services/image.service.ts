@@ -32,5 +32,23 @@ export const imageService = {
     }
 
     return response.json();
+  },
+  deleteImage: async function (folder: string, imageToRemove: string) {
+    const response = await fetch(`${apiUrl}/api/images/deleted`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        folder,
+        imageToRemove
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al eliminar la imagen');
+    }
+
+    return response.json();
   }
 };
