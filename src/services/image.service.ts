@@ -13,7 +13,6 @@ export const imageService = {
       }
 
       const data = await response.json();
-      window.location.reload();
       return data.imageUrl;
     } catch (error) {
       console.log('Error when upload an image:', error);

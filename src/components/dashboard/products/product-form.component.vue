@@ -1,53 +1,64 @@
 <template>
   <div :class="baseClass">
-    <input @change="changeImage" type="file" accept="image/*" :disabled="true" />
-    <base-text-input
-      @input="value => (item.name = value)"
-      :label="t('dashboard.products.form.name')"
-      :value="item?.name"
-      form="semi-round"
-      color="white"
-      type="outline"
-    />
-    <base-text-input
-      @input="value => (item.description = value)"
-      :label="t('dashboard.products.form.description')"
-      :value="item?.description"
-      form="semi-round"
-      color="white"
-      type="outline"
-    />
-    <base-keywords
-      @add="addCategories"
-      @remove="removeCategories"
-      :values="categories"
-      :label="t('dashboard.products.form.categories')"
-      form="semi-round"
-      color="white"
-      type="outline"
-    />
-    <base-text-input
-      @input="value => (item.price = value)"
-      :label="t('dashboard.products.form.price')"
-      :value="item?.price"
-      :removable="false"
-      tag="number"
-      form="semi-round"
-      color="white"
-      type="outline"
-      :class="`${baseClass}__input ${baseClass}__input--number`"
-    />
-    <base-text-input
-      @input="value => (item.quantity = value)"
-      :label="t('dashboard.products.form.quantity')"
-      :value="item?.quantity"
-      :removable="false"
-      tag="number"
-      form="semi-round"
-      color="white"
-      type="outline"
-      :class="`${baseClass}__input ${baseClass}__input--number`"
-    />
+    <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--image`">
+      <img
+        :src="productImage ?? require('../../../assets/media/images/empty.png')"
+        alt="Product image"
+        :class="`${baseClass}__image`"
+      />
+      <input @change="changeImage" type="file" accept="image/*" />
+    </div>
+    <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
+      <base-text-input
+        @input="value => (item.name = value)"
+        :label="t('dashboard.products.form.name')"
+        :value="item?.name"
+        form="semi-round"
+        color="white"
+        type="outline"
+      />
+      <base-text-input
+        @input="value => (item.description = value)"
+        :label="t('dashboard.products.form.description')"
+        :value="item?.description"
+        form="semi-round"
+        color="white"
+        type="outline"
+      />
+      <base-keywords
+        @add="addCategories"
+        @remove="removeCategories"
+        :values="categories"
+        :label="t('dashboard.products.form.categories')"
+        form="semi-round"
+        color="white"
+        type="outline"
+      />
+      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--number`">
+        <base-text-input
+          @input="value => (item.price = value)"
+          :label="t('dashboard.products.form.price')"
+          :value="item?.price"
+          :removable="false"
+          tag="number"
+          form="semi-round"
+          color="white"
+          type="outline"
+          :class="`${baseClass}__input ${baseClass}__input--number`"
+        />
+        <base-text-input
+          @input="value => (item.quantity = value)"
+          :label="t('dashboard.products.form.quantity')"
+          :value="item?.quantity"
+          :removable="false"
+          tag="number"
+          form="semi-round"
+          color="white"
+          type="outline"
+          :class="`${baseClass}__input ${baseClass}__input--number`"
+        />
+      </div>
+    </div>
   </div>
   <base-button
     @click="save"
@@ -65,7 +76,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref } from 'vue';
+  import { computed, PropType, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { Product } from '../../../interfaces';
@@ -98,6 +109,10 @@
   );
 
   const categories = ref<string[]>(item.value?.categories ?? []);
+
+  const productImage = computed(() =>
+    item.value?.imageUrl !== '' ? item.value?.imageUrl : undefined
+  );
 
   const addCategories = (query: string) => {
     categories.value.push(query);
@@ -141,15 +156,35 @@
 <style lang="scss" scoped>
   .product-form {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    height: 90%;
     overflow: scroll;
+
+    &__wrapper {
+      display: flex;
+
+      &--image,
+      &--content {
+        flex-direction: column;
+      }
+
+      &--image {
+        padding: 2rem 0 0 2rem;
+        gap: 12px;
+      }
+
+      &--content {
+        padding-top: 1rem;
+        width: 100%;
+        gap: 18px;
+      }
+
+      &--number {
+        gap: 18px;
+      }
+    }
 
     &__image {
       width: 12rem;
       height: 14rem;
-      cursor: pointer;
     }
 
     &__input {
