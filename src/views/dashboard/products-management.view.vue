@@ -4,7 +4,7 @@
       {{
         formProduct
           ? itemToEdit
-            ? 'Edit'
+            ? t('dashboard.products.title.form.edit')
             : t('dashboard.products.title.form.create')
           : t('dashboard.products.title.list')
       }}
