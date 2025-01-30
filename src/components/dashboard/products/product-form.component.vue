@@ -63,14 +63,14 @@
   </div>
   <base-button
     @click="save"
-    :text="itemToEdit ? 'Edit' : t('dashboard.products.form.action.save')"
+    :text="itemToEdit ? t('dashboard.action.edit') : t('dashboard.action.save')"
     color="primary"
     :class="`${baseClass}__button ${baseClass}__button--save`"
     :disabled="!(item.name && item.price && item.price !== 0)"
   />
   <base-button
     @click="cancel"
-    :text="t('dashboard.products.form.action.cancel')"
+    :text="t('dashboard.action.cancel')"
     color="default"
     :class="`${baseClass}__button ${baseClass}__button--cancel`"
   />
