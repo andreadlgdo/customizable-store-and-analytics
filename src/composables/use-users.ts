@@ -12,8 +12,8 @@ export function useUsers() {
   const user = ref<User | undefined>(getStoredUser());
 
   const getUsers = async () => {
-    const response = await userService.getUsers();
-    return response.users;
+    const { users } = await userService.getUsers();
+    return users;
   };
 
   const createUser = async (userToCreate: User) => {
