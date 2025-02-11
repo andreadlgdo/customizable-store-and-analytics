@@ -3,17 +3,23 @@ import { ref } from 'vue';
 import { User } from '../interfaces';
 import { userService } from '../services';
 
+const getStoredUser = () => {
+  const storedUser = localStorage.getItem('user');
+  return storedUser ? JSON.parse(storedUser) : undefined;
+};
+
 export function useUsers() {
-  const user = ref<User | undefined>(undefined);
+  const user = ref<User | undefined>(getStoredUser());
 
   const getUsers = async () => {
-    return await userService.getUsers();
+    const response = await userService.getUsers();
+    return response.users;
   };
 
-  const createUser = async (user: User) => {
-    const response = await userService.createUser(user);
-    localStorage.setItem('user', JSON.stringify(response.user));
-    return response.user;
+  const createUser = async (userToCreate: User) => {
+    const { user } = await userService.createUser(userToCreate);
+    localStorage.setItem('user', JSON.stringify(user));
+    return user;
   };
 
   const login = async (username: string, password: string) => {
@@ -22,8 +28,8 @@ export function useUsers() {
       const response = await userService.validUser(userData);
       user.value = response.user;
       localStorage.setItem('user', JSON.stringify(user.value));
-    } catch (error) {
-      return error;
+    } catch (error: any) {
+      throw new Error(error || 'Login failed');
     }
   };
 
