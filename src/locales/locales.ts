@@ -186,7 +186,6 @@ export interface SignUpMessages {
       title: string;
       error: {
         empty: string;
-        exits: string;
       };
     };
     email: {
@@ -194,6 +193,7 @@ export interface SignUpMessages {
       error: {
         empty: string;
         incorrect: string;
+        exits: string;
       };
     };
     password: {

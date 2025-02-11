@@ -51,15 +51,15 @@ const signUpMessages: SignUpMessages = {
     username: {
       title: "Nom d'utilisateur",
       error: {
-        empty: "Le champ du nom d'utilisateur est vide",
-        exits: "Le nom d'utilisateur existe déjà"
+        empty: "Le champ du nom d'utilisateur est vide"
       }
     },
     email: {
       title: 'E-mail',
       error: {
         empty: 'Le champ email est vide',
-        incorrect: "L'e-mail est incorrect"
+        incorrect: "L'e-mail est incorrect",
+        exits: "L'e-mail existe déjà"
       }
     },
     password: {

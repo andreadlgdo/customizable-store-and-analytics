@@ -51,15 +51,15 @@ const signUpMessages: SignUpMessages = {
     username: {
       title: 'Username',
       error: {
-        empty: 'The username field is empty',
-        exits: 'The username already exists'
+        empty: 'The username field is empty'
       }
     },
     email: {
       title: 'Email',
       error: {
         empty: 'The email field is empty',
-        incorrect: 'The email is not correct'
+        incorrect: 'The email is not correct',
+        exits: 'The email already exists'
       }
     },
     password: {
