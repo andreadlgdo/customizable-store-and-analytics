@@ -25,9 +25,9 @@ const shoppingCartMessages: ShoppingCartMessages = {
 const logInMessages: LogInMessages = {
   title: 'Se connecter',
   inputsPlaceholders: {
-    username: {
-      title: "Nom d'utilisateur",
-      error: "Le champ du nom d'utilisateur est vide"
+    email: {
+      title: 'E-mail',
+      error: 'Le champ email est vide'
     },
     password: {
       title: 'Mot de passe',

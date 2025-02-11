@@ -159,7 +159,7 @@ export interface ShoppingCartMessages {
 export interface LogInMessages {
   title: string;
   inputsPlaceholders: {
-    username: {
+    email: {
       title: string;
       error: string;
     };

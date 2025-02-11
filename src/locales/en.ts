@@ -25,9 +25,9 @@ const shoppingCartMessages: ShoppingCartMessages = {
 const logInMessages: LogInMessages = {
   title: 'Log in',
   inputsPlaceholders: {
-    username: {
-      title: 'Username',
-      error: 'The username field is empty'
+    email: {
+      title: 'Email',
+      error: 'The email field is empty'
     },
     password: {
       title: 'Password',
