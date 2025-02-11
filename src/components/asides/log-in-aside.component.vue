@@ -25,10 +25,10 @@
           {{ invalidCredentials }}
         </base-text>
         <base-text-input
-          @input="query => (userForm.username = query)"
-          :label="t('asides.register.logIn.inputsPlaceholders.username.title')"
+          @input="query => (userForm.email = query)"
+          :label="t('asides.register.logIn.inputsPlaceholders.email.title')"
           icon="user"
-          :error="errorUsername"
+          :error="errorEmail"
         />
         <password-input
           @input="query => (userForm.password = query)"
@@ -99,14 +99,14 @@
   const emits = defineEmits(['close', 'openSignUpAsideOpen']);
 
   const userForm = ref({
-    username: '',
+    email: '',
     password: ''
   });
 
   const isUserRegister = ref(false);
   const isOpenAside = ref(props.isOpen);
 
-  const errorUsername = ref('');
+  const errorEmail = ref('');
   const errorPassword = ref('');
   const invalidCredentials = ref('');
 
@@ -115,16 +115,16 @@
   const logInUser = async (): Promise<void> => {
     errorPassword.value = '';
     invalidCredentials.value = '';
-    errorUsername.value = '';
-    if (!userForm.value.username && !userForm.value.password) {
-      errorUsername.value = t('asides.register.logIn.inputsPlaceholders.username.error');
+    errorEmail.value = '';
+    if (!userForm.value.email && !userForm.value.password) {
+      errorEmail.value = t('asides.register.logIn.inputsPlaceholders.email.error');
       errorPassword.value = t('asides.register.logIn.inputsPlaceholders.password.error');
-    } else if (!userForm.value.username) {
-      errorUsername.value = t('asides.register.logIn.inputsPlaceholders.username.error');
+    } else if (!userForm.value.email) {
+      errorEmail.value = t('asides.register.logIn.inputsPlaceholders.email.error');
     } else if (!userForm.value.password) {
       errorPassword.value = t('asides.register.logIn.inputsPlaceholders.password.error');
     } else {
-      const error = await login(userForm.value.username, userForm.value.password);
+      const error = await login(userForm.value.email, userForm.value.password);
       if (error) {
         invalidCredentials.value = t('asides.register.logIn.inputsPlaceholders.generalError');
       } else {
@@ -143,7 +143,7 @@
     logout();
     isUserRegister.value = false;
     userForm.value = {
-      username: '',
+      email: '',
       password: ''
     };
   };

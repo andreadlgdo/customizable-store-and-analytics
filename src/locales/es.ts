@@ -25,9 +25,9 @@ const shoppingCartMessages: ShoppingCartMessages = {
 const logInMessages: LogInMessages = {
   title: 'Inicio de sesion',
   inputsPlaceholders: {
-    username: {
-      title: 'Nombre de usuario',
-      error: 'El campo nombre de usuario esta vacio'
+    email: {
+      title: 'Correo electronico',
+      error: 'El campo correo electronico esta vacio'
     },
     password: {
       title: 'Contraseña',
@@ -51,15 +51,15 @@ const signUpMessages: SignUpMessages = {
     username: {
       title: 'Nombre de usuario',
       error: {
-        empty: 'El campo nombre de usuario esta vacio',
-        exits: 'El nombre de usuario ya existe'
+        empty: 'El campo nombre de usuario esta vacio'
       }
     },
     email: {
       title: 'Correo electronico',
       error: {
         empty: 'El campo correo electronico esta vacio',
-        incorrect: 'El correo electronico es incorrecto'
+        incorrect: 'El correo electronico es incorrecto',
+        exits: 'El correo electronico ya existe'
       }
     },
     password: {

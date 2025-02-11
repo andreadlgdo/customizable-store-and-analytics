@@ -25,7 +25,7 @@ export const userService = {
       body: JSON.stringify(userData)
     });
   },
-  validUser: async function (userData: { username: string; password: string }) {
+  validUser: async function (userData: { email: string; password: string }) {
     return fetchData(`${apiUrl}/api/login`, {
       method: 'POST',
       body: JSON.stringify(userData)

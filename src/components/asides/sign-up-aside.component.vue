@@ -210,11 +210,11 @@
       errorUser.value = t('asides.register.signUp.inputsPlaceholders.username.error.empty');
     } else {
       const users = await getUsers();
-      const userWithSameUsername = users.find(
-        (user: User) => user.username === userForm.value.username
+      const userWithSameEmail = users.find(
+        (user: User) => user.email === userForm.value.email
       );
-      if (userWithSameUsername) {
-        errorUser.value = t('asides.register.signUp.inputsPlaceholders.username.error.exits');
+      if (userWithSameEmail) {
+        errorEmail.value = t('asides.register.signUp.inputsPlaceholders.email.error.exits');
       } else if (!isSelectCheckbox.value) {
         errorAcceptTerms.value = t('asides.register.signUp.inputsPlaceholders.acceptTerms');
       } else {

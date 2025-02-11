@@ -22,14 +22,14 @@ export function useUsers() {
     return user;
   };
 
-  const login = async (username: string, password: string) => {
-    const userData = { username, password };
+  const login = async (email: string, password: string) => {
+    const userData = { email, password };
     try {
       const response = await userService.validUser(userData);
       user.value = response.user;
       localStorage.setItem('user', JSON.stringify(user.value));
     } catch (error: any) {
-      throw new Error(error || 'Login failed');
+      return error;
     }
   };
 
