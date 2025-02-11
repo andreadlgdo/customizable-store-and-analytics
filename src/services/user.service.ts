@@ -1,82 +1,34 @@
 import { User } from '../interfaces';
+import { fetchData } from './httpClient';
 
 const apiUrl = process.env.VUE_APP_API_URL;
 
 export const userService = {
   getUsers: async function () {
-    try {
-      const response = await fetch(`${apiUrl}/api/users`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return await response.json();
-    } catch (error) {
-      console.log('error', error);
-      throw error;
-    }
+    return fetchData(`${apiUrl}/api/users`, { method: 'GET' });
   },
   createUser: async function (userData: User) {
-    try {
-      const response = await fetch(`${apiUrl}/api/users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to create user');
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.log('Error creating user:', error);
-      throw error;
+    if (!userData.username || !userData.email) {
+      throw new Error('Username and email are required');
     }
+    return fetchData(`${apiUrl}/api/users`, {
+      method: 'POST',
+      body: JSON.stringify(userData)
+    });
   },
   updateUser: async function (userData: User) {
-    try {
-      if (!userData._id) {
-        console.log('The user do not have an id');
-      }
-      const response = await fetch(`${apiUrl}/api/users/${userData._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to updated user');
-      }
-
-      const responseJson = await response.json();
-      return responseJson.user;
-    } catch (error) {
-      console.log('Error updating user:', error);
-      throw error;
+    if (!userData._id) {
+      throw new Error('User ID is required');
     }
+    return fetchData(`${apiUrl}/api/users/${userData._id}`, {
+      method: 'PUT',
+      body: JSON.stringify(userData)
+    });
   },
   validUser: async function (userData: { username: string; password: string }) {
-    try {
-      const response = await fetch(`${apiUrl}/api/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to create user');
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.log('Invalid user:', error);
-      throw error;
-    }
+    return fetchData(`${apiUrl}/api/login`, {
+      method: 'POST',
+      body: JSON.stringify(userData)
+    });
   }
 };
