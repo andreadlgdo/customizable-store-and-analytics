@@ -1,26 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Home from '../views/home.view.vue';
-import OldDashboard from '../views/old-dashboard.view.vue';
+import Dashboard from '../views/dashboard.view.vue';
 import Products from '../views/products.view.vue';
 import TermsAndConditions from '../views/terms-and-conditions.view.vue';
 
 import { useCurrentUser } from '../composables';
-import { PersonalDataManagement, ProductsManagement, UserManagement } from '../views/dashboard';
+import { ProductsManagement, UserManagement } from '../views/dashboard';
 
 const routes = [
   { name: 'Home', path: '/', component: Home },
   {
     name: 'Dashboard',
     path: '/dashboard/:index?',
-    component: OldDashboard,
+    component: Dashboard,
     meta: { requiresAuth: true },
     props: true
   },
   {
     name: 'PersonalDataDashboard',
     path: '/dashboard/personalData',
-    component: PersonalDataManagement,
+    component: Dashboard,
     meta: { requiresAuth: true },
     props: true
   },
