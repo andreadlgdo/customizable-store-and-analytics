@@ -59,7 +59,7 @@
       border-radius: 20px;
       width: 98%;
       background-color: var(--color-primary);
-      box-shadow: var(--shadow-button);
+      box-shadow: var(--shadow-soft);
       z-index: 1;
     }
 
