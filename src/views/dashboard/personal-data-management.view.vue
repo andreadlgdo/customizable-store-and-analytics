@@ -19,13 +19,6 @@
           ></div>
           <div :class="`${baseClass}__data`">
             <base-text-input
-              icon="user"
-              :label="t('dashboard.personalData.personal.label.username')"
-              form="semi-round"
-              :value="user.username"
-              disabled
-            />
-            <base-text-input
               icon="email"
               :label="t('dashboard.personalData.personal.label.email')"
               form="semi-round"

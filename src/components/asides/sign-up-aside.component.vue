@@ -16,12 +16,6 @@
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--inputs`">
         <base-text tag="h2" overline>{{ t('asides.register.signUp.title') }}</base-text>
         <base-text-input
-          @input="query => (userForm.username = query)"
-          :label="t('asides.register.signUp.inputsPlaceholders.username.title')"
-          icon="user"
-          :error="errorUser"
-        />
-        <base-text-input
           @input="query => (userForm.email = query)"
           :label="t('asides.register.signUp.inputsPlaceholders.email.title')"
           icon="email"
@@ -140,7 +134,6 @@
   const isOpenAside = ref(props.isOpen);
 
   const userForm = ref({
-    username: '',
     email: '',
     password: '',
     repeatPassword: ''
@@ -148,7 +141,6 @@
 
   const equalPassword = ref('');
   const errorPassword = ref('');
-  const errorUser = ref('');
   const errorEmail = ref('');
   const errorAcceptTerms = ref('');
 
@@ -199,32 +191,30 @@
   const addUser = async (): Promise<void> => {
     equalPassword.value = '';
     errorPassword.value = '';
-    errorUser.value = '';
     errorEmail.value = '';
     errorAcceptTerms.value = '';
 
     validPassword(userForm.value.password, userForm.value.repeatPassword);
     validEmail(userForm.value.email);
 
-    if (!userForm.value.username) {
-      errorUser.value = t('asides.register.signUp.inputsPlaceholders.username.error.empty');
-    } else {
-      const users = await getUsers();
-      const userWithSameEmail = users.find(
-        (user: User) => user.email === userForm.value.email
-      );
-      if (userWithSameEmail) {
-        errorEmail.value = t('asides.register.signUp.inputsPlaceholders.email.error.exits');
-      } else if (!isSelectCheckbox.value) {
-        errorAcceptTerms.value = t('asides.register.signUp.inputsPlaceholders.acceptTerms');
-      } else {
-        userCreated.value = await createUser({
-          username: userForm.value.username,
-          email: userForm.value.email,
-          password: userForm.value.password
-        });
-        isUserCreated.value = !!userCreated.value;
-      }
+    const users = await getUsers();
+    const userWithSameEmail = users.find((user: User) => user.email === userForm.value.email);
+
+    if (userWithSameEmail) {
+      errorEmail.value = t('asides.register.signUp.inputsPlaceholders.email.error.exits');
+    } else if (!isSelectCheckbox.value) {
+      errorAcceptTerms.value = t('asides.register.signUp.inputsPlaceholders.acceptTerms');
+    } else if (
+      !equalPassword.value ||
+      !errorPassword.value ||
+      !errorEmail.value ||
+      !errorAcceptTerms.value
+    ) {
+      userCreated.value = await createUser({
+        email: userForm.value.email,
+        password: userForm.value.password
+      });
+      isUserCreated.value = !!userCreated.value;
     }
   };
 
@@ -237,7 +227,6 @@
     logout();
     isUserCreated.value = false;
     userForm.value = {
-      username: '',
       email: '',
       password: '',
       repeatPassword: ''

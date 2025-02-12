@@ -17,15 +17,6 @@
         disabled
       />
       <base-text-input
-        @input="value => (item.username = value)"
-        :label="t('dashboard.users.form.username')"
-        :value="item?.username"
-        form="semi-round"
-        color="white"
-        type="outline"
-        disabled
-      />
-      <base-text-input
         @input="value => (item.email = value)"
         :label="t('dashboard.users.form.email')"
         :value="item?.email"
@@ -90,7 +81,6 @@
 
   const item = ref<User>(
     props.itemToEdit ?? {
-      username: '',
       email: '',
       password: '',
       type: '',

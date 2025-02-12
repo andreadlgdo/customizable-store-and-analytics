@@ -3,7 +3,8 @@
     <section :class="`${baseClass}__user`">
       <div :class="`${baseClass}__image`" :style="{ backgroundImage: `url(${user.imageUrl})` }" />
       <div>
-        <base-text tag="h3">{{ user.username }}</base-text>
+        <!-- Ira el name -->
+        <base-text tag="h3">{{ user.email }}</base-text>
         <base-text tag="p">{{ user.email }}</base-text>
       </div>
     </section>
