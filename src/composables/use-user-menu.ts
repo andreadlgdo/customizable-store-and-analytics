@@ -82,9 +82,10 @@ export function useUserMenu() {
         ];
 
   const changeMenuSection = (itemMenu: MenuItem) => {
-    router.push({
+    const dahsboardRoute = router.resolve({
       name: itemMenu.route?.name ?? 'Dashboard'
     });
+    window.open(dahsboardRoute.href, '_blank');
   };
 
   return {
