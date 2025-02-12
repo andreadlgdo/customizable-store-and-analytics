@@ -80,7 +80,6 @@ export interface AppMessages {
         };
         table: {
           id: string;
-          username: string;
           email: string;
           type: string;
         };
@@ -89,7 +88,6 @@ export interface AppMessages {
         };
         form: {
           id: string;
-          username: string;
           email: string;
           password: string;
           type: string;
@@ -182,12 +180,6 @@ export interface LogInMessages {
 export interface SignUpMessages {
   title: string;
   inputsPlaceholders: {
-    username: {
-      title: string;
-      error: {
-        empty: string;
-      };
-    };
     email: {
       title: string;
       error: {
@@ -224,7 +216,6 @@ export interface PersonalDataMessages {
   personal: {
     title: string;
     label: {
-      username: string;
       email: string;
       password: string;
     };

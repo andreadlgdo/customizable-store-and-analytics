@@ -8,9 +8,6 @@ export const userService = {
     return fetchData(`${apiUrl}/api/users`, { method: 'GET' });
   },
   createUser: async function (userData: User) {
-    if (!userData.username || !userData.email) {
-      throw new Error('Username and email are required');
-    }
     return fetchData(`${apiUrl}/api/users`, {
       method: 'POST',
       body: JSON.stringify(userData)

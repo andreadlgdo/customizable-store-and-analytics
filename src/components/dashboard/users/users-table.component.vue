@@ -43,7 +43,6 @@
 
   const columns = computed(() => [
     { id: '_id', label: t('dashboard.users.table.id') },
-    { id: 'username', label: t('dashboard.users.table.username') },
     { id: 'email', label: t('dashboard.users.table.email') },
     { id: 'type', label: t('dashboard.users.table.type') }
   ]);

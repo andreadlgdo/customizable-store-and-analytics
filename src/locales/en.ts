@@ -35,7 +35,7 @@ const logInMessages: LogInMessages = {
       showPassword: 'Show password',
       rememberMe: 'Remember me'
     },
-    generalError: 'The username or password is incorrect'
+    generalError: 'The email or password is incorrect'
   },
   forgotPassword: 'Forgot password?',
   action: 'Log in',
@@ -48,12 +48,6 @@ const logInMessages: LogInMessages = {
 const signUpMessages: SignUpMessages = {
   title: 'Sign up',
   inputsPlaceholders: {
-    username: {
-      title: 'Username',
-      error: {
-        empty: 'The username field is empty'
-      }
-    },
     email: {
       title: 'Email',
       error: {
@@ -90,7 +84,6 @@ const personalDataMessages: PersonalDataMessages = {
   personal: {
     title: 'Personal data',
     label: {
-      username: 'Username',
       email: 'Email',
       password: 'Password'
     },
@@ -245,7 +238,6 @@ const messages: AppMessages['en'] = {
       },
       table: {
         id: 'ID',
-        username: 'Username',
         email: 'Email',
         type: 'Type'
       },
@@ -254,7 +246,6 @@ const messages: AppMessages['en'] = {
       },
       form: {
         id: 'ID',
-        username: 'Username',
         email: 'Email',
         password: 'Password',
         type: 'Type'

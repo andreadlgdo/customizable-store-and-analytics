@@ -35,7 +35,7 @@ const logInMessages: LogInMessages = {
       showPassword: 'Mostrar contraseña',
       rememberMe: 'Recuerdame'
     },
-    generalError: 'El usuario o la contraseña no son correctos'
+    generalError: 'El email o la contraseña no son correctos'
   },
   forgotPassword: '¿Has olvidado tu contraseña?',
   action: 'Iniciar sesión',
@@ -48,12 +48,6 @@ const logInMessages: LogInMessages = {
 const signUpMessages: SignUpMessages = {
   title: 'Registro de usuario',
   inputsPlaceholders: {
-    username: {
-      title: 'Nombre de usuario',
-      error: {
-        empty: 'El campo nombre de usuario esta vacio'
-      }
-    },
     email: {
       title: 'Correo electronico',
       error: {
@@ -90,7 +84,6 @@ const personalDataMessages: PersonalDataMessages = {
   personal: {
     title: 'Datos personales',
     label: {
-      username: 'Nombre de usuario',
       email: 'Email',
       password: 'Contraseña'
     },
@@ -245,7 +238,6 @@ const messages: AppMessages['es'] = {
       },
       table: {
         id: 'ID',
-        username: 'Nombre de usuario',
         email: 'Email',
         type: 'Tipo'
       },
@@ -254,7 +246,6 @@ const messages: AppMessages['es'] = {
       },
       form: {
         id: 'ID',
-        username: 'Nombre de usuario',
         email: 'Email',
         password: 'Contraseña',
         type: 'Tipo'

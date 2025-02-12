@@ -13,7 +13,8 @@
       />
       <div :class="`${baseClass}__content`">
         <div :class="`${baseClass}__header`">
-          <base-text tag="h4">{{ user.username }}</base-text>
+          <!-- ira el nombre -->
+          <base-text tag="h4">{{ user.email }}</base-text>
           <base-text tag="default">{{ user.email }}</base-text>
         </div>
         <div :class="`${baseClass}__items`">

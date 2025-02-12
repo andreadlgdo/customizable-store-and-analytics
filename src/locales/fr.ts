@@ -35,7 +35,7 @@ const logInMessages: LogInMessages = {
       showPassword: 'Afficher le mot de passe',
       rememberMe: 'Souviens-toi de moi'
     },
-    generalError: "Le nom d'utilisateur ou le mot de passe n'est pas correct"
+    generalError: "Le e-mail ou le mot de passe n'est pas correct"
   },
   forgotPassword: 'Avez-vous oublié votre mot de passe ?',
   action: 'Se connecter',
@@ -48,12 +48,6 @@ const logInMessages: LogInMessages = {
 const signUpMessages: SignUpMessages = {
   title: 'Inscription des utilisateurs',
   inputsPlaceholders: {
-    username: {
-      title: "Nom d'utilisateur",
-      error: {
-        empty: "Le champ du nom d'utilisateur est vide"
-      }
-    },
     email: {
       title: 'E-mail',
       error: {
@@ -90,7 +84,6 @@ const personalDataMessages: PersonalDataMessages = {
   personal: {
     title: 'Données personnelles',
     label: {
-      username: 'Nombre de usuario',
       email: 'E-mail',
       password: 'Mot de passe'
     },
@@ -245,7 +238,6 @@ const messages: AppMessages['fr'] = {
       },
       table: {
         id: 'ID',
-        username: "Nom d'utilisateur",
         email: 'Courriel',
         type: 'Type'
       },
@@ -254,7 +246,6 @@ const messages: AppMessages['fr'] = {
       },
       form: {
         id: 'ID',
-        username: "Nom d'utilisateur",
         email: 'Email',
         password: 'Mot de passe',
         type: 'Gars'
