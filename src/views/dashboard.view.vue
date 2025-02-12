@@ -1,22 +1,14 @@
 <template>
   <div :class="baseClass">
-    <ui-aside
-      @click="isCollapsed = !isCollapsed"
-      icon="menu"
-      :is-collapsed="isCollapsed"
-      is-open
-    ></ui-aside>
+    <ui-menu />
     <p>Dashboard</p>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import UiAside from '../components/shared/ui-aside.component.vue';
+  import UiMenu from '../components/dashboard-menu/ui-menu.component.vue';
 
   const baseClass = 'dashboard';
-
-  const isCollapsed = ref(false);
 </script>
 
 <style lang="scss" scoped>
