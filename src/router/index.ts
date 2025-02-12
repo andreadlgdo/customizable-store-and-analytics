@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Home from '../views/home.view.vue';
-import Dashboard from '../views/dashboard.view.vue';
+import OldDashboard from '../views/old-dashboard.view.vue';
 import Products from '../views/products.view.vue';
 import TermsAndConditions from '../views/terms-and-conditions.view.vue';
 
@@ -13,7 +13,7 @@ const routes = [
   {
     name: 'Dashboard',
     path: '/dashboard/:index?',
-    component: Dashboard,
+    component: OldDashboard,
     meta: { requiresAuth: true },
     props: true
   },

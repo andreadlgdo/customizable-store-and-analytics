@@ -1,5 +1,5 @@
 <template>
-  <dashboard :class="baseClass" index="1">
+  <old-dashboard :class="baseClass" index="1">
     <base-text tag="h3">
       {{
         formProduct
@@ -28,7 +28,7 @@
         <product-form @action="closeForm" :item-to-edit="itemToEdit" />
       </div>
     </section>
-  </dashboard>
+  </old-dashboard>
 </template>
 
 <script lang="ts" setup>
@@ -41,7 +41,7 @@
   import { Product } from '../../interfaces';
   import { imageService, productService } from '../../services';
 
-  import Dashboard from '../dashboard.view.vue';
+  import OldDashboard from '../old-dashboard.view.vue';
 
   const { t } = useI18n();
   const router = useRouter();

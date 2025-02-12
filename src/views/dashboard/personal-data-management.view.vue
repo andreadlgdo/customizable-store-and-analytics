@@ -1,5 +1,5 @@
 <template>
-  <dashboard index="0">
+  <old-dashboard index="0">
     <template v-slot:custom>
       <base-wrapper :class="baseClass">
         <div :class="`${baseClass}__header`">
@@ -37,11 +37,11 @@
         </div>
       </base-wrapper>
     </template>
-  </dashboard>
+  </old-dashboard>
 </template>
 
 <script lang="ts" setup>
-  import Dashboard from '../dashboard.view.vue';
+  import OldDashboard from '../old-dashboard.view.vue';
   import { useI18n } from 'vue-i18n';
 
   import { useCurrentUser } from '../../composables';

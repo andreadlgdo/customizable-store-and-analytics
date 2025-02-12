@@ -1,5 +1,5 @@
 <template>
-  <dashboard :class="baseClass" index="3">
+  <old-dashboard :class="baseClass" index="3">
     <base-text tag="h3">
       {{
         formProduct
@@ -28,7 +28,7 @@
         <user-form @action="closeForm" :item-to-edit="userToEdit" />
       </div>
     </section>
-  </dashboard>
+  </old-dashboard>
 </template>
 
 <script lang="ts" setup>
@@ -40,7 +40,7 @@
   import { useUsers } from '../../composables';
   import { User } from '../../interfaces';
 
-  import Dashboard from '../dashboard.view.vue';
+  import OldDashboard from '../old-dashboard.view.vue';
 
   const { t } = useI18n();
   const router = useRouter();
