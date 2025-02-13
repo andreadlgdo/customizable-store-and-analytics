@@ -91,7 +91,7 @@
     background-color: var(--background-color);
 
     &--shadow {
-      box-shadow: var(--shadow-button);
+      box-shadow: var(--shadow-soft);
     }
 
     &__wrapper {

@@ -122,7 +122,7 @@
     }
 
     &--shadow {
-      box-shadow: var(--shadow-button);
+      box-shadow: var(--shadow-soft);
     }
 
     &--disabled {
