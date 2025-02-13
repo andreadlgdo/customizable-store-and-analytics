@@ -65,7 +65,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 10px;
+      padding: 10px 18px;
       cursor: pointer;
 
       &--selected {

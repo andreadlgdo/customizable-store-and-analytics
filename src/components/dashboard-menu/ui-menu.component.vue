@@ -53,6 +53,8 @@
   .ui-menu {
     &__user {
       padding: 18px 32px;
+      margin: 0 6px;
+      border-bottom: 1px solid var(--bg-grey);
     }
 
     &__text {

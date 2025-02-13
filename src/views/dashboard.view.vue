@@ -24,5 +24,6 @@
   .dashboard {
     display: flex;
     height: 100%;
+    background-color: var(--color-soft-primary);
   }
 </style>
