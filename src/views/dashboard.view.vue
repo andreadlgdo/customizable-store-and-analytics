@@ -2,7 +2,7 @@
   <div :class="baseClass">
     <ui-menu :selected-item="selectedItem" />
     <slot>
-      <p>{{ selectedItem ? selectedItem?.label : 'undefined' }}</p>
+      <p>{{ selectedItem.label }}</p>
     </slot>
   </div>
 </template>
@@ -19,7 +19,7 @@
   defineProps({
     selectedItem: {
       type: Object as PropType<MenuItem | undefined>,
-      default: undefined
+      required: true
     }
   });
 </script>

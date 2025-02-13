@@ -30,7 +30,7 @@
 
     position: relative;
     height: 100vh;
-    width: 320px;
+    min-width: 320px;
     background: var(--bg-main);
     box-shadow: var(--shadow-soft);
 

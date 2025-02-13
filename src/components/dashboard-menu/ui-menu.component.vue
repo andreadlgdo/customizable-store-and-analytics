@@ -1,7 +1,9 @@
 <template>
   <ui-aside @click="isCollapsed = !isCollapsed" icon="menu" :is-collapsed="isCollapsed" is-open>
     <div v-if="!isCollapsed" :class="`${baseClass}__user`">
-      <p :class="`${baseClass}__text ${baseClass}__text--name`">{{ user.email }}</p>
+      <p :class="`${baseClass}__text ${baseClass}__text--name`">
+        {{ user.name + ' ' + user.surname }}
+      </p>
       <p :class="`${baseClass}__text ${baseClass}__text--email`">{{ user.email }}</p>
     </div>
     <ui-list
@@ -36,8 +38,6 @@
       required: true
     }
   });
-
-  defineEmits(['updateSelectedItem']);
 
   const isCollapsed = ref(false);
 
