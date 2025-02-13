@@ -12,9 +12,11 @@
             <p :class="`${baseClass}__text ${baseClass}__text--email`">{{ user.email }}</p>
           </div>
         </div>
+        <ui-button text="Editar perfil" icon="edit" :class="`${baseClass}__button`" transparent />
       </section>
-      <section :class="`${baseClass}section`">
+      <section :class="`${baseClass}__section`">
         <h1>Direcciones</h1>
+        <ui-button text="Añadir direccón" icon="plus" :class="`${baseClass}__button`" />
       </section>
     </div>
   </dashboard>
@@ -24,6 +26,7 @@
   import Dashboard from './dashboard.view.vue';
   import { useCurrentUser, useUserMenu } from '../composables';
   import UiImage from '../components/shared/ui-image.component.vue';
+  import UiButton from '../components/shared/ui-button.component.vue';
 
   const { menuElements } = useUserMenu();
 
@@ -70,6 +73,10 @@
       &--email {
         font-size: 16px;
       }
+    }
+
+    &__button {
+      justify-self: flex-end;
     }
   }
 </style>
