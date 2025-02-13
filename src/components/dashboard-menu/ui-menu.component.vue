@@ -37,7 +37,7 @@
     }
   });
 
-  const emit = defineEmits(['updateSelectedItem']);
+  defineEmits(['updateSelectedItem']);
 
   const isCollapsed = ref(false);
 
@@ -45,7 +45,6 @@
     router.push({
       name: item.route?.name
     });
-    emit('updateSelectedItem', item);
   };
 </script>
 
