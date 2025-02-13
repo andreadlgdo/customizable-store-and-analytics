@@ -20,7 +20,7 @@ export function useUserMenu() {
             label: t('menus.user.items.general.personalData'),
             icon: 'edit_user',
             route: {
-              name: 'PersonalDataDashboard'
+              name: 'PersonalData'
             }
           },
           {
@@ -45,7 +45,7 @@ export function useUserMenu() {
             label: t('menus.user.items.general.personalData'),
             icon: 'edit_user',
             route: {
-              name: 'PersonalDataDashboard'
+              name: 'PersonalData'
             }
           },
           {
@@ -53,7 +53,7 @@ export function useUserMenu() {
             label: t('menus.user.items.admin.productsManagement'),
             icon: 'shoppingCart',
             route: {
-              name: 'ProductsDashboard'
+              name: 'ProductsManagement'
             }
           },
           {
@@ -61,7 +61,7 @@ export function useUserMenu() {
             label: t('menus.user.items.admin.ordersManagement'),
             icon: 'pack',
             route: {
-              name: 'Dashboard'
+              name: 'OrdersManagement'
             }
           },
           {
@@ -69,7 +69,7 @@ export function useUserMenu() {
             label: t('menus.user.items.admin.userManagement'),
             icon: 'user',
             route: {
-              name: 'UserDashboard'
+              name: 'UsersManagement'
             }
           },
           {
@@ -77,7 +77,7 @@ export function useUserMenu() {
             label: t('menus.user.items.admin.personalization'),
             icon: 'personalization',
             route: {
-              name: 'Dashboard'
+              name: 'Personalization'
             }
           },
           {
@@ -85,7 +85,7 @@ export function useUserMenu() {
             label: t('menus.user.items.admin.dataAnalytics'),
             icon: 'analytics',
             route: {
-              name: 'Dashboard'
+              name: 'Analytics'
             }
           }
         ];

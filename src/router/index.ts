@@ -1,39 +1,58 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Home from '../views/home.view.vue';
-import Dashboard from '../views/dashboard.view.vue';
 import Products from '../views/products.view.vue';
 import TermsAndConditions from '../views/terms-and-conditions.view.vue';
 
 import { useCurrentUser } from '../composables';
+import PersonalData from '../views/personal-data.view.vue';
+import ProductsManagement from '../views/products-management.view.vue';
+import OrdersManagement from '../views/orders-management.view.vue';
+import UsersManagement from '../views/users-management.view.vue';
+import Personalization from '../views/personalization.view.vue';
+import Analytics from '../views/analytics.view.vue';
 
 const routes = [
   { name: 'Home', path: '/', component: Home },
   {
-    name: 'Dashboard',
-    path: '/dashboard/:index?',
-    component: Dashboard,
-    meta: { requiresAuth: true },
-    props: true
-  },
-  {
-    name: 'PersonalDataDashboard',
+    name: 'PersonalData',
     path: '/dashboard/personalData',
-    component: Dashboard,
+    component: PersonalData,
     meta: { requiresAuth: true },
     props: true
   },
   {
-    name: 'ProductsDashboard',
+    name: 'OrdersManagement',
+    path: '/dashboard/orders',
+    component: OrdersManagement,
+    meta: { requiresAuth: true },
+    props: true
+  },
+  {
+    name: 'ProductsManagement',
     path: '/dashboard/products/:action?/:itemId?',
-    component: Dashboard,
+    component: ProductsManagement,
     meta: { requiresAuth: true },
     props: true
   },
   {
-    name: 'UserDashboard',
+    name: 'UsersManagement',
     path: '/dashboard/users/:action?/:itemId?',
-    component: Dashboard,
+    component: UsersManagement,
+    meta: { requiresAuth: true },
+    props: true
+  },
+  {
+    name: 'Personalization',
+    path: '/dashboard/personalization',
+    component: Personalization,
+    meta: { requiresAuth: true },
+    props: true
+  },
+  {
+    name: 'Analytics',
+    path: '/dashboard/analytics',
+    component: Analytics,
     meta: { requiresAuth: true },
     props: true
   },
