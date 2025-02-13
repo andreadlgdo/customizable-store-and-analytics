@@ -1,13 +1,7 @@
 <template>
   <div :class="[baseClass, { [`${baseClass}--disabled`]: disabled }]">
     <p v-if="label">{{ label }}</p>
-    <input
-      type="text"
-      :value="value"
-      :placeholder="placeholder"
-      :class="`${baseClass}__input`"
-      disabled
-    />
+    <input type="text" :value="value" :placeholder="placeholder" :class="`${baseClass}__input`" />
   </div>
 </template>
 
