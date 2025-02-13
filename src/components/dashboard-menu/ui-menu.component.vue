@@ -1,17 +1,64 @@
 <template>
   <ui-aside @click="isCollapsed = !isCollapsed" icon="menu" :is-collapsed="isCollapsed" is-open>
-    <p :class="baseClass">test</p>
+    <div v-if="!isCollapsed" :class="`${baseClass}__user`">
+      <p :class="`${baseClass}__text ${baseClass}__text--name`">{{ user.email }}</p>
+      <p :class="`${baseClass}__text ${baseClass}__text--email`">{{ user.email }}</p>
+    </div>
+    <ui-list
+      @click="clickItem"
+      :items="menuElements"
+      :is-collapsed="isCollapsed"
+      :selected-item="selectedItem"
+    />
   </ui-aside>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { PropType, ref } from 'vue';
+  import { useRouter } from 'vue-router';
 
   import UiAside from '../shared/ui-aside.component.vue';
+  import UiList from '../shared/ui-list.component.vue';
+
+  import { useCurrentUser, useUserMenu } from '../../composables';
+  import { MenuItem } from '../../interfaces';
 
   const baseClass = 'ui-menu';
 
+  const { menuElements } = useUserMenu();
+  const { user } = useCurrentUser();
+
+  const router = useRouter();
+
+  defineProps({
+    selectedItem: {
+      type: Object as PropType<MenuItem>,
+      required: true
+    }
+  });
+
+  const emit = defineEmits(['updateSelectedItem']);
+
   const isCollapsed = ref(false);
+
+  const clickItem = (item: MenuItem) => {
+    router.push({
+      name: item.route?.name
+    });
+    emit('updateSelectedItem', item);
+  };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .ui-menu {
+    &__user {
+      padding: 18px 32px;
+    }
+
+    &__text {
+      &--name {
+        font-weight: bold;
+      }
+    }
+  }
+</style>

@@ -59,7 +59,10 @@ export function useUserMenu() {
           {
             id: 2,
             label: t('menus.user.items.admin.ordersManagement'),
-            icon: 'pack'
+            icon: 'pack',
+            route: {
+              name: 'Dashboard'
+            }
           },
           {
             id: 3,
@@ -72,12 +75,18 @@ export function useUserMenu() {
           {
             id: 4,
             label: t('menus.user.items.admin.personalization'),
-            icon: 'personalization'
+            icon: 'personalization',
+            route: {
+              name: 'Dashboard'
+            }
           },
           {
             id: 5,
             label: t('menus.user.items.admin.dataAnalytics'),
-            icon: 'analytics'
+            icon: 'analytics',
+            route: {
+              name: 'Dashboard'
+            }
           }
         ];
 

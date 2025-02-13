@@ -5,7 +5,7 @@
       v-if="icon"
       :class="`${baseClass}__icon`"
       :icon="icon"
-    ></ui-icon-button>
+    />
     <slot />
   </div>
 </template>
@@ -49,7 +49,7 @@
       padding: 6px;
 
       &:hover {
-        background: #beefef78;
+        background: var(--color-soft-primary);
         border-radius: 20%;
       }
     }
