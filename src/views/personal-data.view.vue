@@ -2,7 +2,7 @@
   <dashboard :selected-item="menuElements[0]">
     <div :class="baseClass">
       <section :class="`${baseClass}__section`">
-        <h1>Datos personales</h1>
+        <h1 :class="`${baseClass}__text ${baseClass}__text--title`">Datos personales</h1>
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
           <ui-image :image="user.imageUrl" />
           <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--user`">
@@ -11,6 +11,13 @@
             </p>
             <p :class="`${baseClass}__text ${baseClass}__text--email`">{{ user.email }}</p>
           </div>
+        </div>
+        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--form`">
+          <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
+            <ui-textbox label="Nombre" :value="user.name" disabled />
+            <ui-textbox label="Apellido" :value="user.surname" disabled />
+          </div>
+          <ui-textbox label="Email" :value="user.email" disabled />
         </div>
         <ui-button text="Editar perfil" icon="edit" :class="`${baseClass}__button`" transparent />
       </section>
@@ -27,6 +34,7 @@
   import { useCurrentUser, useUserMenu } from '../composables';
   import UiImage from '../components/shared/ui-image.component.vue';
   import UiButton from '../components/shared/ui-button.component.vue';
+  import UiTextbox from '../components/shared/ui-textbox.component.vue';
 
   const { menuElements } = useUserMenu();
 
@@ -62,9 +70,18 @@
         flex-direction: column;
         gap: 0.5rem;
       }
+
+      &--form {
+        flex-direction: column;
+        gap: 1rem;
+        margin: 24px 0;
+      }
     }
 
     &__text {
+      &--title {
+        margin: 0 0 16px 0;
+      }
       &--name {
         font-weight: bold;
         font-size: 18px;
