@@ -1,5 +1,8 @@
 <template>
-  <button :class="[baseClass, { [`${baseClass}--transparent`]: transparent }]">
+  <button
+    @click="$emit('click')"
+    :class="[baseClass, { [`${baseClass}--transparent`]: transparent }]"
+  >
     <ui-icon
       v-if="icon"
       :src="require(`../../assets/media/icons/${icon}.svg`)"
@@ -19,6 +22,8 @@
     icon: String,
     transparent: Boolean
   });
+
+  defineEmits(['click']);
 </script>
 
 <style lang="scss" scoped>
