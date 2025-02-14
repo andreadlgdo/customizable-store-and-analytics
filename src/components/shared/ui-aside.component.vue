@@ -35,7 +35,7 @@
     box-shadow: var(--shadow-soft);
 
     &--collapsed {
-      width: 84px;
+      min-width: 84px;
 
       #{$baseClass}__icon {
         right: 22px;

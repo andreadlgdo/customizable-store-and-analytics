@@ -36,6 +36,7 @@
     &__image {
       height: 8rem;
       width: 8rem;
+      border-radius: 50%;
     }
 
     &__icon {
