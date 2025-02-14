@@ -7,11 +7,13 @@
       :icon="icon"
     />
     <slot />
+    <ui-language :class="`${baseClass}__toggle`" />
   </div>
 </template>
 
 <script lang="ts" setup>
   import UiIconButton from './ui-icon-button.component.vue';
+  import UiLanguage from '../shared/ui-language.component.vue';
 
   const baseClass = 'ui-aside';
 
@@ -52,6 +54,12 @@
         background: var(--color-soft-primary);
         border-radius: 20%;
       }
+    }
+
+    &__toggle {
+      position: absolute;
+      bottom: 16px;
+      left: 70px;
     }
   }
 </style>

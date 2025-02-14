@@ -88,6 +88,19 @@ const personalDataMessages: PersonalDataMessages = {
       password: 'Contraseña'
     },
     action: 'Editar'
+  },
+  user: {
+    title: 'Datos personales',
+    label: {
+      name: 'Nombre',
+      surname: 'Apellido',
+      email: 'Email'
+    },
+    action: {
+      edit: 'Editar',
+      cancel: 'Cancelar',
+      save: 'Guardar'
+    }
   }
 };
 

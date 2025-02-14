@@ -221,6 +221,19 @@ export interface PersonalDataMessages {
     };
     action: string;
   };
+  user: {
+    title: string;
+    label: {
+      name: string;
+      surname: string;
+      email: string;
+    };
+    action: {
+      edit: string;
+      cancel: string;
+      save: string;
+    };
+  };
 }
 
 export interface GeneralMessages {
