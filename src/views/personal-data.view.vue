@@ -4,7 +4,7 @@
       <section :class="`${baseClass}__section`">
         <h1 :class="`${baseClass}__text ${baseClass}__text--title`">Datos personales</h1>
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
-          <ui-image :image="user.imageUrl" :uploadMode="updateMode" />
+          <ui-image :image="user.imageUrl" :upload-mode="updateMode" />
           <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--user`">
             <p :class="`${baseClass}__text ${baseClass}__text--name`">
               {{ user.name + ' ' + user.surname }}
@@ -14,19 +14,40 @@
         </div>
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--form`">
           <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
-            <ui-textbox label="Nombre" :value="user.name" :disabled="!updateMode" />
-            <ui-textbox label="Apellido" :value="user.surname" :disabled="!updateMode" />
+            <ui-textbox
+              @input="value => (newUser.name = value)"
+              label="Nombre"
+              :value="newUser.name"
+              :disabled="!updateMode"
+            />
+            <ui-textbox
+              @input="value => (newUser.surname = value)"
+              label="Apellido"
+              :value="newUser.surname"
+              :disabled="!updateMode"
+            />
           </div>
-          <ui-textbox label="Email" :value="user.email" :disabled="!updateMode" />
+          <ui-textbox
+            @input="value => (newUser.email = value)"
+            label="Email"
+            :value="newUser.email"
+            :disabled="!updateMode"
+          />
         </div>
         <div :class="`${baseClass}__button`">
           <ui-button
-            @click="updateMode = !updateMode"
+            @click="action"
             :text="updateMode ? 'Cancelar' : 'Editar perfil'"
             :icon="updateMode ? 'close' : 'edit'"
             transparent
           />
-          <ui-button v-if="updateMode" text="Guardar cambios" icon="edit" />
+          <ui-button
+            v-if="updateMode"
+            @click="updateData"
+            text="Guardar cambios"
+            icon="edit"
+            :disabled="!isValid"
+          />
         </div>
       </section>
       <section :class="`${baseClass}__section`">
@@ -38,23 +59,40 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { computed, ref } from 'vue';
 
   import UiImage from '../components/shared/ui-image.component.vue';
   import UiButton from '../components/shared/ui-button.component.vue';
   import UiTextbox from '../components/shared/ui-textbox.component.vue';
 
-  import { useCurrentUser, useUserMenu } from '../composables';
+  import { useCurrentUser, useUserMenu, useValidations } from '../composables';
+  import { userService } from '../services';
 
   import Dashboard from './dashboard.view.vue';
 
   const { menuElements } = useUserMenu();
-
   const { user } = useCurrentUser();
+  const { validEmail } = useValidations();
 
   const baseClass = 'personal-data';
 
   const updateMode = ref(false);
+
+  const isValid = computed(() => validEmail(user.value.email));
+
+  const newUser = ref({ ...user.value });
+
+  const action = () => {
+    if (updateMode.value) {
+      newUser.value = { ...user.value };
+    }
+    updateMode.value = !updateMode.value;
+  };
+  const updateData = async () => {
+    const response = await userService.updateUser(newUser.value);
+    localStorage.setItem('user', JSON.stringify(response.user));
+    window.location.reload();
+  };
 </script>
 
 <style lang="scss" scoped>

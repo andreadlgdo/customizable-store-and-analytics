@@ -1,10 +1,10 @@
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { User } from '../interfaces';
 
 export function useCurrentUser() {
-  const userStore = localStorage.getItem('user');
+  const userStore = computed(() => localStorage.getItem('user'));
 
-  const user = ref<User>(userStore ? JSON.parse(userStore) : undefined);
+  const user = ref<User>(userStore.value ? JSON.parse(userStore.value) : undefined);
 
   return {
     user

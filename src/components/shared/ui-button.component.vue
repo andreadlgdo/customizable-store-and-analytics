@@ -1,7 +1,11 @@
 <template>
   <button
     @click="$emit('click')"
-    :class="[baseClass, { [`${baseClass}--transparent`]: transparent }]"
+    :class="[
+      baseClass,
+      { [`${baseClass}--transparent`]: transparent },
+      { [`${baseClass}--disabled`]: disabled }
+    ]"
   >
     <ui-icon
       v-if="icon"
@@ -20,7 +24,8 @@
   defineProps({
     text: String,
     icon: String,
-    transparent: Boolean
+    transparent: Boolean,
+    disabled: Boolean
   });
 
   defineEmits(['click']);
@@ -54,6 +59,11 @@
     &__icon {
       height: 20px;
       width: 20px;
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      pointer-events: none;
     }
   }
 </style>

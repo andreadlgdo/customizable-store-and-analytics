@@ -1,14 +1,16 @@
 <template>
   <div :class="[baseClass, { [`${baseClass}--disabled`]: disabled }]">
     <p v-if="label">{{ label }}</p>
-    <input type="text" :value="value" :placeholder="placeholder" :class="`${baseClass}__input`" />
+    <input type="text" v-model="query" :placeholder="placeholder" :class="`${baseClass}__input`" />
   </div>
 </template>
 
 <script lang="ts" setup>
+  import { ref, watch } from 'vue';
+
   const baseClass = 'ui-textbox';
 
-  defineProps({
+  const props = defineProps({
     value: {
       type: String,
       required: true
@@ -17,6 +19,25 @@
     placeholder: String,
     disabled: Boolean
   });
+
+  const emit = defineEmits(['input']);
+
+  const query = ref(props.value);
+
+  watch(
+    () => query.value,
+    () => {
+      emit('input', query.value);
+    }
+  );
+
+  watch(
+    () => props.value,
+    newValue => {
+      query.value = newValue;
+    },
+    { immediate: true }
+  );
 </script>
 
 <style lang="scss" scoped>
