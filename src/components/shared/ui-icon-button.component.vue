@@ -5,13 +5,16 @@
       @mouseleave="isHovered = false"
       :class="`${baseClass}__icon`"
       :src="require(`../../assets/media/icons/${icon}.svg`)"
+      :size="size"
     />
     <base-tooltip v-if="isHovered && tooltipText" :text="tooltipText" />
   </button>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { PropType, ref } from 'vue';
+
+  import { SizeType } from '../../types';
 
   import { BaseTooltip } from '../inputs';
 
@@ -23,6 +26,10 @@
     icon: {
       type: String,
       required: true
+    },
+    size: {
+      type: String as PropType<SizeType>,
+      default: 'normal'
     },
     tooltipText: String
   });

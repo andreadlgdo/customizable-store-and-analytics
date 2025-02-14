@@ -7,9 +7,10 @@
     />
     <icon-button
       v-if="uploadMode"
-      icon="close"
+      icon="download"
       tooltip-text="Upload new image"
       :class="`${baseClass}__icon`"
+      size="small"
     />
   </span>
 </template>
@@ -44,7 +45,8 @@
       bottom: 0;
       right: 0;
       background-color: var(--color-vibrant-primary);
-      padding: 8px;
+      height: 2.5rem;
+      width: 2.5rem;
       border-radius: 50%;
     }
   }

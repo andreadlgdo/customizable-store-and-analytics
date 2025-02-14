@@ -1,9 +1,11 @@
 <template>
-  <div :class="baseClass" v-html="svgContent"></div>
+  <div :class="[baseClass, `${baseClass}--${size}`]" v-html="svgContent"></div>
 </template>
 
 <script lang="ts" setup>
-  import { ref, onMounted, watch } from 'vue';
+  import { ref, onMounted, watch, PropType } from 'vue';
+
+  import { SizeType } from '../../types';
 
   const baseClass = 'ui-icon';
 
@@ -11,6 +13,10 @@
     src: {
       type: String,
       required: true
+    },
+    size: {
+      type: String as PropType<SizeType>,
+      default: 'normal'
     }
   });
 
@@ -39,7 +45,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 28px;
-    width: 28px;
+
+    &--normal {
+      height: 28px;
+      width: 28px;
+    }
+
+    &--small {
+      height: 20px;
+      width: 20px;
+    }
   }
 </style>
