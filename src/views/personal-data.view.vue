@@ -6,7 +6,7 @@
           {{ t('dashboard.personalData.user.title') }}
         </h1>
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
-          <ui-image :image="user.imageUrl" :upload-mode="updateMode" />
+          <ui-image :image="user.imageUrl" :upload-mode="updateMode" size="small"/>
           <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--user`">
             <p :class="`${baseClass}__text ${baseClass}__text--name`">
               {{ user.name + ' ' + user.surname }}

@@ -1,8 +1,8 @@
 <template>
-  <span :class="baseClass">
+  <span :class="[baseClass, `${baseClass}--${type}`, `${baseClass}--${size}`]">
     <img
       :class="`${baseClass}__image`"
-      :src="image ?? require('../../assets/media/images/empty-user.png')"
+      :src="image ?? require('../../assets/media/images/empty.png')"
       :alt="alternativeText ?? 'image'"
     />
     <icon-button
@@ -16,6 +16,10 @@
 </template>
 
 <script lang="ts" setup>
+  import { PropType } from 'vue';
+
+  import { InputFormType, SizeType } from '../../types';
+
   import IconButton from './ui-icon-button.component.vue';
 
   const baseClass = 'ui-image';
@@ -25,6 +29,14 @@
       type: String,
       default: undefined
     },
+    type: {
+      type: String as PropType<InputFormType>,
+      default: 'round'
+    },
+    size: {
+      type: String as PropType<SizeType>,
+      default: 'normal'
+    },
     alternativeText: String,
     uploadMode: Boolean
   });
@@ -32,12 +44,41 @@
 
 <style lang="scss" scoped>
   .ui-image {
+    $baseClass: &;
+
     position: relative;
 
-    &__image {
-      height: 8rem;
-      width: 8rem;
-      border-radius: 50%;
+    &--small {
+      #{$baseClass}__image {
+        height: 8rem;
+        width: 8rem;
+      }
+    }
+
+    &--normal {
+      #{$baseClass}__image {
+        height: 10rem;
+        width: 10rem;
+      }
+    }
+
+    &--large {
+      #{$baseClass}__image {
+        height: 16rem;
+        width: 14rem;
+      }
+    }
+
+    &--round {
+      #{$baseClass}__image {
+        border-radius: 50%;
+      }
+    }
+
+    &--semi-round {
+      #{$baseClass}__image {
+        border-radius: 20%;
+      }
     }
 
     &__icon {
