@@ -2,46 +2,61 @@
   <div :class="baseClass">
     <section :style="{ display: 'grid', gridTemplateColumns: '0.4fr 1fr' }">
       <div :class="`${baseClass}__wrapper`">
-        <ui-image
-          @upload="uploadImage"
-          :image="productImage"
-          type="semi-round"
-          upload-mode
-          size="large"
-        />
+        <ui-image :image="productImage" type="semi-round" upload-mode size="large" />
       </div>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
-        <ui-textbox v-if="itemToEdit" :value="itemToEdit._id" label="ID" disabled />
-        <ui-textbox @input="value => (item.name = value)" :value="item.name" label="Nombre" />
+        <ui-textbox
+          v-if="itemToEdit"
+          :value="itemToEdit._id"
+          :label="t('dashboard.products.form.id')"
+          disabled
+        />
+        <ui-textbox
+          @input="value => (item.name = value)"
+          :value="item.name"
+          :label="t('dashboard.products.form.name')"
+        />
         <ui-textbox
           @input="value => (item.description = value)"
           :value="item.description"
-          label="Descripcion"
+          :label="t('dashboard.products.form.description')"
         />
       </div>
     </section>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
       <div :class="`${baseClass}__wrapper`">
-        <ui-textbox @input="value => (item.price = value)" :value="item.price" label="Precio" />
+        <ui-textbox
+          @input="value => (item.price = value)"
+          :value="item.price"
+          :label="t('dashboard.products.form.price')"
+        />
         <ui-textbox
           @input="value => (item.quantity = value)"
           :value="item.quantity"
-          label="Stock"
+          :label="t('dashboard.products.form.quantity')"
         />
       </div>
-      <ui-checkbox @change="item.onSale = !item.onSale" :value="item.onSale" text="On sale" />
+      <ui-checkbox
+        @change="item.onSale = !item.onSale"
+        :value="item.onSale"
+        :text="t('dashboard.products.form.onSale')"
+      />
       <ui-textbox
         @input="value => (item.priceWithDiscount = value)"
         v-if="item.onSale"
         :value="item.priceWithDiscount"
-        label="Precio rebajado"
+        :label="t('dashboard.products.form.priceWithDiscount')"
         :style="{ width: '50%' }"
       />
     </div>
 
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
-      <ui-button @click="save" text="Editar" icon="edit" />
-      <ui-button @click="cancel" text="Cancelar" icon="close" transparent />
+      <ui-button
+        @click="save"
+        :text="itemToEdit ? t('dashboard.action.edit') : t('dashboard.action.save')"
+        icon="edit"
+      />
+      <ui-button @click="cancel" :text="t('dashboard.action.cancel')" icon="close" transparent />
     </div>
   </div>
 </template>
@@ -57,8 +72,10 @@
 
   import { productService } from '../../services';
   import { Product } from '../../interfaces';
+  import { useI18n } from 'vue-i18n';
 
   const router = useRouter();
+  const { t } = useI18n();
 
   const baseClass = 'ui-product-form';
 

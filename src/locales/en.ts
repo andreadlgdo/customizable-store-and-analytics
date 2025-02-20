@@ -244,12 +244,14 @@ const messages: AppMessages['en'] = {
         add: 'Add product'
       },
       form: {
-        image: 'Image',
+        id: 'ID',
         name: 'Name',
         description: 'Description',
         categories: 'Categories',
         price: 'Price',
-        quantity: 'Quantity'
+        priceWithDiscount: 'Price with discount',
+        quantity: 'Quantity',
+        onSale: 'On sale'
       }
     },
     users: {

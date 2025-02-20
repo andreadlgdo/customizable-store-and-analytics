@@ -62,12 +62,14 @@ export interface AppMessages {
           add: string;
         };
         form: {
-          image: string;
+          id: string;
           name: string;
           description: string;
           categories: string;
           price: string;
+          priceWithDiscount: string;
           quantity: string;
+          onSale: string;
         };
       };
       users: {
