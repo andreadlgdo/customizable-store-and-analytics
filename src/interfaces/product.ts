@@ -4,6 +4,8 @@ export interface Product {
   description: string;
   categories?: string[];
   price: number;
+  priceWithDiscount?: number;
   quantity?: number;
   imageUrl?: string;
+  onSale?: boolean;
 }
