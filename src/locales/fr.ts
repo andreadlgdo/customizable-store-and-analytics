@@ -88,11 +88,6 @@ const personalDataMessages: PersonalDataMessages = {
       surname: 'Prénom',
       email: 'E-mail'
     },
-    action: {
-      edit: 'Modifier',
-      cancel: 'Annuler',
-      save: 'Sauvegarder'
-    }
   },
   address: {
     title: 'Adresses de livraison',
@@ -108,8 +103,6 @@ const personalDataMessages: PersonalDataMessages = {
     action: {
       add: 'Ajouter une adresse',
       new: 'Ajouter',
-      edit: 'Modifier',
-      cancel: 'Annuler',
       remove: 'Éliminer'
     }
   }

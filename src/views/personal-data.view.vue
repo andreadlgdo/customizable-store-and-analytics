@@ -38,21 +38,17 @@
         </div>
         <div :class="`${baseClass}__button`">
           <ui-button
-            @click="action"
-            :text="
-              updateMode
-                ? t('dashboard.personalData.user.action.cancel')
-                : t('dashboard.personalData.user.action.edit')
-            "
-            :icon="updateMode ? 'close' : 'edit'"
-            transparent
-          />
-          <ui-button
             v-if="updateMode"
             @click="updateData"
-            :text="t('dashboard.personalData.user.action.save')"
+            :text="t('dashboard.action.save')"
             icon="edit"
             :disabled="!isValid"
+          />
+          <ui-button
+            @click="action"
+            :text="updateMode ? t('dashboard.action.cancel') : t('dashboard.action.edit')"
+            :icon="updateMode ? 'close' : 'edit'"
+            transparent
           />
         </div>
       </section>
@@ -85,14 +81,14 @@
           <div :class="`${baseClass}__button`">
             <ui-button
               @click="updateModeAddress = false"
-              :text="t('dashboard.personalData.address.action.cancel')"
-              icon="close"
-              transparent
+              :text="t('dashboard.personalData.address.action.new')"
+              icon="plus"
             />
             <ui-button
               @click="updateModeAddress = false"
-              :text="t('dashboard.personalData.address.action.new')"
-              icon="plus"
+              :text="t('dashboard.action.cancel')"
+              icon="close"
+              transparent
             />
           </div>
         </section>
@@ -111,11 +107,7 @@
             </p>
             <p>{{ address.city + ', ' + address.country }}</p>
             <div :class="`${baseClass}__button`">
-              <ui-button
-                :text="t('dashboard.personalData.address.action.edit')"
-                icon="edit"
-                transparent
-              />
+              <ui-button :text="t('dashboard.action.edit')" icon="edit" transparent />
               <ui-button
                 :text="t('dashboard.personalData.address.action.remove')"
                 icon="delete"

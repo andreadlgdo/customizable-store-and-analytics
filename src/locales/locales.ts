@@ -222,11 +222,6 @@ export interface PersonalDataMessages {
       surname: string;
       email: string;
     };
-    action: {
-      edit: string;
-      cancel: string;
-      save: string;
-    };
   };
   address: {
     title: string;
@@ -242,8 +237,6 @@ export interface PersonalDataMessages {
     action: {
       add: string;
       new: string;
-      edit: string;
-      cancel: string;
       remove: string;
     };
   };

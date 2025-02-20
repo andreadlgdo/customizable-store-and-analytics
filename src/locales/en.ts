@@ -87,11 +87,6 @@ const personalDataMessages: PersonalDataMessages = {
       name: 'Name',
       surname: 'Surname',
       email: 'Email'
-    },
-    action: {
-      edit: 'Edit',
-      cancel: 'Cancel',
-      save: 'Save'
     }
   },
   address: {
@@ -108,8 +103,6 @@ const personalDataMessages: PersonalDataMessages = {
     action: {
       add: 'Add address',
       new: 'Add',
-      edit: 'Edit',
-      cancel: 'Cancel',
       remove: 'Remove'
     }
   }
