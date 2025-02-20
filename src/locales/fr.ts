@@ -81,14 +81,6 @@ const signUpMessages: SignUpMessages = {
 };
 
 const personalDataMessages: PersonalDataMessages = {
-  personal: {
-    title: 'Données personnelles',
-    label: {
-      email: 'E-mail',
-      password: 'Mot de passe'
-    },
-    action: 'Modifier'
-  },
   user: {
     title: 'Données personnelles',
     label: {
@@ -100,6 +92,25 @@ const personalDataMessages: PersonalDataMessages = {
       edit: 'Modifier',
       cancel: 'Annuler',
       save: 'Sauvegarder'
+    }
+  },
+  address: {
+    title: 'Adresses de livraison',
+    label: {
+      street: 'Rue',
+      number: 'Numéro',
+      letter: 'Lettre',
+      zipCode: 'Code postal',
+      label: 'Étiquette',
+      city: 'Ville',
+      country: 'Pays'
+    },
+    action: {
+      add: 'Ajouter une adresse',
+      new: 'Ajouter',
+      edit: 'Modifier',
+      cancel: 'Annuler',
+      remove: 'Éliminer'
     }
   }
 };

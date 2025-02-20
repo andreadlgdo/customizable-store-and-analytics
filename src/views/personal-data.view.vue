@@ -6,7 +6,7 @@
           {{ t('dashboard.personalData.user.title') }}
         </h1>
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
-          <ui-image :image="user.imageUrl" :upload-mode="updateMode" size="small"/>
+          <ui-image :image="user.imageUrl" :upload-mode="updateMode" size="small" />
           <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--user`">
             <p :class="`${baseClass}__text ${baseClass}__text--name`">
               {{ user.name + ' ' + user.surname }}
@@ -58,11 +58,11 @@
       </section>
       <section>
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--address`">
-          <h1>Direcciones</h1>
+          <h1>{{ t('dashboard.personalData.address.title') }}</h1>
           <ui-button
             v-if="!updateModeAddress"
             @click="updateModeAddress = true"
-            text="Añadir direccón"
+            :text="t('dashboard.personalData.address.action.add')"
             icon="plus"
             :class="`${baseClass}__button`"
           />
@@ -70,26 +70,30 @@
         <section v-if="updateModeAddress" :class="`${baseClass}__section`">
           <h1 :class="`${baseClass}__text ${baseClass}__text--title`">Nueva direccion</h1>
           <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--form`">
-            <ui-textbox label="Calle" value="" />
+            <ui-textbox :label="t('dashboard.personalData.address.label.street')" value="" />
             <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
-              <ui-textbox label="Numero" value="" />
-              <ui-textbox label="Letra" value="" />
-              <ui-textbox label="Codigo postal" value="" />
+              <ui-textbox :label="t('dashboard.personalData.address.label.number')" value="" />
+              <ui-textbox :label="t('dashboard.personalData.address.label.letter')" value="" />
+              <ui-textbox :label="t('dashboard.personalData.address.label.zipCode')" value="" />
             </div>
             <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
-              <ui-textbox label="Ciudad" value="" />
-              <ui-textbox label="Pais" value="" />
-              <ui-textbox label="Etiqueta" value="" />
+              <ui-textbox :label="t('dashboard.personalData.address.label.city')" value="" />
+              <ui-textbox :label="t('dashboard.personalData.address.label.country')" value="" />
+              <ui-textbox :label="t('dashboard.personalData.address.label.label')" value="" />
             </div>
           </div>
           <div :class="`${baseClass}__button`">
             <ui-button
               @click="updateModeAddress = false"
-              text="Cancelar"
+              :text="t('dashboard.personalData.address.action.cancel')"
               icon="close"
               transparent
             />
-            <ui-button @click="updateModeAddress = false" text="Añadir" icon="plus" />
+            <ui-button
+              @click="updateModeAddress = false"
+              :text="t('dashboard.personalData.address.action.new')"
+              icon="plus"
+            />
           </div>
         </section>
         <template v-if="addresses.length">
@@ -107,8 +111,16 @@
             </p>
             <p>{{ address.city + ', ' + address.country }}</p>
             <div :class="`${baseClass}__button`">
-              <ui-button text="Editar" icon="edit" transparent />
-              <ui-button text="Eliminar" icon="delete" transparent />
+              <ui-button
+                :text="t('dashboard.personalData.address.action.edit')"
+                icon="edit"
+                transparent
+              />
+              <ui-button
+                :text="t('dashboard.personalData.address.action.remove')"
+                icon="delete"
+                transparent
+              />
             </div>
           </section>
         </template>

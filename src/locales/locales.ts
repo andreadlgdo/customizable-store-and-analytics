@@ -213,14 +213,6 @@ export interface SignUpMessages {
 }
 
 export interface PersonalDataMessages {
-  personal: {
-    title: string;
-    label: {
-      email: string;
-      password: string;
-    };
-    action: string;
-  };
   user: {
     title: string;
     label: {
@@ -232,6 +224,25 @@ export interface PersonalDataMessages {
       edit: string;
       cancel: string;
       save: string;
+    };
+  };
+  address: {
+    title: string;
+    label: {
+      street: string;
+      number: string;
+      letter: string;
+      zipCode: string;
+      label: string;
+      city: string;
+      country: string;
+    };
+    action: {
+      add: string;
+      new: string;
+      edit: string;
+      cancel: string;
+      remove: string;
     };
   };
 }
