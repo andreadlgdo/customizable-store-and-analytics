@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, ref } from 'vue';
+  import { computed, onMounted, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
   import { useRouter } from 'vue-router';
 
@@ -87,6 +87,16 @@
       params: { action: 'edit', itemId: item._id }
     });
   };
+
+  watch(
+    () => [props.action, props.itemId],
+    () => {
+      if (!props.action && !props.itemId) {
+        isFormProduct.value = false;
+      }
+    },
+    { immediate: true }
+  );
 
   onMounted(async () => await loadProducts());
 </script>
