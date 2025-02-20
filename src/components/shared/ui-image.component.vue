@@ -7,16 +7,24 @@
     />
     <icon-button
       v-if="uploadMode"
+      @click="fileInput.click()"
       icon="download"
       tooltip-text="Upload new image"
       :class="`${baseClass}__icon`"
       size="small"
     />
+    <input
+      ref="fileInput"
+      @change="changeImage"
+      type="file"
+      accept="image/*"
+      style="display: none"
+    />
   </span>
 </template>
 
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { PropType, ref } from 'vue';
 
   import { InputFormType, SizeType } from '../../types';
 
@@ -40,6 +48,17 @@
     alternativeText: String,
     uploadMode: Boolean
   });
+
+  const emit = defineEmits(['upload']);
+
+  const fileInput = ref();
+
+  const changeImage = (event: any) => {
+    const file = event.target.files[0];
+    if (file) {
+      emit('upload', file);
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
