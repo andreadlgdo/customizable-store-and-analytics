@@ -6,7 +6,12 @@
           {{ t('dashboard.personalData.user.title') }}
         </h1>
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
-          <ui-image :image="user.imageUrl" :upload-mode="updateMode" size="small" />
+          <ui-image
+            @upload="changeImage"
+            :image="newUser.imageUrl"
+            :upload-mode="updateMode"
+            size="small"
+          />
           <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--user`">
             <p :class="`${baseClass}__text ${baseClass}__text--name`">
               {{ user.name + ' ' + user.surname }}
@@ -132,7 +137,7 @@
   import { Address } from '../../interfaces/address';
 
   import { useCurrentUser, useUserMenu, useValidations } from '../../composables';
-  import { userService } from '../../services';
+  import { imageService, userService } from '../../services';
 
   import Dashboard from './dashboard.view.vue';
 
@@ -179,6 +184,33 @@
     }
     updateMode.value = !updateMode.value;
   };
+
+  const changeImage = async (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const selectedFile = target.files?.[0];
+
+    if (!selectedFile) {
+      return alert('Por favor selecciona una imagen primero');
+    }
+
+    try {
+      const date = new Date();
+      const formData = new FormData();
+      const imageName = newUser.value._id ? newUser.value._id + date.getTime() : 'undefined';
+
+      formData.append('image', selectedFile);
+      formData.append('routeImage', `profiles/${imageName}`);
+
+      const imageUrl = await imageService.addImage(formData);
+
+      if (imageUrl) {
+        newUser.value.imageUrl = imageUrl;
+      }
+    } catch (error) {
+      console.error('Error al actualizar la imagen:', error);
+    }
+  };
+
   const updateData = async () => {
     const response = await userService.updateUser(newUser.value);
     localStorage.setItem('user', JSON.stringify(response.user));
