@@ -71,6 +71,7 @@
         @click="save"
         :text="itemToEdit ? t('dashboard.action.edit') : t('dashboard.action.save')"
         icon="edit"
+        :disabled="itemToEdit && (!item.name || item.price > 0)"
       />
       <ui-button @click="cancel" :text="t('dashboard.action.cancel')" icon="close" transparent />
     </div>
