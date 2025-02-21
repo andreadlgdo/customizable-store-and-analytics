@@ -1,30 +1,33 @@
 <template>
-  <div :class="[baseClass, { [`${baseClass}--disabled`]: disabled }]">
+  <div :class="[baseClass, { [`${baseClass}--disabled`]: disabled }]" ref="dropdownRef">
     <p v-if="label">{{ label }}</p>
-    <select
-      @change="$emit('change', $event.target.value)"
-      :id="1"
-      :value="value ?? placeholder"
-      :class="`${baseClass}__select`"
-    >
-      <option>{{ placeholder }}</option>
-      <option v-for="(option, index) in options" :key="index" :value="option.title">
+
+    <div :class="`${baseClass}__selected`" @click="isOpen = !isOpen">
+      {{ capitalizeSentence(selectedOption ?? placeholder) }}
+    </div>
+
+    <ul v-if="isOpen" :class="`${baseClass}__dropdown`">
+      <li
+        v-for="(option, index) in options"
+        :key="index"
+        :class="`${baseClass}__option`"
+        @click.stop="selectOption(option.title)"
+      >
         {{ capitalizeSentence(option.title) }}
-      </option>
-    </select>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { PropType } from 'vue';
-
+  import { ref, computed, PropType, onMounted, onBeforeUnmount } from 'vue';
   import { useTextTransform } from '../../composables';
 
   const baseClass = 'ui-select';
 
   const { capitalizeSentence } = useTextTransform();
 
-  defineProps({
+  const props = defineProps({
     value: {
       type: String,
       required: true
@@ -38,23 +41,70 @@
     disabled: Boolean
   });
 
-  defineEmits(['change']);
+  const emit = defineEmits(['change']);
+
+  const isOpen = ref(false);
+  const dropdownRef = ref<HTMLElement | null>(null);
+
+  const selectedOption = computed(
+    () => props.options.find(opt => opt.title === props.value)?.title
+  );
+
+  const selectOption = (title: string) => {
+    emit('change', title);
+    isOpen.value = false;
+  };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.value && !dropdownRef.value.contains(event.target as Node)) {
+      isOpen.value = false;
+    }
+  };
+
+  onMounted(() => {
+    document.addEventListener('click', handleClickOutside);
+  });
+
+  onBeforeUnmount(() => {
+    document.removeEventListener('click', handleClickOutside);
+  });
 </script>
 
 <style lang="scss" scoped>
   .ui-select {
+    position: relative;
     width: 100%;
+    cursor: pointer;
+    overflow: visible !important;
 
-    &__select {
-      outline: none;
+    &__selected {
       padding: 10px 16px;
-      width: 100%;
       border-radius: 10px;
       border: 1px solid var(--color-dark-primary);
       background: var(--bg-transparent);
+    }
 
-      &:focus {
-        border: 2px solid var(--color-dark-primary);
+    &__dropdown {
+      position: absolute;
+      z-index: 1;
+      border: 1px solid var(--color-dark-primary);
+      border-radius: 10px;
+      list-style: none;
+      padding: 0;
+      width: 100%;
+      max-height: 12.5rem;
+      background: var(--color-soft-primary);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      overflow-y: scroll;
+    }
+
+    &__option {
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        background: var(--color-primary);
       }
     }
 
