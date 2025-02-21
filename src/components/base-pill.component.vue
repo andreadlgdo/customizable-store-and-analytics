@@ -12,7 +12,9 @@
       :class="`${baseClass}__icon ${baseClass}__icon--info`"
       size="mini"
     />
-    <base-text :tag="textSize" :class="`${baseClass}__text`">{{ text }}</base-text>
+    <base-text :tag="textSize" :class="`${baseClass}__text`">
+      {{ capitalizeSentence(text) }}
+    </base-text>
     <icon-button
       v-if="isRemovable"
       @click="$emit('remove', text)"
@@ -26,12 +28,15 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
+  import { useTextTransform } from '../composables';
   import { ColorType, PositionType, TextTagType } from '../types';
 
   import BaseText from './base-text.component.vue';
   import { IconButton, SvgIcon } from './icons';
 
   const baseClass = 'base-pìll';
+
+  const { capitalizeSentence } = useTextTransform();
 
   defineProps({
     text: {
