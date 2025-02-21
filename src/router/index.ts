@@ -5,12 +5,12 @@ import Products from '../views/products.view.vue';
 import TermsAndConditions from '../views/terms-and-conditions.view.vue';
 
 import { useCurrentUser } from '../composables';
-import PersonalData from '../views/personal-data.view.vue';
-import ProductsManagement from '../views/products-management.view.vue';
-import OrdersManagement from '../views/orders-management.view.vue';
-import UsersManagement from '../views/users-management.view.vue';
-import Personalization from '../views/personalization.view.vue';
-import Analytics from '../views/analytics.view.vue';
+import PersonalData from '../views/dashboard/personal-data.view.vue';
+import ProductsManagement from '../views/dashboard/products-management.view.vue';
+import OrdersManagement from '../views/dashboard/orders-management.view.vue';
+import UsersManagement from '../views/dashboard/users-management.view.vue';
+import Personalization from '../views/dashboard/personalization.view.vue';
+import Analytics from '../views/dashboard/analytics.view.vue';
 
 const routes = [
   { name: 'Home', path: '/', component: Home },

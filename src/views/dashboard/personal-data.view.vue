@@ -125,16 +125,16 @@
   import { computed, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import UiImage from '../components/shared/ui-image.component.vue';
-  import UiButton from '../components/shared/ui-button.component.vue';
-  import UiTextbox from '../components/shared/ui-textbox.component.vue';
+  import UiImage from '../../components/shared/ui-image.component.vue';
+  import UiButton from '../../components/shared/ui-button.component.vue';
+  import UiTextbox from '../../components/shared/ui-textbox.component.vue';
 
-  import { Address } from '../interfaces/address';
+  import { Address } from '../../interfaces/address';
 
-  import { useCurrentUser, useUserMenu, useValidations } from '../composables';
-  import { userService } from '../services';
+  import { useCurrentUser, useUserMenu, useValidations } from '../../composables';
+  import { userService } from '../../services';
 
-  import Dashboard from './dashboard/dashboard.view.vue';
+  import Dashboard from './dashboard.view.vue';
 
   const { menuElements } = useUserMenu();
   const { user } = useCurrentUser();
