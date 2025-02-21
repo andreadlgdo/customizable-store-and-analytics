@@ -8,19 +8,19 @@
         <ui-textbox
           v-if="itemToEdit"
           :value="itemToEdit._id"
-          :label="t('dashboard.products.form.id')"
+          :label="t('dashboard.users.form.id')"
           disabled
         />
         <ui-textbox
           @input="value => (item.name = value)"
           :value="item.name"
-          :label="t('dashboard.products.form.name')"
+          :label="t('dashboard.users.form.name')"
           :disabled="!!itemToEdit"
         />
         <ui-textbox
           @input="value => (item.surname = value)"
           :value="item.surname"
-          label="Apellido"
+          :label="t('dashboard.users.form.surname')"
           :disabled="!!itemToEdit"
         />
       </div>
@@ -29,13 +29,13 @@
       <ui-textbox
         @input="value => (item.email = value)"
         :value="item.email"
-        label="Email"
+        :label="t('dashboard.users.form.email')"
         :disabled="!!itemToEdit"
       />
       <ui-textbox
         @input="value => (item.type = value)"
         :value="item.type"
-        label="Tipo"
+        :label="t('dashboard.users.form.type')"
         :style="{ width: '50%' }"
       />
     </div>

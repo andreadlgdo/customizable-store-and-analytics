@@ -267,8 +267,8 @@ const messages: AppMessages['es'] = {
       form: {
         id: 'ID',
         name: 'Nombre',
+        surname: 'Apellido',
         email: 'Email',
-        password: 'Contraseña',
         type: 'Tipo'
       }
     }
