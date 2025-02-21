@@ -15,7 +15,7 @@
     />
     <input
       ref="fileInput"
-      @change="changeImage"
+      @change="$emit('upload', $event)"
       type="file"
       accept="image/*"
       style="display: none"
@@ -49,16 +49,9 @@
     uploadMode: Boolean
   });
 
-  const emit = defineEmits(['upload']);
+  defineEmits(['upload']);
 
   const fileInput = ref();
-
-  const changeImage = (event: any) => {
-    const file = event.target.files[0];
-    if (file) {
-      emit('upload', file);
-    }
-  };
 </script>
 
 <style lang="scss" scoped>

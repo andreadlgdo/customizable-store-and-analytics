@@ -2,7 +2,14 @@
   <div :class="baseClass">
     <section :style="{ display: 'grid', gridTemplateColumns: '0.4fr 1fr' }">
       <div :class="`${baseClass}__wrapper`">
-        <ui-image :image="productImage" type="semi-round" upload-mode size="large" />
+        <ui-image
+          v-if="!loadingImage"
+          @upload="changeImage"
+          :image="productImage"
+          type="semi-round"
+          upload-mode
+          size="large"
+        />
       </div>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
         <ui-textbox
@@ -29,7 +36,7 @@
           @change="value => (parentCategory = value)"
           :value="parentCategory"
           :options="parentCategories"
-          placeholder="Select"
+          placeholder="Select category"
           label="Categories"
         />
         <ui-select
@@ -37,7 +44,7 @@
           @change="value => (childrenCategory = value)"
           :value="childrenCategory"
           :options="childrenCategories(parentCategory)"
-          placeholder="Select"
+          placeholder="Select subcategory"
           label="Subcategorias"
         />
       </div>
@@ -71,7 +78,7 @@
         @click="save"
         :text="itemToEdit ? t('dashboard.action.edit') : t('dashboard.action.save')"
         icon="edit"
-        :disabled="itemToEdit && (!item.name || item.price > 0)"
+        :disabled="!itemToEdit && (!item.name || item.price < 0)"
       />
       <ui-button @click="cancel" :text="t('dashboard.action.cancel')" icon="close" transparent />
     </div>
@@ -88,7 +95,7 @@
   import UiTextbox from '../shared/ui-textbox.component.vue';
   import UiSelect from '../shared/ui-select.component.vue';
 
-  import { productService } from '../../services';
+  import { imageService, productService } from '../../services';
   import { Category, Product } from '../../interfaces';
   import { useI18n } from 'vue-i18n';
   import { useCategories } from '../../composables';
@@ -107,10 +114,12 @@
     }
   });
 
-  const emit = defineEmits(['action']);
+  const emit = defineEmits(['cancel', 'save']);
 
-  const parentCategory = ref('');
-  const childrenCategory = ref('');
+  const date = new Date();
+
+  const parentCategory = ref<string>('');
+  const childrenCategory = ref<string>('');
 
   const item = ref<Product>(
     props.itemToEdit ?? {
@@ -124,6 +133,8 @@
       onSale: false
     }
   );
+
+  const loadingImage = ref(false);
 
   const productImage = computed(() =>
     item.value?.imageUrl !== '' ? item.value?.imageUrl : undefined
@@ -147,22 +158,66 @@
   };
 
   const cancel = () => {
-    emit('action');
+    emit('cancel');
     goToList();
   };
 
-  const save = () => {
-    if (props.itemToEdit) {
-      productService.updateProduct(item.value);
+  const save = async () => {
+    item.value.categories = [];
+    if (parentCategory.value !== '') {
+      item.value.categories?.push(parentCategory.value);
     }
-    emit('action');
+    if (childrenCategory.value !== '') {
+      item.value.categories?.push(childrenCategory.value);
+    }
+    if (props.itemToEdit) {
+      await productService.updateProduct(item.value);
+    } else {
+      const newProduct = await productService.createProduct(item.value);
+
+      const name = newProduct.product._id + date.getTime();
+      if (newProduct.product.imageUrl) {
+        const image = await imageService.updateImage('products', 'undefined', name);
+        newProduct.product.imageUrl = image.imageUrl;
+        await productService.updateProduct(newProduct.product);
+      }
+    }
     goToList();
+    emit('save');
   };
 
   const findCategory = (categories: Category[]) => {
     return categories?.find(
       category => item.value.categories?.findIndex(target => target === category.title) !== -1
     );
+  };
+
+  const changeImage = async (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const selectedFile = target.files?.[0];
+
+    if (!selectedFile) {
+      return alert('Por favor selecciona una imagen primero');
+    }
+
+    try {
+      loadingImage.value = true;
+      const formData = new FormData();
+      const imageName = item.value._id ? item.value._id + date.getTime() : 'undefined';
+
+      formData.append('image', selectedFile);
+      formData.append('routeImage', `products/${imageName}`);
+
+      const imageUrl = await imageService.addImage(formData);
+
+      if (imageUrl) {
+        item.value.imageUrl = imageUrl;
+      }
+    } catch (error) {
+      console.error('Error al actualizar la imagen:', error);
+    } finally {
+      loadingImage.value = false;
+    }
   };
 
   watch(

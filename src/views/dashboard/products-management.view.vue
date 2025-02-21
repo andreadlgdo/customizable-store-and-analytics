@@ -24,7 +24,8 @@
         :products="products"
       />
       <ui-product-form
-        @action="isFormProduct = false"
+        @save="saveItem"
+        @cancel="isFormProduct = false"
         v-if="isFormProduct"
         :item-to-edit="itemToEdit"
       />
@@ -91,6 +92,11 @@
 
   const deleteProduct = async (item: Product) => {
     await productService.deleteProduct(item._id ?? '');
+    await loadProducts();
+  };
+
+  const saveItem = async () => {
+    isFormProduct.value = false;
     await loadProducts();
   };
 
