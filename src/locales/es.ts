@@ -257,14 +257,16 @@ const messages: AppMessages['es'] = {
       },
       table: {
         id: 'ID',
+        name: 'Nombre',
         email: 'Email',
         type: 'Tipo'
       },
       action: {
-        add: 'Añadir un usuario'
+        add: 'Añadir usuario'
       },
       form: {
         id: 'ID',
+        name: 'Nombre',
         email: 'Email',
         password: 'Contraseña',
         type: 'Tipo'

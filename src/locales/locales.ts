@@ -82,6 +82,7 @@ export interface AppMessages {
         };
         table: {
           id: string;
+          name: string;
           email: string;
           type: string;
         };
@@ -90,6 +91,7 @@ export interface AppMessages {
         };
         form: {
           id: string;
+          name: string;
           email: string;
           password: string;
           type: string;

@@ -257,6 +257,7 @@ const messages: AppMessages['en'] = {
       },
       table: {
         id: 'ID',
+        name: 'Name',
         email: 'Email',
         type: 'Type'
       },
@@ -265,6 +266,7 @@ const messages: AppMessages['en'] = {
       },
       form: {
         id: 'ID',
+        name: 'Name',
         email: 'Email',
         password: 'Password',
         type: 'Type'

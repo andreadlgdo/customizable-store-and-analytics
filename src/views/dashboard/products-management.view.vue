@@ -17,12 +17,7 @@
         icon="plus"
         :class="`${baseClass}__button`"
       />
-      <products-list
-        @edit="editProduct"
-        v-if="!isFormProduct"
-        :products="products"
-        :class="`${baseClass}__table`"
-      />
+      <products-list @edit="editProduct" v-if="!isFormProduct" :products="products" />
       <ui-product-form
         @action="isFormProduct = false"
         v-if="isFormProduct"
@@ -112,10 +107,6 @@
       align-self: flex-end;
       width: fit-content;
       margin: 1rem 0;
-    }
-
-    &__pagination {
-      align-self: center;
     }
   }
 </style>
