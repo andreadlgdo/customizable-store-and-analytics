@@ -17,7 +17,7 @@
         icon="plus"
         :class="`${baseClass}__button`"
       />
-      <ui-users-list v-if="!isFormUser" @edit="editUser" :users="users" />
+      <ui-users-list v-if="!isFormUser" @edit="editUser" @delete="deleteUser" :users="users" />
       <ui-user-form @action="isFormUser = false" v-if="isFormUser" :item-to-edit="itemToEdit" />
     </div>
   </dashboard>
@@ -33,6 +33,7 @@
 
   import { useUserMenu, useUsers } from '../../composables';
   import { User } from '../../interfaces';
+  import { userService } from '../../services';
 
   import Dashboard from './dashboard.view.vue';
   import { useI18n } from 'vue-i18n';
@@ -75,6 +76,11 @@
       name: 'UsersManagement',
       params: { action: 'edit', itemId: item._id }
     });
+  };
+
+  const deleteUser = async (item: User) => {
+    await userService.deleteUser(item._id ?? '');
+    users.value = await getUsers();
   };
 
   watch(

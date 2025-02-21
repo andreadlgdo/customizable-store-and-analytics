@@ -27,5 +27,12 @@ export const userService = {
       method: 'POST',
       body: JSON.stringify(userData)
     });
+  },
+  deleteUser: async function (_id: string) {
+    if (!_id) {
+      throw new Error('User ID is required');
+    }
+
+    await fetchData(`${apiUrl}/api/users/${_id}`, { method: 'DELETE' });
   }
 };
