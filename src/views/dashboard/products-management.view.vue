@@ -17,7 +17,12 @@
         icon="plus"
         :class="`${baseClass}__button`"
       />
-      <products-list @edit="editProduct" v-if="!isFormProduct" :products="products" />
+      <products-list
+        @edit="editProduct"
+        @delete="deleteProduct"
+        v-if="!isFormProduct"
+        :products="products"
+      />
       <ui-product-form
         @action="isFormProduct = false"
         v-if="isFormProduct"
@@ -38,6 +43,7 @@
 
   import { useProducts, useUserMenu } from '../../composables';
   import { Product } from '../../interfaces';
+  import { productService } from '../../services';
 
   import Dashboard from './dashboard.view.vue';
 
@@ -81,6 +87,11 @@
       name: 'ProductsManagement',
       params: { action: 'edit', itemId: item._id }
     });
+  };
+
+  const deleteProduct = async (item: Product) => {
+    await productService.deleteProduct(item._id ?? '');
+    await loadProducts();
   };
 
   watch(
