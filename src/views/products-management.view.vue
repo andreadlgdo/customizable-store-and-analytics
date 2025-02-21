@@ -44,7 +44,7 @@
   import { useProducts, useUserMenu } from '../composables';
   import { Product } from '../interfaces';
 
-  import Dashboard from './dashboard.view.vue';
+  import Dashboard from './dashboard/dashboard.view.vue';
 
   const { menuElements } = useUserMenu();
   const { loadProducts, products } = useProducts();

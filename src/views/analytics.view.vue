@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-  import Dashboard from './dashboard.view.vue';
+  import Dashboard from './dashboard/dashboard.view.vue';
   import { useUserMenu } from '@/composables';
 
   const { menuElements } = useUserMenu();

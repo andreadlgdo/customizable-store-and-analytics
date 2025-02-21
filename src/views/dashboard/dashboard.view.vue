@@ -10,9 +10,9 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import UiMenu from '../components/dashboard-menu/ui-menu.component.vue';
+  import UiMenu from '../../components/dashboard-menu/ui-menu.component.vue';
 
-  import { MenuItem } from '../interfaces';
+  import { MenuItem } from '../../interfaces';
 
   const baseClass = 'dashboard';
 

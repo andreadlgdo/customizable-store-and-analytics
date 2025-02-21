@@ -134,7 +134,7 @@
   import { useCurrentUser, useUserMenu, useValidations } from '../composables';
   import { userService } from '../services';
 
-  import Dashboard from './dashboard.view.vue';
+  import Dashboard from './dashboard/dashboard.view.vue';
 
   const { menuElements } = useUserMenu();
   const { user } = useCurrentUser();
