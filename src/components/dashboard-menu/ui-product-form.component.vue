@@ -25,6 +25,23 @@
     </section>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
       <div :class="`${baseClass}__wrapper`">
+        <ui-select
+          @change="value => (parentCategory = value)"
+          :value="parentCategory"
+          :options="parentCategories"
+          placeholder="Select"
+          label="Categories"
+        />
+        <ui-select
+          v-if="parentCategory && !!childrenCategories(parentCategory).length"
+          @change="value => (childrenCategory = value)"
+          :value="childrenCategory"
+          :options="childrenCategories(parentCategory)"
+          placeholder="Select"
+          label="Subcategorias"
+        />
+      </div>
+      <div :class="`${baseClass}__wrapper`">
         <ui-textbox
           @input="value => (item.price = value)"
           :value="item.price"
@@ -49,7 +66,6 @@
         :style="{ width: '50%' }"
       />
     </div>
-
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
       <ui-button
         @click="save"
@@ -62,20 +78,24 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, PropType, ref, watch } from 'vue';
+  import { computed, PropType, ref, watch, onMounted } from 'vue';
   import { useRouter } from 'vue-router';
 
   import UiButton from '../shared/ui-button.component.vue';
   import UiCheckbox from '../shared/ui-checkbox.component.vue';
   import UiImage from '../shared/ui-image.component.vue';
   import UiTextbox from '../shared/ui-textbox.component.vue';
+  import UiSelect from '../shared/ui-select.component.vue';
 
   import { productService } from '../../services';
-  import { Product } from '../../interfaces';
+  import { Category, Product } from '../../interfaces';
   import { useI18n } from 'vue-i18n';
+  import { useCategories } from '../../composables';
 
   const router = useRouter();
   const { t } = useI18n();
+
+  const { categories, loadCategories } = useCategories();
 
   const baseClass = 'ui-product-form';
 
@@ -87,6 +107,9 @@
   });
 
   const emit = defineEmits(['action']);
+
+  const parentCategory = ref('');
+  const childrenCategory = ref('');
 
   const item = ref<Product>(
     props.itemToEdit ?? {
@@ -104,6 +127,17 @@
   const productImage = computed(() =>
     item.value?.imageUrl !== '' ? item.value?.imageUrl : undefined
   );
+
+  const parentCategories = computed(() =>
+    categories.value?.filter((category: Category) => !category.parentId)
+  );
+
+  const childrenCategories = (parentCategory: string) => {
+    const parentCategoryId = parentCategories.value?.find(p => p.title === parentCategory);
+    return categories.value?.filter(
+      (category: Category) => category.parentId === parentCategoryId?._id
+    );
+  };
 
   const goToList = () => {
     router.push({
@@ -124,21 +158,48 @@
     goToList();
   };
 
+  const findCategory = (categories: Category[]) => {
+    return categories?.find(
+      category => item.value.categories?.findIndex(target => target === category.title) !== -1
+    );
+  };
+
   watch(
     () => props.itemToEdit,
     () => (item.value = props.itemToEdit ?? item.value),
     { immediate: true }
   );
+
+  watch(
+    () => parentCategories.value,
+    () => {
+      const selectedParentCategory = findCategory(parentCategories.value ?? []);
+
+      if (selectedParentCategory) {
+        parentCategory.value = selectedParentCategory.title;
+
+        const children = childrenCategories(selectedParentCategory.title);
+        const selectedChildrenCategory = findCategory(children ?? []);
+
+        childrenCategory.value = selectedChildrenCategory?.title ?? '';
+      }
+    },
+    { immediate: true }
+  );
+
+  onMounted(async () => await loadCategories());
 </script>
 
 <style lang="scss" scoped>
   .ui-product-form {
     position: relative;
     margin: 2rem;
+    height: 100%;
 
     &__wrapper {
       display: flex;
       gap: 1rem;
+      overflow: visible !important;
 
       &--header,
       &--content {

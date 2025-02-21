@@ -10,7 +10,10 @@
       <li
         v-for="(option, index) in options"
         :key="index"
-        :class="`${baseClass}__option`"
+        :class="[
+          `${baseClass}__option`,
+          { [`${baseClass}__option--selected`]: option.title === selectedOption }
+        ]"
         @click.stop="selectOption(option.title)"
       >
         {{ capitalizeSentence(option.title) }}
@@ -103,7 +106,8 @@
       cursor: pointer;
       transition: background 0.2s;
 
-      &:hover {
+      &:hover,
+      &--selected {
         background: var(--color-primary);
       }
     }
