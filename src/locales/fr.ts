@@ -265,6 +265,16 @@ const messages: AppMessages['fr'] = {
   asides: {
     shoppingCart: shoppingCartMessages,
     register: {
+      form: {
+        name: 'nom',
+        surname: 'nom de famille',
+        email: {
+          label: 'E-mail',
+          placeholder: 'e-amil@exemple.com'
+        },
+        password: 'Mot de passe',
+        repeatPassword: 'Répéter le mot de passe'
+      },
       logIn: logInMessages,
       signUp: signUpMessages
     }

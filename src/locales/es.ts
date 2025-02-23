@@ -265,6 +265,16 @@ const messages: AppMessages['es'] = {
   asides: {
     shoppingCart: shoppingCartMessages,
     register: {
+      form: {
+        name: 'nombre',
+        surname: 'apellido',
+        email: {
+          label: 'Email',
+          placeholder: 'correo@ejemplo.com'
+        },
+        password: 'Contraseña',
+        repeatPassword: 'Repetir contraseña'
+      },
       logIn: logInMessages,
       signUp: signUpMessages
     }

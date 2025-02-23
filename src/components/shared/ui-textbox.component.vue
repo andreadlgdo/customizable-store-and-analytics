@@ -6,7 +6,7 @@
       { [`${baseClass}--error`]: !!error }
     ]"
   >
-    <p v-if="label">{{ label }}</p>
+    <p v-if="label">{{ capitalizeSentence(label) }}</p>
     <input :type="type" v-model="query" :placeholder="placeholder" :class="`${baseClass}__input`" />
     <p v-if="error" :class="`${baseClass}__text`">{{ error }}</p>
   </div>
@@ -15,7 +15,11 @@
 <script lang="ts" setup>
   import { ref, watch } from 'vue';
 
+  import { useTextTransform } from '../../composables';
+
   const baseClass = 'ui-textbox';
+
+  const { capitalizeSentence } = useTextTransform();
 
   const props = defineProps({
     value: {

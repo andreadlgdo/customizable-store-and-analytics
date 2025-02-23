@@ -28,6 +28,16 @@ export interface AppMessages {
     asides: {
       shoppingCart: ShoppingCartMessages;
       register: {
+        form: {
+          name: string;
+          surname: string;
+          email: {
+            label: string;
+            placeholder: string;
+          }
+          password: string;
+          repeatPassword: string;
+        };
         logIn: LogInMessages;
         signUp: SignUpMessages;
       };

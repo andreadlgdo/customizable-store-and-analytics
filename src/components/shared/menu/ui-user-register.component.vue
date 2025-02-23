@@ -5,14 +5,14 @@
       <p v-if="invalidCredentials" :class="`${baseClass}__text`">{{ invalidCredentials }}</p>
       <ui-textbox
         @input="value => (newUser.email = value)"
-        label="Email"
+        :label="t('asides.register.form.email.label')"
         :value="newUser.email"
-        placeholder="email@example.com"
+        :placeholder="t('asides.register.form.email.placeholder')"
         :error="errors.email"
       />
       <ui-password
         @input="value => (newUser.password = value)"
-        label="Password"
+        :label="t('asides.register.form.password')"
         :value="newUser.password"
         :error="errors.password"
       />
@@ -21,28 +21,28 @@
     <p v-else :class="`${baseClass}__wrapper`">
       <ui-textbox
         @input="value => (newUser.name = value)"
-        label="Name"
+        :label="t('asides.register.form.name')"
         :value="newUser.name"
-        placeholder="name"
+        :placeholder="t('asides.register.form.name')"
         :error="errors.name"
       />
       <ui-textbox
         @input="value => (newUser.surname = value)"
-        label="Surname"
+        :label="t('asides.register.form.surname')"
         :value="newUser.surname"
-        placeholder="surname"
+        :placeholder="t('asides.register.form.surname')"
         :error="errors.surname"
       />
       <ui-textbox
         @input="value => (newUser.email = value)"
-        label="Email"
+        :label="t('asides.register.form.email.label')"
         :value="newUser.email"
-        placeholder="email@example.com"
+        :placeholder="t('asides.register.form.email.placeholder')"
         :error="errors.email"
       />
       <ui-password
         @input="setPassword"
-        label="Password"
+        :label="t('asides.register.form.password')"
         :value="newUser.password"
         :error="errors.password"
         haveConditions
@@ -66,6 +66,7 @@
 
 <script lang="ts" setup>
   import { computed, ref, watch } from 'vue';
+  import { useI18n } from 'vue-i18n';
 
   import { useValidations } from '../../../composables';
 
@@ -79,6 +80,7 @@
   const baseClass = 'ui-user-register';
 
   const { validEmail } = useValidations();
+  const { t } = useI18n();
 
   const props = defineProps({
     isOpen: Boolean,
