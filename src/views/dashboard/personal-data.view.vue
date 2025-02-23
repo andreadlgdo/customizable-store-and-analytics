@@ -68,68 +68,14 @@
             :class="`${baseClass}__button`"
           />
         </div>
-        <section v-if="updateModeAddress" :class="`${baseClass}__section`">
-          <h1 :class="`${baseClass}__text ${baseClass}__text--title`">Nueva direccion</h1>
-          <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--form`">
-            <ui-textbox
-              @input="value => (newAddress.street = value)"
-              :label="t('dashboard.personalData.address.label.street')"
-              :value="newAddress.street"
-            />
-            <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
-              <ui-textbox
-                @input="value => (newAddress.number = value)"
-                :label="t('dashboard.personalData.address.label.number')"
-                :value="newAddress.number"
-              />
-              <ui-textbox
-                @input="value => (newAddress.letter = value)"
-                :label="t('dashboard.personalData.address.label.letter')"
-                :value="newAddress.letter"
-              />
-              <ui-textbox
-                @input="value => (newAddress.zipCode = value)"
-                :label="t('dashboard.personalData.address.label.zipCode')"
-                :value="newAddress.zipCode"
-              />
-            </div>
-            <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
-              <ui-textbox
-                @input="value => (newAddress.city = value)"
-                :label="t('dashboard.personalData.address.label.city')"
-                :value="newAddress.city"
-              />
-              <ui-textbox
-                @input="value => (newAddress.country = value)"
-                :label="t('dashboard.personalData.address.label.country')"
-                :value="newAddress.country"
-              />
-              <ui-textbox
-                @input="value => (newAddress.label = value)"
-                :label="t('dashboard.personalData.address.label.label')"
-                :value="newAddress.label"
-              />
-            </div>
-          </div>
-          <div :class="`${baseClass}__button`">
-            <ui-button
-              @click="addAddress"
-              :text="
-                newAddress._id
-                  ? t('dashboard.action.edit')
-                  : t('dashboard.personalData.address.action.new')
-              "
-              :icon="newAddress._id ? 'edit' : 'plus'"
-              :disabled="isAddressInvalid"
-            />
-            <ui-button
-              @click="cancelAddress"
-              :text="t('dashboard.action.cancel')"
-              icon="close"
-              transparent
-            />
-          </div>
-        </section>
+        <ui-address-form
+          v-if="updateModeAddress"
+          @add="add"
+          @edit="edit"
+          @cancel="cancel"
+          :user-id="user._id ?? ''"
+          :address="addressToEdit"
+        />
         <template v-if="addresses.length">
           <section
             v-for="(address, index) in addresses"
@@ -177,6 +123,7 @@
   import UiButton from '../../components/shared/ui-button.component.vue';
   import UiTextbox from '../../components/shared/ui-textbox.component.vue';
   import UiCheckbox from '../../components/shared/ui-checkbox.component.vue';
+  import UiAddressForm from '../../components/dashboard/personal-data/ui-address-form.component.vue';
 
   import { Address } from '../../interfaces/address';
 
@@ -198,17 +145,7 @@
   const isValid = computed(() => validEmail(user.value.email));
 
   const newUser = ref({ ...user.value });
-  const newAddress = ref<Address>({
-    userId: user.value._id ?? '',
-    street: '',
-    number: '',
-    letter: '',
-    zipCode: '',
-    city: '',
-    country: '',
-    label: '',
-    isDefault: false
-  });
+  const addressToEdit = ref<Address | undefined>(undefined);
 
   const addresses = ref<Address[]>([]);
 
@@ -251,35 +188,29 @@
     window.location.reload();
   };
 
-  const addAddress = async () => {
-    if (newAddress.value._id) {
-      const address = await addressService.updateAddress(newAddress.value);
-      const index = addresses.value.findIndex(a => a._id === address._id);
-      if (index !== -1) {
-        addresses.value.splice(index, 1, address);
-      }
-    } else {
-      if (!addresses.value.length) {
-        newAddress.value.isDefault = true;
-      }
-      const address = await addressService.createAddress(newAddress.value);
-      addresses.value.push(address);
+  const add = async (newAddress: Address) => {
+    if (!addresses.value.length) {
+      newAddress.isDefault = true;
+    }
+    const address = await addressService.createAddress(newAddress);
+    addresses.value.push(address);
+    updateModeAddress.value = false;
+  };
+
+  const edit = async (newAddress: Address) => {
+    const address = await addressService.updateAddress(newAddress);
+    const index = addresses.value.findIndex(a => a._id === address._id);
+    if (index !== -1) {
+      addresses.value.splice(index, 1, address);
     }
     updateModeAddress.value = false;
   };
 
-  const cancelAddress = () => {
-    newAddress.value = {
-      userId: user.value._id ?? '',
-      street: '',
-      number: '',
-      letter: '',
-      zipCode: '',
-      city: '',
-      country: '',
-      label: '',
-      isDefault: false
-    };
+  const cancel = async () => {
+    if (addressToEdit.value) {
+      addresses.value = await addressService.findAddressByUserId(user.value._id ?? '');
+      addressToEdit.value = undefined;
+    }
     updateModeAddress.value = false;
   };
 
@@ -297,27 +228,18 @@
   };
 
   const editAddress = async (address: Address) => {
-    newAddress.value = address;
+    addressToEdit.value = address;
     updateModeAddress.value = true;
   };
 
   const deleteAddress = async (address: Address) => {
     await addressService.deleteAddress(address._id ?? '');
-    addresses.value = await addressService.getAddresses();
+    addresses.value = await addressService.findAddressByUserId(user.value._id ?? '');
   };
 
-  const isAddressInvalid = computed(
-    () =>
-      newAddress.value.userId === '' ||
-      newAddress.value.street === '' ||
-      newAddress.value.number === '' ||
-      newAddress.value.letter === '' ||
-      newAddress.value.zipCode === '' ||
-      newAddress.value.city === '' ||
-      newAddress.value.country === ''
+  onMounted(
+    async () => (addresses.value = await addressService.findAddressByUserId(user.value._id ?? ''))
   );
-
-  onMounted(async () => (addresses.value = await addressService.getAddresses()));
 </script>
 
 <style lang="scss" scoped>
