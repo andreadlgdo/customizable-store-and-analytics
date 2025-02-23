@@ -71,7 +71,7 @@
       border-radius: 50px;
 
       &:hover {
-        background-color: var(--color-error);
+        background-color: var(--bg-red);
       }
     }
   }

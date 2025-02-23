@@ -6,6 +6,7 @@
     @logOut="logOut"
     :is-open="isOpenUserAside"
   />
+  <ui-user-register v-else @close="isOpenUserAside = !isOpenUserAside" :is-open="isOpenUserAside" />
 </template>
 
 <script lang="ts" setup>
@@ -13,6 +14,7 @@
 
   import UiHeader from '../components/shared/ui-header.component.vue';
   import UiUserMenu from '../components/shared/menu/ui-user-menu.component.vue';
+  import UiUserRegister from '../components/shared/menu/ui-user-register.component.vue';
 
   import { useUsers } from '../composables';
 
