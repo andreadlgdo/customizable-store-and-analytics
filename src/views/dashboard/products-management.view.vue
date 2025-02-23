@@ -38,9 +38,9 @@
   import { useI18n } from 'vue-i18n';
   import { useRouter } from 'vue-router';
 
-  import ProductsList from '../../components/dashboard-menu/ui-products-list.component.vue';
+  import ProductsList from '../../components/dashboard/products/ui-products-list.component.vue';
   import UiButton from '../../components/shared/ui-button.component.vue';
-  import UiProductForm from '../../components/dashboard-menu/ui-product-form.component.vue';
+  import UiProductForm from '../../components/dashboard/products/ui-product-form.component.vue';
 
   import { useProducts, useUserMenu } from '../../composables';
   import { Product } from '../../interfaces';

@@ -15,9 +15,9 @@
   import { computed, PropType } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { User } from '../../interfaces';
+  import { User } from '../../../interfaces';
 
-  import UiTable from '../shared/ui-table.component.vue';
+  import UiTable from '../../shared/ui-table.component.vue';
 
   const { t } = useI18n();
 

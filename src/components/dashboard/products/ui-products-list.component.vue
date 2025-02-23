@@ -27,11 +27,11 @@
   import { computed, PropType } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { Product } from '../../interfaces';
+  import { Product } from '../../../interfaces';
 
-  import UiTable from '../shared/ui-table.component.vue';
+  import UiTable from '../../shared/ui-table.component.vue';
 
-  import BasePill from '../base-pill.component.vue';
+  import BasePill from '../../base-pill.component.vue';
 
   const { t } = useI18n();
 

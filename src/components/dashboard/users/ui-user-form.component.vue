@@ -56,11 +56,11 @@
   import { useRouter } from 'vue-router';
   import { useI18n } from 'vue-i18n';
 
-  import UiButton from '../shared/ui-button.component.vue';
-  import UiImage from '../shared/ui-image.component.vue';
-  import UiTextbox from '../shared/ui-textbox.component.vue';
+  import UiButton from '../../shared/ui-button.component.vue';
+  import UiImage from '../../shared/ui-image.component.vue';
+  import UiTextbox from '../../shared/ui-textbox.component.vue';
 
-  import { User } from '../../interfaces';
+  import { User } from '../../../interfaces';
 
   const router = useRouter();
   const { t } = useI18n();

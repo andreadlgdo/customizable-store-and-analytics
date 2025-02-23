@@ -89,16 +89,16 @@
   import { computed, PropType, ref, watch, onMounted } from 'vue';
   import { useRouter } from 'vue-router';
 
-  import UiButton from '../shared/ui-button.component.vue';
-  import UiCheckbox from '../shared/ui-checkbox.component.vue';
-  import UiImage from '../shared/ui-image.component.vue';
-  import UiTextbox from '../shared/ui-textbox.component.vue';
-  import UiSelect from '../shared/ui-select.component.vue';
+  import UiButton from '../../shared/ui-button.component.vue';
+  import UiCheckbox from '../../shared/ui-checkbox.component.vue';
+  import UiImage from '../../shared/ui-image.component.vue';
+  import UiTextbox from '../../shared/ui-textbox.component.vue';
+  import UiSelect from '../../shared/ui-select.component.vue';
 
-  import { imageService, productService } from '../../services';
-  import { Category, Product } from '../../interfaces';
+  import { imageService, productService } from '../../../services';
+  import { Category, Product } from '../../../interfaces';
   import { useI18n } from 'vue-i18n';
-  import { useCategories } from '../../composables';
+  import { useCategories } from '../../../composables';
 
   const router = useRouter();
   const { t } = useI18n();
