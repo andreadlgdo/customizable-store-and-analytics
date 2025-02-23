@@ -10,11 +10,10 @@
         placeholder="email@example.com"
         :error="errors.email"
       />
-      <ui-textbox
+      <ui-password
         @input="value => (newUser.password = value)"
         label="Password"
         :value="newUser.password"
-        placeholder="***********"
         :error="errors.password"
       />
       <ui-button @click="logIn" text="Registrarse" color-soft />
@@ -41,18 +40,16 @@
         placeholder="email@example.com"
         :error="errors.email"
       />
-      <ui-textbox
+      <ui-password
         @input="value => (newUser.password = value)"
         label="Password"
         :value="newUser.password"
-        placeholder="***********"
         :error="errors.password"
       />
-      <ui-textbox
+      <ui-password
         @input="value => (newUser.repeatPassword = value)"
         label="Repeat password"
         :value="newUser.repeatPassword"
-        placeholder="***********"
         :error="errors.repeatPassword"
       />
       <ui-checkbox
@@ -75,6 +72,7 @@
   import UiButton from '../ui-button.component.vue';
   import UiCheckbox from '../ui-checkbox.component.vue';
   import UiTextbox from '../ui-textbox.component.vue';
+  import UiPassword from '../ui-password.component.vue';
   import UiToggle from '../ui-toggle.component.vue';
 
   const baseClass = 'ui-user-register';

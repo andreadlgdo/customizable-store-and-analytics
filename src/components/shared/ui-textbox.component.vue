@@ -7,7 +7,7 @@
     ]"
   >
     <p v-if="label">{{ label }}</p>
-    <input type="text" v-model="query" :placeholder="placeholder" :class="`${baseClass}__input`" />
+    <input :type="type" v-model="query" :placeholder="placeholder" :class="`${baseClass}__input`" />
     <p v-if="error" :class="`${baseClass}__text`">{{ error }}</p>
   </div>
 </template>
@@ -24,6 +24,10 @@
     },
     label: String,
     placeholder: String,
+    type: {
+      type: String,
+      default: 'text'
+    },
     disabled: Boolean,
     error: String
   });
