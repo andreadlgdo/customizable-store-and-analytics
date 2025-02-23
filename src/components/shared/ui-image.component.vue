@@ -60,6 +60,13 @@
 
     position: relative;
 
+    &--mini {
+      #{$baseClass}__image {
+        height: 5rem;
+        width: 5rem;
+      }
+    }
+
     &--small {
       #{$baseClass}__image {
         height: 8rem;
