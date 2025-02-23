@@ -1,0 +1,59 @@
+<template>
+  <div :class="baseClass">
+    <section
+      v-for="(option, index) in options"
+      :key="index"
+      @click="$emit('click', option)"
+      :class="[`${baseClass}__section`, { [`${baseClass}__section--selected`]: option.selected }]"
+    >
+      {{ option.label }}
+    </section>
+  </div>
+</template>
+
+<script lang="ts" setup>
+  import { PropType } from 'vue';
+
+  const baseClass = 'ui-toggle';
+
+  defineProps({
+    options: {
+      type: Array as PropType<
+        {
+          label: string;
+          selected: boolean;
+        }[]
+      >,
+      required: true
+    }
+  });
+
+  defineEmits(['click']);
+</script>
+
+<style lang="scss" scoped>
+  .ui-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    height: 3rem;
+    width: 100%;
+    background: var(--color-soft-primary);
+
+    &__section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 4px;
+      height: 2.5rem;
+      width: 50%;
+      border-radius: 25px;
+      cursor: pointer;
+
+      &--selected {
+        background: var(--color-medium-primary);
+      }
+    }
+  }
+</style>
