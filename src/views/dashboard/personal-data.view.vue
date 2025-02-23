@@ -76,40 +76,13 @@
           :user-id="user._id ?? ''"
           :address="addressToEdit"
         />
-        <template v-if="addresses.length">
-          <section
-            v-for="(address, index) in addresses"
-            :key="index"
-            :class="`${baseClass}__section ${baseClass}__section--address`"
-          >
-            <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--address`">
-              <p>{{ address.label }}</p>
-              <ui-checkbox
-                @change="setDefault(address)"
-                :value="address.isDefault"
-                text="Default"
-              />
-            </div>
-            <p>
-              {{ address.street + ', ' + address.number + address.letter + ', ' + address.zipCode }}
-            </p>
-            <p>{{ address.city + ', ' + address.country }}</p>
-            <div :class="`${baseClass}__button`">
-              <ui-button
-                @click="editAddress(address)"
-                :text="t('dashboard.action.edit')"
-                icon="edit"
-                transparent
-              />
-              <ui-button
-                @click="deleteAddress(address)"
-                :text="t('dashboard.personalData.address.action.remove')"
-                icon="delete"
-                transparent
-              />
-            </div>
-          </section>
-        </template>
+        <ui-address
+          v-if="addresses.length"
+          @edit="editAddress"
+          @delete="deleteAddress"
+          @setDefault="setDefault"
+          :addresses="addresses"
+        />
       </section>
     </div>
   </dashboard>
@@ -119,11 +92,12 @@
   import { computed, ref, onMounted } from 'vue';
   import { useI18n } from 'vue-i18n';
 
+  import UiAddress from '../../components/dashboard/personal-data/ui-address.component.vue';
+  import UiAddressForm from '../../components/dashboard/personal-data/ui-address-form.component.vue';
+
   import UiImage from '../../components/shared/ui-image.component.vue';
   import UiButton from '../../components/shared/ui-button.component.vue';
   import UiTextbox from '../../components/shared/ui-textbox.component.vue';
-  import UiCheckbox from '../../components/shared/ui-checkbox.component.vue';
-  import UiAddressForm from '../../components/dashboard/personal-data/ui-address-form.component.vue';
 
   import { Address } from '../../interfaces/address';
 
@@ -254,10 +228,6 @@
       padding: 2rem;
       height: fit-content;
       margin-bottom: 1rem;
-
-      &--address {
-        padding: 1rem 2rem;
-      }
     }
 
     &__wrapper {
@@ -289,6 +259,7 @@
       &--title {
         margin: 0 0 16px 0;
       }
+
       &--name {
         font-weight: bold;
         font-size: 18px;
