@@ -36,6 +36,7 @@
     $baseClass: &;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     padding: 8px 14px;
     border-radius: 12px;

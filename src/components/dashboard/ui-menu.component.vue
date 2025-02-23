@@ -1,5 +1,12 @@
 <template>
-  <ui-aside @click="isCollapsed = !isCollapsed" icon="menu" :is-collapsed="isCollapsed" is-open>
+  <ui-aside
+    @click="isCollapsed = !isCollapsed"
+    icon="menu"
+    :is-collapsed="isCollapsed"
+    :fixed="false"
+    language
+    is-open
+  >
     <div v-if="!isCollapsed" :class="`${baseClass}__user`">
       <p :class="`${baseClass}__text ${baseClass}__text--name`">
         {{ user.name + ' ' + user.surname }}

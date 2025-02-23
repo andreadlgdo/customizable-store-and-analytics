@@ -1,5 +1,12 @@
 <template>
-  <div v-if="isOpen" :class="[baseClass, { [`${baseClass}--collapsed`]: isCollapsed }]">
+  <div
+    v-if="isOpen"
+    :class="[
+      baseClass,
+      { [`${baseClass}--collapsed`]: isCollapsed },
+      { [`${baseClass}--relative`]: !fixed }
+    ]"
+  >
     <ui-icon-button
       @click="$emit('click')"
       v-if="icon"
@@ -7,7 +14,7 @@
       :icon="icon"
     />
     <slot />
-    <ui-language :class="`${baseClass}__toggle`" />
+    <ui-language v-if="language" :class="`${baseClass}__toggle`" />
   </div>
 </template>
 
@@ -18,9 +25,18 @@
   const baseClass = 'ui-aside';
 
   defineProps({
+    fixed: {
+      type: Boolean,
+      default: true
+    },
+    position: {
+      type: String,
+      default: 'right'
+    },
     icon: String,
     isOpen: Boolean,
-    isCollapsed: Boolean
+    isCollapsed: Boolean,
+    language: Boolean
   });
 
   defineEmits(['click']);
@@ -30,11 +46,18 @@
   .ui-aside {
     $baseClass: &;
 
-    position: relative;
+    position: fixed;
+    top: 0;
+    right: 0;
     height: 100vh;
     min-width: 320px;
     background: var(--bg-main);
     box-shadow: var(--shadow-soft);
+    z-index: 1;
+
+    &--relative {
+      position: relative;
+    }
 
     &--collapsed {
       min-width: 84px;
