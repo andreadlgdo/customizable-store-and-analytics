@@ -12,8 +12,8 @@
       <ui-button
         @click="clickItem(menuElements[0])"
         :text="t('menus.user.goProfile')"
-        transparent
         :class="`${baseClass}__button`"
+        color-soft
       />
       <p @click="$emit('logOut')" :class="`${baseClass}__text ${baseClass}__text--link`">
         {{ t('menus.user.logOut') }}
@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { useCurrentUser, useUserMenu, useUsers } from '../../../composables';
+  import { useUserMenu, useUsers } from '../../../composables';
   import { MenuItem } from '../../../interfaces';
 
   import UiAside from '../ui-aside.component.vue';

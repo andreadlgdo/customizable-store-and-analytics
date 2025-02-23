@@ -2,6 +2,7 @@
   <ui-aside @click="$emit('close')" :class="baseClass" :is-open="isOpen" icon="close" fixed>
     <ui-toggle @click="selectToggle" :options="options" />
     <div v-if="options[0].selected" :class="`${baseClass}__wrapper`">
+      <p v-if="invalidCredentials" :class="`${baseClass}__text`">{{ invalidCredentials }}</p>
       <ui-textbox
         @input="value => (newUser.email = value)"
         label="Email"
@@ -15,12 +16,6 @@
         :value="newUser.password"
         placeholder="***********"
         :error="errors.password"
-      />
-      <ui-checkbox
-        @change="acceptTermsAndConditions = !acceptTermsAndConditions"
-        :value="acceptTermsAndConditions"
-        text="Acepto los terminos y condiciones"
-        :error="errors.terms"
       />
       <ui-button @click="logIn" text="Registrarse" color-soft />
     </div>
@@ -60,13 +55,19 @@
         placeholder="***********"
         :error="errors.repeatPassword"
       />
+      <ui-checkbox
+        @change="acceptTermsAndConditions = !acceptTermsAndConditions"
+        :value="acceptTermsAndConditions"
+        text="Acepto los terminos y condiciones"
+        :error="errors.terms"
+      />
       <ui-button @click="signUp" text="Inicio de sesion" color-soft />
     </p>
   </ui-aside>
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue';
+  import { computed, ref, watch } from 'vue';
 
   import { useValidations } from '../../../composables';
 
@@ -80,11 +81,12 @@
 
   const { validEmail } = useValidations();
 
-  defineProps({
-    isOpen: Boolean
+  const props = defineProps({
+    isOpen: Boolean,
+    error: String
   });
 
-  const emit = defineEmits(['close']);
+  const emit = defineEmits(['close', 'logIn']);
 
   const options = ref([
     { label: 'Iniciar sesion', selected: true },
@@ -98,7 +100,6 @@
     password: '',
     repeatPassword: ''
   });
-
   const errors = ref({
     email: '',
     password: '',
@@ -107,8 +108,8 @@
     repeatPassword: '',
     terms: ''
   });
-
   const acceptTermsAndConditions = ref(false);
+  const invalidCredentials = ref(props.error);
 
   const errorsEmpty = computed(() => Object.values(errors.value).every(error => !error));
 
@@ -130,6 +131,7 @@
       terms: ''
     };
     acceptTermsAndConditions.value = false;
+    invalidCredentials.value = '';
   };
 
   const checkEmail = () => {
@@ -158,6 +160,9 @@
     checkEmail();
     errors.value.password = !newUser.value.password ? 'Password is required' : '';
     checkRepeatPassword();
+    errors.value.terms = acceptTermsAndConditions.value
+      ? ''
+      : 'You must accept the terms and conditions';
 
     if (errorsEmpty.value) {
       emit('close');
@@ -167,14 +172,17 @@
   const logIn = () => {
     checkEmail();
     errors.value.password = !newUser.value.password ? 'Password is required' : '';
-    errors.value.terms = acceptTermsAndConditions.value
-      ? ''
-      : 'You must accept the terms and conditions';
 
     if (errorsEmpty.value) {
-      emit('close');
+      emit('logIn', newUser.value);
     }
   };
+
+  watch(
+    () => props.error,
+    () => (invalidCredentials.value = props.error),
+    { immediate: true }
+  );
 </script>
 
 <style lang="scss" scoped>
@@ -187,6 +195,11 @@
       flex-direction: column;
       gap: 18px;
       padding: 2rem 0;
+    }
+
+    &__text {
+      text-align: center;
+      color: var(--color-red);
     }
   }
 </style>
