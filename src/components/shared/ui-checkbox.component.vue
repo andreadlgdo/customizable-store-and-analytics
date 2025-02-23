@@ -1,13 +1,18 @@
 <template>
-  <label :class="baseClass">
-    <input
-      @change="$emit('change')"
-      :checked="value"
-      type="checkbox"
-      :class="`${baseClass}__checkbox`"
-    />
-    {{ text }}
-  </label>
+  <div>
+    <label :class="baseClass">
+      <input
+        @change="$emit('change')"
+        :checked="value"
+        type="checkbox"
+        :class="`${baseClass}__checkbox`"
+      />
+      <span>
+        {{ text }}
+      </span>
+    </label>
+    <p v-if="!!error" :class="`${baseClass}__text`">{{ error }}</p>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -18,7 +23,8 @@
       type: Boolean,
       required: true
     },
-    text: String
+    text: String,
+    error: String
   });
 
   defineEmits(['change']);
@@ -62,6 +68,12 @@
       &:checked::after {
         background-color: white;
       }
+    }
+
+    &__text {
+      font-size: 12px;
+      padding-left: 32px;
+      color: var(--color-red);
     }
   }
 </style>

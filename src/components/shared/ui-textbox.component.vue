@@ -1,7 +1,14 @@
 <template>
-  <div :class="[baseClass, { [`${baseClass}--disabled`]: disabled }]">
+  <div
+    :class="[
+      baseClass,
+      { [`${baseClass}--disabled`]: disabled },
+      { [`${baseClass}--error`]: !!error }
+    ]"
+  >
     <p v-if="label">{{ label }}</p>
     <input type="text" v-model="query" :placeholder="placeholder" :class="`${baseClass}__input`" />
+    <p v-if="error" :class="`${baseClass}__text`">{{ error }}</p>
   </div>
 </template>
 
@@ -17,7 +24,8 @@
     },
     label: String,
     placeholder: String,
-    disabled: Boolean
+    disabled: Boolean,
+    error: String
   });
 
   const emit = defineEmits(['input']);
@@ -42,6 +50,8 @@
 
 <style lang="scss" scoped>
   .ui-textbox {
+    $baseClass: &;
+
     width: 100%;
 
     &__input {
@@ -57,9 +67,23 @@
       }
     }
 
+    &--error {
+      #{$baseClass}__input {
+        border: 1px solid var(--color-red);
+        &:focus {
+          border: 2px solid var(--color-red);
+        }
+      }
+    }
+
     &--disabled {
       opacity: 0.5;
       pointer-events: none;
+    }
+
+    &__text {
+      font-size: 12px;
+      color: var(--color-red);
     }
   }
 </style>
