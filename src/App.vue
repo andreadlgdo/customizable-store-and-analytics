@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue';
+  import { computed, watch } from 'vue';
   import { useRoute } from 'vue-router';
 
   const route = useRoute();
@@ -22,6 +22,18 @@
         return '';
     }
   });
+
+  watch(
+    () => route.path,
+    newPath => {
+      if (newPath.includes('/dashboard')) {
+        document.title = 'Dashboard';
+      } else {
+        document.title = 'KASTO';
+      }
+    },
+    { immediate: true }
+  );
 </script>
 
 <style lang="scss">
