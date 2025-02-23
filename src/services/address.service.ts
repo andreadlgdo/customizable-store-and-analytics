@@ -4,8 +4,8 @@ import { Address } from '../interfaces';
 const apiUrl = process.env.VUE_APP_API_URL;
 
 export const addressService = {
-  getAddresses: async function () {
-    const url = new URL(`${apiUrl}/api/addresses`);
+  findAddressByUserId: async function (userId: string) {
+    const url = new URL(`${apiUrl}/api/addresses/${userId}`);
 
     return await fetchData(url.toString(), { method: 'GET' });
   },
