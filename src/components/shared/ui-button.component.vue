@@ -4,6 +4,7 @@
     :class="[
       baseClass,
       { [`${baseClass}--transparent`]: transparent },
+      { [`${baseClass}--soft`]: colorSoft },
       { [`${baseClass}--disabled`]: disabled }
     ]"
   >
@@ -25,7 +26,8 @@
     text: String,
     icon: String,
     transparent: Boolean,
-    disabled: Boolean
+    disabled: Boolean,
+    colorSoft: Boolean
   });
 
   defineEmits(['click']);
@@ -46,6 +48,14 @@
 
     &:hover {
       background-color: var(--color-dark-primary);
+    }
+
+    &--soft {
+      background-color: var(--color-primary);
+
+      &:hover {
+        background-color: var(--color-medium-primary);
+      }
     }
 
     &--transparent {
