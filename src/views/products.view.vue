@@ -1,6 +1,6 @@
 <template>
   <div :class="baseClass">
-    <ui-header />
+    <Header />
     <section :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--title`">
         <h1 :class="`${baseClass}__text`">
@@ -23,7 +23,8 @@
   import { useProducts } from '../composables';
 
   import UiProductCard from '../components/shared/products/ui-product-cart.component.vue';
-  import UiHeader from '../components/shared/ui-header.component.vue';
+
+  import Header from './header.view.vue';
 
   const baseClass = 'products';
 

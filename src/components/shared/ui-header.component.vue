@@ -4,7 +4,7 @@
     <h1 @click="router.push('/')" :class="`${baseClass}__text`">KASTO</h1>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--actions`">
       <ui-icon-button icon="search" />
-      <ui-icon-button icon="user" />
+      <ui-icon-button @click="$emit('openUserMenu')" icon="user" />
       <ui-icon-button icon="shoppingCart" />
     </div>
   </section>
@@ -18,6 +18,8 @@
   const baseClass = 'ui-header';
 
   const router = useRouter();
+
+  defineEmits(['openUserMenu']);
 </script>
 
 <style lang="scss" scoped>
