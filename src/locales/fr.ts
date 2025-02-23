@@ -275,6 +275,10 @@ const messages: AppMessages['fr'] = {
         password: 'Mot de passe',
         repeatPassword: 'Répéter le mot de passe'
       },
+      actions: {
+        logIn: 'Se connecter',
+        signUp: 'Inscription'
+      },
       logIn: logInMessages,
       signUp: signUpMessages
     }

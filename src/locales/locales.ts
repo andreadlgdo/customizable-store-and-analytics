@@ -38,6 +38,10 @@ export interface AppMessages {
           password: string;
           repeatPassword: string;
         };
+        actions: {
+          logIn: string;
+          signUp: string;
+        };
         logIn: LogInMessages;
         signUp: SignUpMessages;
       };

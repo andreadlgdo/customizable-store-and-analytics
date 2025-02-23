@@ -90,8 +90,8 @@
   const emit = defineEmits(['close', 'logIn']);
 
   const options = ref([
-    { label: 'Iniciar sesion', selected: true },
-    { label: 'Registrarse', selected: false }
+    { label: t('asides.register.actions.logIn'), selected: true },
+    { label: t('asides.register.actions.signUp'), selected: false }
   ]);
 
   const newUser = ref({
