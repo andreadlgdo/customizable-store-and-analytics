@@ -1,6 +1,6 @@
 export * from './asides';
 export * from './categories';
-export * from './dashboard';
+export * from './old-dashboard';
 export * from './header';
 export * from './icons';
 export * from './inputs';
