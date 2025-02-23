@@ -41,10 +41,11 @@
         :error="errors.email"
       />
       <ui-password
-        @input="value => (newUser.password = value)"
+        @input="setPassword"
         label="Password"
         :value="newUser.password"
         :error="errors.password"
+        haveConditions
       />
       <ui-password
         @input="value => (newUser.repeatPassword = value)"
@@ -58,7 +59,7 @@
         text="Acepto los terminos y condiciones"
         :error="errors.terms"
       />
-      <ui-button @click="signUp" text="Inicio de sesion" color-soft />
+      <ui-button @click="signUp" text="Inicio de sesion" color-soft :disabled="invalidPassword" />
     </p>
   </ui-aside>
 </template>
@@ -108,6 +109,7 @@
   });
   const acceptTermsAndConditions = ref(false);
   const invalidCredentials = ref(props.error);
+  const invalidPassword = ref(true);
 
   const errorsEmpty = computed(() => Object.values(errors.value).every(error => !error));
 
@@ -129,6 +131,7 @@
     };
     acceptTermsAndConditions.value = false;
     invalidCredentials.value = '';
+    invalidPassword.value = true;
   };
 
   const selectToggle = (option: { label: string; selected: boolean }) => {
@@ -156,6 +159,11 @@
     }
   };
 
+  const setPassword = (value: string, isValid: boolean) => {
+    newUser.value.password = value;
+    invalidPassword.value = !isValid;
+  };
+
   const signUp = () => {
     errors.value.name = !newUser.value.name ? 'Name is required' : '';
     errors.value.surname = !newUser.value.surname ? 'Surname is required' : '';
@@ -166,7 +174,7 @@
       ? ''
       : 'You must accept the terms and conditions';
 
-    if (errorsEmpty.value) {
+    if (errorsEmpty.value && !invalidPassword.value) {
       emit('close');
     }
   };

@@ -1,7 +1,7 @@
 <template>
   <div :class="baseClass">
     <ui-textbox
-      @input="query => $emit('input', query)"
+      @input="setPassword"
       :value="value"
       :label="label"
       placeholder="**********"
@@ -9,15 +9,26 @@
       :error="error"
       type="password"
     />
+    <div v-if="haveConditions" :class="`${baseClass}__conditions`">
+      <ui-pill
+        v-for="(condition, index) in conditions"
+        :key="index"
+        :text="condition.label"
+        :status="condition.status"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+  import { ref } from 'vue';
+
   import UiTextbox from './ui-textbox.component.vue';
+  import UiPill from './ui-pill.component.vue';
 
   const baseClass = 'ui-password';
 
-  defineProps({
+  const props = defineProps({
     value: {
       type: String,
       required: true
@@ -25,10 +36,55 @@
     label: String,
     placeholder: String,
     disabled: Boolean,
-    error: String
+    error: String,
+    haveConditions: Boolean
   });
 
-  defineEmits(['input']);
+  const emit = defineEmits(['input']);
+
+  const conditions = ref([
+    {
+      label: 'Al menos 8 caracteres',
+      status: 'error',
+      validate: (query: string) => query.length >= 8
+    },
+    {
+      label: 'Al menos 1 letra',
+      status: 'error',
+      validate: (query: string) => /[a-zA-Z]/.test(query)
+    },
+    { label: 'Al menos 1 número', status: 'error', validate: (query: string) => /\d/.test(query) },
+    {
+      label: 'Al menos 1 caracter especial',
+      status: 'error',
+      validate: (query: string) => /[^a-zA-Z0-9]/.test(query)
+    }
+  ]);
+
+  const setPassword = (query: string) => {
+    if (props.haveConditions) {
+      conditions.value = conditions.value.map(condition => ({
+        ...condition,
+        status: condition.validate(query) ? 'success' : 'error'
+      }));
+      emit(
+        'input',
+        query,
+        conditions.value.every(condition => condition.status === 'success')
+      );
+    } else {
+      emit('input', query);
+    }
+  };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .ui-password {
+    &__conditions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding-top: 8px;
+    }
+  }
+</style>
