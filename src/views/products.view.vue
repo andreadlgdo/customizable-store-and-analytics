@@ -2,9 +2,12 @@
   <div :class="baseClass">
     <ui-header />
     <section :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
-      <h1 :class="`${baseClass}__text`">
-        {{ category ? category.toUpperCase() : 'ALL CATEGORIES' }}
-      </h1>
+      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--title`">
+        <h1 :class="`${baseClass}__text`">
+          {{ (category ? category : t('products.allProducts')).toUpperCase() }}
+        </h1>
+        <p>{{ products.length }} {{ t('products.results') }}</p>
+      </div>
       <section :class="`${baseClass}__wrapper ${baseClass}__wrapper--product`">
         <ui-product-card v-for="product in products" :key="product._id" :product="product" />
       </section>
@@ -15,6 +18,7 @@
 <script lang="ts" setup>
   import { computed, watch } from 'vue';
   import { useRoute } from 'vue-router';
+  import { useI18n } from 'vue-i18n';
 
   import { useProducts } from '../composables';
 
@@ -25,6 +29,7 @@
 
   const { products, loadProducts } = useProducts();
   const route = useRoute();
+  const { t } = useI18n();
 
   const category = computed<string>(() => (route.params.category as string)?.toLowerCase());
 
@@ -43,16 +48,22 @@
 
     &__wrapper {
       display: flex;
-      gap: 2rem;
 
       &--content {
         flex-direction: column;
         margin: 4rem;
+        gap: 2rem;
+      }
+
+      &--title {
+        flex-direction: column;
+        gap: 0.5rem;
       }
 
       &--product {
         flex-wrap: wrap;
         justify-content: center;
+        gap: 2rem;
       }
     }
 

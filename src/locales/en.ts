@@ -260,7 +260,7 @@ const messages: AppMessages['en'] = {
   },
   products: {
     allProducts: 'All products',
-    results: 'Results'
+    results: 'products'
   },
   asides: {
     shoppingCart: shoppingCartMessages,
