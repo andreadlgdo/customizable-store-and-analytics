@@ -57,52 +57,23 @@
           />
         </div>
       </section>
-      <section>
-        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--address`">
-          <h1>{{ t('dashboard.personalData.address.title') }}</h1>
-          <ui-button
-            v-if="!updateModeAddress"
-            @click="updateModeAddress = true"
-            :text="t('dashboard.personalData.address.action.add')"
-            icon="plus"
-            :class="`${baseClass}__button`"
-          />
-        </div>
-        <ui-address-form
-          v-if="updateModeAddress"
-          @add="add"
-          @edit="edit"
-          @cancel="cancel"
-          :user-id="user._id ?? ''"
-          :address="addressToEdit"
-        />
-        <ui-address
-          v-if="addresses.length"
-          @edit="editAddress"
-          @delete="deleteAddress"
-          @setDefault="setDefault"
-          :addresses="addresses"
-        />
-      </section>
+      <ui-address-section :user-id="user._id ?? ''" />
     </div>
   </dashboard>
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, onMounted } from 'vue';
+  import { computed, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import UiAddress from '../../components/dashboard/personal-data/ui-address.component.vue';
-  import UiAddressForm from '../../components/dashboard/personal-data/ui-address-form.component.vue';
+  import UiAddressSection from '../../components/dashboard/personal-data/ui-address-section.component.vue';
 
   import UiImage from '../../components/shared/ui-image.component.vue';
   import UiButton from '../../components/shared/ui-button.component.vue';
   import UiTextbox from '../../components/shared/ui-textbox.component.vue';
 
-  import { Address } from '../../interfaces/address';
-
   import { useCurrentUser, useUserMenu, useValidations } from '../../composables';
-  import { addressService, imageService, userService } from '../../services';
+  import { imageService, userService } from '../../services';
 
   import Dashboard from './dashboard.view.vue';
 
@@ -114,14 +85,10 @@
   const baseClass = 'personal-data';
 
   const updateMode = ref(false);
-  const updateModeAddress = ref(false);
 
   const isValid = computed(() => validEmail(user.value.email));
 
   const newUser = ref({ ...user.value });
-  const addressToEdit = ref<Address | undefined>(undefined);
-
-  const addresses = ref<Address[]>([]);
 
   const action = () => {
     if (updateMode.value) {
@@ -161,59 +128,6 @@
     localStorage.setItem('user', JSON.stringify(response.user));
     window.location.reload();
   };
-
-  const add = async (newAddress: Address) => {
-    if (!addresses.value.length) {
-      newAddress.isDefault = true;
-    }
-    const address = await addressService.createAddress(newAddress);
-    addresses.value.push(address);
-    updateModeAddress.value = false;
-  };
-
-  const edit = async (newAddress: Address) => {
-    const address = await addressService.updateAddress(newAddress);
-    const index = addresses.value.findIndex(a => a._id === address._id);
-    if (index !== -1) {
-      addresses.value.splice(index, 1, address);
-    }
-    updateModeAddress.value = false;
-  };
-
-  const cancel = async () => {
-    if (addressToEdit.value) {
-      addresses.value = await addressService.findAddressByUserId(user.value._id ?? '');
-      addressToEdit.value = undefined;
-    }
-    updateModeAddress.value = false;
-  };
-
-  const setDefault = async (defaultAddress: Address) => {
-    addresses.value = addresses.value.map(address => {
-      const updateAdress = {
-        ...address,
-        isDefault: address._id === defaultAddress._id
-      };
-
-      addressService.updateAddress(updateAdress);
-
-      return updateAdress;
-    });
-  };
-
-  const editAddress = async (address: Address) => {
-    addressToEdit.value = address;
-    updateModeAddress.value = true;
-  };
-
-  const deleteAddress = async (address: Address) => {
-    await addressService.deleteAddress(address._id ?? '');
-    addresses.value = await addressService.findAddressByUserId(user.value._id ?? '');
-  };
-
-  onMounted(
-    async () => (addresses.value = await addressService.findAddressByUserId(user.value._id ?? ''))
-  );
 </script>
 
 <style lang="scss" scoped>
@@ -247,11 +161,6 @@
         flex-direction: column;
         gap: 1rem;
         margin: 24px 0;
-      }
-
-      &--address {
-        justify-content: space-between;
-        margin-bottom: 1rem;
       }
     }
 
