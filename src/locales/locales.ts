@@ -43,60 +43,8 @@ export interface AppMessages {
         cancel: string;
         edit: string;
       };
-      products: {
-        title: {
-          list: string;
-          form: {
-            create: string;
-            edit: string;
-          };
-        };
-        table: {
-          id: string;
-          name: string;
-          categories: string;
-          price: string;
-          stock: string;
-        };
-        action: {
-          add: string;
-        };
-        form: {
-          id: string;
-          name: string;
-          description: string;
-          categories: string;
-          price: string;
-          priceWithDiscount: string;
-          quantity: string;
-          onSale: string;
-        };
-      };
-      users: {
-        title: {
-          list: string;
-          form: {
-            create: string;
-            edit: string;
-          };
-        };
-        table: {
-          id: string;
-          name: string;
-          email: string;
-          type: string;
-        };
-        action: {
-          add: string;
-        };
-        form: {
-          id: string;
-          name: string;
-          surname: string;
-          email: string;
-          type: string;
-        };
-      };
+      products: ProductsManagementMessages;
+      users: UsersManagementMessages;
     };
     menus: {
       general: GeneralMessages;
@@ -245,6 +193,62 @@ export interface PersonalDataMessages {
       new: string;
       remove: string;
     };
+  };
+}
+
+export interface ProductsManagementMessages {
+  title: {
+    list: string;
+    form: {
+      create: string;
+      edit: string;
+    };
+  };
+  table: {
+    id: string;
+    name: string;
+    categories: string;
+    price: string;
+    stock: string;
+  };
+  action: {
+    add: string;
+  };
+  form: {
+    id: string;
+    name: string;
+    description: string;
+    categories: string;
+    price: string;
+    priceWithDiscount: string;
+    quantity: string;
+    onSale: string;
+  };
+}
+
+export interface UsersManagementMessages {
+  title: {
+    list: string;
+    form: {
+      create: string;
+      edit: string;
+    };
+  };
+  table: {
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+  };
+  action: {
+    add: string;
+  };
+  form: {
+    id: string;
+    name: string;
+    surname: string;
+    email: string;
+    type: string;
   };
 }
 

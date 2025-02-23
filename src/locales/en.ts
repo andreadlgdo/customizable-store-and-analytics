@@ -4,9 +4,11 @@ import {
   GeneralMessages,
   LogInMessages,
   PersonalDataMessages,
+  ProductsManagementMessages,
   ShoppingCartMessages,
   SignUpMessages,
-  UserMessages
+  UserMessages,
+  UsersManagementMessages
 } from './locales';
 
 const shoppingCartMessages: ShoppingCartMessages = {
@@ -109,6 +111,62 @@ const personalDataMessages: PersonalDataMessages = {
       new: 'Add',
       remove: 'Remove'
     }
+  }
+};
+
+const productsManagementMessages: ProductsManagementMessages = {
+  title: {
+    list: 'Product management',
+    form: {
+      create: 'Add product',
+      edit: 'Edit product'
+    }
+  },
+  table: {
+    id: 'ID',
+    name: 'Name',
+    categories: 'Categories',
+    price: 'Price',
+    stock: 'Stock'
+  },
+  action: {
+    add: 'Add product'
+  },
+  form: {
+    id: 'ID',
+    name: 'Name',
+    description: 'Description',
+    categories: 'Categories',
+    price: 'Price',
+    priceWithDiscount: 'Price with discount',
+    quantity: 'Quantity',
+    onSale: 'On sale'
+  }
+};
+
+const usersManagementMessages: UsersManagementMessages = {
+  title: {
+    list: 'User management',
+    form: {
+      create: 'Add user',
+      edit: 'Edit user'
+    }
+  },
+  table: {
+    id: 'ID',
+    name: 'Name',
+    email: 'Email',
+    type: 'Type'
+  },
+  action: {
+    add: 'Add user'
+  },
+  form: {
+    id: 'ID',
+    name: 'Name',
+    surname: 'Surname',
+    email: 'Email',
+    type: 'Type'
   }
 };
 
@@ -222,60 +280,8 @@ const messages: AppMessages['en'] = {
       cancel: 'Cancel',
       edit: 'Edit'
     },
-    products: {
-      title: {
-        list: 'Product management',
-        form: {
-          create: 'Add product',
-          edit: 'Edit product'
-        }
-      },
-      table: {
-        id: 'ID',
-        name: 'Name',
-        categories: 'Categories',
-        price: 'Price',
-        stock: 'Stock'
-      },
-      action: {
-        add: 'Add product'
-      },
-      form: {
-        id: 'ID',
-        name: 'Name',
-        description: 'Description',
-        categories: 'Categories',
-        price: 'Price',
-        priceWithDiscount: 'Price with discount',
-        quantity: 'Quantity',
-        onSale: 'On sale'
-      }
-    },
-    users: {
-      title: {
-        list: 'User management',
-        form: {
-          create: 'Add user',
-          edit: 'Edit user'
-        }
-      },
-      table: {
-        id: 'ID',
-        name: 'Name',
-        email: 'Email',
-        type: 'Type'
-      },
-      action: {
-        add: 'Add user'
-      },
-      form: {
-        id: 'ID',
-        name: 'Name',
-        surname: 'Surname',
-        email: 'Email',
-        type: 'Type'
-      }
-    }
+    products: productsManagementMessages,
+    users: usersManagementMessages
   },
   menus: {
     general: generalMessages,

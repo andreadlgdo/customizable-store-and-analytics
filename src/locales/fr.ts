@@ -4,9 +4,11 @@ import {
   GeneralMessages,
   LogInMessages,
   PersonalDataMessages,
+  ProductsManagementMessages,
   ShoppingCartMessages,
   SignUpMessages,
-  UserMessages
+  UserMessages,
+  UsersManagementMessages
 } from './locales';
 
 const shoppingCartMessages: ShoppingCartMessages = {
@@ -109,6 +111,62 @@ const personalDataMessages: PersonalDataMessages = {
       new: 'Ajouter',
       remove: 'Éliminer'
     }
+  }
+};
+
+const productsManagementMessages: ProductsManagementMessages = {
+  title: {
+    list: 'Gestion des produits',
+    form: {
+      create: 'Ajouter un produit',
+      edit: 'Modifier un produit'
+    }
+  },
+  table: {
+    id: 'ID',
+    name: 'Nom',
+    categories: 'Catégories',
+    price: 'Prix',
+    stock: 'Stock'
+  },
+  action: {
+    add: 'Ajouter un produit'
+  },
+  form: {
+    id: 'ID',
+    name: 'Nom',
+    description: 'Description',
+    categories: 'Catégories',
+    price: 'Prix',
+    priceWithDiscount: 'Prix avec réduction',
+    quantity: 'Quantité',
+    onSale: 'Reduced'
+  }
+};
+
+const usersManagementMessages: UsersManagementMessages = {
+  title: {
+    list: 'Gestion des utilisateurs',
+    form: {
+      create: 'Ajouter un utilisateur',
+      edit: 'Modifier un utilisateur'
+    }
+  },
+  table: {
+    id: 'ID',
+    name: 'Nom',
+    email: 'Courriel',
+    type: 'Type'
+  },
+  action: {
+    add: 'Ajouter utilisateur'
+  },
+  form: {
+    id: 'ID',
+    name: 'Nom',
+    surname: 'Nom de famille',
+    email: 'Email',
+    type: 'Gars'
   }
 };
 
@@ -222,60 +280,8 @@ const messages: AppMessages['fr'] = {
       cancel: 'Annuler',
       edit: 'Modifier'
     },
-    products: {
-      title: {
-        list: 'Gestion des produits',
-        form: {
-          create: 'Ajouter un produit',
-          edit: 'Modifier un produit'
-        }
-      },
-      table: {
-        id: 'ID',
-        name: 'Nom',
-        categories: 'Catégories',
-        price: 'Prix',
-        stock: 'Stock'
-      },
-      action: {
-        add: 'Ajouter un produit'
-      },
-      form: {
-        id: 'ID',
-        name: 'Nom',
-        description: 'Description',
-        categories: 'Catégories',
-        price: 'Prix',
-        priceWithDiscount: 'Prix avec réduction',
-        quantity: 'Quantité',
-        onSale: 'Reduced'
-      }
-    },
-    users: {
-      title: {
-        list: 'Gestion des utilisateurs',
-        form: {
-          create: 'Ajouter un utilisateur',
-          edit: 'Modifier un utilisateur'
-        }
-      },
-      table: {
-        id: 'ID',
-        name: 'Nom',
-        email: 'Courriel',
-        type: 'Type'
-      },
-      action: {
-        add: 'Ajouter utilisateur'
-      },
-      form: {
-        id: 'ID',
-        name: 'Nom',
-        surname: 'Nom de famille',
-        email: 'Email',
-        type: 'Gars'
-      }
-    }
+    products: productsManagementMessages,
+    users: usersManagementMessages
   },
   menus: {
     general: generalMessages,
