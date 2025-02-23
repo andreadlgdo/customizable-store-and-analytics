@@ -236,6 +236,10 @@ export interface PersonalDataMessages {
       city: string;
       country: string;
     };
+    default: string;
+    form: {
+      title: string;
+    };
     action: {
       add: string;
       new: string;

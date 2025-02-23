@@ -100,6 +100,10 @@ const personalDataMessages: PersonalDataMessages = {
       city: 'City',
       country: 'Country'
     },
+    default: 'Default',
+    form: {
+      title: 'New address'
+    },
     action: {
       add: 'Add address',
       new: 'Add',

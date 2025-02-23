@@ -87,7 +87,7 @@ const personalDataMessages: PersonalDataMessages = {
       name: 'Nom',
       surname: 'Prénom',
       email: 'E-mail'
-    },
+    }
   },
   address: {
     title: 'Adresses de livraison',
@@ -99,6 +99,10 @@ const personalDataMessages: PersonalDataMessages = {
       label: 'Étiquette',
       city: 'Ville',
       country: 'Pays'
+    },
+    default: 'Défaut',
+    form: {
+      title: 'Nouvelle adresse'
     },
     action: {
       add: 'Ajouter une adresse',

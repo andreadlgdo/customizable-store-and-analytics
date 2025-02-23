@@ -1,6 +1,6 @@
 <template>
   <section :class="baseClass">
-    <h1 :class="`${baseClass}__text`">Nueva direccion</h1>
+    <h1 :class="`${baseClass}__text`">{{ t('dashboard.personalData.address.form.title') }}</h1>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
       <ui-textbox
         @input="value => (newAddress.street = value)"
