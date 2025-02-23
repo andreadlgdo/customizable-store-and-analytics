@@ -103,6 +103,10 @@
   const deleteAddress = async (address: Address) => {
     await addressService.deleteAddress(address._id ?? '');
     addresses.value = await addressService.findAddressByUserId(props.userId);
+    if (addresses.value.length && !addresses.value.some(a => a.isDefault)) {
+      addresses.value[0].isDefault = true;
+      await addressService.updateAddress(addresses.value[0]);
+    }
   };
 
   onMounted(async () => (addresses.value = await addressService.findAddressByUserId(props.userId)));
