@@ -71,26 +71,59 @@
         <section v-if="updateModeAddress" :class="`${baseClass}__section`">
           <h1 :class="`${baseClass}__text ${baseClass}__text--title`">Nueva direccion</h1>
           <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--form`">
-            <ui-textbox :label="t('dashboard.personalData.address.label.street')" value="" />
+            <ui-textbox
+              @input="value => (newAddress.street = value)"
+              :label="t('dashboard.personalData.address.label.street')"
+              :value="newAddress.street"
+            />
             <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
-              <ui-textbox :label="t('dashboard.personalData.address.label.number')" value="" />
-              <ui-textbox :label="t('dashboard.personalData.address.label.letter')" value="" />
-              <ui-textbox :label="t('dashboard.personalData.address.label.zipCode')" value="" />
+              <ui-textbox
+                @input="value => (newAddress.number = value)"
+                :label="t('dashboard.personalData.address.label.number')"
+                :value="newAddress.number"
+              />
+              <ui-textbox
+                @input="value => (newAddress.letter = value)"
+                :label="t('dashboard.personalData.address.label.letter')"
+                :value="newAddress.letter"
+              />
+              <ui-textbox
+                @input="value => (newAddress.zipCode = value)"
+                :label="t('dashboard.personalData.address.label.zipCode')"
+                :value="newAddress.zipCode"
+              />
             </div>
             <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
-              <ui-textbox :label="t('dashboard.personalData.address.label.city')" value="" />
-              <ui-textbox :label="t('dashboard.personalData.address.label.country')" value="" />
-              <ui-textbox :label="t('dashboard.personalData.address.label.label')" value="" />
+              <ui-textbox
+                @input="value => (newAddress.city = value)"
+                :label="t('dashboard.personalData.address.label.city')"
+                :value="newAddress.city"
+              />
+              <ui-textbox
+                @input="value => (newAddress.country = value)"
+                :label="t('dashboard.personalData.address.label.country')"
+                :value="newAddress.country"
+              />
+              <ui-textbox
+                @input="value => (newAddress.label = value)"
+                :label="t('dashboard.personalData.address.label.label')"
+                :value="newAddress.label"
+              />
             </div>
           </div>
           <div :class="`${baseClass}__button`">
             <ui-button
-              @click="updateModeAddress = false"
-              :text="t('dashboard.personalData.address.action.new')"
-              icon="plus"
+              @click="addAddress"
+              :text="
+                newAddress._id
+                  ? t('dashboard.action.edit')
+                  : t('dashboard.personalData.address.action.new')
+              "
+              :icon="newAddress._id ? 'edit' : 'plus'"
+              :disabled="isAddressInvalid"
             />
             <ui-button
-              @click="updateModeAddress = false"
+              @click="cancelAddress"
               :text="t('dashboard.action.cancel')"
               icon="close"
               transparent
@@ -105,15 +138,25 @@
           >
             <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--address`">
               <p>{{ address.label }}</p>
-              <p>Default</p>
+              <ui-checkbox
+                @change="setDefault(address)"
+                :value="address.isDefault"
+                text="Default"
+              />
             </div>
             <p>
-              {{ address.street + ', ' + address.number + address.letter + ', ' + address.code }}
+              {{ address.street + ', ' + address.number + address.letter + ', ' + address.zipCode }}
             </p>
             <p>{{ address.city + ', ' + address.country }}</p>
             <div :class="`${baseClass}__button`">
-              <ui-button :text="t('dashboard.action.edit')" icon="edit" transparent />
               <ui-button
+                @click="editAddress(address)"
+                :text="t('dashboard.action.edit')"
+                icon="edit"
+                transparent
+              />
+              <ui-button
+                @click="deleteAddress(address)"
                 :text="t('dashboard.personalData.address.action.remove')"
                 icon="delete"
                 transparent
@@ -127,17 +170,18 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue';
+  import { computed, ref, onMounted } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import UiImage from '../../components/shared/ui-image.component.vue';
   import UiButton from '../../components/shared/ui-button.component.vue';
   import UiTextbox from '../../components/shared/ui-textbox.component.vue';
+  import UiCheckbox from '../../components/shared/ui-checkbox.component.vue';
 
   import { Address } from '../../interfaces/address';
 
   import { useCurrentUser, useUserMenu, useValidations } from '../../composables';
-  import { imageService, userService } from '../../services';
+  import { addressService, imageService, userService } from '../../services';
 
   import Dashboard from './dashboard.view.vue';
 
@@ -154,29 +198,19 @@
   const isValid = computed(() => validEmail(user.value.email));
 
   const newUser = ref({ ...user.value });
+  const newAddress = ref<Address>({
+    userId: user.value._id ?? '',
+    street: '',
+    number: '',
+    letter: '',
+    zipCode: '',
+    city: '',
+    country: '',
+    label: '',
+    isDefault: false
+  });
 
-  const addresses = ref<Address[]>([
-    {
-      street: 'Calle de prueba',
-      number: 4,
-      letter: 'A',
-      code: 33003,
-      city: 'Ciudad',
-      country: 'Pais',
-      label: 'Home',
-      isDefault: true
-    },
-    {
-      street: 'Calle de prueba',
-      number: 4,
-      letter: 'A',
-      code: 33003,
-      city: 'Ciudad',
-      country: 'Pais',
-      label: 'Home',
-      isDefault: false
-    }
-  ]);
+  const addresses = ref<Address[]>([]);
 
   const action = () => {
     if (updateMode.value) {
@@ -216,6 +250,74 @@
     localStorage.setItem('user', JSON.stringify(response.user));
     window.location.reload();
   };
+
+  const addAddress = async () => {
+    if (newAddress.value._id) {
+      const address = await addressService.updateAddress(newAddress.value);
+      const index = addresses.value.findIndex(a => a._id === address._id);
+      if (index !== -1) {
+        addresses.value.splice(index, 1, address);
+      }
+    } else {
+      if (!addresses.value.length) {
+        newAddress.value.isDefault = true;
+      }
+      const address = await addressService.createAddress(newAddress.value);
+      addresses.value.push(address);
+    }
+    updateModeAddress.value = false;
+  };
+
+  const cancelAddress = () => {
+    newAddress.value = {
+      userId: user.value._id ?? '',
+      street: '',
+      number: '',
+      letter: '',
+      zipCode: '',
+      city: '',
+      country: '',
+      label: '',
+      isDefault: false
+    };
+    updateModeAddress.value = false;
+  };
+
+  const setDefault = async (defaultAddress: Address) => {
+    addresses.value = addresses.value.map(address => {
+      const updateAdress = {
+        ...address,
+        isDefault: address._id === defaultAddress._id
+      };
+
+      addressService.updateAddress(updateAdress);
+
+      return updateAdress;
+    });
+  };
+
+  const editAddress = async (address: Address) => {
+    newAddress.value = address;
+    updateModeAddress.value = true;
+  };
+
+  const deleteAddress = async (address: Address) => {
+    await addressService.deleteAddress(address._id ?? '');
+    addresses.value = await addressService.getAddresses();
+  };
+
+  const isAddressInvalid = computed(
+    () =>
+      newAddress.value.userId === '' ||
+      newAddress.value.street === '' ||
+      newAddress.value.number === '' ||
+      newAddress.value.letter === '' ||
+      newAddress.value.zipCode === '' ||
+      newAddress.value.city === '' ||
+      newAddress.value.country === ''
+  );
+
+  onMounted(async () => (addresses.value = await addressService.getAddresses()));
 </script>
 
 <style lang="scss" scoped>
