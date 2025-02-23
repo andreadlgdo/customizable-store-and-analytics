@@ -111,8 +111,7 @@
 
   const errorsEmpty = computed(() => Object.values(errors.value).every(error => !error));
 
-  const selectToggle = (option: { label: string; selected: boolean }) => {
-    options.value = options.value.map(item => ({ ...item, selected: item.label === option.label }));
+  const resetFields = () => {
     newUser.value = {
       name: '',
       surname: '',
@@ -130,6 +129,11 @@
     };
     acceptTermsAndConditions.value = false;
     invalidCredentials.value = '';
+  };
+
+  const selectToggle = (option: { label: string; selected: boolean }) => {
+    options.value = options.value.map(item => ({ ...item, selected: item.label === option.label }));
+    resetFields();
   };
 
   const checkEmail = () => {
@@ -179,6 +183,12 @@
   watch(
     () => props.error,
     () => (invalidCredentials.value = props.error),
+    { immediate: true }
+  );
+
+  watch(
+    () => props.isOpen,
+    () => resetFields(),
     { immediate: true }
   );
 </script>
