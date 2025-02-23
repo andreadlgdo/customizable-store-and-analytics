@@ -1,6 +1,6 @@
 import {
   AppMessages,
-  DashboardMessages,
+  DashboardOldMessages,
   GeneralMessages,
   LogInMessages,
   PersonalDataMessages,
@@ -210,7 +210,7 @@ const generalMessages: GeneralMessages = {
   backToMenu: 'Back to the main menu'
 };
 
-const dashboardMessages: DashboardMessages = {
+const dashboardOldMessages: DashboardOldMessages = {
   action: 'Go to home'
 };
 
@@ -285,7 +285,7 @@ const messages: AppMessages['en'] = {
   },
   menus: {
     general: generalMessages,
-    dashboard: dashboardMessages,
+    dashboard: dashboardOldMessages,
     user: userMessages
   },
   footer: {

@@ -32,23 +32,10 @@ export interface AppMessages {
         signUp: SignUpMessages;
       };
     };
-    dashboard: {
-      personalData: PersonalDataMessages;
-      emptyView: {
-        title: string;
-        action: string;
-      };
-      action: {
-        save: string;
-        cancel: string;
-        edit: string;
-      };
-      products: ProductsManagementMessages;
-      users: UsersManagementMessages;
-    };
+    dashboard: DashboardMessages;
     menus: {
       general: GeneralMessages;
-      dashboard: DashboardMessages;
+      dashboard: DashboardOldMessages;
       user: UserMessages;
     };
     footer: {
@@ -162,6 +149,21 @@ export interface SignUpMessages {
     description: string;
     action: string;
   };
+}
+
+export interface DashboardMessages {
+  personalData: PersonalDataMessages;
+  emptyView: {
+    title: string;
+    action: string;
+  };
+  action: {
+    save: string;
+    cancel: string;
+    edit: string;
+  };
+  products: ProductsManagementMessages;
+  users: UsersManagementMessages;
 }
 
 export interface PersonalDataMessages {
@@ -292,7 +294,7 @@ export interface GeneralMessages {
   backToMenu: string;
 }
 
-export interface DashboardMessages {
+export interface DashboardOldMessages {
   action: string;
 }
 
