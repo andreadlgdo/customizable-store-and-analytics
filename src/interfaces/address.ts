@@ -1,8 +1,10 @@
 export interface Address {
+  _id?: string;
+  userId: string;
   street: string;
   letter: string;
-  number: number;
-  code: number;
+  number: string;
+  zipCode: string;
   city: string;
   country: string;
   label?: string;
