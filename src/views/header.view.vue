@@ -9,6 +9,7 @@
   <ui-user-register
     v-else
     @logIn="logIn"
+    @signUp="signUp"
     @close="isOpenUserAside = !isOpenUserAside"
     :is-open="isOpenUserAside"
     :error="invalidCredentials"
@@ -27,7 +28,7 @@
   import { useUsers } from '../composables';
   import { User } from '../interfaces';
 
-  const { user, logout, login } = useUsers();
+  const { user, createUser, logout, login } = useUsers();
 
   const isOpenUserAside = ref(false);
   const invalidCredentials = ref('');
@@ -35,16 +36,22 @@
 
   const logOut = () => {
     logout();
-    isOpenUserAside.value = false;
   };
 
   const logIn = async (newUser: User) => {
     const error = await login(newUser.email, newUser.password);
     if (error) {
       invalidCredentials.value = 'Incorrect credentials';
-    } else {
-      isOpenUserAside.value = false;
     }
+  };
+
+  const signUp = async (newUser: User) => {
+    user.value = await createUser({
+      name: newUser.name,
+      surname: newUser.surname,
+      email: newUser.email,
+      password: newUser.password
+    });
   };
 </script>
 

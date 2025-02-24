@@ -3,7 +3,9 @@
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
       <ui-image :image="user.imageUrl" size="mini" />
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
-        <p :class="`${baseClass}__text ${baseClass}__text--name`">{{ user.name + user.surname }}</p>
+        <p :class="`${baseClass}__text ${baseClass}__text--name`">
+          {{ user.name + ' ' + user.surname }}
+        </p>
         <p :class="`${baseClass}__text ${baseClass}__text--email`">{{ user.email }}</p>
       </div>
     </div>
@@ -63,8 +65,9 @@
       display: flex;
 
       &--row {
+        justify-content: flex-start;
         gap: 12px;
-        padding: 4rem 2rem 2rem 3rem;
+        padding: 4rem 0 2rem 2rem;
       }
 
       &--column {

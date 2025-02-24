@@ -87,7 +87,7 @@
     error: String
   });
 
-  const emit = defineEmits(['close', 'logIn']);
+  const emit = defineEmits(['close', 'logIn', 'signUp']);
 
   const options = ref([
     { label: t('asides.register.actions.logIn'), selected: true },
@@ -177,7 +177,7 @@
       : 'You must accept the terms and conditions';
 
     if (errorsEmpty.value && !invalidPassword.value) {
-      emit('close');
+      emit('signUp', newUser.value);
     }
   };
 

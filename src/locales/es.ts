@@ -269,8 +269,8 @@ const messages: AppMessages['es'] = {
         name: 'nombre',
         surname: 'apellido',
         email: {
-          label: 'Email',
-          placeholder: 'correo@ejemplo.com'
+          label: 'Correo electronico',
+          placeholder: 'Correo electronico'
         },
         password: 'Contraseña',
         repeatPassword: 'Repetir contraseña'
