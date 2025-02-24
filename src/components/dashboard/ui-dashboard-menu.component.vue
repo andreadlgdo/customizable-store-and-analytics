@@ -32,7 +32,7 @@
   import { useCurrentUser, useUserMenu } from '../../composables';
   import { MenuItem } from '../../interfaces';
 
-  const baseClass = 'ui-menu';
+  const baseClass = 'ui-dashboard-menu';
 
   const { menuElements } = useUserMenu();
   const { user } = useCurrentUser();
@@ -56,7 +56,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .ui-menu {
+  .ui-dashboard-menu {
     &__user {
       padding: 18px 32px;
       margin: 0 6px;

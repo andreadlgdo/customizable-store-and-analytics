@@ -3,6 +3,7 @@
     v-if="isOpen"
     :class="[
       baseClass,
+      `${baseClass}--${position}`,
       { [`${baseClass}--collapsed`]: isCollapsed },
       { [`${baseClass}--relative`]: !fixed }
     ]"
@@ -48,12 +49,15 @@
 
     position: fixed;
     top: 0;
-    right: 0;
     height: 100vh;
     min-width: 320px;
     background: var(--bg-main);
     box-shadow: var(--shadow-soft);
     z-index: 1;
+
+    &--right {
+      right: 0;
+    }
 
     &--relative {
       position: relative;

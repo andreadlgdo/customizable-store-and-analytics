@@ -1,5 +1,5 @@
 <template>
-  <ui-header @openUserMenu="isOpenUserAside = true" />
+  <ui-header @openMenu="isOpenMenu = true" @openUserMenu="isOpenUserAside = true" />
   <ui-user-menu
     v-if="user"
     @close="isOpenUserAside = !isOpenUserAside"
@@ -13,6 +13,7 @@
     :is-open="isOpenUserAside"
     :error="invalidCredentials"
   />
+  <ui-menu @close="isOpenMenu = !isOpenMenu" :is-open="isOpenMenu" />
 </template>
 
 <script lang="ts" setup>
@@ -20,6 +21,7 @@
 
   import UiHeader from '../components/shared/ui-header.component.vue';
   import UiUserMenu from '../components/shared/menu/ui-user-menu.component.vue';
+  import UiMenu from '../components/shared/menu/ui-menu.component.vue';
   import UiUserRegister from '../components/shared/menu/ui-user-register.component.vue';
 
   import { useUsers } from '../composables';
@@ -29,6 +31,7 @@
 
   const isOpenUserAside = ref(false);
   const invalidCredentials = ref('');
+  const isOpenMenu = ref(false);
 
   const logOut = () => {
     logout();

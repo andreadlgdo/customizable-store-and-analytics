@@ -1,6 +1,6 @@
 <template>
   <section :class="baseClass">
-    <ui-icon-button icon="menu" :class="`${baseClass}__icon ${baseClass}__icon--menu`" />
+    <ui-icon-button @click="$emit('openMenu')" icon="menu" :class="`${baseClass}__icon ${baseClass}__icon--menu`" />
     <h1 @click="router.push('/')" :class="`${baseClass}__text`">KASTO</h1>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--actions`">
       <ui-icon-button icon="search" />
@@ -19,7 +19,7 @@
 
   const router = useRouter();
 
-  defineEmits(['openUserMenu']);
+  defineEmits(['openMenu','openUserMenu']);
 </script>
 
 <style lang="scss" scoped>

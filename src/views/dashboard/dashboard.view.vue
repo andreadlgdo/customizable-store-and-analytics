@@ -1,6 +1,6 @@
 <template>
   <div :class="baseClass">
-    <ui-menu :selected-item="selectedItem" />
+    <ui-dashboard-menu :selected-item="selectedItem" />
     <slot>
       <p>{{ selectedItem.label }}</p>
     </slot>
@@ -10,7 +10,7 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import UiMenu from '../../components/dashboard/ui-menu.component.vue';
+  import UiDashboardMenu from '../../components/dashboard/ui-dashboard-menu.component.vue';
 
   import { MenuItem } from '../../interfaces';
 
