@@ -5,6 +5,7 @@
     @openWhistList="isOpenWhistList = true"
     @openShoppingCart="isOpenShoppingCart = true"
   />
+  <ui-menu @close="isOpenMenu = !isOpenMenu" :is-open="isOpenMenu" />
   <ui-user-menu
     v-if="user"
     @close="isOpenUserAside = !isOpenUserAside"
@@ -19,7 +20,11 @@
     :is-open="isOpenUserAside"
     :error="invalidCredentials"
   />
-  <ui-menu @close="isOpenMenu = !isOpenMenu" :is-open="isOpenMenu" />
+  <ui-whist-list @close="isOpenWhistList = !isOpenWhistList" :is-open="isOpenWhistList" />
+  <ui-shopping-cart
+    @close="isOpenShoppingCart = !isOpenShoppingCart"
+    :is-open="isOpenShoppingCart"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -29,9 +34,12 @@
   import UiUserMenu from '../components/shared/menu/ui-user-menu.component.vue';
   import UiMenu from '../components/shared/menu/ui-menu.component.vue';
   import UiUserRegister from '../components/shared/menu/ui-user-register.component.vue';
+  import UiWhistList from '../components/shared/menu/ui-whist-list.component.vue';
+  import UiShoppingCart from '../components/shared/menu/ui-shopping-cart.component.vue';
 
   import { useUsers } from '../composables';
   import { User } from '../interfaces';
+
 
   const { user, createUser, logout, login } = useUsers();
 
