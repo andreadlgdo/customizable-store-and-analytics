@@ -1,5 +1,10 @@
 <template>
-  <ui-header @openMenu="isOpenMenu = true" @openUserMenu="isOpenUserAside = true" />
+  <ui-header
+    @openMenu="isOpenMenu = true"
+    @openUserMenu="isOpenUserAside = true"
+    @openWhistList="isOpenWhistList = true"
+    @openShoppingCart="isOpenShoppingCart = true"
+  />
   <ui-user-menu
     v-if="user"
     @close="isOpenUserAside = !isOpenUserAside"
@@ -18,7 +23,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, watch } from 'vue';
 
   import UiHeader from '../components/shared/ui-header.component.vue';
   import UiUserMenu from '../components/shared/menu/ui-user-menu.component.vue';
@@ -30,9 +35,12 @@
 
   const { user, createUser, logout, login } = useUsers();
 
-  const isOpenUserAside = ref(false);
-  const invalidCredentials = ref('');
   const isOpenMenu = ref(false);
+  const isOpenUserAside = ref(false);
+  const isOpenWhistList = ref(false);
+  const isOpenShoppingCart = ref(false);
+
+  const invalidCredentials = ref('');
 
   const logOut = () => {
     logout();
@@ -53,6 +61,26 @@
       password: newUser.password
     });
   };
+
+  watch(
+    () => [isOpenUserAside.value, isOpenWhistList.value, isOpenShoppingCart.value],
+    ([userAside, whistList, shoppingCart]) => {
+      if ([userAside, whistList, shoppingCart].some(Boolean)) {
+        isOpenMenu.value = false;
+      }
+    }
+  );
+
+  watch(
+    () => isOpenMenu.value,
+    () => {
+      if (isOpenMenu.value) {
+        isOpenUserAside.value = false;
+        isOpenWhistList.value = false;
+        isOpenShoppingCart.value = false;
+      }
+    }
+  );
 </script>
 
 <style lang="scss" scoped></style>

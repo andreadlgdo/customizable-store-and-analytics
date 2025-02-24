@@ -1,11 +1,16 @@
 <template>
   <section :class="baseClass">
-    <ui-icon-button @click="$emit('openMenu')" icon="menu" :class="`${baseClass}__icon ${baseClass}__icon--menu`" />
+    <ui-icon-button
+      @click="$emit('openMenu')"
+      icon="menu"
+      :class="`${baseClass}__icon ${baseClass}__icon--menu`"
+    />
     <h1 @click="router.push('/')" :class="`${baseClass}__text`">KASTO</h1>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--actions`">
       <ui-icon-button icon="search" />
       <ui-icon-button @click="$emit('openUserMenu')" icon="user" />
-      <ui-icon-button icon="shoppingCart" />
+      <ui-icon-button @click="$emit('openWhistList')" icon="heart" />
+      <ui-icon-button @click="$emit('openShoppingCart')" icon="shoppingCart" />
     </div>
   </section>
 </template>
@@ -19,7 +24,7 @@
 
   const router = useRouter();
 
-  defineEmits(['openMenu','openUserMenu']);
+  defineEmits(['openMenu', 'openUserMenu', 'openWhistList', 'openShoppingCart']);
 </script>
 
 <style lang="scss" scoped>
