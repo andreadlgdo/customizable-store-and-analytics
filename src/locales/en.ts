@@ -281,6 +281,13 @@ const messages: AppMessages['en'] = {
       },
       logIn: logInMessages,
       signUp: signUpMessages
+    },
+    whistList: {
+      title: 'WhistList',
+      empty: {
+        description: 'You have not added any products to your wishList yet.',
+        action: 'Go shopping'
+      }
     }
   },
   dashboard: {

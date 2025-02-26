@@ -281,6 +281,13 @@ const messages: AppMessages['es'] = {
       },
       logIn: logInMessages,
       signUp: signUpMessages
+    },
+    whistList: {
+      title: 'Lista de deseos',
+      empty: {
+        description: 'Aun no has añadido ningun producto a tu lista de deseos',
+        action: 'Ir a comprar'
+      }
     }
   },
   dashboard: {

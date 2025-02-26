@@ -34,7 +34,7 @@ export interface AppMessages {
           email: {
             label: string;
             placeholder: string;
-          }
+          };
           password: string;
           repeatPassword: string;
         };
@@ -44,6 +44,13 @@ export interface AppMessages {
         };
         logIn: LogInMessages;
         signUp: SignUpMessages;
+      };
+      whistList: {
+        title: string;
+        empty: {
+          description: string;
+          action: string;
+        }
       };
     };
     dashboard: DashboardMessages;
