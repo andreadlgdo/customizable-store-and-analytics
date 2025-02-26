@@ -3,7 +3,7 @@
     <div :class="`${baseClass}__image`">
       <ui-image :image="product.imageUrl" type="square" size="large" />
       <ui-icon-button
-        @click="isSelected = !isSelected"
+        @click="selectFavourite"
         :icon="isSelected ? 'heartSelected' : 'heart'"
         size="small"
         :class="` ${baseClass}__icon`"
@@ -20,9 +20,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref } from 'vue';
+  import { PropType, ref, watch } from 'vue';
 
+  import { useUsers } from '../../../composables';
   import { Product } from '../../../interfaces';
+  import { productService } from '../../../services';
 
   import UiButton from '../ui-button.component.vue';
   import UiImage from '../ui-image.component.vue';
@@ -30,14 +32,45 @@
 
   const baseClass = 'ui-product-cart';
 
-  defineProps({
+  const { user } = useUsers();
+
+  const props = defineProps({
     product: {
       type: Object as PropType<Product>,
       required: true
     }
   });
 
+  const emit = defineEmits(['selectFavourite']);
+
   const isSelected = ref(false);
+
+  const selectFavourite = async () => {
+    isSelected.value = !isSelected.value;
+
+    if (user.value && user.value._id && props.product?._id) {
+      const updateProduct: Product = {
+        ...props.product,
+        isFavouriteUsersIds: isSelected.value
+          ? [...(props.product.isFavouriteUsersIds ?? []), user.value._id]
+          : props.product.isFavouriteUsersIds?.filter(favourite => favourite !== user.value?._id)
+      };
+
+      await productService.updateProduct(updateProduct);
+    }
+
+    emit('selectFavourite');
+  };
+
+  watch(
+    () => props.product,
+    () => {
+      isSelected.value = !!props.product?.isFavouriteUsersIds?.find(
+        userId => userId === user.value?._id
+      );
+    },
+    { immediate: true }
+  );
 </script>
 
 <style lang="scss" scoped>

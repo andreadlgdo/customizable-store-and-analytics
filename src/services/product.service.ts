@@ -19,6 +19,11 @@ export const productService = {
       body: JSON.stringify(productData)
     });
   },
+  findProductByUserId: async function (userId: string) {
+    const url = new URL(`${apiUrl}/api/products/${userId}`);
+
+    return await fetchData(url.toString(), { method: 'GET' });
+  },
   updateProduct: async function (productData: Product) {
     if (!productData._id) {
       throw new Error('Product ID is required');

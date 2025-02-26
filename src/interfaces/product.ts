@@ -8,4 +8,5 @@ export interface Product {
   quantity?: number;
   imageUrl?: string;
   onSale?: boolean;
+  isFavouriteUsersIds?: string[];
 }
