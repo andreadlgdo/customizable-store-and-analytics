@@ -1,34 +1,34 @@
 <template>
   <ui-header
-    @openMenu="isOpenMenu = true"
-    @openUserMenu="isOpenUserAside = true"
-    @openWhistList="isOpenWhistList = true"
-    @openShoppingCart="isOpenShoppingCart = true"
+    @openMenu="emit('updateMenu', true)"
+    @openUserMenu="emit('updateUserMenu', true)"
+    @openWhistList="emit('updateWhistList', true)"
+    @openShoppingCart="emit('updateShoppingCart', true)"
   />
-  <ui-menu @close="isOpenMenu = !isOpenMenu" :is-open="isOpenMenu" />
+  <ui-menu @close="emit('updateMenu', !openedMenu)" :is-open="openedMenu" />
   <ui-user-menu
     v-if="user"
-    @close="isOpenUserAside = !isOpenUserAside"
+    @close="emit('updateUserMenu', !openedUserMenu)"
     @logOut="logOut"
-    :is-open="isOpenUserAside"
+    :is-open="openedUserMenu"
   />
   <ui-user-register
     v-else
     @logIn="logIn"
     @signUp="signUp"
-    @close="isOpenUserAside = !isOpenUserAside"
-    :is-open="isOpenUserAside"
+    @close="emit('updateUserMenu', !openedUserMenu)"
+    :is-open="openedUserMenu"
     :error="invalidCredentials"
   />
-  <ui-whist-list @close="isOpenWhistList = !isOpenWhistList" :is-open="isOpenWhistList" />
+  <ui-whist-list @close="emit('updateWhistList', !openedWhistList)" :is-open="openedWhistList" />
   <ui-shopping-cart
-    @close="isOpenShoppingCart = !isOpenShoppingCart"
-    :is-open="isOpenShoppingCart"
+    @close="emit('updateShoppingCart', !openedShoppingCart)"
+    :is-open="openedShoppingCart"
   />
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch } from 'vue';
+  import { ref } from 'vue';
 
   import UiHeader from '../components/shared/ui-header.component.vue';
   import UiUserMenu from '../components/shared/menu/ui-user-menu.component.vue';
@@ -40,13 +40,21 @@
   import { useUsers } from '../composables';
   import { User } from '../interfaces';
 
-
   const { user, createUser, logout, login } = useUsers();
 
-  const isOpenMenu = ref(false);
-  const isOpenUserAside = ref(false);
-  const isOpenWhistList = ref(false);
-  const isOpenShoppingCart = ref(false);
+  defineProps({
+    openedMenu: Boolean,
+    openedUserMenu: Boolean,
+    openedWhistList: Boolean,
+    openedShoppingCart: Boolean
+  });
+
+  const emit = defineEmits([
+    'updateMenu',
+    'updateUserMenu',
+    'updateWhistList',
+    'updateShoppingCart'
+  ]);
 
   const invalidCredentials = ref('');
 
@@ -69,26 +77,6 @@
       password: newUser.password
     });
   };
-
-  watch(
-    () => [isOpenUserAside.value, isOpenWhistList.value, isOpenShoppingCart.value],
-    ([userAside, whistList, shoppingCart]) => {
-      if ([userAside, whistList, shoppingCart].some(Boolean)) {
-        isOpenMenu.value = false;
-      }
-    }
-  );
-
-  watch(
-    () => isOpenMenu.value,
-    () => {
-      if (isOpenMenu.value) {
-        isOpenUserAside.value = false;
-        isOpenWhistList.value = false;
-        isOpenShoppingCart.value = false;
-      }
-    }
-  );
 </script>
 
 <style lang="scss" scoped></style>

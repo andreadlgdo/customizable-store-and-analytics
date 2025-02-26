@@ -1,6 +1,15 @@
 <template>
   <div :class="baseClass">
-    <Header />
+    <Header
+      :opened-menu="isOpenMenu"
+      :opened-user-menu="isOpenUserMenu"
+      :opened-whist-list="isOpenWhistList"
+      :opened-shopping-cart="isOpenShoppingCart"
+      @updateMenu="value => (isOpenMenu = value)"
+      @updateUserMenu="value => (isOpenUserMenu = value)"
+      @updateWhistList="value => (isOpenWhistList = value)"
+      @updateShoppingCart="value => (isOpenShoppingCart = value)"
+    />
     <section :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--title`">
         <h1 :class="`${baseClass}__text`">
@@ -9,14 +18,19 @@
         <p>{{ products.length }} {{ t('products.results') }}</p>
       </div>
       <section :class="`${baseClass}__wrapper ${baseClass}__wrapper--product`">
-        <ui-product-card v-for="product in products" :key="product._id" :product="product" />
+        <ui-product-card
+          @selectFavourite="isOpenWhistList = true"
+          v-for="product in products"
+          :key="product._id"
+          :product="product"
+        />
       </section>
     </section>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed, watch } from 'vue';
+  import { computed, ref, watch } from 'vue';
   import { useRoute } from 'vue-router';
   import { useI18n } from 'vue-i18n';
 
@@ -31,6 +45,11 @@
   const { products, loadProducts } = useProducts();
   const route = useRoute();
   const { t } = useI18n();
+
+  const isOpenMenu = ref(false);
+  const isOpenUserMenu = ref(false);
+  const isOpenWhistList = ref(false);
+  const isOpenShoppingCart = ref(false);
 
   const category = computed<string>(() => (route.params.category as string)?.toLowerCase());
 
