@@ -2,6 +2,7 @@
   <transition :name="`${baseClass}--${position}`">
     <div
       v-if="isOpen"
+      ref="asideRef"
       :class="[
         baseClass,
         `${baseClass}--${position}`,
@@ -22,6 +23,8 @@
 </template>
 
 <script lang="ts" setup>
+  import { ref, onMounted, onBeforeUnmount } from 'vue';
+
   import UiIconButton from './ui-icon-button.component.vue';
   import UiLanguage from '../shared/ui-language.component.vue';
 
@@ -42,7 +45,18 @@
     language: Boolean
   });
 
-  defineEmits(['click']);
+  const emit = defineEmits(['click']);
+
+  const asideRef = ref<HTMLElement | null>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (asideRef.value && !asideRef.value.contains(event.target as Node)) {
+      emit('click');
+    }
+  };
+
+  onMounted(() => document.addEventListener('mousedown', handleClickOutside));
+  onBeforeUnmount(() => document.removeEventListener('mousedown', handleClickOutside));
 </script>
 
 <style lang="scss" scoped>
