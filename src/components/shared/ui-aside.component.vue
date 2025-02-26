@@ -73,6 +73,11 @@
 
     &--relative {
       position: relative;
+
+      #{$baseClass}__icon {
+        top: 16px;
+        right: 16px;
+      }
     }
 
     &--collapsed {
@@ -85,8 +90,8 @@
 
     &__icon {
       position: absolute;
-      top: 16px;
-      right: 16px;
+      top: 32px;
+      right: 28px;
       padding: 6px;
 
       &:hover {

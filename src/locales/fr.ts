@@ -286,7 +286,14 @@ const messages: AppMessages['fr'] = {
       title: 'Liste de souhaits',
       empty: {
         description: "Vous n'avez pas encore ajouté de produits à votre liste de souhaits.",
-        action: 'Aller faire du shopping'
+        action: 'Voir les produits'
+      }
+    },
+    cart: {
+      title: 'Votre panier',
+      empty: {
+        description: "Il n'y a pas encore de produits dans votre panier.",
+        action: 'Voir les produits'
       }
     }
   },

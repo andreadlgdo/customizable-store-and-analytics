@@ -67,7 +67,7 @@
       &--row {
         justify-content: flex-start;
         gap: 12px;
-        padding: 4rem 0 2rem 2rem;
+        padding: 4rem 0 2rem 2.5rem;
       }
 
       &--column {

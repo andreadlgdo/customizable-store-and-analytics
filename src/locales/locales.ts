@@ -50,7 +50,14 @@ export interface AppMessages {
         empty: {
           description: string;
           action: string;
-        }
+        };
+      };
+      cart: {
+        title: string;
+        empty: {
+          description: string;
+          action: string;
+        };
       };
     };
     dashboard: DashboardMessages;

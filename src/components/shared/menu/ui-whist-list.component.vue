@@ -68,18 +68,6 @@
     width: 400px;
     padding: 2rem;
 
-    &__text {
-      &--title {
-        font-size: 32px;
-        font-weight: bold;
-        padding-bottom: 2rem;
-      }
-
-      &--description {
-        font-size: 16px;
-      }
-    }
-
     &__content {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -92,6 +80,19 @@
       justify-content: center;
       gap: 2rem;
       height: 84%;
+    }
+
+    &__text {
+      &--title {
+        font-size: 32px;
+        font-weight: bold;
+        padding-bottom: 2rem;
+      }
+
+      &--description {
+        font-size: 16px;
+        text-align: center;
+      }
     }
 
     &__image {

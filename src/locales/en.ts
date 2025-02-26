@@ -286,7 +286,14 @@ const messages: AppMessages['en'] = {
       title: 'WhistList',
       empty: {
         description: 'You have not added any products to your wishList yet.',
-        action: 'Go shopping'
+        action: 'View products'
+      }
+    },
+    cart: {
+      title: 'Your cart',
+      empty: {
+        description: 'There are no products in your basket yet.',
+        action: 'View products'
       }
     }
   },
