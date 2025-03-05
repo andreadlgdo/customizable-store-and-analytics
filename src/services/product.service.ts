@@ -29,7 +29,7 @@ export const productService = {
     }
   },
   findProductByUserId: async function (userId: string) {
-    const url = new URL(`${apiUrl}/api/products/${userId}`);
+    const url = new URL(`${apiUrl}/api/products/user/${userId}`);
 
     return await fetchData(url.toString(), { method: 'GET' });
   },
