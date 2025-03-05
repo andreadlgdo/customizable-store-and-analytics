@@ -2,12 +2,16 @@
   <ui-aside @click="$emit('close')" :class="baseClass" :is-open="isOpen" icon="close" fixed>
     <p :class="`${baseClass}__text ${baseClass}__text--title`">{{ t('asides.whistList.title') }}</p>
     <section v-if="products.length" :class="`${baseClass}__content`">
-      <div v-for="product in products" :key="product._id">
+      <div v-for="product in products" :key="product._id" :class="`${baseClass}__card`">
         <div :class="`${baseClass}__image`">
           <ui-image :image="product.imageUrl" type="square" />
           <ui-icon-button icon="heartSelected" size="small" :class="` ${baseClass}__icon`" />
         </div>
-        {{ product.name }}
+        <div :class="`${baseClass}__info`">
+          <p :class="`${baseClass}__text ${baseClass}__text--name`">{{ product.name }}</p>
+          <p :class="`${baseClass}__text ${baseClass}__text--price`">{{ product.price + ' €' }}</p>
+        </div>
+        <ui-button text="Añadir a mi cesta" transparent />
       </div>
     </section>
     <section v-else :class="`${baseClass}__wrapper`">
@@ -56,7 +60,13 @@
     () => props.isOpen,
     async isOpen => {
       if (isOpen) {
-        products.value = await productService.findProductByUserId(user.value?._id ?? '');
+        const localFavouritesProductsIds = JSON.parse(
+          localStorage.getItem('favouriteProducts') || '[]'
+        ) as string[];
+
+        products.value = user.value?._id
+          ? await productService.findProductByUserId(user.value._id)
+          : await productService.findProductByIds(localFavouritesProductsIds);
       }
     },
     { immediate: true }
@@ -72,6 +82,14 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
+      max-height: 90%;
+      overflow-y: scroll;
+    }
+
+    &__card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     &__wrapper {
@@ -93,6 +111,15 @@
         font-size: 16px;
         text-align: center;
       }
+
+      &--name {
+        font-size: 14px;
+      }
+
+      &--price {
+        font-size: 14px;
+        font-weight: bold;
+      }
     }
 
     &__image {
@@ -109,6 +136,13 @@
       &:hover {
         background-color: var(--bg-red);
       }
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 8px 0;
     }
   }
 </style>

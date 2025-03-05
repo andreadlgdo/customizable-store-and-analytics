@@ -19,6 +19,15 @@ export const productService = {
       body: JSON.stringify(productData)
     });
   },
+  findProductByIds: async function (ids: string[]) {
+    if (ids.length) {
+      const url = new URL(`${apiUrl}/api/products/${ids.join(',')}`);
+
+      return await fetchData(url.toString(), { method: 'GET' });
+    } else {
+      return [];
+    }
+  },
   findProductByUserId: async function (userId: string) {
     const url = new URL(`${apiUrl}/api/products/${userId}`);
 

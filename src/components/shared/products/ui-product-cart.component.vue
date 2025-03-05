@@ -57,6 +57,22 @@
       };
 
       await productService.updateProduct(updateProduct);
+    } else if (props.product?._id) {
+      const localFavouritesProductsIds = JSON.parse(
+        localStorage.getItem('favouriteProducts') || '[]'
+      ) as string[];
+      if (isSelected.value) {
+        if (!localFavouritesProductsIds.includes(props.product._id)) {
+          localFavouritesProductsIds.push(props.product._id);
+        }
+      } else {
+        const index = localFavouritesProductsIds.indexOf(props.product._id);
+        if (index !== -1) {
+          localFavouritesProductsIds.splice(index, 1);
+        }
+      }
+
+      localStorage.setItem('favouriteProducts', JSON.stringify(localFavouritesProductsIds));
     }
 
     emit('selectFavourite');
@@ -65,9 +81,17 @@
   watch(
     () => props.product,
     () => {
-      isSelected.value = !!props.product?.isFavouriteUsersIds?.find(
-        userId => userId === user.value?._id
-      );
+      if (user.value?._id) {
+        isSelected.value = !!props.product?.isFavouriteUsersIds?.find(
+          userId => userId === user.value?._id
+        );
+      } else {
+        const localFavouritesProductsIds = JSON.parse(
+          localStorage.getItem('favouriteProducts') || '[]'
+        ) as string[];
+
+        isSelected.value = !!localFavouritesProductsIds.find(id => id === props.product?._id);
+      }
     },
     { immediate: true }
   );
