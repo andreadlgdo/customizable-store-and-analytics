@@ -5,13 +5,18 @@
       <div v-for="product in products" :key="product._id" :class="`${baseClass}__card`">
         <div :class="`${baseClass}__image`">
           <ui-image :image="product.imageUrl" type="square" />
-          <ui-icon-button icon="heartSelected" size="small" :class="` ${baseClass}__icon`" />
+          <ui-icon-button
+            @click="selectFavourite(product)"
+            icon="heartSelected"
+            size="small"
+            :class="` ${baseClass}__icon`"
+          />
         </div>
         <div :class="`${baseClass}__info`">
           <p :class="`${baseClass}__text ${baseClass}__text--name`">{{ product.name }}</p>
           <p :class="`${baseClass}__text ${baseClass}__text--price`">{{ product.price + ' €' }}</p>
         </div>
-        <ui-button text="Añadir a mi cesta" transparent />
+        <ui-button :text="t('asides.whistList.action')" transparent />
       </div>
     </section>
     <section v-else :class="`${baseClass}__wrapper`">
@@ -47,13 +52,40 @@
     isOpen: Boolean
   });
 
-  const emit = defineEmits(['close']);
+  const emit = defineEmits(['close', 'selectFavourite']);
 
   const products = ref<Product[]>([]);
 
   const goToProducts = () => {
     router.push('/products');
     emit('close');
+  };
+
+  const selectFavourite = async (product: Product) => {
+    if (user.value && user.value._id) {
+      const updateProduct: Product = {
+        ...product,
+        isFavouriteUsersIds: product.isFavouriteUsersIds?.filter(
+          favourite => favourite !== user.value?._id
+        )
+      };
+
+      await productService.updateProduct(updateProduct);
+      products.value = await productService.findProductByUserId(user.value._id);
+    } else {
+      const localFavouritesProductsIds = JSON.parse(
+        localStorage.getItem('favouriteProducts') || '[]'
+      ) as string[];
+
+      const index = localFavouritesProductsIds.indexOf(product._id ?? '');
+      if (index !== -1) {
+        localFavouritesProductsIds.splice(index, 1);
+      }
+
+      localStorage.setItem('favouriteProducts', JSON.stringify(localFavouritesProductsIds));
+      products.value = await productService.findProductByIds(localFavouritesProductsIds);
+    }
+    emit('selectFavourite');
   };
 
   watch(

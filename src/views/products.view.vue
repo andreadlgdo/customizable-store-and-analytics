@@ -7,6 +7,7 @@
       :opened-shopping-cart="isOpenShoppingCart"
       @updateMenu="value => (isOpenMenu = value)"
       @updateUserMenu="value => (isOpenUserMenu = value)"
+      @selectFavourite="loadProducts()"
       @updateWhistList="value => (isOpenWhistList = value)"
       @updateShoppingCart="value => (isOpenShoppingCart = value)"
     />

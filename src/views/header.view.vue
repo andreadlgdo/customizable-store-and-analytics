@@ -20,7 +20,11 @@
     :is-open="openedUserMenu"
     :error="invalidCredentials"
   />
-  <ui-whist-list @close="emit('updateWhistList', !openedWhistList)" :is-open="openedWhistList" />
+  <ui-whist-list
+    @selectFavourite="emit('selectFavourite')"
+    @close="emit('updateWhistList', !openedWhistList)"
+    :is-open="openedWhistList"
+  />
   <ui-shopping-cart
     @close="emit('updateShoppingCart', !openedShoppingCart)"
     :is-open="openedShoppingCart"
