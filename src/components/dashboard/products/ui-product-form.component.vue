@@ -136,6 +136,8 @@
 
   const loadingImage = ref(false);
 
+  const randomNumber = ref(Math.random());
+
   const productImage = computed(() =>
     item.value?.imageUrl !== '' ? item.value?.imageUrl : undefined
   );
@@ -177,7 +179,11 @@
 
       const name = newProduct.product._id + date.getTime();
       if (newProduct.product.imageUrl) {
-        const image = await imageService.updateImage('products', 'undefined', name);
+        const image = await imageService.updateImage(
+          'products',
+          randomNumber.value.toString(),
+          name
+        );
         newProduct.product.imageUrl = image.imageUrl;
         await productService.updateProduct(newProduct.product);
       }
@@ -203,7 +209,9 @@
     try {
       loadingImage.value = true;
       const formData = new FormData();
-      const imageName = item.value._id ? item.value._id + date.getTime() : 'undefined';
+      const imageName = item.value._id
+        ? item.value._id + date.getTime()
+        : randomNumber.value.toString();
 
       formData.append('image', selectedFile);
       formData.append('routeImage', `products/${imageName}`);
@@ -243,7 +251,9 @@
     { immediate: true }
   );
 
-  onMounted(async () => await loadCategories());
+  onMounted(async () => {
+    await loadCategories();
+  });
 </script>
 
 <style lang="scss" scoped>

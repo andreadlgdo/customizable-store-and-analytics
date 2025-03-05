@@ -30,7 +30,7 @@
 
   const baseClass = 'ui-aside';
 
-  defineProps({
+  const props = defineProps({
     fixed: {
       type: Boolean,
       default: true
@@ -50,7 +50,7 @@
   const asideRef = ref<HTMLElement | null>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (asideRef.value && !asideRef.value.contains(event.target as Node)) {
+    if (asideRef.value && !asideRef.value.contains(event.target as Node) && props.fixed) {
       emit('click');
     }
   };

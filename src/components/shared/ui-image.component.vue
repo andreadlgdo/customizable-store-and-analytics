@@ -1,9 +1,8 @@
 <template>
   <span :class="[baseClass, `${baseClass}--${type}`, `${baseClass}--${size}`]">
-    <img
+    <div
       :class="`${baseClass}__image`"
-      :src="image ?? require('../../assets/media/images/empty.png')"
-      :alt="alternativeText ?? 'image'"
+      :style="{ backgroundImage: `url(${image ?? require('../../assets/media/images/empty.png')})`}"
     />
     <icon-button
       v-if="uploadMode"
@@ -59,6 +58,12 @@
     $baseClass: &;
 
     position: relative;
+
+    &__image {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
 
     &--mini {
       #{$baseClass}__image {
