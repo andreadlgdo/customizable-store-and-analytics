@@ -51,6 +51,7 @@ export interface AppMessages {
           description: string;
           action: string;
         };
+        action: string;
       };
       cart: {
         title: string;

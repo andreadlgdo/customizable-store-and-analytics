@@ -287,7 +287,8 @@ const messages: AppMessages['es'] = {
       empty: {
         description: 'Aun no has añadido ningun producto a tu lista de deseos',
         action: 'Ver productos'
-      }
+      },
+      action: "Añadir a la cesta"
     },
     cart: {
       title: 'Tu carrito',

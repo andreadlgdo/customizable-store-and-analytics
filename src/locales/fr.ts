@@ -287,7 +287,8 @@ const messages: AppMessages['fr'] = {
       empty: {
         description: "Vous n'avez pas encore ajouté de produits à votre liste de souhaits.",
         action: 'Voir les produits'
-      }
+      },
+      action: "Ajouter au panier"
     },
     cart: {
       title: 'Votre panier',

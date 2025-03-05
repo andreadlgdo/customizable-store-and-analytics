@@ -287,7 +287,8 @@ const messages: AppMessages['en'] = {
       empty: {
         description: 'You have not added any products to your wishList yet.',
         action: 'View products'
-      }
+      },
+      action: "Add to cart"
     },
     cart: {
       title: 'Your cart',
