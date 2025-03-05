@@ -7,7 +7,6 @@
     />
     <h1 @click="router.push('/')" :class="`${baseClass}__text`">KASTO</h1>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--actions`">
-      <ui-icon-button icon="search" />
       <ui-icon-button @click="$emit('openUserMenu')" icon="user" />
       <ui-icon-button @click="$emit('openWhistList')" icon="heart" />
       <ui-icon-button @click="$emit('openShoppingCart')" icon="shoppingCart" />
