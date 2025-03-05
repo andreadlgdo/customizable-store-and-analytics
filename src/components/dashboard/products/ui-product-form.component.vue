@@ -103,7 +103,7 @@
   const router = useRouter();
   const { t } = useI18n();
 
-  const { categories, loadCategories } = useCategories();
+  const { parentCategories, loadCategories, childrenCategories } = useCategories();
 
   const baseClass = 'ui-product-form';
 
@@ -141,17 +141,6 @@
   const productImage = computed(() =>
     item.value?.imageUrl !== '' ? item.value?.imageUrl : undefined
   );
-
-  const parentCategories = computed(() =>
-    categories.value?.filter((category: Category) => !category.parentId)
-  );
-
-  const childrenCategories = (parentCategory: string) => {
-    const parentCategoryId = parentCategories.value?.find(p => p.title === parentCategory);
-    return categories.value?.filter(
-      (category: Category) => category.parentId === parentCategoryId?._id
-    );
-  };
 
   const goToList = () => {
     router.push({
