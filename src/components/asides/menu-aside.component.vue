@@ -44,7 +44,6 @@
   import { useRouter } from 'vue-router';
 
   import { useCategories, useMobile } from '../../composables';
-  import { CategoryEnum } from '../../enums';
   import { MenuItem } from '../../interfaces';
   import { generalService } from '../../services';
 
@@ -63,7 +62,7 @@
 
   const emit = defineEmits(['close', 'openLogInAside']);
 
-  const { loadCategories, getOneCategory } = useCategories();
+  const { parentCategories, loadCategories, getOneCategory, childrenCategories } = useCategories();
 
   const { t } = useI18n();
 
@@ -78,6 +77,23 @@
 
   const sectionsImages = ref();
 
+  const menuCategories = computed(() => {
+    return parentCategories.value?.map(category => {
+      const children = childrenCategories(category.title);
+      return {
+        id: parseInt(category._id ?? ''),
+        label: category.title,
+        image: getOneCategory(category.title)?.imageUrl,
+        route: { name: 'Products', params: { category: category.title } },
+        subItem: children?.map(c => ({
+          id: parseInt(c._id ?? ''),
+          label: c.title,
+          route: { name: 'Products', params: { category: c.title } }
+        }))
+      };
+    });
+  });
+
   const menuElements = computed((): MenuItem[] => [
     { id: 1, label: t('menus.general.items.home'), route: { name: 'Home' } },
     {
@@ -90,89 +106,7 @@
           image: sectionsImages.value?.[0]?.imageUrl,
           route: { name: 'Products' }
         },
-        {
-          id: 22,
-          label: t('menus.general.items.shop.subItems.clothes.title'),
-          image: getOneCategory(CategoryEnum.CLOTHES)?.imageUrl,
-          route: { name: 'Products', params: { category: CategoryEnum.CLOTHES } },
-          subItem: [
-            {
-              id: 221,
-              label: t('menus.general.items.shop.subItems.clothes.subItems.jackets'),
-              route: { name: 'Products', params: { category: CategoryEnum.JACKETS } }
-            },
-            {
-              id: 222,
-              label: t('menus.general.items.shop.subItems.clothes.subItems.sweatshirts'),
-              route: { name: 'Products', params: { category: CategoryEnum.SWEARSHIRTS } }
-            },
-            {
-              id: 223,
-              label: t('menus.general.items.shop.subItems.clothes.subItems.shirts'),
-              route: { name: 'Products', params: { category: CategoryEnum.SHIRTS } }
-            },
-            {
-              id: 224,
-              label: t('menus.general.items.shop.subItems.clothes.subItems.tops'),
-              route: { name: 'Products', params: { category: CategoryEnum.TOPS } }
-            },
-            {
-              id: 225,
-              label: t('menus.general.items.shop.subItems.clothes.subItems.pants'),
-              route: { name: 'Products', params: { category: CategoryEnum.JEANS } }
-            },
-            {
-              id: 226,
-              label: t('menus.general.items.shop.subItems.clothes.subItems.skirts'),
-              route: { name: 'Products', params: { category: CategoryEnum.SKIRTS } }
-            },
-            {
-              id: 227,
-              label: t('menus.general.items.shop.subItems.clothes.subItems.dresses'),
-              route: { name: 'Products', params: { category: CategoryEnum.DRESSES } }
-            },
-            {
-              id: 228,
-              label: t('menus.general.items.shop.seeAll'),
-              route: { name: 'Products', params: { category: CategoryEnum.CLOTHES } }
-            }
-          ]
-        },
-        {
-          id: 23,
-          label: t('menus.general.items.shop.subItems.accessories.title'),
-          image: getOneCategory(CategoryEnum.BAGS)?.imageUrl,
-          route: { name: 'Products', params: { category: CategoryEnum.ACCESSORIES } },
-          subItem: [
-            {
-              id: 231,
-              label: t('menus.general.items.shop.subItems.accessories.subItems.bags'),
-              route: { name: 'Products', params: { category: CategoryEnum.BAGS } }
-            },
-            {
-              id: 232,
-              label: t('menus.general.items.shop.subItems.accessories.subItems.jewelry'),
-              route: { name: 'Products', params: { category: CategoryEnum.JEWELRY } }
-            },
-            {
-              id: 233,
-              label: t('menus.general.items.shop.seeAll'),
-              route: { name: 'Products', params: { category: CategoryEnum.ACCESSORIES } }
-            }
-          ]
-        },
-        {
-          id: 24,
-          label: t('menus.general.items.shop.subItems.shoes'),
-          image: getOneCategory(CategoryEnum.SHOES)?.imageUrl,
-          route: { name: 'Products', params: { category: CategoryEnum.SHOES } }
-        },
-        {
-          id: 25,
-          label: t('menus.general.items.shop.subItems.promotions'),
-          image: getOneCategory(CategoryEnum.PROMOTION)?.imageUrl,
-          route: { name: 'Products', params: { category: CategoryEnum.PROMOTION } }
-        }
+        ...(menuCategories.value ?? [])
       ]
     },
     { id: 3, label: t('menus.general.items.contact') },
@@ -244,6 +178,9 @@
     }
 
     &__text {
+      font-size: 1rem;
+      font-weight: 400;
+
       &:hover {
         font-weight: bold;
       }
