@@ -22,6 +22,7 @@
         :items="isSubmenuOpen ? subMenuSelected : menuElements"
         :expansible="isSubmenuOpen"
       />
+      <language-toggle />
     </div>
   </ui-aside>
 </template>
@@ -34,6 +35,8 @@
   import { useCategories } from '../../../composables';
   import { MenuItem } from '../../../interfaces';
   import { generalService } from '../../../services';
+
+  import LanguageToggle from '../../toggles/language-toggle.component.vue';
 
   import UiAside from '../ui-aside.component.vue';
   import UiIcon from '../ui-icon.component.vue';

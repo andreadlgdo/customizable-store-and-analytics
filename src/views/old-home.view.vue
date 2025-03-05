@@ -1,5 +1,14 @@
 <template>
-  <header-layout />
+  <Header
+    :opened-menu="isOpenMenu"
+    :opened-user-menu="isOpenUserMenu"
+    :opened-whist-list="isOpenWhistList"
+    :opened-shopping-cart="isOpenShoppingCart"
+    @updateMenu="value => (isOpenMenu = value)"
+    @updateUserMenu="value => (isOpenUserMenu = value)"
+    @updateWhistList="value => (isOpenWhistList = value)"
+    @updateShoppingCart="value => (isOpenShoppingCart = value)"
+  />
   <section
     v-if="landingImage.main?.imageUrl"
     :class="`${baseClass}__image `"
@@ -40,7 +49,7 @@
   import { CategoryEnum } from '../enums';
   import { generalService } from '../services';
 
-  import HeaderLayout from './header-layout.view.vue';
+  import Header from './header.view.vue';
 
   const baseClass = 'home';
 
@@ -50,6 +59,11 @@
   const { products, loadProducts } = useProducts();
 
   const landingImage = ref({ main: {}, secondary: {} });
+
+  const isOpenMenu = ref(false);
+  const isOpenUserMenu = ref(false);
+  const isOpenWhistList = ref(false);
+  const isOpenShoppingCart = ref(false);
 
   const properties = computed(() => [
     { icon: 'size', label: t('landing.properties.size') },
