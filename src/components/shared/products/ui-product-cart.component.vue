@@ -3,7 +3,7 @@
     <div :class="`${baseClass}__image`">
       <ui-image :image="product.imageUrl" type="square" size="large" />
       <ui-icon-button
-        @click="selectFavourite"
+        @click="$emit('selectFavourite', !isSelected, product)"
         :icon="isSelected ? 'heartSelected' : 'heart'"
         size="small"
         :class="` ${baseClass}__icon`"
@@ -13,7 +13,13 @@
       <p>{{ product.name }}</p>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
         <p>{{ product.price + ' €' }}</p>
-        <ui-button icon="cart" size="small" text="Add" transparent />
+        <ui-button
+          @click="$emit('addToCart', product)"
+          icon="cart"
+          size="small"
+          text="Add"
+          transparent
+        />
       </div>
     </div>
   </section>
@@ -24,7 +30,6 @@
 
   import { useUsers } from '../../../composables';
   import { Product } from '../../../interfaces';
-  import { productService } from '../../../services';
 
   import UiButton from '../ui-button.component.vue';
   import UiImage from '../ui-image.component.vue';
@@ -32,51 +37,19 @@
 
   const baseClass = 'ui-product-cart';
 
-  const { user } = useUsers();
-
   const props = defineProps({
     product: {
       type: Object as PropType<Product>,
       required: true
-    }
+    },
+    isFavourite: Boolean
   });
 
-  const emit = defineEmits(['selectFavourite']);
+  defineEmits(['selectFavourite', 'addToCart']);
 
-  const isSelected = ref(false);
+  const { user } = useUsers();
 
-  const selectFavourite = async () => {
-    isSelected.value = !isSelected.value;
-
-    if (user.value && user.value._id && props.product?._id) {
-      const updateProduct: Product = {
-        ...props.product,
-        isFavouriteUsersIds: isSelected.value
-          ? [...(props.product.isFavouriteUsersIds ?? []), user.value._id]
-          : props.product.isFavouriteUsersIds?.filter(favourite => favourite !== user.value?._id)
-      };
-
-      await productService.updateProduct(updateProduct);
-    } else if (props.product?._id) {
-      const localFavouritesProductsIds = JSON.parse(
-        localStorage.getItem('favouriteProducts') || '[]'
-      ) as string[];
-      if (isSelected.value) {
-        if (!localFavouritesProductsIds.includes(props.product._id)) {
-          localFavouritesProductsIds.push(props.product._id);
-        }
-      } else {
-        const index = localFavouritesProductsIds.indexOf(props.product._id);
-        if (index !== -1) {
-          localFavouritesProductsIds.splice(index, 1);
-        }
-      }
-
-      localStorage.setItem('favouriteProducts', JSON.stringify(localFavouritesProductsIds));
-    }
-
-    emit('selectFavourite');
-  };
+  const isSelected = ref(props.isFavourite);
 
   watch(
     () => props.product,

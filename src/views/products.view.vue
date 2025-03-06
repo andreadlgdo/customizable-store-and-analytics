@@ -20,10 +20,18 @@
       </div>
       <section :class="`${baseClass}__wrapper ${baseClass}__wrapper--product`">
         <ui-product-card
-          @selectFavourite="isOpenWhistList = true"
+          @selectFavourite="selectFavourite"
+          @addToCart="p => (productDetails = p)"
           v-for="product in products"
           :key="product._id"
           :product="product"
+          :is-favourite="product.isFavouriteUsersIds?.includes(user?._id)"
+        />
+        <ui-product-details-modal
+          @selectFavourite="selectFavourite"
+          @close="productDetails = undefined"
+          :is-open="!!productDetails"
+          :product="productDetails"
         />
       </section>
     </section>
@@ -35,24 +43,62 @@
   import { useRoute } from 'vue-router';
   import { useI18n } from 'vue-i18n';
 
-  import { useProducts } from '../composables';
+  import { useProducts, useUsers } from '../composables';
 
   import UiProductCard from '../components/shared/products/ui-product-cart.component.vue';
+  import UiProductDetailsModal from '../components/shared/products/ui-product-details-modal.component.vue';
 
   import Header from './header.view.vue';
+  import { Product } from '@/interfaces';
+  import { productService } from '@/services';
 
   const baseClass = 'products';
 
   const { products, loadProducts } = useProducts();
   const route = useRoute();
   const { t } = useI18n();
+  const { user } = useUsers();
 
   const isOpenMenu = ref(false);
   const isOpenUserMenu = ref(false);
   const isOpenWhistList = ref(false);
   const isOpenShoppingCart = ref(false);
 
+  const productDetails = ref<Product | undefined>(undefined);
+
   const category = computed<string>(() => (route.params.category as string)?.toLowerCase());
+
+  const selectFavourite = async (favourite: boolean, product: Product) => {
+    if (user.value && user.value._id && product._id) {
+      const updateProduct: Product = {
+        ...product,
+        isFavouriteUsersIds: favourite
+          ? [...(product.isFavouriteUsersIds ?? []), user.value._id]
+          : product.isFavouriteUsersIds?.filter(f => f !== user.value?._id)
+      };
+      if (productDetails.value) {
+        productDetails.value = updateProduct;
+      }
+      await productService.updateProduct(updateProduct);
+    } else if (product._id) {
+      const localFavouritesProductsIds = JSON.parse(
+        localStorage.getItem('favouriteProducts') || '[]'
+      ) as string[];
+      if (favourite) {
+        if (!localFavouritesProductsIds.includes(product._id)) {
+          localFavouritesProductsIds.push(product._id);
+        }
+      } else {
+        const index = localFavouritesProductsIds.indexOf(product._id);
+        if (index !== -1) {
+          localFavouritesProductsIds.splice(index, 1);
+        }
+      }
+      localStorage.setItem('favouriteProducts', JSON.stringify(localFavouritesProductsIds));
+    }
+    await loadProducts();
+    isOpenWhistList.value = true;
+  };
 
   watch(
     category,
