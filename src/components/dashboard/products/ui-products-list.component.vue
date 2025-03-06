@@ -4,7 +4,12 @@
       @edit="item => $emit('edit', item)"
       @delete="item => $emit('delete', item)"
       :columns="columns"
-      :data="products"
+      :data="
+        products.map(p => ({
+          ...p,
+          stock: p.stock.reduce((acc, stock) => acc + stock.quantity, 0)
+        }))
+      "
       editable
       removable
     >
@@ -50,7 +55,7 @@
     { id: 'name', label: t('dashboard.products.table.name') },
     { id: 'categories', label: t('dashboard.products.table.categories') },
     { id: 'price', label: t('dashboard.products.table.price'), textAlign: 'center' },
-    { id: 'quantity', label: t('dashboard.products.table.stock'), textAlign: 'center' }
+    { id: 'stock', label: t('dashboard.products.table.stock'), textAlign: 'center' }
   ]);
 </script>
 

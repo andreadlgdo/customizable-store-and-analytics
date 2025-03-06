@@ -125,6 +125,7 @@
 
   const initializeItem = (itemToEdit?: Product) => {
     return {
+      _id: itemToEdit?._id ?? undefined,
       name: itemToEdit?.name ?? '',
       description: itemToEdit?.description ?? '',
       imageUrl: itemToEdit?.imageUrl ?? '',
