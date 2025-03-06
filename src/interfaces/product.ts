@@ -5,8 +5,13 @@ export interface Product {
   categories?: string[];
   price: number;
   priceWithDiscount?: number;
-  quantity?: number;
+  stock?: ProductStock[];
   imageUrl?: string;
   onSale?: boolean;
   isFavouriteUsersIds?: string[];
+}
+
+interface ProductStock {
+  quantity: number;
+  size: string;
 }

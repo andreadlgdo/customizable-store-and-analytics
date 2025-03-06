@@ -55,9 +55,11 @@
           :label="t('dashboard.products.form.price')"
         />
         <ui-textbox
-          @input="value => (item.quantity = value)"
-          :value="item.quantity"
-          :label="t('dashboard.products.form.quantity')"
+          v-for="stock in item.stock"
+          :key="stock.size"
+          @input="value => (stock.quantity = value)"
+          :value="stock.quantity"
+          :label="t('dashboard.products.form.quantity') + ' ' + stock.size"
         />
       </div>
       <ui-checkbox
@@ -121,18 +123,28 @@
   const parentCategory = ref<string>('');
   const childrenCategory = ref<string>('');
 
-  const item = ref<Product>(
-    props.itemToEdit ?? {
-      name: '',
-      description: '',
-      imageUrl: '',
-      categories: [],
-      price: 0,
-      priceWithDiscount: 0,
-      quantity: 0,
-      onSale: false
-    }
-  );
+  const initializeItem = (itemToEdit?: Product) => {
+    return {
+      name: itemToEdit?.name ?? '',
+      description: itemToEdit?.description ?? '',
+      imageUrl: itemToEdit?.imageUrl ?? '',
+      categories: itemToEdit?.categories?.length ? itemToEdit.categories : [],
+      price: itemToEdit?.price ?? 0,
+      priceWithDiscount: itemToEdit?.priceWithDiscount ?? 0,
+      stock: itemToEdit?.stock?.length
+          ? itemToEdit.stock
+          : [
+            { quantity: 0, size: 'XS' },
+            { quantity: 0, size: 'S' },
+            { quantity: 0, size: 'M' },
+            { quantity: 0, size: 'L' },
+            { quantity: 0, size: 'XL' }
+          ],
+      onSale: itemToEdit?.onSale ?? false
+    };
+  };
+
+  const item = ref<Product>(initializeItem(props.itemToEdit));
 
   const loadingImage = ref(false);
 
@@ -219,7 +231,9 @@
 
   watch(
     () => props.itemToEdit,
-    () => (item.value = props.itemToEdit ?? item.value),
+    () => {
+      item.value = initializeItem(props.itemToEdit);
+    },
     { immediate: true }
   );
 
