@@ -2,7 +2,9 @@
   <span :class="[baseClass, `${baseClass}--${type}`, `${baseClass}--${size}`]">
     <div
       :class="`${baseClass}__image`"
-      :style="{ backgroundImage: `url(${image ?? require('../../assets/media/images/empty.png')})`}"
+      :style="{
+        backgroundImage: `url(${image ?? require('../../assets/media/images/empty.png')})`
+      }"
     />
     <icon-button
       v-if="uploadMode"
@@ -83,6 +85,13 @@
       #{$baseClass}__image {
         height: 10rem;
         width: 10rem;
+      }
+    }
+
+    &--extra-large {
+      #{$baseClass}__image {
+        height: 22rem;
+        width: 18rem;
       }
     }
 
