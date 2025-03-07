@@ -12,7 +12,8 @@
         :key="index"
         :class="[
           `${baseClass}__option`,
-          { [`${baseClass}__option--selected`]: option.title === selectedOption }
+          { [`${baseClass}__option--selected`]: option.title === selectedOption },
+           { [`${baseClass}__option--disabled`]: option.disabled }
         ]"
         @click.stop="selectOption(option.title)"
       >
@@ -36,7 +37,7 @@
       required: true
     },
     options: {
-      type: Array as PropType<{ title: string }[]>,
+      type: Array as PropType<{ title: string; disabled?: boolean }[]>,
       default: () => []
     },
     label: String,
@@ -109,6 +110,11 @@
       &:hover,
       &--selected {
         background: var(--color-primary);
+      }
+
+      &--disabled {
+        opacity: 0.5;
+        pointer-events: none;
       }
     }
 
