@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, PropType, ref } from 'vue';
+  import { computed, PropType, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { useCart } from '../../../composables';
@@ -107,6 +107,14 @@
     emit('selectFavourite', !props.isFavourite, props.product);
     emit('close');
   };
+
+  watch(
+    () => props.product,
+    () => {
+      size.value = '';
+      unit.value = '';
+    }
+  );
 </script>
 
 <style lang="scss" scoped>
