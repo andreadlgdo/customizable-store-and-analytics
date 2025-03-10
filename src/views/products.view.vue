@@ -28,6 +28,7 @@
           :is-favourite="product.isFavouriteUsersIds?.includes(user?._id)"
         />
         <ui-product-details-modal
+          @addToCart="isOpenShoppingCart = true"
           @selectFavourite="selectFavourite"
           @close="productDetails = undefined"
           :is-open="!!productDetails"

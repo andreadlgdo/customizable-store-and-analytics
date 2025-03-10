@@ -43,6 +43,7 @@
         </div>
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
           <ui-button
+            @click="addProductCard"
             icon="cart"
             :text="t('products.modal.action')"
             transparent
@@ -64,6 +65,7 @@
   import { computed, PropType, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
+  import { useCart } from '../../../composables';
   import { Product } from '../../../interfaces';
 
   import UiModal from '../ui-modal.component.vue';
@@ -83,9 +85,10 @@
     isFavourite: Boolean
   });
 
-  const emit = defineEmits(['close', 'selectFavourite']);
+  const emit = defineEmits(['close', 'selectFavourite', 'addToCart']);
 
   const { t } = useI18n();
+  const { addProduct } = useCart();
 
   const size = ref('');
   const unit = ref('');
@@ -93,6 +96,12 @@
   const haveStock = computed(() =>
     props.product.stock?.reduce((acc, stock) => acc + stock.quantity, 0)
   );
+
+  const addProductCard = async () => {
+    await addProduct(props.product, size.value, unit.value);
+    emit('close');
+    emit('addToCart');
+  };
 
   const selectFavourite = () => {
     emit('selectFavourite', !props.isFavourite, props.product);

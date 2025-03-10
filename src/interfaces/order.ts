@@ -5,7 +5,7 @@ export interface Order {
   products: ProductOrder[];
 }
 
-interface ProductOrder {
+export interface ProductOrder {
   units: string;
   size: string;
   productId: string;

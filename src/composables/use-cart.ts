@@ -17,6 +17,8 @@ export function useCart() {
     userOrders.value = user.value
       ? await orderService.findOrderByUserId(user.value?._id ?? '')
       : [];
+    openOrder.value =
+      userOrders.value?.find((order: Order) => order.status === 'open') ?? undefined;
   };
 
   const addProduct = async (product: Product, size: string, units: string) => {
@@ -25,8 +27,6 @@ export function useCart() {
     }
 
     await loadUserOrders();
-    openOrder.value =
-      userOrders.value?.find((order: Order) => order.status === 'open') ?? undefined;
 
     const newProduct = { productId: product._id, size, units };
 
