@@ -5,24 +5,10 @@ import {
   LogInMessages,
   PersonalDataMessages,
   ProductsManagementMessages,
-  ShoppingCartMessages,
   SignUpMessages,
   UserMessages,
   UsersManagementMessages
 } from './locales';
-
-const shoppingCartMessages: ShoppingCartMessages = {
-  toggle: {
-    cart: 'Panier',
-    whistList: 'WhistList'
-  },
-  empty: {
-    you: 'Toi ',
-    description: " c'est vide"
-  },
-  categories: 'Voir tous les ',
-  buy: 'Continuer mes achats'
-};
 
 const logInMessages: LogInMessages = {
   title: 'Se connecter',
@@ -260,10 +246,15 @@ const messages: AppMessages['fr'] = {
   },
   products: {
     allProducts: 'Tous les produits',
-    results: 'produits'
+    results: 'produits',
+    card: {
+      action: 'Ajouter'
+    },
+    modal: {
+      action: 'Ajouter au panier'
+    }
   },
   asides: {
-    shoppingCart: shoppingCartMessages,
     register: {
       form: {
         name: 'nom',

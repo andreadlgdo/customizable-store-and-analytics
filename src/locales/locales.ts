@@ -24,9 +24,14 @@ export interface AppMessages {
     products: {
       allProducts: string;
       results: string;
+      card: {
+        action: string;
+      },
+      modal: {
+        action: string;
+      };
     };
     asides: {
-      shoppingCart: ShoppingCartMessages;
       register: {
         form: {
           name: string;
@@ -107,19 +112,6 @@ export interface AppMessages {
       help: string;
     };
   };
-}
-
-export interface ShoppingCartMessages {
-  toggle: {
-    cart: string;
-    whistList: string;
-  };
-  empty: {
-    you: string;
-    description: string;
-  };
-  categories: string;
-  buy: string;
 }
 
 export interface LogInMessages {

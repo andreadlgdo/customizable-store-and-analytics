@@ -32,6 +32,7 @@
           @close="productDetails = undefined"
           :is-open="!!productDetails"
           :product="productDetails"
+          :is-favourite="productDetails?.isFavouriteUsersIds?.includes(user?._id)"
         />
       </section>
     </section>
@@ -45,7 +46,7 @@
 
   import { useProducts, useUsers } from '../composables';
 
-  import UiProductCard from '../components/shared/products/ui-product-cart.component.vue';
+  import UiProductCard from '../components/shared/products/ui-product-card.component.vue';
   import UiProductDetailsModal from '../components/shared/products/ui-product-details-modal.component.vue';
 
   import Header from './header.view.vue';

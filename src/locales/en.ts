@@ -5,24 +5,10 @@ import {
   LogInMessages,
   PersonalDataMessages,
   ProductsManagementMessages,
-  ShoppingCartMessages,
   SignUpMessages,
   UserMessages,
   UsersManagementMessages
 } from './locales';
-
-const shoppingCartMessages: ShoppingCartMessages = {
-  toggle: {
-    cart: 'Cart',
-    whistList: 'WhistList'
-  },
-  empty: {
-    you: 'You ',
-    description: ' is empty'
-  },
-  categories: 'See all of them ',
-  buy: 'Go shopping'
-};
 
 const logInMessages: LogInMessages = {
   title: 'Log in',
@@ -260,10 +246,15 @@ const messages: AppMessages['en'] = {
   },
   products: {
     allProducts: 'All products',
-    results: 'products'
+    results: 'products',
+    card: {
+      action: 'Add'
+    },
+    modal: {
+      action: 'Add to cart'
+    }
   },
   asides: {
-    shoppingCart: shoppingCartMessages,
     register: {
       form: {
         name: 'name',
@@ -288,7 +279,7 @@ const messages: AppMessages['en'] = {
         description: 'You have not added any products to your wishList yet.',
         action: 'View products'
       },
-      action: "Add to cart"
+      action: 'Add to cart'
     },
     cart: {
       title: 'Your cart',

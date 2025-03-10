@@ -17,7 +17,7 @@
           @click="$emit('addToCart', product)"
           icon="cart"
           size="small"
-          text="Add"
+          :text="t('products.card.action')"
           transparent
         />
       </div>
@@ -27,6 +27,7 @@
 
 <script lang="ts" setup>
   import { PropType, ref, watch } from 'vue';
+  import { useI18n } from 'vue-i18n';
 
   import { useUsers } from '../../../composables';
   import { Product } from '../../../interfaces';
@@ -48,6 +49,7 @@
   defineEmits(['selectFavourite', 'addToCart']);
 
   const { user } = useUsers();
+  const { t } = useI18n();
 
   const isSelected = ref(props.isFavourite);
 
