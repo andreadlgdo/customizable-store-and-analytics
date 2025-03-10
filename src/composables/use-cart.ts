@@ -3,7 +3,7 @@ import { ref, watch } from 'vue';
 import { useUsers } from '../composables/use-users';
 import { orderService } from '../services/order.service';
 
-import { Order, Product } from '../interfaces';
+import { Order, Product, ProductOrder } from '../interfaces';
 
 export function useCart() {
   const { user } = useUsers();
@@ -30,19 +30,41 @@ export function useCart() {
 
     const newProduct = { productId: product._id, size, units };
 
-    if (openOrder.value) {
-      const updatedOrder = {
-        ...openOrder.value,
-        products: [...openOrder.value.products, newProduct]
-      };
-      openOrder.value = await orderService.updateOrder(updatedOrder);
-    } else {
-      if (user.value?._id && product._id) {
-        openOrder.value = await orderService.createOrder({
-          userId: user.value._id,
-          status: 'open',
-          products: [newProduct]
-        });
+    if (user.value) {
+      if (openOrder.value) {
+        const updatedOrder = {
+          ...openOrder.value,
+          products: [...openOrder.value.products, newProduct]
+        };
+        openOrder.value = await orderService.updateOrder(updatedOrder);
+      } else {
+        if (user.value._id && product._id) {
+          openOrder.value = await orderService.createOrder({
+            userId: user.value._id,
+            status: 'open',
+            products: [newProduct]
+          });
+        }
+      }
+    }
+  };
+
+  const deleteProduct = async (id: string) => {
+    if (user.value) {
+      const saveProducts = openOrder.value.products.filter(
+        (product: ProductOrder) => product.productId !== id
+      );
+      if (saveProducts.length) {
+        const updatedOrder = {
+          ...openOrder.value,
+          products: openOrder.value.products.filter(
+            (product: ProductOrder) => product.productId !== id
+          )
+        };
+        openOrder.value = await orderService.updateOrder(updatedOrder);
+      } else {
+        await orderService.deleteOrder(openOrder.value._id);
+        openOrder.value = undefined;
       }
     }
   };
@@ -58,6 +80,7 @@ export function useCart() {
   return {
     openOrder,
     addProduct,
+    deleteProduct,
     loadUserOrders
   };
 }

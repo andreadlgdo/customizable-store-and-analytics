@@ -9,7 +9,7 @@
             @click="selectFavourite(product)"
             icon="heartSelected"
             size="small"
-            :class="` ${baseClass}__icon`"
+            :class="`${baseClass}__icon`"
           />
         </div>
         <div :class="`${baseClass}__info`">

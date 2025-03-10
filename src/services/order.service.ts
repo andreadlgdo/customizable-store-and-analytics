@@ -29,5 +29,12 @@ export const orderService = {
       body: JSON.stringify(orderData)
     });
     return response.order;
+  },
+  deleteOrder: async function (_id: string) {
+    if (!_id) {
+      throw new Error('Order ID is required');
+    }
+
+    await fetchData(`${apiUrl}/api/orders/${_id}`, { method: 'DELETE' });
   }
 };
