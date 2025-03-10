@@ -53,12 +53,14 @@
           @input="value => (item.price = value)"
           :value="item.price"
           :label="t('dashboard.products.form.price')"
+          type="number"
         />
         <ui-textbox
           v-for="stock in item.stock"
           :key="stock.size"
           @input="value => (stock.quantity = value)"
           :value="stock.quantity"
+          type="number"
           :label="t('dashboard.products.form.quantity') + ' ' + stock.size"
         />
       </div>
@@ -73,6 +75,7 @@
         :value="item.priceWithDiscount"
         :label="t('dashboard.products.form.priceWithDiscount')"
         :style="{ width: '50%' }"
+        type="number"
       />
     </div>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
