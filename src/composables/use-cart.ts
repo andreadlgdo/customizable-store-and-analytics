@@ -20,34 +20,28 @@ export function useCart() {
   };
 
   const addProduct = async (product: Product, size: string, units: string) => {
+    if (!user.value?._id || !product._id) {
+      throw new Error('User ID and Product ID are required to add a product.');
+    }
+
     await loadUserOrders();
     openOrder.value =
       userOrders.value?.find((order: Order) => order.status === 'open') ?? undefined;
+
+    const newProduct = { productId: product._id, size, units };
+
     if (openOrder.value) {
-      openOrder.value = {
+      const updatedOrder = {
         ...openOrder.value,
-        products: [
-          ...openOrder.value.products,
-          {
-            productId: product._id,
-            size,
-            units
-          }
-        ]
+        products: [...openOrder.value.products, newProduct]
       };
-      openOrder.value = await orderService.updateOrder(openOrder.value);
+      openOrder.value = await orderService.updateOrder(updatedOrder);
     } else {
       if (user.value?._id && product._id) {
         openOrder.value = await orderService.createOrder({
-          userId: user.value?._id,
+          userId: user.value._id,
           status: 'open',
-          products: [
-            {
-              productId: product._id,
-              size,
-              units
-            }
-          ]
+          products: [newProduct]
         });
       }
     }
