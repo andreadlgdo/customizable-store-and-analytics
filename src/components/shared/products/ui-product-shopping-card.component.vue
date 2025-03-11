@@ -15,7 +15,7 @@
         }}
       </p>
       <p>{{ product.price * parseInt(orderProduct.units) + ' €' }}</p>
-      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--actions`">
+      <div v-if="showActions" :class="`${baseClass}__wrapper ${baseClass}__wrapper--actions`">
         <ui-icon-button
           @click="selectFavourite"
           :icon="isFavourite ? 'heartSelected' : 'heart'"
@@ -51,6 +51,10 @@
     orderProduct: {
       type: Object as PropType<ProductOrder>,
       required: true
+    },
+    showActions: {
+      type: Boolean,
+      default: true
     }
   });
 

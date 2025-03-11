@@ -257,14 +257,15 @@ const messages: AppMessages['en'] = {
   asides: {
     register: {
       form: {
-        name: 'name',
-        surname: 'surname',
+        name: 'Name',
+        surname: 'Surname',
         email: {
           label: 'Email',
           placeholder: 'email@example.com'
         },
         password: 'Password',
-        repeatPassword: 'Repeat password'
+        repeatPassword: 'Repeat password',
+        termsAndConditions: 'I accept the terms and conditions'
       },
       actions: {
         logIn: 'Log in',
@@ -293,6 +294,12 @@ const messages: AppMessages['en'] = {
         action: 'View products'
       }
     }
+  },
+  order: {
+    form: {
+      separator:  'Or if you prefer, continue without registering'
+    },
+    action: 'Continue'
   },
   dashboard: {
     personalData: personalDataMessages,

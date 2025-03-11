@@ -80,6 +80,8 @@
 
 <style lang="scss" scoped>
   .ui-password {
+    width: 100%;
+
     &__conditions {
       display: flex;
       flex-wrap: wrap;

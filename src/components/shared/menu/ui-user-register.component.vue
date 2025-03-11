@@ -49,14 +49,14 @@
       />
       <ui-password
         @input="value => (newUser.repeatPassword = value)"
-        label="Repeat password"
+        :label="t('asides.register.form.repeatPassword')"
         :value="newUser.repeatPassword"
         :error="errors.repeatPassword"
       />
       <ui-checkbox
         @change="acceptTermsAndConditions = !acceptTermsAndConditions"
         :value="acceptTermsAndConditions"
-        text="Acepto los terminos y condiciones"
+        :text="t('asides.register.form.termsAndConditions')"
         :error="errors.terms"
       />
       <ui-button @click="signUp" text="Inicio de sesion" color-soft :disabled="invalidPassword" />

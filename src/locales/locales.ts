@@ -26,7 +26,7 @@ export interface AppMessages {
       results: string;
       card: {
         action: string;
-      },
+      };
       modal: {
         action: string;
       };
@@ -42,6 +42,7 @@ export interface AppMessages {
           };
           password: string;
           repeatPassword: string;
+          termsAndConditions: string;
         };
         actions: {
           logIn: string;
@@ -63,13 +64,19 @@ export interface AppMessages {
         label: {
           size: string;
           units: string;
-        }
+        };
         action: string;
         empty: {
           description: string;
           action: string;
         };
       };
+    };
+    order: {
+      form: {
+        separator: string;
+      };
+      action: string;
     };
     dashboard: DashboardMessages;
     menus: {

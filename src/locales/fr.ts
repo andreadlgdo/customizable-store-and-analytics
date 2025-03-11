@@ -257,14 +257,15 @@ const messages: AppMessages['fr'] = {
   asides: {
     register: {
       form: {
-        name: 'nom',
-        surname: 'nom de famille',
+        name: 'Nom',
+        surname: 'Nom de famille',
         email: {
           label: 'E-mail',
           placeholder: 'e-amil@exemple.com'
         },
         password: 'Mot de passe',
-        repeatPassword: 'Répéter le mot de passe'
+        repeatPassword: 'Répéter le mot de passe',
+        termsAndConditions: 'J\'accepte les termes et conditions'
       },
       actions: {
         logIn: 'Se connecter',
@@ -293,6 +294,12 @@ const messages: AppMessages['fr'] = {
         action: 'Voir les produits'
       }
     }
+  },
+  order: {
+    form: {
+      separator: 'Ou si vous préférez, continuez sans vous inscrire'
+    },
+    action: 'Continuer'
   },
   dashboard: {
     personalData: personalDataMessages,
