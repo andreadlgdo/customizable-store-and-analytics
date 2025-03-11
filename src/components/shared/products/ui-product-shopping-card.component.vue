@@ -17,6 +17,14 @@
       <p>{{ product.price * parseInt(orderProduct.units) + ' €' }}</p>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--actions`">
         <ui-icon-button
+          @click="selectFavourite"
+          :icon="isFavourite ? 'heartSelected' : 'heart'"
+          :class="[
+            `${baseClass}__icon ${baseClass}__icon--heart`,
+            { [`${baseClass}__icon--heart-selected`]: isFavourite }
+          ]"
+        />
+        <ui-icon-button
           @click="$emit('delete', orderProduct.productId)"
           icon="delete"
           :class="`${baseClass}__icon ${baseClass}__icon--delete`"
@@ -27,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref, watch } from 'vue';
+  import { onMounted, PropType, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { Product, ProductOrder } from '../../../interfaces';
@@ -35,6 +43,7 @@
 
   import UiIconButton from '../ui-icon-button.component.vue';
   import UiImage from '../ui-image.component.vue';
+  import { useUsers } from '@/composables';
 
   const baseClass = 'ui-product-shopping-card';
 
@@ -45,24 +54,56 @@
     }
   });
 
-  defineEmits(['delete']);
+  const emit = defineEmits(['delete', 'selectFavourite']);
 
   const { t } = useI18n();
+  const { user } = useUsers();
 
   const product = ref<Product | undefined>();
 
+  const isFavourite = ref(
+    product.value?.isFavouriteUsersIds?.includes(user.value?._id ?? '') || false
+  );
+
+  const findProduct = async () => {
+    const products: Product[] = await productService.findProductByIds([
+      props.orderProduct?.productId
+    ]);
+    if (products.length) {
+      product.value = products[0];
+    }
+  };
+
+  const selectFavourite = async () => {
+    if (product.value && user.value) {
+      isFavourite.value = !isFavourite.value;
+
+      const updateProduct: Product = {
+        ...product.value,
+        isFavouriteUsersIds: isFavourite.value
+          ? [...(product.value.isFavouriteUsersIds ?? []), user.value._id ?? '']
+          : product.value.isFavouriteUsersIds?.filter(favourite => favourite !== user.value?._id)
+      };
+
+      await productService.updateProduct(updateProduct);
+    }
+    emit('selectFavourite');
+  };
+
   watch(
     () => props.orderProduct,
-    async () => {
-      const products: Product[] = await productService.findProductByIds([
-        props.orderProduct?.productId
-      ]);
-      if (products.length) {
-        product.value = products[0];
-      }
-    },
+    async () => await findProduct(),
     { immediate: true, deep: true }
   );
+
+  onMounted(async () => {
+    await findProduct();
+
+    if (product.value && user.value) {
+      isFavourite.value =
+        product.value?.isFavouriteUsersIds?.includes(user.value._id ?? '') || false;
+    }
+  });
 </script>
 
 <style lang="scss" scoped>
@@ -99,9 +140,17 @@
       border-radius: 50%;
       padding: 8px;
 
-      &--edit {
+      &--heart {
         &:hover {
-          background-color: var(--color-primary);
+          background-color: var(--bg-red);
+        }
+      }
+
+      &--heart-selected {
+        background-color: var(--bg-red);
+
+        &:hover {
+          background-color: var(--color-red);
         }
       }
 

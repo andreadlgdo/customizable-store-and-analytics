@@ -3,6 +3,7 @@
     <p :class="`${baseClass}__text ${baseClass}__text--title`">{{ t('asides.cart.title') }}</p>
     <section v-if="openOrder" :class="`${baseClass}__content`">
       <ui-product-shopping-card
+        @selectFavourite="$emit('selectFavourite')"
         @delete="deleteOrderProduct"
         v-for="product in openOrder.products"
         :key="product.id"
@@ -47,7 +48,7 @@
     isOpen: Boolean
   });
 
-  const emit = defineEmits(['close', 'editProduct']);
+  const emit = defineEmits(['close', 'editProduct', 'selectFavourite']);
 
   const goToProducts = () => {
     router.push('/products');

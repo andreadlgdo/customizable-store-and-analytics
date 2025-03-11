@@ -26,6 +26,7 @@
     :is-open="openedWhistList"
   />
   <ui-shopping-cart
+    @selectFavourite="emit('selectFavourite')"
     @close="emit('updateShoppingCart', !openedShoppingCart)"
     :is-open="openedShoppingCart"
   />
