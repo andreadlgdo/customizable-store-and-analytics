@@ -283,6 +283,11 @@ const messages: AppMessages['en'] = {
     },
     cart: {
       title: 'Your cart',
+      label: {
+        size: 'Size',
+        units: 'Units'
+      },
+      action: 'Process order',
       empty: {
         description: 'There are no products in your basket yet.',
         action: 'View products'

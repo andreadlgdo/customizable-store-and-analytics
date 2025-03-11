@@ -283,6 +283,11 @@ const messages: AppMessages['es'] = {
     },
     cart: {
       title: 'Tu carrito',
+      label: {
+        size: 'Talla',
+        units: 'Unidades'
+      },
+      action: 'Tramitar pedido',
       empty: {
         description: 'Aun no hay ningun producto en tu cesta',
         action: 'Ver productos'

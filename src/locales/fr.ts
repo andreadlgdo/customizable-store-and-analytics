@@ -283,6 +283,11 @@ const messages: AppMessages['fr'] = {
     },
     cart: {
       title: 'Votre panier',
+      label: {
+        size: 'Taille',
+        units: 'Unités'
+      },
+      action: 'Traiter la commande',
       empty: {
         description: "Il n'y a pas encore de produits dans votre panier.",
         action: 'Voir les produits'

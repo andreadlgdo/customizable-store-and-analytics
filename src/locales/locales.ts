@@ -60,6 +60,11 @@ export interface AppMessages {
       };
       cart: {
         title: string;
+        label: {
+          size: string;
+          units: string;
+        }
+        action: string;
         empty: {
           description: string;
           action: string;

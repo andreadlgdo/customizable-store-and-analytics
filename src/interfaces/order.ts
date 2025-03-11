@@ -3,6 +3,8 @@ export interface Order {
   userId: string;
   status: string;
   products: ProductOrder[];
+  promotionCode?: string;
+  total: number;
 }
 
 export interface ProductOrder {

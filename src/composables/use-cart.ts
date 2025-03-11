@@ -34,7 +34,8 @@ export function useCart() {
       if (openOrder.value) {
         const updatedOrder = {
           ...openOrder.value,
-          products: [...openOrder.value.products, newProduct]
+          products: [...openOrder.value.products, newProduct],
+          total: openOrder.value.total + product.price * parseInt(units)
         };
         openOrder.value = await orderService.updateOrder(updatedOrder);
       } else {
@@ -42,7 +43,8 @@ export function useCart() {
           openOrder.value = await orderService.createOrder({
             userId: user.value._id,
             status: 'open',
-            products: [newProduct]
+            products: [newProduct],
+            total: product.price * parseInt(units)
           });
         }
       }

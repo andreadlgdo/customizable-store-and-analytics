@@ -9,9 +9,16 @@
         :order-product="product"
       />
     </section>
-    <section v-else :class="`${baseClass}__wrapper`">
+    <div v-if="openOrder" :class="`${baseClass}__wrapper ${baseClass}__wrapper--footer`">
+      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--price`">
+        <p :class="`${baseClass}__text ${baseClass}__text--total`">Total</p>
+        <p :class="`${baseClass}__text ${baseClass}__text--number`">{{ openOrder.total + ' €' }}</p>
+      </div>
+      <ui-button :text="t('asides.cart.empty.description')" />
+    </div>
+    <section v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--empty`">
       <p :class="`${baseClass}__text ${baseClass}__text--description`">
-        {{ t('asides.cart.empty.description') }}
+        {{ t('asides.cart.action') }}
       </p>
       <ui-button @click="goToProducts" :text="t('asides.cart.empty.action')" />
     </section>
@@ -66,23 +73,58 @@
     width: 400px;
     padding: 2rem;
 
+    &__content {
+      height: 76%;
+      overflow-y: scroll;
+    }
+
     &__wrapper {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 2rem;
-      height: 84%;
+
+      &--footer,
+      &--empty {
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      &--footer {
+        position: fixed;
+        bottom: 26px;
+        gap: 12px;
+        width: 338px;
+      }
+
+      &--empty {
+        gap: 2rem;
+        height: 84%;
+      }
+
+      &--price {
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 11px;
+      }
     }
 
     &__text {
+      font-weight: bold;
+
+      &--total {
+        font-size: 18px;
+      }
+
+      &--number {
+        font-size: 22px;
+      }
+
       &--title {
         font-size: 32px;
-        font-weight: bold;
         padding-bottom: 2rem;
       }
 
       &--description {
         font-size: 16px;
+        font-weight: lighter;
         text-align: center;
       }
     }
