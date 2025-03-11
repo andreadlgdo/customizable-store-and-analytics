@@ -14,11 +14,11 @@
         <p :class="`${baseClass}__text ${baseClass}__text--total`">Total</p>
         <p :class="`${baseClass}__text ${baseClass}__text--number`">{{ openOrder.total + ' €' }}</p>
       </div>
-      <ui-button :text="t('asides.cart.empty.description')" />
+      <ui-button :text="t('asides.cart.action')" />
     </div>
     <section v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--empty`">
       <p :class="`${baseClass}__text ${baseClass}__text--description`">
-        {{ t('asides.cart.action') }}
+        {{ t('asides.cart.empty.description') }}
       </p>
       <ui-button @click="goToProducts" :text="t('asides.cart.empty.action')" />
     </section>
