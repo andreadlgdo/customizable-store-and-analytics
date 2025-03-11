@@ -15,7 +15,7 @@
         <p :class="`${baseClass}__text ${baseClass}__text--total`">Total</p>
         <p :class="`${baseClass}__text ${baseClass}__text--number`">{{ openOrder.total + ' €' }}</p>
       </div>
-      <ui-button :text="t('asides.cart.action')" />
+      <ui-button @click="goToOrder" :text="t('asides.cart.action')" />
     </div>
     <section v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--empty`">
       <p :class="`${baseClass}__text ${baseClass}__text--description`">
@@ -52,6 +52,11 @@
 
   const goToProducts = () => {
     router.push('/products');
+    emit('close');
+  };
+
+  const goToOrder = () => {
+    router.push('/order');
     emit('close');
   };
 

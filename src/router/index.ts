@@ -11,6 +11,7 @@ import OrdersManagement from '../views/dashboard/orders-management.view.vue';
 import UsersManagement from '../views/dashboard/users-management.view.vue';
 import Personalization from '../views/dashboard/personalization.view.vue';
 import Analytics from '../views/dashboard/analytics.view.vue';
+import OrderCheckout from '../views/order-checkout.view.vue';
 
 const routes = [
   { name: 'Home', path: '/', component: Home },
@@ -57,6 +58,7 @@ const routes = [
     props: true
   },
   { name: 'Products', path: '/products/:category?', component: Products },
+  { name: 'Orders', path: '/order', component: OrderCheckout },
   { name: 'Terms and conditions', path: '/terms-and-conditions', component: TermsAndConditions }
 ];
 
