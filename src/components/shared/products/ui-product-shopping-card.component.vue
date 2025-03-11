@@ -86,6 +86,25 @@
       };
 
       await productService.updateProduct(updateProduct);
+    } else {
+      const localFavouritesProductsIds = JSON.parse(
+        localStorage.getItem('favouriteProducts') || '[]'
+      ) as string[];
+
+      const productId = product.value?._id ?? '';
+
+      if (productId) {
+        const index = localFavouritesProductsIds.indexOf(productId);
+        if (index !== -1) {
+          localFavouritesProductsIds.splice(index, 1);
+          isFavourite.value = false;
+        } else {
+          localFavouritesProductsIds.push(productId);
+          isFavourite.value = true;
+        }
+
+        localStorage.setItem('favouriteProducts', JSON.stringify(localFavouritesProductsIds));
+      }
     }
     emit('selectFavourite');
   };
@@ -102,6 +121,12 @@
     if (product.value && user.value) {
       isFavourite.value =
         product.value?.isFavouriteUsersIds?.includes(user.value._id ?? '') || false;
+    } else {
+      const localFavouritesProductsIds = JSON.parse(
+        localStorage.getItem('favouriteProducts') || '[]'
+      ) as string[];
+
+      isFavourite.value = localFavouritesProductsIds.includes(product.value?._id ?? '');
     }
   });
 </script>

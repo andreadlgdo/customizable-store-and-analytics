@@ -13,21 +13,37 @@ export function useCart() {
     userOrders.value?.find((order: Order) => order.status === 'open') ?? undefined
   );
 
+  const getOrdersFromLocalStorage = (): Order[] => {
+    const orders = localStorage.getItem('orders');
+    return orders ? JSON.parse(orders) : [];
+  };
+
+  const saveOrdersToLocalStorage = (orders: Order[]) => {
+    localStorage.setItem('orders', JSON.stringify(orders));
+  };
+
+  const addOrderToLocalStorage = (order: Order) => {
+    const orders = getOrdersFromLocalStorage();
+    orders.push(order);
+    saveOrdersToLocalStorage(orders);
+  };
+
   const loadUserOrders = async () => {
-    userOrders.value = user.value
-      ? await orderService.findOrderByUserId(user.value?._id ?? '')
-      : [];
-    openOrder.value =
-      userOrders.value?.find((order: Order) => order.status === 'open') ?? undefined;
+    if (user.value && user.value._id) {
+      userOrders.value = await orderService.findOrderByUserId(user.value._id);
+      openOrder.value = userOrders.value?.find((order: Order) => order.status === 'open');
+    } else {
+      userOrders.value = getOrdersFromLocalStorage();
+      openOrder.value = userOrders.value.find((order: Order) => order.status === 'open');
+    }
   };
 
   const addProduct = async (product: Product, size: string, units: string) => {
-    if (!user.value?._id || !product._id) {
-      throw new Error('User ID and Product ID are required to add a product.');
+    if (!product._id) {
+      throw new Error('Product ID are required to add a product.');
     }
 
     await loadUserOrders();
-
     const newProduct = { productId: product._id, size, units };
 
     if (user.value) {
@@ -48,10 +64,27 @@ export function useCart() {
           });
         }
       }
+    } else {
+      if (openOrder.value) {
+        openOrder.value.products.push(newProduct);
+        openOrder.value.total += product.price * parseInt(units);
+        saveOrdersToLocalStorage(userOrders.value ?? []);
+      } else {
+        const newOrder: Order = {
+          userId: 'guest',
+          status: 'open',
+          products: [newProduct],
+          total: product.price * parseInt(units)
+        };
+        openOrder.value = newOrder;
+        addOrderToLocalStorage(newOrder);
+      }
     }
   };
 
   const deleteProduct = async (id: string) => {
+    if (!openOrder.value) return;
+
     if (user.value) {
       const saveProducts = openOrder.value.products.filter(
         (product: ProductOrder) => product.productId !== id
@@ -68,14 +101,21 @@ export function useCart() {
         await orderService.deleteOrder(openOrder.value._id);
         openOrder.value = undefined;
       }
+    } else {
+      openOrder.value.products = openOrder.value.products.filter(
+        (p: ProductOrder) => p.productId !== id
+      );
+      if (openOrder.value.products.length === 0) {
+        userOrders.value = userOrders.value?.filter((order: Order) => order !== openOrder.value);
+        openOrder.value = undefined;
+      }
+      saveOrdersToLocalStorage(userOrders.value ?? []);
     }
   };
 
   watch(
     () => userOrders.value,
-    () =>
-      (openOrder.value =
-        userOrders.value?.find((order: Order) => order.status === 'open') ?? undefined),
+    () => (openOrder.value = userOrders.value?.find((order: Order) => order.status === 'open')),
     { immediate: true }
   );
 
