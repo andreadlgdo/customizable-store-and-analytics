@@ -265,7 +265,7 @@ const messages: AppMessages['fr'] = {
         },
         password: 'Mot de passe',
         repeatPassword: 'Répéter le mot de passe',
-        termsAndConditions: 'J\'accepte les termes et conditions'
+        termsAndConditions: "J'accepte les termes et conditions"
       },
       actions: {
         logIn: 'Se connecter',
@@ -280,7 +280,7 @@ const messages: AppMessages['fr'] = {
         description: "Vous n'avez pas encore ajouté de produits à votre liste de souhaits.",
         action: 'Voir les produits'
       },
-      action: "Ajouter au panier"
+      action: 'Ajouter au panier'
     },
     cart: {
       title: 'Votre panier',
@@ -296,8 +296,18 @@ const messages: AppMessages['fr'] = {
     }
   },
   order: {
-    form: {
-      separator: 'Ou si vous préférez, continuez sans vous inscrire'
+    options: {
+      personalData: 'Données personnelles',
+      shipping: 'Expédition',
+      payment: 'Paiement'
+    },
+    formData: {
+      separator: 'Ou si vous préférez, continuez sans vous inscrire',
+      action: {
+        edit: 'Modifier les données',
+        save: 'Enregistrer',
+        cancel: 'Annuler'
+      }
     },
     action: 'Continuer'
   },

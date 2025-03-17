@@ -73,8 +73,18 @@ export interface AppMessages {
       };
     };
     order: {
-      form: {
+      options: {
+        personalData: string;
+        shipping: string;
+        payment: string;
+      };
+      formData: {
         separator: string;
+        action: {
+          edit: string;
+          save: string;
+          cancel: string;
+        };
       };
       action: string;
     };

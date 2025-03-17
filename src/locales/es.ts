@@ -296,8 +296,18 @@ const messages: AppMessages['es'] = {
     }
   },
   order: {
-    form: {
-      separator: 'O si lo prefieres continua sin registrarte'
+    options: {
+      personalData: 'Datos personales',
+      shipping: 'Envio',
+      payment: 'Pago'
+    },
+    formData: {
+      separator: 'O si lo prefieres continua sin registrarte',
+      action: {
+        edit: 'Editar datos',
+        save: 'Guardar',
+        cancel: 'Cancelar'
+      }
     },
     action: 'Continuar'
   },
