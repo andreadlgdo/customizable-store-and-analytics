@@ -1,38 +1,38 @@
 <template>
   <div :class="baseClass">
-    <h2 :class="`${baseClass}__title`">{{ t('order.payment.year') }}</h2>
+    <h2 :class="`${baseClass}__title`">{{ t('order.payment.title') }}</h2>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
       <ui-textbox
-        @input="value => (payment.owner = value)"
-        :value="payment.owner"
+        @input="value => (paymentData.owner = value)"
+        :value="paymentData.owner"
         :label="t('order.payment.owner')"
         :placeholder="t('order.payment.owner')"
       />
       <ui-textbox
-        @input="value => (payment.cardNumber = value)"
-        :value="payment.cardNumber"
+        @input="value => (paymentData.cardNumber = value)"
+        :value="paymentData.cardNumber"
         :label="t('order.payment.cardNumber.label')"
         placeholder="XXXX XXXX XXXX XXXX"
         :error="cardNumberError ? t('order.payment.cardNumber.error') : ''"
       />
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
         <ui-textbox
-          @input="value => (payment.month = value)"
-          :value="payment.month"
+          @input="value => (paymentData.month = value)"
+          :value="paymentData.month"
           :label="t('order.payment.month.label')"
           placeholder="XX"
           :error="monthError ? t('order.payment.month.error') : ''"
         />
         <ui-textbox
-          @input="value => (payment.year = value)"
-          :value="payment.year"
+          @input="value => (paymentData.year = value)"
+          :value="paymentData.year"
           :label="t('order.payment.year.label')"
           placeholder="XX"
           :error="yearError ? t('order.payment.year.error') : ''"
         />
         <ui-textbox
-          @input="value => (payment.cvv = value)"
-          :value="payment.cvv"
+          @input="value => (paymentData.cvv = value)"
+          :value="paymentData.cvv"
           :label="t('order.payment.cvv.label')"
           placeholder="XXX"
           :error="cvvError ? t('order.payment.cvv.error') : ''"
@@ -48,7 +48,7 @@
       transparent
     />
     <ui-button
-      @click="$emit('continue')"
+      @click="$emit('continue', paymentData)"
       :text="t('order.action.continue')"
       :class="`${baseClass}__button`"
       :disabled="!isValid"
@@ -67,50 +67,59 @@
 
   const baseClass = 'order-payment';
 
+  const props = defineProps({
+    payment: {
+      type: Object,
+      required: true
+    }
+  });
+
   defineEmits(['back', 'continue']);
 
   const { t } = useI18n();
   const { isNumber } = useValidations();
 
-  const payment = ref({
-    owner: '',
-    cardNumber: '',
-    month: '',
-    year: '',
-    cvv: ''
-  });
+  const paymentData = ref(
+    props.payment ?? {
+      owner: '',
+      cardNumber: '',
+      month: '',
+      year: '',
+      cvv: ''
+    }
+  );
 
   const cvvError = computed(
     () =>
-      payment.value.cvv.length > 0 &&
-      (payment.value.cvv.length !== 3 || !isNumber(payment.value.cvv))
+      paymentData.value.cvv.length > 0 &&
+      (paymentData.value.cvv.length !== 3 || !isNumber(paymentData.value.cvv))
   );
 
   const cardNumberError = computed(
     () =>
-      payment.value.cardNumber.length > 0 &&
-      (payment.value.cardNumber.length !== 16 || !isNumber(payment.value.cardNumber))
+      paymentData.value.cardNumber.length > 0 &&
+      (paymentData.value.cardNumber.length !== 16 || !isNumber(paymentData.value.cardNumber))
   );
 
   const monthError = computed(
     () =>
-      payment.value.month.length > 0 &&
-      (payment.value.month.length !== 2 || !isNumber(payment.value.month))
+      paymentData.value.month.length > 0 &&
+      (paymentData.value.month.length !== 2 || !isNumber(paymentData.value.month))
   );
 
   const yearError = computed(
     () =>
-      payment.value.year.length > 0 &&
-      (payment.value.year.length !== 2 || !isNumber(payment.value.year))
+      paymentData.value.year.length > 0 &&
+      (paymentData.value.year.length !== 2 || !isNumber(paymentData.value.year))
   );
 
   const isValid = computed(
     () =>
-      payment.value.owner &&
-      payment.value.cardNumber &&
-      payment.value.month &&
-      payment.value.year &&
-      payment.value.cvv &&
+      paymentData.value.owner &&
+      paymentData.value.cardNumber &&
+      paymentData.value.month &&
+      paymentData.value.year &&
+      paymentData.value.cvv &&
       !cvvError.value &&
       !cardNumberError.value &&
       !monthError.value &&
