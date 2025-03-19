@@ -104,7 +104,7 @@
     <div :class="`${baseClass}__footer`">
       <ui-button
         @click="$emit('continue')"
-        :text="t('order.action')"
+        :text="t('order.action.continue')"
         :class="`${baseClass}__button ${baseClass}__button--action`"
         :disabled="!isValid"
       />

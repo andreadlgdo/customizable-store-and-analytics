@@ -77,6 +77,7 @@ export interface AppMessages {
         personalData: string;
         shipping: string;
         payment: string;
+        summary: string;
       };
       formData: {
         separator: string;
@@ -86,7 +87,16 @@ export interface AppMessages {
           cancel: string;
         };
       };
-      action: string;
+      address: {
+        toggle: {
+          first: string,
+          second: string
+        },
+      }
+      action: {
+        continue: string;
+        back: string;
+      }
     };
     dashboard: DashboardMessages;
     menus: {

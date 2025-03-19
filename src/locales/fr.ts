@@ -299,7 +299,8 @@ const messages: AppMessages['fr'] = {
     options: {
       personalData: 'Données personnelles',
       shipping: 'Expédition',
-      payment: 'Paiement'
+      payment: 'Paiement',
+      summary: 'Résumé'
     },
     formData: {
       separator: 'Ou si vous préférez, continuez sans vous inscrire',
@@ -309,7 +310,16 @@ const messages: AppMessages['fr'] = {
         cancel: 'Annuler'
       }
     },
-    action: 'Continuer'
+    address: {
+      toggle: {
+        first: 'Adresses enregistrées',
+        second: 'Nouvelle adresse'
+      }
+    },
+    action: {
+      continue: 'Continuer',
+      back: 'Retour'
+    }
   },
   dashboard: {
     personalData: personalDataMessages,
