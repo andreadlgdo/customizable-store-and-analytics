@@ -60,7 +60,7 @@
       transparent
     />
     <ui-button
-      @click="$emit('continue')"
+      @click="$emit('continue', options[1].selected ? newAddress : addresses.find(a => a.selected))"
       :text="t('order.action.continue')"
       :class="`${baseClass}__button`"
       :disabled="!isValid"
@@ -84,27 +84,42 @@
 
   const baseClass = 'order-shipping';
 
+  const props = defineProps({
+    address: {
+      type: Object as () => Address,
+      default: undefined
+    },
+    isFirstSelected: {
+      type: Boolean,
+      default: true
+    }
+  });
+
   defineEmits(['back', 'continue']);
 
   const { user } = useUsers();
   const { t } = useI18n();
 
   const addresses = ref();
-  const newAddress = ref<Address>({
-    userId: user.value?._id ?? '',
-    street: '',
-    number: '',
-    letter: '',
-    zipCode: '',
-    city: '',
-    country: '',
-    label: '',
-    isDefault: false
-  });
+  const newAddress = ref<Address>(
+    props.address && !props.address._id
+      ? props.address
+      : {
+          userId: user.value?._id ?? '',
+          street: '',
+          number: '',
+          letter: '',
+          zipCode: '',
+          city: '',
+          country: '',
+          label: '',
+          isDefault: false
+        }
+  );
 
   const options = ref([
-    { label: t('order.address.toggle.first'), selected: true },
-    { label: t('order.address.toggle.second'), selected: false }
+    { label: t('order.address.toggle.first'), selected: props.isFirstSelected },
+    { label: t('order.address.toggle.second'), selected: !props.isFirstSelected }
   ]);
 
   const isValid = computed(() => {
@@ -151,7 +166,8 @@
       const userAdresses = await addressService.findAddressByUserId(user.value._id);
       addresses.value = userAdresses?.map((address: Address, index: number) => ({
         ...address,
-        selected: index === 0
+        selected:
+          props.address && props.address._id ? props.address._id === address._id : index === 0
       }));
     }
   });

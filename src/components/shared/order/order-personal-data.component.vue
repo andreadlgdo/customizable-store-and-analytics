@@ -36,7 +36,7 @@
         :style="{ alignSelf: 'flex-end' }"
       >
         <ui-button
-          @click="updateMode = !updateMode"
+          @click="saveUserData"
           icon="edit"
           :text="t('order.formData.action.save')"
           :class="`${baseClass}__button ${baseClass}__button--action`"
@@ -127,12 +127,19 @@
 
   const baseClass = 'order-personal-data';
 
-  defineEmits(['continue']);
+  const props = defineProps({
+    user: {
+      type: Object,
+      default: undefined
+    }
+  });
+
+  const emit = defineEmits(['save', 'continue']);
 
   const { user } = useUsers();
   const { t } = useI18n();
 
-  const userData = ref({ ...user.value } ?? { name: '', surname: '', email: '' });
+  const userData = ref(props.user ?? { ...user.value } ?? { name: '', surname: '', email: '' });
   const updateMode = ref(false);
 
   const options = ref([
@@ -148,6 +155,11 @@
     }
     return false;
   });
+
+  const saveUserData = () => {
+    updateMode.value = !updateMode.value;
+    emit('save', userData.value);
+  };
 
   const cancelUpdateMode = () => {
     userData.value = { ...user.value } ?? { name: '', surname: '', email: '' };
