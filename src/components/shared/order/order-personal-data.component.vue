@@ -26,7 +26,7 @@
         @click="updateMode = !updateMode"
         icon="edit"
         :text="t('order.formData.action.edit')"
-        :class="`${baseClass}__button`"
+        :class="`${baseClass}__button ${baseClass}__button--action`"
         :style="{ alignSelf: 'flex-end' }"
         transparent
       />
@@ -39,14 +39,14 @@
           @click="updateMode = !updateMode"
           icon="edit"
           :text="t('order.formData.action.save')"
-          :class="`${baseClass}__button`"
+          :class="`${baseClass}__button ${baseClass}__button--action`"
           :disabled="!isValid"
         />
         <ui-button
           @click="cancelUpdateMode"
           icon="close"
           :text="t('order.formData.action.cancel')"
-          :class="`${baseClass}__button`"
+          :class="`${baseClass}__button ${baseClass}__button--action`"
           transparent
         />
       </div>
@@ -62,6 +62,10 @@
           :placeholder="t('asides.register.form.email.placeholder')"
         />
         <ui-password :label="t('asides.register.form.password')" />
+        <ui-button
+          text="Iniciar sesión"
+          :class="`${baseClass}__button ${baseClass}__button--register`"
+        />
       </div>
       <div v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
@@ -86,12 +90,12 @@
           @change="acceptTermsAndConditions = !acceptTermsAndConditions"
           :text="t('asides.register.form.termsAndConditions')"
         />
+        <ui-button
+          text="Registrarse"
+          :class="`${baseClass}__button ${baseClass}__button--register`"
+        />
       </div>
-      <div :class="`${baseClass}__separator`">
-        <span :class="`${baseClass}__text ${baseClass}__text--span`">
-          {{ t('order.formData.separator') }}
-        </span>
-      </div>
+      <ui-separator :label="t('order.formData.separator')" />
       <ui-textbox
         :label="t('asides.register.form.email.label')"
         :placeholder="t('asides.register.form.email.placeholder')"
@@ -101,7 +105,7 @@
       <ui-button
         @click="$emit('continue')"
         :text="t('order.action')"
-        :class="`${baseClass}__button`"
+        :class="`${baseClass}__button ${baseClass}__button--action`"
         :disabled="!isValid"
       />
     </div>
@@ -119,6 +123,7 @@
   import UiPassword from '../ui-password.component.vue';
   import UiTextbox from '../ui-textbox.component.vue';
   import UiToggle from '../ui-toggle.component.vue';
+  import UiSeparator from '../ui-separator.component.vue';
 
   const baseClass = 'order-personal-data';
 
@@ -169,21 +174,6 @@
       }
     }
 
-    &__separator {
-      border-bottom: 1px solid var(--color-soft);
-      text-align: center;
-      align-items: center;
-    }
-
-    &__text {
-      &--span {
-        background-color: white;
-        padding: 0px 10px;
-        position: relative;
-        top: 8px;
-      }
-    }
-
     &__footer {
       position: absolute;
       bottom: 24px;
@@ -191,7 +181,14 @@
     }
 
     &__button {
-      width: 134px;
+      &--action {
+        width: 134px;
+      }
+
+      &--register {
+        width: 234px;
+        align-self: center;
+      }
     }
   }
 </style>
