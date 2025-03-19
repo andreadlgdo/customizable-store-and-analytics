@@ -4,7 +4,13 @@ export function useValidations() {
     return regex.test(email);
   };
 
+  const isNumber = (value: string): boolean => {
+    const regex = /^[0-9]+$/;
+    return regex.test(value);
+  };
+
   return {
-    validEmail
+    validEmail,
+    isNumber
   };
 }
