@@ -116,6 +116,7 @@ export interface AppMessages {
       action: {
         continue: string;
         back: string;
+        finish: string;
       };
     };
     dashboard: DashboardMessages;

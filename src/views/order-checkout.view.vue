@@ -27,7 +27,13 @@
           :is-first-selected="!orderAddress || !!orderAddress._id"
           :address="orderAddress"
         />
-        <order-payment v-else-if="thirdStep" @back="goToSecondStep" @continue="goToFourStep" />
+        <OrderPayment
+          v-else-if="thirdStep"
+          @back="goToSecondStep"
+          @continue="goToFourStep"
+          :payment="orderPayment"
+        />
+        <order-summary v-else-if="fourStep" @back="goToThirdStep" />
       </div>
     </div>
     <ui-aside :fixed="false" is-open :class="`${baseClass}__aside`">
@@ -62,6 +68,7 @@
   import OrderPersonalData from '../components/shared/order/order-personal-data.component.vue';
   import OrderShipping from '../components/shared/order/order-shipping.component.vue';
   import OrderPayment from '../components/shared/order/order-payment.component.vue';
+  import OrderSummary from '../components/shared/order/order-summary.component.vue';
 
   import { useCart } from '../composables';
   import { Address } from '../interfaces';
@@ -80,6 +87,7 @@
 
   const orderUserData = ref(undefined);
   const orderAddress = ref<Address | undefined>(undefined);
+  const orderPayment = ref(undefined);
 
   const goToFirstStep = () => {
     firstStep.value = true;
@@ -99,6 +107,7 @@
     orderAddress.value = address;
     goToThirdStep();
   };
+
   const goToThirdStep = () => {
     firstStep.value = false;
     secondStep.value = false;
@@ -106,7 +115,8 @@
     fourStep.value = false;
   };
 
-  const goToFourStep = () => {
+  const goToFourStep = (payment: any) => {
+    orderPayment.value = payment;
     firstStep.value = false;
     secondStep.value = false;
     thirdStep.value = false;

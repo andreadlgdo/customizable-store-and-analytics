@@ -338,7 +338,8 @@ const messages: AppMessages['fr'] = {
     },
     action: {
       continue: 'Continuer',
-      back: 'Retour'
+      back: 'Retour',
+      finish: 'Finaliser la commande'
     }
   },
   dashboard: {
