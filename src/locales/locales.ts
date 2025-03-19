@@ -93,6 +93,14 @@ export interface AppMessages {
           second: string
         },
       }
+      payment: {
+        title: string;
+        owner: string;
+        cardNumber: string;
+        month: string;
+        year: string;
+        cvv: string;
+      }
       action: {
         continue: string;
         back: string;

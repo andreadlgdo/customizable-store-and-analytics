@@ -316,6 +316,14 @@ const messages: AppMessages['fr'] = {
         second: 'Nouvelle adresse'
       }
     },
+    payment: {
+      title: 'Données de la carte',
+      owner: 'Titulaire de la carte',
+      cardNumber: 'Numéro de carte',
+      month: 'Mois',
+      year: 'Année',
+      cvv: 'CVV'
+    },
     action: {
       continue: 'Continuer',
       back: 'Retour'

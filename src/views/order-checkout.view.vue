@@ -10,11 +10,13 @@
           :options="[
             { label: t('order.options.personalData'), selected: firstStep },
             { label: t('order.options.shipping'), selected: secondStep },
-            { label: t('order.options.payment'), selected: thirdStep }
+            { label: t('order.options.payment'), selected: thirdStep },
+            { label: t('order.options.summary'), selected: fourStep }
           ]"
         />
         <order-personal-data v-if="firstStep" @continue="goToSecondStep" />
         <order-shipping v-else-if="secondStep" @back="goToFirstStep" @continue="goToThirdStep" />
+        <order-payment v-else-if="thirdStep" @back="goToSecondStep" @continue="goToFourStep" />
       </div>
     </div>
     <ui-aside :fixed="false" is-open :class="`${baseClass}__aside`">
@@ -48,6 +50,7 @@
   import UiLabelLegend from '../components/shared/order/ui-label-legend.component.vue';
   import OrderPersonalData from '../components/shared/order/order-personal-data.component.vue';
   import OrderShipping from '../components/shared/order/order-shipping.component.vue';
+  import OrderPayment from '../components/shared/order/order-payment.component.vue';
 
   import { useCart } from '../composables';
 
@@ -59,6 +62,7 @@
   const firstStep = ref(true);
   const secondStep = ref(false);
   const thirdStep = ref(false);
+  const fourStep = ref(false);
 
   const goBack = () => router.go(-1);
 
@@ -66,17 +70,27 @@
     firstStep.value = true;
     secondStep.value = false;
     thirdStep.value = false;
+    fourStep.value = false;
   };
 
   const goToSecondStep = () => {
     firstStep.value = false;
     secondStep.value = true;
     thirdStep.value = false;
+    fourStep.value = false;
   };
   const goToThirdStep = () => {
     firstStep.value = false;
     secondStep.value = false;
     thirdStep.value = true;
+    fourStep.value = false;
+  };
+
+  const goToFourStep = () => {
+    firstStep.value = false;
+    secondStep.value = false;
+    thirdStep.value = false;
+    fourStep.value = true;
   };
 
   onMounted(async () => await loadUserOrders());
@@ -89,6 +103,7 @@
     &__content {
       position: relative;
       width: 100%;
+      max-height: 100%;
     }
 
     &__wrapper {

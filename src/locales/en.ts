@@ -316,6 +316,14 @@ const messages: AppMessages['en'] = {
         second: 'New address'
       }
     },
+    payment: {
+      title: 'Card details',
+      owner: 'Card holder',
+      cardNumber: 'Card number',
+      month: 'Month',
+      year: 'Year',
+      cvv: 'CVV'
+    },
     action: {
       continue: 'Continue',
       back: 'Back'

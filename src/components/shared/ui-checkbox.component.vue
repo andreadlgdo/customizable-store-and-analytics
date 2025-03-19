@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label :class="baseClass">
+    <label :class="[baseClass, {[`${baseClass}--disabled`]: disabled }]">
       <input
         @change="$emit('change')"
         :checked="value"
@@ -37,6 +37,11 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: none;
+    }
 
     &__checkbox {
       appearance: none;
