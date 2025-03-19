@@ -6,6 +6,7 @@
         :checked="value"
         type="checkbox"
         :class="`${baseClass}__checkbox`"
+        :disabled="disabled"
       />
       <span>
         {{ text }}
@@ -24,7 +25,8 @@
       required: true
     },
     text: String,
-    error: String
+    error: String,
+    disabled: Boolean
   });
 
   defineEmits(['change']);
@@ -67,6 +69,10 @@
 
       &:checked::after {
         background-color: white;
+      }
+
+      &:disabled {
+        cursor: default;
       }
     }
 

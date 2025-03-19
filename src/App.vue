@@ -18,6 +18,8 @@
         return 'dashboard';
       case 'UsersManagement':
         return 'dashboard';
+      case 'Orders':
+        return 'order';
       default:
         return '';
     }
@@ -48,6 +50,10 @@
   }
 
   .app.dashboard * {
+    overflow: hidden;
+  }
+
+  .app.order {
     overflow: hidden;
   }
 </style>
