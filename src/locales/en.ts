@@ -300,7 +300,7 @@ const messages: AppMessages['en'] = {
       personalData: 'Personal data',
       shipping: 'Shipping',
       payment: 'Payment',
-        summary: 'Summary'
+      summary: 'Summary'
     },
     formData: {
       separator: 'Or if you prefer, continue without registering',
@@ -319,10 +319,22 @@ const messages: AppMessages['en'] = {
     payment: {
       title: 'Card details',
       owner: 'Card holder',
-      cardNumber: 'Card number',
-      month: 'Month',
-      year: 'Year',
-      cvv: 'CVV'
+      cardNumber: {
+        label: 'Card number',
+        error: 'Invalid card number'
+      },
+      month: {
+        label: 'Month',
+        error: 'Invalid month'
+      },
+      year: {
+        label: 'Year',
+        error: 'Invalid year'
+      },
+      cvv: {
+        label: 'CVV',
+        error: 'Invalid CVV'
+      }
     },
     action: {
       continue: 'Continue',

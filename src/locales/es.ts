@@ -319,10 +319,22 @@ const messages: AppMessages['es'] = {
     payment: {
       title: 'Datos de la tarjeta',
       owner: 'Titular de la tarjeta',
-      cardNumber: 'Numero de tarjeta',
-      month: 'Mes',
-      year: 'Año',
-      cvv: 'CVV'
+      cardNumber: {
+        label: 'Numero de tarjeta',
+        error: 'Numero de tarjeta invalido'
+      },
+      month: {
+        label: 'Mes',
+        error: 'Mes invalido'
+      },
+      year: {
+        label: 'Año',
+        error: 'Año invalido'
+      },
+      cvv: {
+        label: 'CVV',
+        error: 'CVV invalido'
+      }
     },
     action: {
       continue: 'Continuar',

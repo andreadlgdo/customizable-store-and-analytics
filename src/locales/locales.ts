@@ -89,22 +89,34 @@ export interface AppMessages {
       };
       address: {
         toggle: {
-          first: string,
-          second: string
-        },
-      }
+          first: string;
+          second: string;
+        };
+      };
       payment: {
         title: string;
         owner: string;
-        cardNumber: string;
-        month: string;
-        year: string;
-        cvv: string;
-      }
+        cardNumber: {
+          label: string;
+          error: string;
+        };
+        month: {
+          label: string;
+          error: string;
+        };
+        year: {
+          label: string;
+          error: string;
+        };
+        cvv: {
+          label: string;
+          error: string;
+        };
+      };
       action: {
         continue: string;
         back: string;
-      }
+      };
     };
     dashboard: DashboardMessages;
     menus: {

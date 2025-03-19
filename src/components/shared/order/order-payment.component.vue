@@ -3,35 +3,39 @@
     <h2 :class="`${baseClass}__title`">{{ t('order.payment.year') }}</h2>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
       <ui-textbox
-        @click="value => (payment.owner = value)"
+        @input="value => (payment.owner = value)"
         :value="payment.owner"
         :label="t('order.payment.owner')"
         :placeholder="t('order.payment.owner')"
       />
       <ui-textbox
-        @click="value => (payment.cardNumber = value)"
+        @input="value => (payment.cardNumber = value)"
         :value="payment.cardNumber"
-        :label="t('order.payment.cardNumber')"
+        :label="t('order.payment.cardNumber.label')"
         placeholder="XXXX XXXX XXXX XXXX"
+        :error="cardNumberError ? t('order.payment.cardNumber.error') : ''"
       />
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
         <ui-textbox
-          @click="value => (payment.month = value)"
+          @input="value => (payment.month = value)"
           :value="payment.month"
-          :label="t('order.payment.month')"
+          :label="t('order.payment.month.label')"
           placeholder="XX"
+          :error="monthError ? t('order.payment.month.error') : ''"
         />
         <ui-textbox
-          @click="value => (payment.year = value)"
+          @input="value => (payment.year = value)"
           :value="payment.year"
-          :label="t('order.payment.year')"
+          :label="t('order.payment.year.label')"
           placeholder="XX"
+          :error="yearError ? t('order.payment.year.error') : ''"
         />
         <ui-textbox
-          @click="value => (payment.cvv = value)"
+          @input="value => (payment.cvv = value)"
           :value="payment.cvv"
-          :label="t('order.payment.cvv')"
+          :label="t('order.payment.cvv.label')"
           placeholder="XXX"
+          :error="cvvError ? t('order.payment.cvv.error') : ''"
         />
       </div>
     </div>
@@ -56,6 +60,8 @@
   import { computed, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
+  import { useValidations } from '../../../composables';
+
   import UiButton from '../ui-button.component.vue';
   import UiTextbox from '../ui-textbox.component.vue';
 
@@ -64,6 +70,7 @@
   defineEmits(['back', 'continue']);
 
   const { t } = useI18n();
+  const { isNumber } = useValidations();
 
   const payment = ref({
     owner: '',
@@ -73,13 +80,41 @@
     cvv: ''
   });
 
+  const cvvError = computed(
+    () =>
+      payment.value.cvv.length > 0 &&
+      (payment.value.cvv.length !== 3 || !isNumber(payment.value.cvv))
+  );
+
+  const cardNumberError = computed(
+    () =>
+      payment.value.cardNumber.length > 0 &&
+      (payment.value.cardNumber.length !== 16 || !isNumber(payment.value.cardNumber))
+  );
+
+  const monthError = computed(
+    () =>
+      payment.value.month.length > 0 &&
+      (payment.value.month.length !== 2 || !isNumber(payment.value.month))
+  );
+
+  const yearError = computed(
+    () =>
+      payment.value.year.length > 0 &&
+      (payment.value.year.length !== 2 || !isNumber(payment.value.year))
+  );
+
   const isValid = computed(
     () =>
       payment.value.owner &&
       payment.value.cardNumber &&
       payment.value.month &&
       payment.value.year &&
-      payment.value.cvv
+      payment.value.cvv &&
+      !cvvError.value &&
+      !cardNumberError.value &&
+      !monthError.value &&
+      !yearError.value
   );
 </script>
 
