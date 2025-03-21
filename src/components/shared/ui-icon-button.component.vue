@@ -1,13 +1,13 @@
 <template>
   <button :class="baseClass" @click="$emit('click')">
-    <ui-icon
+    <UiIcon
       @mouseenter="isHovered = true"
       @mouseleave="isHovered = false"
       :class="`${baseClass}__icon`"
       :src="require(`../../assets/media/icons/${icon}.svg`)"
       :size="size"
     />
-    <base-tooltip v-if="isHovered && tooltipText" :text="tooltipText" />
+    <BaseTooltip v-if="isHovered && tooltipText" :text="tooltipText" />
   </button>
 </template>
 

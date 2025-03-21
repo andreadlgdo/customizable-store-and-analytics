@@ -2,7 +2,7 @@
   <section :class="baseClass">
     <div :class="`${baseClass}__wrapper`">
       <h1>{{ t('dashboard.personalData.address.title') }}</h1>
-      <ui-button
+      <UiButton
         v-if="!updateMode"
         @click="updateMode = true"
         :text="t('dashboard.personalData.address.action.add')"
@@ -10,7 +10,7 @@
         :class="`${baseClass}__button`"
       />
     </div>
-    <ui-address-form
+    <UiAddressForm
       v-if="updateMode"
       @add="add"
       @edit="edit"
@@ -18,7 +18,7 @@
       :user-id="userId"
       :address="addressToEdit"
     />
-    <ui-address
+    <UiAddress
       v-if="addresses.length"
       @edit="editAddress"
       @delete="deleteAddress"

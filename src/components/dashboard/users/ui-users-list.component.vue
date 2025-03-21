@@ -1,13 +1,13 @@
 <template>
   <div :class="baseClass">
-    <ui-table
+    <UiTable
       @edit="item => $emit('edit', item)"
       @delete="item => $emit('delete', item)"
       :columns="columns"
       :data="users"
       editable
       removable
-    ></ui-table>
+    ></UiTable>
   </div>
 </template>
 

@@ -6,7 +6,7 @@
         backgroundImage: `url(${image ?? require('../../assets/media/images/empty.png')})`
       }"
     />
-    <icon-button
+    <IconButton
       v-if="uploadMode"
       @click="fileInput.click()"
       icon="download"

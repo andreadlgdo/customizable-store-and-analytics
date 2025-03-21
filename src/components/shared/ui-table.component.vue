@@ -29,7 +29,7 @@
           :style="{ textAlign: 'center' }"
           :class="`${baseClass}__cell ${baseClass}__cell--icon`"
         >
-          <ui-icon-button
+          <UiIconButton
             @click="$emit('edit', item)"
             icon="edit"
             size="small"
@@ -41,7 +41,7 @@
           :style="{ textAlign: 'center' }"
           :class="`${baseClass}__cell ${baseClass}__cell--icon`"
         >
-          <ui-icon-button
+          <UiIconButton
             @click="$emit('delete', item)"
             icon="delete"
             size="small"

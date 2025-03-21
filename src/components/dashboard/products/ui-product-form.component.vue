@@ -2,7 +2,7 @@
   <div :class="baseClass">
     <section :style="{ display: 'grid', gridTemplateColumns: '0.4fr 1fr' }">
       <div :class="`${baseClass}__wrapper`">
-        <ui-image
+        <UiImage
           v-if="!loadingImage"
           @upload="changeImage"
           :image="productImage"
@@ -12,18 +12,18 @@
         />
       </div>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
-        <ui-textbox
+        <UiTextbox
           v-if="itemToEdit"
           :value="itemToEdit._id"
           :label="t('dashboard.products.form.id')"
           disabled
         />
-        <ui-textbox
+        <UiTextbox
           @input="value => (item.name = value)"
           :value="item.name"
           :label="t('dashboard.products.form.name')"
         />
-        <ui-textbox
+        <UiTextbox
           @input="value => (item.description = value)"
           :value="item.description"
           :label="t('dashboard.products.form.description')"
@@ -32,14 +32,14 @@
     </section>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
       <div :class="`${baseClass}__wrapper`">
-        <ui-select
+        <UiSelect
           @change="value => (parentCategory = value)"
           :value="parentCategory"
           :options="parentCategories"
           placeholder="Select category"
           label="Categories"
         />
-        <ui-select
+        <UiSelect
           v-if="parentCategory && !!childrenCategories(parentCategory).length"
           @change="value => (childrenCategory = value)"
           :value="childrenCategory"
@@ -49,13 +49,13 @@
         />
       </div>
       <div :class="`${baseClass}__wrapper`">
-        <ui-textbox
+        <UiTextbox
           @input="value => (item.price = value)"
           :value="item.price"
           :label="t('dashboard.products.form.price')"
           type="number"
         />
-        <ui-textbox
+        <UiTextbox
           v-for="stock in item.stock"
           :key="stock.size"
           @input="value => (stock.quantity = value)"
@@ -64,12 +64,12 @@
           :label="t('dashboard.products.form.quantity') + ' ' + stock.size"
         />
       </div>
-      <ui-checkbox
+      <UiCheckbox
         @change="item.onSale = !item.onSale"
         :value="item.onSale"
         :text="t('dashboard.products.form.onSale')"
       />
-      <ui-textbox
+      <UiTextbox
         @input="value => (item.priceWithDiscount = value)"
         v-if="item.onSale"
         :value="item.priceWithDiscount"
@@ -79,13 +79,13 @@
       />
     </div>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
-      <ui-button
+      <UiButton
         @click="save"
         :text="itemToEdit ? t('dashboard.action.edit') : t('dashboard.action.save')"
         icon="edit"
         :disabled="!itemToEdit && (!item.name || item.price < 0)"
       />
-      <ui-button @click="cancel" :text="t('dashboard.action.cancel')" icon="close" transparent />
+      <UiButton @click="cancel" :text="t('dashboard.action.cancel')" icon="close" transparent />
     </div>
   </div>
 </template>

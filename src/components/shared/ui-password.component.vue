@@ -1,6 +1,6 @@
 <template>
   <div :class="baseClass">
-    <ui-textbox
+    <UiTextbox
       @input="setPassword"
       :value="value"
       :label="label"
@@ -10,7 +10,7 @@
       type="password"
     />
     <div v-if="haveConditions" :class="`${baseClass}__conditions`">
-      <ui-pill
+      <UiPill
         v-for="(condition, index) in conditions"
         :key="index"
         :text="condition.label"

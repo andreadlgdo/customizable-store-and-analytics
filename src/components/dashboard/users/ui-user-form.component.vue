@@ -2,22 +2,22 @@
   <div :class="baseClass">
     <section :style="{ display: 'grid', gridTemplateColumns: '0.4fr 1fr' }">
       <div :class="`${baseClass}__wrapper`">
-        <ui-image :image="userImage" type="semi-round" size="large" />
+        <UiImage :image="userImage" type="semi-round" size="large" />
       </div>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--header`">
-        <ui-textbox
+        <UiTextbox
           v-if="itemToEdit"
           :value="itemToEdit._id"
           :label="t('dashboard.users.form.id')"
           disabled
         />
-        <ui-textbox
+        <UiTextbox
           @input="value => (item.name = value)"
           :value="item.name"
           :label="t('dashboard.users.form.name')"
           :disabled="!!itemToEdit"
         />
-        <ui-textbox
+        <UiTextbox
           @input="value => (item.surname = value)"
           :value="item.surname"
           :label="t('dashboard.users.form.surname')"
@@ -26,13 +26,13 @@
       </div>
     </section>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
-      <ui-textbox
+      <UiTextbox
         @input="value => (item.email = value)"
         :value="item.email"
         :label="t('dashboard.users.form.email')"
         :disabled="!!itemToEdit"
       />
-      <ui-textbox
+      <UiTextbox
         @input="value => (item.type = value)"
         :value="item.type"
         :label="t('dashboard.users.form.type')"
@@ -40,13 +40,13 @@
       />
     </div>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
-      <ui-button
+      <UiButton
         @click="save"
         :text="itemToEdit ? t('dashboard.action.edit') : t('dashboard.action.save')"
         icon="edit"
         :disabled="!itemToEdit && (!item.email || !item.password)"
       />
-      <ui-button @click="cancel" :text="t('dashboard.action.cancel')" icon="close" transparent />
+      <UiButton @click="cancel" :text="t('dashboard.action.cancel')" icon="close" transparent />
     </div>
   </div>
 </template>

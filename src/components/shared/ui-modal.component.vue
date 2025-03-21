@@ -1,6 +1,6 @@
 <template>
   <div v-if="isOpen" :class="baseClass">
-    <ui-icon-button
+    <UiIconButton
       @click="$emit('close')"
       icon="close"
       size="small"

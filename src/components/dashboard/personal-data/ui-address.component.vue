@@ -12,7 +12,7 @@
   >
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
       <p>{{ address.label }}</p>
-      <ui-checkbox
+      <UiCheckbox
         @change="$emit('setDefault', address)"
         :value="address.isDefault"
         :text="t('dashboard.personalData.address.default')"
@@ -24,13 +24,13 @@
     </p>
     <p>{{ address.city + ', ' + address.country }}</p>
     <div v-if="editable" :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
-      <ui-button
+      <UiButton
         @click="$emit('edit', address)"
         :text="t('dashboard.action.edit')"
         icon="edit"
         transparent
       />
-      <ui-button
+      <UiButton
         @click="$emit('delete', address)"
         :text="t('dashboard.personalData.address.action.remove')"
         icon="delete"

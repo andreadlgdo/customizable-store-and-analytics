@@ -1,5 +1,5 @@
 <template>
-  <ui-aside
+  <UiAside
     @click="isCollapsed = !isCollapsed"
     icon="menu"
     :is-collapsed="isCollapsed"
@@ -13,13 +13,13 @@
       </p>
       <p :class="`${baseClass}__text ${baseClass}__text--email`">{{ user.email }}</p>
     </div>
-    <ui-list
+    <UiList
       @click="clickItem"
       :items="menuElements"
       :is-collapsed="isCollapsed"
       :selected-item="selectedItem"
     />
-  </ui-aside>
+  </UiAside>
 </template>
 
 <script lang="ts" setup>

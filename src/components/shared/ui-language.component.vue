@@ -1,7 +1,7 @@
 <template>
   <section :class="baseClass">
     <!-- TODO: Cambiar base-text -->
-    <base-text
+    <BaseText
       @click="locale = language.value"
       v-for="language in languages"
       :key="language.value"
@@ -12,7 +12,7 @@
       ]"
     >
       {{ language.label }}
-    </base-text>
+    </BaseText>
   </section>
 </template>
 

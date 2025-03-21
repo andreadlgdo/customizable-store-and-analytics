@@ -2,47 +2,47 @@
   <section :class="baseClass">
     <h1 :class="`${baseClass}__text`">{{ t('dashboard.personalData.address.form.title') }}</h1>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
-      <ui-textbox
+      <UiTextbox
         @input="value => (newAddress.street = value)"
         :label="t('dashboard.personalData.address.label.street')"
         :value="newAddress.street"
       />
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
-        <ui-textbox
+        <UiTextbox
           @input="value => (newAddress.number = value)"
           :label="t('dashboard.personalData.address.label.number')"
           :value="newAddress.number"
         />
-        <ui-textbox
+        <UiTextbox
           @input="value => (newAddress.letter = value)"
           :label="t('dashboard.personalData.address.label.letter')"
           :value="newAddress.letter"
         />
-        <ui-textbox
+        <UiTextbox
           @input="value => (newAddress.zipCode = value)"
           :label="t('dashboard.personalData.address.label.zipCode')"
           :value="newAddress.zipCode"
         />
       </div>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
-        <ui-textbox
+        <UiTextbox
           @input="value => (newAddress.city = value)"
           :label="t('dashboard.personalData.address.label.city')"
           :value="newAddress.city"
         />
-        <ui-textbox
+        <UiTextbox
           @input="value => (newAddress.country = value)"
           :label="t('dashboard.personalData.address.label.country')"
           :value="newAddress.country"
         />
-        <ui-textbox
+        <UiTextbox
           @input="value => (newAddress.label = value)"
           :label="t('dashboard.personalData.address.label.label')"
           :value="newAddress.label"
         />
       </div>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
-        <ui-button
+        <UiButton
           @click="addAddress"
           :text="
             newAddress._id
@@ -52,7 +52,7 @@
           :icon="newAddress._id ? 'edit' : 'plus'"
           :disabled="isAddressInvalid"
         />
-        <ui-button
+        <UiButton
           @click="cancelAddress"
           :text="t('dashboard.action.cancel')"
           icon="close"

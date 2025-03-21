@@ -1,6 +1,6 @@
 <template>
   <div :class="baseClass">
-    <ui-table
+    <UiTable
       @edit="item => $emit('edit', item)"
       @delete="item => $emit('delete', item)"
       :columns="columns"
@@ -15,7 +15,7 @@
     >
       <template v-slot:categories="{ data: categories }">
         <span v-if="categories">
-          <base-pill
+          <BasePill
             v-for="category in categories"
             :key="category"
             :text="category"
@@ -24,7 +24,7 @@
           />
         </span>
       </template>
-    </ui-table>
+    </UiTable>
   </div>
 </template>
 
