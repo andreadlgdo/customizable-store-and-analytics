@@ -1,5 +1,5 @@
 <template>
-  <ui-aside
+  <UiAside
     @click="$emit('close')"
     :class="baseClass"
     :is-open="isOpen"
@@ -9,22 +9,22 @@
   >
     <div :class="`${baseClass}__content`">
       <div v-if="isSubmenuOpen" @click="isSubmenuOpen = false" :class="`${baseClass}__action`">
-        <ui-icon
+        <UiIcon
           :src="require(`../../../assets/media/icons/go-to.svg`)"
           :class="`${baseClass}__icon`"
           size="small"
         />
         <p :class="`${baseClass}__text`">{{ t('menus.general.backToMenu') }}</p>
       </div>
-      <ui-hierarchical-list
+      <UiHierarchicalList
         @clickItem="clickItem"
         @clickSubItem="clickSubItem"
         :items="isSubmenuOpen ? subMenuSelected : menuElements"
         :expansible="isSubmenuOpen"
       />
-      <language-toggle />
+      <LanguageToggle />
     </div>
-  </ui-aside>
+  </UiAside>
 </template>
 
 <script lang="ts" setup>

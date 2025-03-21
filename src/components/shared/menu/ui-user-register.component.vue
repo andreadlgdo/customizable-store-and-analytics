@@ -1,6 +1,6 @@
 <template>
-  <ui-aside @click="$emit('close')" :class="baseClass" :is-open="isOpen" icon="close" fixed>
-    <ui-toggle @click="selectToggle" :options="options" />
+  <UiAside @click="$emit('close')" :class="baseClass" :is-open="isOpen" icon="close" fixed>
+    <UiToggle @click="selectToggle" :options="options" />
     <div v-if="options[0].selected" :class="`${baseClass}__wrapper`">
       <p v-if="invalidCredentials" :class="`${baseClass}__text`">{{ invalidCredentials }}</p>
       <ui-textbox
@@ -19,49 +19,49 @@
       <ui-button @click="logIn" text="Registrarse" color-soft />
     </div>
     <p v-else :class="`${baseClass}__wrapper`">
-      <ui-textbox
+      <UiTextbox
         @input="value => (newUser.name = value)"
         :label="t('asides.register.form.name')"
         :value="newUser.name"
         :placeholder="t('asides.register.form.name')"
         :error="errors.name"
       />
-      <ui-textbox
+      <UiTextbox
         @input="value => (newUser.surname = value)"
         :label="t('asides.register.form.surname')"
         :value="newUser.surname"
         :placeholder="t('asides.register.form.surname')"
         :error="errors.surname"
       />
-      <ui-textbox
+      <UiTextbox
         @input="value => (newUser.email = value)"
         :label="t('asides.register.form.email.label')"
         :value="newUser.email"
         :placeholder="t('asides.register.form.email.placeholder')"
         :error="errors.email"
       />
-      <ui-password
+      <UiPassword
         @input="setPassword"
         :label="t('asides.register.form.password')"
         :value="newUser.password"
         :error="errors.password"
         haveConditions
       />
-      <ui-password
+      <UiPassword
         @input="value => (newUser.repeatPassword = value)"
         :label="t('asides.register.form.repeatPassword')"
         :value="newUser.repeatPassword"
         :error="errors.repeatPassword"
       />
-      <ui-checkbox
+      <UiCheckbox
         @change="acceptTermsAndConditions = !acceptTermsAndConditions"
         :value="acceptTermsAndConditions"
         :text="t('asides.register.form.termsAndConditions')"
         :error="errors.terms"
       />
-      <ui-button @click="signUp" text="Inicio de sesion" color-soft :disabled="invalidPassword" />
+      <UiButton @click="signUp" text="Inicio de sesion" color-soft :disabled="invalidPassword" />
     </p>
-  </ui-aside>
+  </UiAside>
 </template>
 
 <script lang="ts" setup>

@@ -1,8 +1,8 @@
 <template>
-  <ui-aside @click="$emit('close')" :class="baseClass" :is-open="isOpen" icon="close" fixed>
+  <UiAside @click="$emit('close')" :class="baseClass" :is-open="isOpen" icon="close" fixed>
     <p :class="`${baseClass}__text ${baseClass}__text--title`">{{ t('asides.cart.title') }}</p>
     <section v-if="openOrder" :class="`${baseClass}__content`">
-      <ui-product-shopping-card
+      <UiProductShoppingCard
         @selectFavourite="$emit('selectFavourite')"
         @delete="deleteOrderProduct"
         v-for="product in openOrder.products"
@@ -15,15 +15,15 @@
         <p :class="`${baseClass}__text ${baseClass}__text--total`">Total</p>
         <p :class="`${baseClass}__text ${baseClass}__text--number`">{{ openOrder.total + ' €' }}</p>
       </div>
-      <ui-button @click="goToOrder" :text="t('asides.cart.action')" />
+      <UiButton @click="goToOrder" :text="t('asides.cart.action')" />
     </div>
     <section v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--empty`">
       <p :class="`${baseClass}__text ${baseClass}__text--description`">
         {{ t('asides.cart.empty.description') }}
       </p>
-      <ui-button @click="goToProducts" :text="t('asides.cart.empty.action')" />
+      <UiButton @click="goToProducts" :text="t('asides.cart.empty.action')" />
     </section>
-  </ui-aside>
+  </UiAside>
 </template>
 
 <script lang="ts" setup>

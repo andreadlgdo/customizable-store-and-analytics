@@ -1,7 +1,7 @@
 <template>
-  <ui-aside @click="$emit('close')" :class="baseClass" :is-open="isOpen" icon="close" fixed>
+  <UiAside @click="$emit('close')" :class="baseClass" :is-open="isOpen" icon="close" fixed>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
-      <ui-image :image="user.imageUrl" size="mini" />
+      <UiImage :image="user.imageUrl" size="mini" />
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
         <p :class="`${baseClass}__text ${baseClass}__text--name`">
           {{ user.name + ' ' + user.surname }}
@@ -9,9 +9,9 @@
         <p :class="`${baseClass}__text ${baseClass}__text--email`">{{ user.email }}</p>
       </div>
     </div>
-    <ui-list @click="clickItem" :items="menuElements" :class="`${baseClass}__list`" />
+    <UiList @click="clickItem" :items="menuElements" :class="`${baseClass}__list`" />
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
-      <ui-button
+      <UiButton
         @click="clickItem(menuElements[0])"
         :text="t('menus.user.goProfile')"
         :class="`${baseClass}__button`"
@@ -21,7 +21,7 @@
         {{ t('menus.user.logOut') }}
       </p>
     </div>
-  </ui-aside>
+  </UiAside>
 </template>
 
 <script lang="ts" setup>

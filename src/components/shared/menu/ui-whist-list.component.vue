@@ -1,11 +1,11 @@
 <template>
-  <ui-aside @click="$emit('close')" :class="baseClass" :is-open="isOpen" icon="close" fixed>
+  <UiAside @click="$emit('close')" :class="baseClass" :is-open="isOpen" icon="close" fixed>
     <p :class="`${baseClass}__text ${baseClass}__text--title`">{{ t('asides.whistList.title') }}</p>
     <section v-if="products.length" :class="`${baseClass}__content`">
       <div v-for="product in products" :key="product._id" :class="`${baseClass}__card`">
         <div :class="`${baseClass}__image`">
-          <ui-image :image="product.imageUrl" type="square" />
-          <ui-icon-button
+          <UiImage :image="product.imageUrl" type="square" />
+          <UiIconButton
             @click="selectFavourite(product)"
             icon="heartSelected"
             size="small"
@@ -16,16 +16,16 @@
           <p :class="`${baseClass}__text ${baseClass}__text--name`">{{ product.name }}</p>
           <p :class="`${baseClass}__text ${baseClass}__text--price`">{{ product.price + ' €' }}</p>
         </div>
-        <ui-button :text="t('asides.whistList.action')" transparent />
+        <UiButton :text="t('asides.whistList.action')" transparent />
       </div>
     </section>
     <section v-else :class="`${baseClass}__wrapper`">
       <p :class="`${baseClass}__text ${baseClass}__text--description`">
         {{ t('asides.whistList.empty.description') }}
       </p>
-      <ui-button @click="goToProducts" :text="t('asides.whistList.empty.action')" />
+      <UiButton @click="goToProducts" :text="t('asides.whistList.empty.action')" />
     </section>
-  </ui-aside>
+  </UiAside>
 </template>
 
 <script lang="ts" setup>
