@@ -311,6 +311,7 @@ const messages: AppMessages['es'] = {
       }
     },
     address: {
+      title: 'Dirección de envio',
       toggle: {
         first: 'Direcciones guardadas',
         second: 'Nueva dirección'

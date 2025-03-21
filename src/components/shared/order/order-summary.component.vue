@@ -1,13 +1,38 @@
 <template>
-  <div :class="baseClass"></div>
+  <div :class="baseClass">
+    <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
+      <h2 :class="`${baseClass}__title`">{{ t('order.options.personalData') }}</h2>
+      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
+        <UiTextbox :value="user.name" :label="t('asides.register.form.name')" disabled />
+        <UiTextbox :value="user.surname" :label="t('asides.register.form.surname')" disabled />
+      </div>
+      <UiTextbox :value="user.email" label="Email" disabled />
+      <h2 :class="`${baseClass}__title`">{{ t('order.address.title') }}</h2>
+      <UiAddress :addresses="[address]" :editable="false" disabled />
+      <h2 :class="`${baseClass}__title`">{{ t('order.payment.title') }}</h2>
+      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
+        <UiTextbox :value="payment.owner" :label="t('order.payment.owner')" disabled />
+        <UiTextbox
+          :value="payment.cardNumber"
+          :label="t('order.payment.cardNumber.label')"
+          disabled
+        />
+        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
+          <UiTextbox :value="payment.month" :label="t('order.payment.month.label')" disabled />
+          <UiTextbox :value="payment.year" :label="t('order.payment.year.label')" disabled />
+          <UiTextbox :value="payment.cvv" :label="t('order.payment.cvv.label')" disabled />
+        </div>
+      </div>
+    </div>
+  </div>
   <div :class="`${baseClass}__footer`">
-    <ui-button
+    <UiButton
       @click="$emit('back')"
       :text="t('order.action.back')"
       :class="`${baseClass}__button`"
       transparent
     />
-    <ui-button
+    <UiButton
       @click="$emit('finish')"
       :text="t('order.action.finish')"
       :class="`${baseClass}__button`"
@@ -16,11 +41,32 @@
 </template>
 
 <script lang="ts" setup>
+  import { PropType } from 'vue';
   import { useI18n } from 'vue-i18n';
 
+  import UiAddress from '../../dashboard/personal-data/ui-address.component.vue';
+
+  import { Address } from '../../../interfaces';
+
   import UiButton from '../ui-button.component.vue';
+  import UiTextbox from '../ui-textbox.component.vue';
 
   const baseClass = 'order-summary';
+
+  defineProps({
+    user: {
+      type: Object,
+      required: true
+    },
+    address: {
+      type: Object as PropType<Address>,
+      required: false
+    },
+    payment: {
+      type: Object,
+      required: true
+    }
+  });
 
   defineEmits(['back', 'finish']);
 
@@ -29,6 +75,22 @@
 
 <style lang="scss" scoped>
   .order-summary {
+    max-height: 32rem;
+    overflow-y: scroll;
+
+    &__title {
+      font-weight: bold;
+    }
+
+    &__wrapper {
+      display: flex;
+      gap: 16px;
+
+      &--column {
+        flex-direction: column;
+      }
+    }
+
     &__footer {
       position: absolute;
       bottom: 24px;

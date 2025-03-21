@@ -311,6 +311,7 @@ const messages: AppMessages['en'] = {
       }
     },
     address: {
+      title: 'Mailing address',
       toggle: {
         first: 'Saved addresses',
         second: 'New address'

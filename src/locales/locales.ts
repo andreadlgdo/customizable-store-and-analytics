@@ -88,6 +88,7 @@ export interface AppMessages {
         };
       };
       address: {
+        title: string;
         toggle: {
           first: string;
           second: string;
