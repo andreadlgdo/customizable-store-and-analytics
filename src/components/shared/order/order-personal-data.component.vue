@@ -103,7 +103,7 @@
     </div>
     <div :class="`${baseClass}__footer`">
       <ui-button
-        @click="$emit('continue')"
+        @click="$emit('continue', userData)"
         :text="t('order.action.continue')"
         :class="`${baseClass}__button ${baseClass}__button--action`"
         :disabled="!isValid"
@@ -128,7 +128,7 @@
   const baseClass = 'order-personal-data';
 
   const props = defineProps({
-    user: {
+    newUser: {
       type: Object,
       default: undefined
     }
@@ -139,7 +139,7 @@
   const { user } = useUsers();
   const { t } = useI18n();
 
-  const userData = ref(props.user ?? { ...user.value } ?? { name: '', surname: '', email: '' });
+  const userData = ref(props.newUser ?? { ...user.value } ?? { name: '', surname: '', email: '' });
   const updateMode = ref(false);
 
   const options = ref([

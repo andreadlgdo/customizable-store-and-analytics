@@ -16,9 +16,9 @@
         />
         <order-personal-data
           v-if="firstStep"
-          @save="orderUserData = $event"
-          @continue="goToSecondStep"
-          :user="orderUserData"
+          @save="user => (orderUser = user)"
+          @continue="setUser"
+          :new-user="orderUser"
         />
         <order-shipping
           v-else-if="secondStep"
@@ -33,7 +33,13 @@
           @continue="goToFourStep"
           :payment="orderPayment"
         />
-        <order-summary v-else-if="fourStep" @back="goToThirdStep" />
+        <order-summary
+          v-else-if="fourStep"
+          @back="goToThirdStep"
+          :user="orderUser"
+          :address="orderAddress"
+          :payment="orderPayment"
+        />
       </div>
     </div>
     <ui-aside :fixed="false" is-open :class="`${baseClass}__aside`">
@@ -85,7 +91,7 @@
 
   const goBack = () => router.go(-1);
 
-  const orderUserData = ref(undefined);
+  const orderUser = ref(undefined);
   const orderAddress = ref<Address | undefined>(undefined);
   const orderPayment = ref(undefined);
 
@@ -101,6 +107,11 @@
     secondStep.value = true;
     thirdStep.value = false;
     fourStep.value = false;
+  };
+
+  const setUser = (user: any) => {
+    orderUser.value = user;
+    goToSecondStep();
   };
 
   const setAddress = (address: Address) => {
