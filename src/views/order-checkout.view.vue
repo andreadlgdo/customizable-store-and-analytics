@@ -2,11 +2,12 @@
   <div :class="baseClass">
     <div :class="`${baseClass}__content`">
       <div :class="`${baseClass}__header`">
-        <ui-icon-button @click="goBack" icon="go-to" :class="`${baseClass}__icon`" />
+        <UiIconButton @click="goBack" icon="go-to" :class="`${baseClass}__icon`" />
         <h1 @click="router.push('/')" :class="`${baseClass}__name`">KASTO</h1>
       </div>
       <div :class="`${baseClass}__wrapper`">
-        <ui-label-legend
+        <UiLabelLegend
+          v-if="firstStep || secondStep || thirdStep || fourStep"
           :options="[
             { label: t('order.options.personalData'), selected: firstStep },
             { label: t('order.options.shipping'), selected: secondStep },
@@ -14,13 +15,13 @@
             { label: t('order.options.summary'), selected: fourStep }
           ]"
         />
-        <order-personal-data
+        <OrderPersonalData
           v-if="firstStep"
           @save="user => (orderUser = user)"
           @continue="setUser"
           :new-user="orderUser"
         />
-        <order-shipping
+        <OrderShipping
           v-else-if="secondStep"
           @back="goToFirstStep"
           @continue="setAddress"
@@ -33,19 +34,26 @@
           @continue="goToFourStep"
           :payment="orderPayment"
         />
-        <order-summary
+        <OrderSummary
           v-else-if="fourStep"
           @back="goToThirdStep"
+          @finish="finishOrder"
           :user="orderUser"
           :address="orderAddress"
           :payment="orderPayment"
         />
+        <OrderCompleted v-else />
       </div>
     </div>
-    <ui-aside :fixed="false" is-open :class="`${baseClass}__aside`">
+    <UiAside
+      v-if="firstStep || secondStep || thirdStep || fourStep"
+      :fixed="false"
+      is-open
+      :class="`${baseClass}__aside`"
+    >
       <p :class="`${baseClass}__text ${baseClass}__text--title`">Resumen de la compra</p>
       <section v-if="openOrder" :class="`${baseClass}__products`">
-        <ui-product-shopping-card
+        <UiProductShoppingCard
           v-for="product in openOrder.products"
           :key="product.id"
           :order-product="product"
@@ -58,7 +66,7 @@
           {{ openOrder?.total + ' €' }}
         </p>
       </div>
-    </ui-aside>
+    </UiAside>
   </div>
 </template>
 
@@ -75,9 +83,11 @@
   import OrderShipping from '../components/shared/order/order-shipping.component.vue';
   import OrderPayment from '../components/shared/order/order-payment.component.vue';
   import OrderSummary from '../components/shared/order/order-summary.component.vue';
+  import OrderCompleted from '../components/shared/order/order-completed.component.vue';
 
   import { useCart } from '../composables';
   import { Address } from '../interfaces';
+  import { orderService } from '../services';
 
   const baseClass = 'order-checkout';
   const router = useRouter();
@@ -134,6 +144,25 @@
     fourStep.value = true;
   };
 
+  const finishOrder = async () => {
+    const updateOrder = {
+      ...openOrder.value,
+      status: 'paid',
+      user: orderUser,
+      address: {
+        street: orderAddress.value?.street,
+        number: orderAddress.value?.number,
+        letter: orderAddress.value?.letter,
+        zipCode: orderAddress.value?.zipCode,
+        city: orderAddress.value?.city,
+        country: orderAddress.value?.country
+      }
+    };
+    console.log('updateOrder', updateOrder);
+    await orderService.updateOrder(updateOrder);
+    fourStep.value = false;
+  };
+
   onMounted(async () => await loadUserOrders());
 </script>
 
@@ -152,6 +181,7 @@
       gap: 16px;
       flex-direction: column;
       padding: 2rem;
+      height: 90%;
     }
 
     &__header {
