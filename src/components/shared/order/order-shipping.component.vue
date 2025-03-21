@@ -1,8 +1,8 @@
 <template>
   <div :class="baseClass">
     <div v-if="user">
-      <ui-toggle @click="selectToggle" :options="options" :class="`${baseClass}__toggle`" />
-      <ui-address
+      <UiToggle @click="selectToggle" :options="options" :class="`${baseClass}__toggle`" />
+      <UiAddress
         v-if="options[0].selected"
         @select="selectAddress"
         @setDefault="setDefault"
@@ -11,40 +11,40 @@
       />
     </div>
     <div v-if="options[1].selected" :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
-      <ui-textbox
+      <UiTextbox
         @input="value => (newAddress.street = value)"
         :label="t('dashboard.personalData.address.label.street')"
         :value="newAddress.street"
       />
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
-        <ui-textbox
+        <UiTextbox
           @input="value => (newAddress.number = value)"
           :label="t('dashboard.personalData.address.label.number')"
           :value="newAddress.number"
         />
-        <ui-textbox
+        <UiTextbox
           @input="value => (newAddress.letter = value)"
           :label="t('dashboard.personalData.address.label.letter')"
           :value="newAddress.letter"
         />
-        <ui-textbox
+        <UiTextbox
           @input="value => (newAddress.zipCode = value)"
           :label="t('dashboard.personalData.address.label.zipCode')"
           :value="newAddress.zipCode"
         />
       </div>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
-        <ui-textbox
+        <UiTextbox
           @input="value => (newAddress.city = value)"
           :label="t('dashboard.personalData.address.label.city')"
           :value="newAddress.city"
         />
-        <ui-textbox
+        <UiTextbox
           @input="value => (newAddress.country = value)"
           :label="t('dashboard.personalData.address.label.country')"
           :value="newAddress.country"
         />
-        <ui-textbox
+        <UiTextbox
           @input="value => (newAddress.label = value)"
           :label="t('dashboard.personalData.address.label.label')"
           :value="newAddress.label"
@@ -53,13 +53,13 @@
     </div>
   </div>
   <div :class="`${baseClass}__footer`">
-    <ui-button
+    <UiButton
       @click="$emit('back')"
       :text="t('order.action.back')"
       :class="`${baseClass}__button`"
       transparent
     />
-    <ui-button
+    <UiButton
       @click="$emit('continue', options[1].selected ? newAddress : addresses.find(a => a.selected))"
       :text="t('order.action.continue')"
       :class="`${baseClass}__button`"

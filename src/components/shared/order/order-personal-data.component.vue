@@ -2,26 +2,26 @@
   <div :class="baseClass">
     <div v-if="user" :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
-        <ui-textbox
+        <UiTextbox
           @input="value => (userData.name = value)"
           :value="userData.name"
           :label="t('asides.register.form.name')"
           :disabled="!updateMode"
         />
-        <ui-textbox
+        <UiTextbox
           @input="value => (userData.surname = value)"
           :value="userData.surname"
           :label="t('asides.register.form.surname')"
           :disabled="!updateMode"
         />
       </div>
-      <ui-textbox
+      <UiTextbox
         @input="value => (userData.email = value)"
         :value="userData.email"
         label="Email"
         :disabled="!updateMode"
       />
-      <ui-button
+      <UiButton
         v-if="!updateMode"
         @click="updateMode = !updateMode"
         icon="edit"
@@ -35,14 +35,14 @@
         :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`"
         :style="{ alignSelf: 'flex-end' }"
       >
-        <ui-button
+        <UiButton
           @click="saveUserData"
           icon="edit"
           :text="t('order.formData.action.save')"
           :class="`${baseClass}__button ${baseClass}__button--action`"
           :disabled="!isValid"
         />
-        <ui-button
+        <UiButton
           @click="cancelUpdateMode"
           icon="close"
           :text="t('order.formData.action.cancel')"
@@ -102,7 +102,7 @@
       />
     </div>
     <div :class="`${baseClass}__footer`">
-      <ui-button
+      <UiButton
         @click="$emit('continue', userData)"
         :text="t('order.action.continue')"
         :class="`${baseClass}__button ${baseClass}__button--action`"

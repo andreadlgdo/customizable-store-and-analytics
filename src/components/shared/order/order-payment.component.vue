@@ -41,13 +41,13 @@
     </div>
   </div>
   <div :class="`${baseClass}__footer`">
-    <ui-button
+    <UiButton
       @click="$emit('back')"
       :text="t('order.action.back')"
       :class="`${baseClass}__button`"
       transparent
     />
-    <ui-button
+    <UiButton
       @click="$emit('continue', paymentData)"
       :text="t('order.action.continue')"
       :class="`${baseClass}__button`"
