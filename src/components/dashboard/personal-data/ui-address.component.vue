@@ -6,7 +6,8 @@
     :class="[
       baseClass,
       { [`${baseClass}--selected`]: address.selected && selectable },
-      { [`${baseClass}--selectable`]: selectable }
+      { [`${baseClass}--selectable`]: selectable },
+      { [`${baseClass}--disabled`]: disabled }
     ]"
   >
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
@@ -15,7 +16,7 @@
         @change="$emit('setDefault', address)"
         :value="address.isDefault"
         :text="t('dashboard.personalData.address.default')"
-        :disabled="selectable"
+        :disabled="selectable || disabled"
       />
     </div>
     <p>
@@ -58,14 +59,15 @@
 
   defineProps({
     addresses: {
-      type: Array as PropType<UiAddress[]>,
+      type: Array as PropType<UiAddress[] | Address[]>,
       required: true
     },
     editable: {
       type: Boolean,
       default: true
     },
-    selectable: Boolean
+    selectable: Boolean,
+    disabled: Boolean
   });
 
   defineEmits(['select', 'setDefault', 'edit', 'delete']);
@@ -85,6 +87,11 @@
 
     &--selectable {
       cursor: pointer;
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: none;
     }
 
     &__wrapper {
