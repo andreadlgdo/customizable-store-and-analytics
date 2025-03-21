@@ -44,11 +44,6 @@
           :label="t('dashboard.personalData.address.label.country')"
           :value="newAddress.country"
         />
-        <UiTextbox
-          @input="value => (newAddress.label = value)"
-          :label="t('dashboard.personalData.address.label.label')"
-          :value="newAddress.label"
-        />
       </div>
     </div>
   </div>
@@ -129,8 +124,7 @@
         newAddress.value.number &&
         newAddress.value.zipCode &&
         newAddress.value.city &&
-        newAddress.value.country &&
-        newAddress.value.label) ||
+        newAddress.value.country) ||
       (options.value[0].selected && addresses.value?.length)
     );
   });

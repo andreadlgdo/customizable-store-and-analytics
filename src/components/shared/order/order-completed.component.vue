@@ -8,6 +8,7 @@
         :class="`${baseClass}__button`"
       />
       <UiButton
+        @click="router.push({ name: 'OrdersManagement' })"
         :text="t('order.completed.action.orders')"
         :class="`${baseClass}__button`"
         transparent
