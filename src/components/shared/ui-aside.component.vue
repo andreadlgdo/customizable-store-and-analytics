@@ -10,14 +10,14 @@
         { [`${baseClass}--relative`]: !fixed }
       ]"
     >
-      <ui-icon-button
+      <UiIconButton
         @click="$emit('click')"
         v-if="icon"
         :class="`${baseClass}__icon`"
         :icon="icon"
       />
       <slot />
-      <ui-language v-if="language" :class="`${baseClass}__toggle`" />
+      <UiLanguage v-if="language" :class="`${baseClass}__toggle`" />
     </div>
   </transition>
 </template>

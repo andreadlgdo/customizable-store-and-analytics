@@ -1,8 +1,8 @@
 <template>
   <section :class="baseClass">
     <div :class="`${baseClass}__image`">
-      <ui-image :image="product.imageUrl" type="square" size="large" />
-      <ui-icon-button
+      <UiImage :image="product.imageUrl" type="square" size="large" />
+      <UiIconButton
         @click="$emit('selectFavourite', !isSelected, product)"
         :icon="isSelected ? 'heartSelected' : 'heart'"
         size="small"
@@ -13,7 +13,7 @@
       <p>{{ product.name }}</p>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
         <p>{{ product.price + ' €' }}</p>
-        <ui-button
+        <UiButton
           @click="$emit('addToCart', product)"
           icon="cart"
           size="small"

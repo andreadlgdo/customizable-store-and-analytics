@@ -11,7 +11,7 @@
           {{ capitalizeSentence(item.label) }}
         </p>
       </section>
-      <ui-icon-button
+      <UiIconButton
         v-if="item.subItem"
         :icon="expansible ? (item.isExpand ? 'less' : 'plus') : 'arrow'"
         :size="expansible ? (item.isExpand ? 'small' : 'normal') : 'small'"

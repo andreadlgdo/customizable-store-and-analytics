@@ -8,7 +8,7 @@
       { [`${baseClass}--disabled`]: disabled }
     ]"
   >
-    <ui-icon
+    <UiIcon
       v-if="icon"
       :src="require(`../../assets/media/icons/${icon}.svg`)"
       :class="`${baseClass}__icon`"

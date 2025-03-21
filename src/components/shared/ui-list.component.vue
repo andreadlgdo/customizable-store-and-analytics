@@ -9,7 +9,7 @@
         { [`${baseClass}__item--selected`]: selectedItem?.id === item.id }
       ]"
     >
-      <ui-icon
+      <UiIcon
         :src="require(`../../assets/media/icons/${item.icon}.svg`)"
         :class="`${baseClass}__icon`"
       />

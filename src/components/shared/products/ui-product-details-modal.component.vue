@@ -1,7 +1,7 @@
 <template>
-  <ui-modal @close="$emit('close')" :is-open="isOpen">
+  <UiModal @close="$emit('close')" :is-open="isOpen">
     <div :class="baseClass">
-      <ui-image :image="product.imageUrl" type="square" size="extra-large" />
+      <UiImage :image="product.imageUrl" type="square" size="extra-large" />
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
         <div>
           <h1 :class="`${baseClass}__text ${baseClass}__text--title`">{{ product.name }}</h1>
@@ -16,7 +16,7 @@
           Out of stock
         </p>
         <div v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--select`">
-          <ui-select
+          <UiSelect
             @change="value => (size = value)"
             :value="size"
             label="Talla"
@@ -24,7 +24,7 @@
             :options="product.stock?.map(s => ({ title: s.size, disabled: !s.quantity }))"
             :style="{ width: '50%' }"
           />
-          <ui-select
+          <UiSelect
             v-if="!!size"
             @change="value => (unit = value)"
             :value="unit"
@@ -42,7 +42,7 @@
           />
         </div>
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
-          <ui-button
+          <UiButton
             @click="addProductCard"
             icon="cart"
             :text="t('products.modal.action')"
@@ -50,7 +50,7 @@
             :class="`${baseClass}__button`"
             :disabled="!haveStock || !size || !unit"
           />
-          <ui-icon-button
+          <UiIconButton
             @click="selectFavourite"
             :icon="isFavourite ? 'heartSelected' : 'heart'"
             :class="`${baseClass}__icon`"
@@ -58,7 +58,7 @@
         </div>
       </div>
     </div>
-  </ui-modal>
+  </UiModal>
 </template>
 
 <script lang="ts" setup>

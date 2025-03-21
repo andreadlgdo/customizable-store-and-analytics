@@ -1,6 +1,6 @@
 <template>
   <section v-if="product" :class="baseClass">
-    <ui-image :image="product.imageUrl" type="square" />
+    <UiImage :image="product.imageUrl" type="square" />
     <div :class="`${baseClass}__content`">
       <h1 :class="`${baseClass}__text ${baseClass}__text--title`">{{ product.name }}</h1>
       <p>
@@ -16,7 +16,7 @@
       </p>
       <p>{{ product.price * parseInt(orderProduct.units) + ' €' }}</p>
       <div v-if="showActions" :class="`${baseClass}__wrapper ${baseClass}__wrapper--actions`">
-        <ui-icon-button
+        <UiIconButton
           @click="selectFavourite"
           :icon="isFavourite ? 'heartSelected' : 'heart'"
           :class="[
@@ -24,7 +24,7 @@
             { [`${baseClass}__icon--heart-selected`]: isFavourite }
           ]"
         />
-        <ui-icon-button
+        <UiIconButton
           @click="$emit('delete', orderProduct.productId)"
           icon="delete"
           :class="`${baseClass}__icon ${baseClass}__icon--delete`"
