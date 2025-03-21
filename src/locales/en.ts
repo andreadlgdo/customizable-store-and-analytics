@@ -337,6 +337,13 @@ const messages: AppMessages['en'] = {
         error: 'Invalid CVV'
       }
     },
+    completed: {
+      title: 'Order completed',
+      action: {
+        shop: 'Continue shopping',
+        orders: 'My orders'
+      }
+    },
     action: {
       continue: 'Continue',
       back: 'Back',

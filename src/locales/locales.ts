@@ -114,6 +114,13 @@ export interface AppMessages {
           error: string;
         };
       };
+      completed: {
+        title: string;
+        action: {
+          shop: string;
+          orders: string;
+        }
+      }
       action: {
         continue: string;
         back: string;
