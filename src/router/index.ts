@@ -23,16 +23,16 @@ const routes = [
     props: true
   },
   {
-    name: 'OrdersManagement',
-    path: '/dashboard/orders',
-    component: OrdersManagement,
+    name: 'ProductsManagement',
+    path: '/dashboard/products/:action?/:itemId?',
+    component: ProductsManagement,
     meta: { requiresAuth: true },
     props: true
   },
   {
-    name: 'ProductsManagement',
-    path: '/dashboard/products/:action?/:itemId?',
-    component: ProductsManagement,
+    name: 'OrdersManagement',
+    path: '/dashboard/orders/:itemId?',
+    component: OrdersManagement,
     meta: { requiresAuth: true },
     props: true
   },

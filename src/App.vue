@@ -18,6 +18,8 @@
         return 'dashboard';
       case 'UsersManagement':
         return 'dashboard';
+      case 'OrdersManagement':
+        return 'dashboard';
       case 'Orders':
         return 'order';
       default:
