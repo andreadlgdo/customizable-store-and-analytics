@@ -119,7 +119,7 @@
     fourStep.value = false;
   };
 
-  const setUser = (user: any) => {
+  const setUser = (user: { name: string; surname: string; email: string }) => {
     orderUser.value = user;
     goToSecondStep();
   };
@@ -148,7 +148,7 @@
     const updateOrder = {
       ...openOrder.value,
       status: 'paid',
-      user: orderUser,
+      user: orderUser.value,
       address: {
         street: orderAddress.value?.street,
         number: orderAddress.value?.number,

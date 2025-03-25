@@ -139,7 +139,13 @@
   const { user } = useUsers();
   const { t } = useI18n();
 
-  const userData = ref(props.newUser ?? { ...user.value } ?? { name: '', surname: '', email: '' });
+  const userData = ref(
+    props.newUser ?? {
+        name: user.value?.name,
+        surname: user.value?.surname,
+        email: user.value?.email
+      } ?? { name: '', surname: '', email: '' }
+  );
   const updateMode = ref(false);
 
   const options = ref([
