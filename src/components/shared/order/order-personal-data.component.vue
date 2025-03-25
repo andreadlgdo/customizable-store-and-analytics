@@ -82,27 +82,49 @@
       <div v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
           <ui-textbox
+            @input="value => (registerUser.name = value)"
+            :value="registerUser.name"
             :label="t('asides.register.form.name')"
             :placeholder="t('asides.register.form.name')"
+            :error="errors.name"
           />
           <ui-textbox
+            @input="value => (registerUser.surname = value)"
+            :value="registerUser.surname"
             :label="t('asides.register.form.surname')"
             :placeholder="t('asides.register.form.surname')"
+            :error="errors.surname"
           />
         </div>
         <ui-textbox
+          @input="value => (registerUser.email = value)"
+          :value="registerUser.email"
           :label="t('asides.register.form.email.label')"
           :placeholder="t('asides.register.form.email.placeholder')"
+          :error="errors.email"
         />
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
-          <ui-password :label="t('asides.register.form.password')" have-conditions />
-          <ui-password :label="t('asides.register.form.repeatPassword')" />
+          <ui-password
+            @input="value => (registerUser.password = value)"
+            :value="registerUser.password"
+            :label="t('asides.register.form.password')"
+            :error="errors.password"
+            have-conditions
+          />
+          <ui-password
+            @input="setPassword"
+            :value="registerUser.repeatPassword"
+            :label="t('asides.register.form.repeatPassword')"
+            :error="errors.repeatPassword"
+          />
         </div>
         <ui-checkbox
           @change="acceptTermsAndConditions = !acceptTermsAndConditions"
           :text="t('asides.register.form.termsAndConditions')"
+          :error="errors.terms"
         />
         <ui-button
+          @click="signUp"
           text="Registrarse"
           :class="`${baseClass}__button ${baseClass}__button--register`"
         />
@@ -152,7 +174,7 @@
 
   const emit = defineEmits(['save', 'continue']);
 
-  const { user, login } = useUsers();
+  const { user, createUser, login } = useUsers();
   const { t } = useI18n();
   const { validEmail } = useValidations();
   const { openOrder, loadUserOrders, saveOrdersToLocalStorage } = useCart();
@@ -246,6 +268,50 @@
         await saveOrdersToLocalStorage([]);
         window.location.reload();
       }
+    }
+  };
+
+  const setPassword = (value: string) => {
+    registerUser.value.repeatPassword = value;
+    checkRepeatPassword();
+  };
+
+  const checkRepeatPassword = () => {
+    if (!registerUser.value.repeatPassword) {
+      errors.value.repeatPassword = 'Repeat password is required';
+    } else if (registerUser.value.password !== registerUser.value.repeatPassword) {
+      errors.value.repeatPassword = 'Repeat password must be the same as password';
+    } else {
+      errors.value.repeatPassword = '';
+    }
+  };
+
+  const signUp = async () => {
+    errors.value.name = !registerUser.value.name ? 'Name is required' : '';
+    errors.value.surname = !registerUser.value.surname ? 'Surname is required' : '';
+    checkEmail();
+    errors.value.password = !registerUser.value.password ? 'Password is required' : '';
+    checkRepeatPassword();
+    errors.value.terms = acceptTermsAndConditions.value
+      ? ''
+      : 'You must accept the terms and conditions';
+
+    if (errorsEmpty.value) {
+      user.value = await createUser({
+        name: registerUser.value.name,
+        surname: registerUser.value.surname,
+        email: registerUser.value.email,
+        password: registerUser.value.password
+      });
+      await loadUserOrders();
+      openOrder.value = {
+        ...openOrder.value,
+        _id: undefined,
+        userId: user.value?._id ?? openOrder.value.userId
+      };
+      await orderService.createOrder(openOrder.value);
+      await saveOrdersToLocalStorage([]);
+      window.location.reload();
     }
   };
 </script>
