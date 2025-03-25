@@ -9,17 +9,24 @@
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
         <ui-textbox :value="item.userId" :label="t('dashboard.orders.form.user.idUser')" disabled />
         <ui-textbox
+          v-if="item.user"
           :value="item.user?.name + ' ' + item.user?.surname"
           :label="t('dashboard.orders.form.user.name')"
           disabled
         />
         <ui-textbox
+          v-if="item.user"
           :value="item.user?.email"
           :label="t('dashboard.orders.form.user.email')"
           disabled
         />
       </div>
-      <ui-textbox :value="address" :label="t('dashboard.orders.form.address')" disabled />
+      <ui-textbox
+        v-if="item.address"
+        :value="address"
+        :label="t('dashboard.orders.form.address')"
+        disabled
+      />
       <p :class="`${baseClass}__text`">{{ t('dashboard.orders.form.products.title') }}</p>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column-products`">
         <div
