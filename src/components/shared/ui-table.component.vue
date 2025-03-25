@@ -12,6 +12,7 @@
         </th>
         <th v-if="editable" :class="`${baseClass}__column`" />
         <th v-if="removable" :class="`${baseClass}__column`" />
+        <th v-if="details" :class="`${baseClass}__column`" />
       </tr>
     </thead>
     <tbody>
@@ -29,12 +30,7 @@
           :style="{ textAlign: 'center' }"
           :class="`${baseClass}__cell ${baseClass}__cell--icon`"
         >
-          <UiIconButton
-            @click="$emit('edit', item)"
-            icon="edit"
-            size="small"
-            tooltip-text="Edit"
-          />
+          <UiIconButton @click="$emit('edit', item)" icon="edit" size="small" tooltip-text="Edit" />
         </td>
         <td
           v-if="removable"
@@ -46,6 +42,18 @@
             icon="delete"
             size="small"
             tooltip-text="Delete"
+          />
+        </td>
+        <td
+          v-if="details"
+          :style="{ textAlign: 'center' }"
+          :class="`${baseClass}__cell ${baseClass}__cell--icon`"
+        >
+          <UiIconButton
+            @click="$emit('seeDetails', item)"
+            icon="eye"
+            size="small"
+            tooltip-text="See details"
           />
         </td>
       </tr>
@@ -74,10 +82,11 @@
       default: () => []
     },
     editable: Boolean,
-    removable: Boolean
+    removable: Boolean,
+    details: Boolean
   });
 
-  defineEmits(['edit', 'delete']);
+  defineEmits(['edit', 'delete','seeDetails']);
 
   const baseClass = 'ui-table';
 </script>
