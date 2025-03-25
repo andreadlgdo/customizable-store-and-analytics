@@ -12,10 +12,7 @@
         <p :class="`${baseClass}__text ${baseClass}__text--description`">
           {{ product.description }}
         </p>
-        <p v-if="!haveStock" :class="`${baseClass}__text ${baseClass}__text--without-stock`">
-          Out of stock
-        </p>
-        <div v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--select`">
+        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--select`">
           <UiSelect
             @change="value => (size = value)"
             :value="size"
@@ -48,7 +45,7 @@
             :text="t('products.modal.action')"
             transparent
             :class="`${baseClass}__button`"
-            :disabled="!haveStock || !size || !unit"
+            :disabled="!size || !unit"
           />
           <UiIconButton
             @click="selectFavourite"
@@ -62,7 +59,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, PropType, ref, watch } from 'vue';
+  import { PropType, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { useCart } from '../../../composables';
@@ -92,10 +89,6 @@
 
   const size = ref('');
   const unit = ref('');
-
-  const haveStock = computed(() =>
-    props.product.stock?.reduce((acc, stock) => acc + stock.quantity, 0)
-  );
 
   const addProductCard = async () => {
     await addProduct(props.product, size.value, unit.value);
@@ -156,12 +149,6 @@
 
       &--description {
         width: 18rem;
-      }
-
-      &--without-stock {
-        font-size: 16px;
-        font-weight: bold;
-        color: var(--color-red);
       }
     }
 

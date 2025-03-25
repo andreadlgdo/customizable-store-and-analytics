@@ -168,7 +168,7 @@
     }
 
     &__textbox {
-      width: 16rem;
+      width: 18rem;
     }
   }
 </style>

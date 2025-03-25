@@ -14,19 +14,21 @@
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
         <p>{{ product.price + ' €' }}</p>
         <UiButton
+          v-if="haveStock"
           @click="$emit('addToCart', product)"
           icon="cart"
           size="small"
           :text="t('products.card.action')"
           transparent
         />
+        <p v-else :class="`${baseClass}__text`">Out of stock</p>
       </div>
     </div>
   </section>
 </template>
 
 <script lang="ts" setup>
-  import { PropType, ref, watch } from 'vue';
+  import { computed, PropType, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
   import { useUsers } from '../../../composables';
@@ -52,6 +54,10 @@
   const { t } = useI18n();
 
   const isSelected = ref(props.isFavourite);
+
+  const haveStock = computed(() =>
+    props.product.stock?.reduce((acc, stock) => acc + stock.quantity, 0)
+  );
 
   watch(
     () => props.product,
@@ -105,6 +111,12 @@
       &:hover {
         background-color: var(--bg-red);
       }
+    }
+
+    &__text {
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--color-red);
     }
   }
 </style>
