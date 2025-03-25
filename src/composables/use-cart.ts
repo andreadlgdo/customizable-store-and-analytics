@@ -133,6 +133,7 @@ export function useCart() {
   return {
     openOrder,
     updateOrderFromLocalStorage,
+    saveOrdersToLocalStorage,
     addProduct,
     deleteProduct,
     loadUserOrders

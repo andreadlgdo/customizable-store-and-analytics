@@ -36,6 +36,7 @@ export function useUsers() {
   const logout = () => {
     user.value = undefined;
     localStorage.removeItem('user');
+    window.location.reload();
   };
 
   return {

@@ -57,12 +57,24 @@
         v-if="options[0].selected"
         :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`"
       >
+        <p v-if="errors.value?.invalidCredentials" :class="`${baseClass}__text`">
+          {{ errors.value.invalidCredentials }}
+        </p>
         <ui-textbox
+          @input="value => (registerUser.email = value)"
+          :value="registerUser.email"
           :label="t('asides.register.form.email.label')"
           :placeholder="t('asides.register.form.email.placeholder')"
+          :error="errors.email"
         />
-        <ui-password :label="t('asides.register.form.password')" />
+        <ui-password
+          @input="value => (registerUser.password = value)"
+          :value="registerUser.password"
+          :label="t('asides.register.form.password')"
+          :error="errors.password"
+        />
         <ui-button
+          @click="logIn"
           text="Iniciar sesión"
           :class="`${baseClass}__button ${baseClass}__button--register`"
         />
@@ -118,7 +130,9 @@
   import { computed, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { useUsers, useValidations } from '../../../composables';
+  import { useCart, useUsers, useValidations } from '../../../composables';
+  import { Order } from '../../../interfaces';
+  import { orderService } from '../../../services';
 
   import UiCheckbox from '../ui-checkbox.component.vue';
   import UiButton from '../ui-button.component.vue';
@@ -138,9 +152,10 @@
 
   const emit = defineEmits(['save', 'continue']);
 
-  const { user } = useUsers();
+  const { user, login } = useUsers();
   const { t } = useI18n();
   const { validEmail } = useValidations();
+  const { openOrder, loadUserOrders, saveOrdersToLocalStorage } = useCart();
 
   const userData = ref(
     props.newUser ?? {
@@ -149,6 +164,24 @@
         email: user.value?.email
       } ?? { name: '', surname: '', email: '' }
   );
+
+  const registerUser = ref({
+    name: '',
+    surname: '',
+    email: '',
+    password: '',
+    repeatPassword: ''
+  });
+  const errors = ref({
+    email: '',
+    password: '',
+    name: '',
+    surname: '',
+    repeatPassword: '',
+    terms: '',
+    invalidCredentials: ''
+  });
+
   const updateMode = ref(false);
 
   const options = ref([
@@ -164,6 +197,8 @@
       : validEmail(userData.value.email);
   });
 
+  const errorsEmpty = computed(() => Object.values(errors.value).every(error => !error));
+
   const saveUserData = () => {
     updateMode.value = !updateMode.value;
     emit('save', userData.value);
@@ -176,6 +211,42 @@
 
   const selectToggle = (option: { label: string; selected: boolean }) => {
     options.value = options.value.map(item => ({ ...item, selected: item.label === option.label }));
+  };
+
+  const checkEmail = () => {
+    if (!registerUser.value.email) {
+      errors.value.email = 'Email is required';
+    } else if (!validEmail(registerUser.value.email)) {
+      errors.value.email = 'Email is not valid';
+    } else {
+      errors.value.email = '';
+    }
+  };
+
+  const logIn = async () => {
+    checkEmail();
+    errors.value.password = !registerUser.value.password ? 'Password is required' : '';
+
+    if (errorsEmpty.value) {
+      const error = await login(registerUser.value.email, registerUser.value.password);
+      if (error) {
+        errors.value.invalidCredentials = 'Incorrect credentials';
+      } else {
+        await loadUserOrders();
+        const userOrders = await orderService.findOrderByUserId(user.value?._id ?? '');
+        const orderOpen = userOrders.find((o: Order) => o.status === 'open') ?? undefined;
+        openOrder.value = {
+          ...openOrder.value,
+          _id: orderOpen._id ?? undefined,
+          userId: user.value?._id ?? openOrder.value.userId
+        };
+        orderOpen
+          ? await orderService.updateOrder(openOrder.value)
+          : await orderService.createOrder(openOrder.value);
+        await saveOrdersToLocalStorage([]);
+        window.location.reload();
+      }
+    }
   };
 </script>
 
@@ -192,6 +263,10 @@
       &--column {
         flex-direction: column;
       }
+    }
+
+    &__text {
+      color: var(--color-red);
     }
 
     &__footer {
