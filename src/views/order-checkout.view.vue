@@ -85,14 +85,15 @@
   import OrderSummary from '../components/shared/order/order-summary.component.vue';
   import OrderCompleted from '../components/shared/order/order-completed.component.vue';
 
-  import { useCart } from '../composables';
+  import { useCart, useUsers } from '../composables';
   import { Address } from '../interfaces';
   import { orderService } from '../services';
 
   const baseClass = 'order-checkout';
   const router = useRouter();
   const { t } = useI18n();
-  const { openOrder, loadUserOrders } = useCart();
+  const { openOrder, updateOrderFromLocalStorage, loadUserOrders } = useCart();
+  const { user: userRegister } = useUsers();
 
   const firstStep = ref(true);
   const secondStep = ref(false);
@@ -158,8 +159,11 @@
         country: orderAddress.value?.country
       }
     };
-    console.log('updateOrder', updateOrder);
-    await orderService.updateOrder(updateOrder);
+    if (userRegister.value) {
+      await orderService.updateOrder(updateOrder);
+    } else {
+      updateOrderFromLocalStorage(updateOrder);
+    }
     fourStep.value = false;
   };
 

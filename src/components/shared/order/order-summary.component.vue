@@ -2,7 +2,7 @@
   <div :class="baseClass">
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
       <h2 :class="`${baseClass}__title`">{{ t('order.options.personalData') }}</h2>
-      <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
+      <div v-if="userRegister" :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
         <UiTextbox :value="user.name" :label="t('asides.register.form.name')" disabled />
         <UiTextbox :value="user.surname" :label="t('asides.register.form.surname')" disabled />
       </div>
@@ -47,6 +47,7 @@
   import UiAddress from '../../dashboard/personal-data/ui-address.component.vue';
 
   import { Address } from '../../../interfaces';
+  import { useUsers } from '../../../composables';
 
   import UiButton from '../ui-button.component.vue';
   import UiTextbox from '../ui-textbox.component.vue';
@@ -71,6 +72,7 @@
   defineEmits(['back', 'finish']);
 
   const { t } = useI18n();
+  const { user: userRegister } = useUsers();
 </script>
 
 <style lang="scss" scoped>

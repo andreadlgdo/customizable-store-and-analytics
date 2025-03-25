@@ -113,8 +113,8 @@
   );
 
   const options = ref([
-    { label: t('order.address.toggle.first'), selected: props.isFirstSelected },
-    { label: t('order.address.toggle.second'), selected: !props.isFirstSelected }
+    { label: t('order.address.toggle.first'), selected: props.isFirstSelected && !!user.value },
+    { label: t('order.address.toggle.second'), selected: !props.isFirstSelected || !user.value }
   ]);
 
   const isValid = computed(() => {

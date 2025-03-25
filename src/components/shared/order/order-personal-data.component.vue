@@ -96,7 +96,9 @@
         />
       </div>
       <ui-separator :label="t('order.formData.separator')" />
-      <ui-textbox
+      <UiTextbox
+        @input="value => (userData.email = value)"
+        :value="userData.email"
         :label="t('asides.register.form.email.label')"
         :placeholder="t('asides.register.form.email.placeholder')"
       />
@@ -116,7 +118,7 @@
   import { computed, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { useUsers } from '../../../composables';
+  import { useUsers, useValidations } from '../../../composables';
 
   import UiCheckbox from '../ui-checkbox.component.vue';
   import UiButton from '../ui-button.component.vue';
@@ -138,6 +140,7 @@
 
   const { user } = useUsers();
   const { t } = useI18n();
+  const { validEmail } = useValidations();
 
   const userData = ref(
     props.newUser ?? {
@@ -156,10 +159,9 @@
   const acceptTermsAndConditions = ref(false);
 
   const isValid = computed(() => {
-    if (user.value) {
-      return userData.value.name && userData.value.surname && userData.value.email;
-    }
-    return false;
+    return user.value
+      ? userData.value.name && userData.value.surname && userData.value.email
+      : validEmail(userData.value.email);
   });
 
   const saveUserData = () => {

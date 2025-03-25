@@ -22,6 +22,16 @@ export function useCart() {
     localStorage.setItem('orders', JSON.stringify(orders));
   };
 
+  const updateOrderFromLocalStorage = (updateOrder: Order) => {
+    openOrder.value = { ...openOrder.value, ...updateOrder };
+
+    userOrders.value = userOrders.value?.map((order: Order) =>
+      order._id === openOrder.value?._id ? openOrder.value : order
+    );
+
+    saveOrdersToLocalStorage(userOrders.value ?? []);
+  };
+
   const addOrderToLocalStorage = (order: Order) => {
     const orders = getOrdersFromLocalStorage();
     orders.push(order);
@@ -71,6 +81,7 @@ export function useCart() {
         saveOrdersToLocalStorage(userOrders.value ?? []);
       } else {
         const newOrder: Order = {
+          _id: Math.random().toString(),
           userId: 'guest',
           status: 'open',
           products: [newProduct],
@@ -121,6 +132,7 @@ export function useCart() {
 
   return {
     openOrder,
+    updateOrderFromLocalStorage,
     addProduct,
     deleteProduct,
     loadUserOrders

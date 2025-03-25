@@ -8,6 +8,7 @@
         :class="`${baseClass}__button`"
       />
       <UiButton
+        v-if="user"
         @click="router.push({ name: 'OrdersManagement' })"
         :text="t('order.completed.action.orders')"
         :class="`${baseClass}__button`"
@@ -21,12 +22,15 @@
   import { useRouter } from 'vue-router';
   import { useI18n } from 'vue-i18n';
 
+  import { useUsers } from '../../../composables';
+
   import UiButton from '../ui-button.component.vue';
 
   const baseClass = 'order-completed';
 
   const { t } = useI18n();
   const router = useRouter();
+  const { user } = useUsers();
 </script>
 
 <style lang="scss" scoped>
