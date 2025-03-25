@@ -119,8 +119,8 @@ export interface AppMessages {
         action: {
           shop: string;
           orders: string;
-        }
-      }
+        };
+      };
       action: {
         continue: string;
         back: string;
@@ -246,6 +246,7 @@ export interface DashboardMessages {
   };
   products: ProductsManagementMessages;
   users: UsersManagementMessages;
+  orders: OrdersManagementMessages;
 }
 
 export interface PersonalDataMessages {
@@ -334,6 +335,39 @@ export interface UsersManagementMessages {
     email: string;
     type: string;
   };
+}
+
+export interface OrdersManagementMessages {
+  title: string;
+  table: {
+    id: string;
+    idUser: string;
+    products: string;
+    total: string;
+    status: string;
+  };
+  form: {
+    id: string;
+    total: string;
+    status: string;
+    user: {
+      idUser: string;
+      name: string;
+      email: string;
+    };
+    address: string;
+    products: {
+      title: string;
+      id: string;
+      name: string;
+      price: string;
+      units: string;
+      size: string;
+    };
+  };
+  action: {
+    close: string;
+  }
 }
 
 export interface GeneralMessages {

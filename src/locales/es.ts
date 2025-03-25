@@ -362,7 +362,39 @@ const messages: AppMessages['es'] = {
       edit: 'Editar'
     },
     products: productsManagementMessages,
-    users: usersManagementMessages
+    users: usersManagementMessages,
+    orders: {
+      title: 'Gestión de pedidos',
+      table: {
+        id: 'ID Pedido',
+        idUser: 'ID Usuario',
+        products: 'Productos',
+        total: 'Precio',
+        status: 'Status',
+      },
+      form: {
+        id: 'ID Pedido',
+        total: 'Precio total',
+        status: 'Status',
+        user: {
+          idUser: 'ID Usuario',
+          name: 'Nombre',
+          email: 'Email'
+        },
+        address: 'Dirección de envio',
+        products: {
+          title: 'Productos',
+          id: 'ID Producto',
+          name: 'Nombre',
+          price: 'Precio',
+          units: 'Unidades',
+          size: 'Talla'
+        },
+      },
+      action: {
+        close: 'Cerrar'
+      }
+    }
   },
   menus: {
     general: generalMessages,

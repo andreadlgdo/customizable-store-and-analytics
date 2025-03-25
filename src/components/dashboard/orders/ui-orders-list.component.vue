@@ -15,6 +15,7 @@
   import { Order } from '../../../interfaces';
 
   import UiTable from '../../shared/ui-table.component.vue';
+  import { useI18n } from 'vue-i18n';
 
   const baseClass = 'ui-orders-list';
 
@@ -27,12 +28,14 @@
 
   defineEmits(['seeDetails']);
 
+  const { t } = useI18n();
+
   const columns = computed(() => [
-    { id: '_id', label: 'ID' },
-    { id: 'userId', label: 'ID usuario' },
-    { id: 'units', label: 'Productos', textAlign: 'center' },
-    { id: 'total', label: 'Total', textAlign: 'center' },
-    { id: 'status', label: 'Status', textAlign: 'center' }
+    { id: '_id', label: t('dashboard.orders.table.id') },
+    { id: 'userId', label: t('dashboard.orders.table.idUser') },
+    { id: 'units', label: t('dashboard.orders.table.products'), textAlign: 'center' },
+    { id: 'total', label: t('dashboard.orders.table.total'), textAlign: 'center' },
+    { id: 'status', label: t('dashboard.orders.table.status'), textAlign: 'center' }
   ]);
 </script>
 
