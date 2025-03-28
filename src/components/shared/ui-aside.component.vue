@@ -17,7 +17,7 @@
         :icon="icon"
       />
       <slot />
-      <UiLanguage v-if="language" :class="`${baseClass}__toggle`" />
+      <UiLanguage v-if="language && !isCollapsed" :class="`${baseClass}__toggle`" />
     </div>
   </transition>
 </template>
