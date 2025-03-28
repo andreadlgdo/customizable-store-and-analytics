@@ -10,6 +10,7 @@ import ProductsManagement from '../views/dashboard/products-management.view.vue'
 import OrdersManagement from '../views/dashboard/orders-management.view.vue';
 import UsersManagement from '../views/dashboard/users-management.view.vue';
 import Personalization from '../views/dashboard/personalization.view.vue';
+import UserCart from '../views/dashboard/user-cart.view.vue';
 import Analytics from '../views/dashboard/analytics.view.vue';
 import OrderCheckout from '../views/order-checkout.view.vue';
 
@@ -19,6 +20,13 @@ const routes = [
     name: 'PersonalData',
     path: '/dashboard/personalData',
     component: PersonalData,
+    meta: { requiresAuth: true },
+    props: true
+  },
+  {
+    name: 'UserCart',
+    path: '/dashboard/cart',
+    component: UserCart,
     meta: { requiresAuth: true },
     props: true
   },

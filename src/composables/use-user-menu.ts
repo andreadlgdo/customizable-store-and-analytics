@@ -26,7 +26,10 @@ export function useUserMenu() {
           {
             id: 1,
             label: t('menus.user.items.client.cart'),
-            icon: 'shoppingCart'
+            icon: 'shoppingCart',
+            route: {
+              name: 'UserCart'
+            }
           },
           {
             id: 2,
@@ -36,7 +39,10 @@ export function useUserMenu() {
           {
             id: 3,
             label: t('menus.user.items.client.orders'),
-            icon: 'pack'
+            icon: 'pack',
+            route: {
+              name: 'OrdersManagement'
+            }
           }
         ]
       : [

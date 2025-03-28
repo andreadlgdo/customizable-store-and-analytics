@@ -5,8 +5,9 @@
 </template>
 
 <script lang="ts" setup>
+  import { useUserMenu } from '../../composables';
+
   import Dashboard from './dashboard.view.vue';
-  import { useUserMenu } from '@/composables';
 
   const { menuElements } = useUserMenu();
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <dashboard :selected-item="menuElements[2]">
+  <dashboard :selected-item="user.type === 'admin' ? menuElements[2] : menuElements[3]">
     <div :class="baseClass">
       <h1 v-if="!itemId" :class="`${baseClass}__title`">{{ t('dashboard.orders.title') }}</h1>
       <ui-orders-list v-if="!itemId" @seeDetails="seeOrderDetails" :orders="orders" />
