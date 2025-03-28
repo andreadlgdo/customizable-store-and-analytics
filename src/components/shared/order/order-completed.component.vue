@@ -9,7 +9,7 @@
       />
       <UiButton
         v-if="user"
-        @click="router.push({ name: 'OrdersManagement' })"
+        @click="goToOrders"
         :text="t('order.completed.action.orders')"
         :class="`${baseClass}__button`"
         transparent
@@ -31,6 +31,13 @@
   const { t } = useI18n();
   const router = useRouter();
   const { user } = useUsers();
+
+  const goToOrders = () => {
+    const ordersDashboardRoute = router.resolve({
+      name: 'OrdersManagement'
+    });
+    window.open(ordersDashboardRoute.href, '_blank');
+  };
 </script>
 
 <style lang="scss" scoped>

@@ -169,6 +169,16 @@
         selected:
           props.address && props.address._id ? props.address._id === address._id : index === 0
       }));
+      options.value = [
+        {
+          label: t('order.address.toggle.first'),
+          selected: props.isFirstSelected && !!user.value && !!addresses.value?.length
+        },
+        {
+          label: t('order.address.toggle.second'),
+          selected: !props.isFirstSelected || !user.value || !addresses.value?.length
+        }
+      ];
     }
   });
 </script>

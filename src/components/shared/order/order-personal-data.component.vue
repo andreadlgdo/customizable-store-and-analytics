@@ -259,7 +259,7 @@
         const orderOpen = userOrders.find((o: Order) => o.status === 'open') ?? undefined;
         openOrder.value = {
           ...openOrder.value,
-          _id: orderOpen._id ?? undefined,
+          _id: orderOpen?._id ?? undefined,
           userId: user.value?._id ?? openOrder.value.userId
         };
         orderOpen

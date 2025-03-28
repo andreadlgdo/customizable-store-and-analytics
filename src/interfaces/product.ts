@@ -11,7 +11,7 @@ export interface Product {
   isFavouriteUsersIds?: string[];
 }
 
-interface ProductStock {
+export interface ProductStock {
   quantity: number;
   size: string;
 }

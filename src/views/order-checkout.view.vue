@@ -86,13 +86,13 @@
   import OrderCompleted from '../components/shared/order/order-completed.component.vue';
 
   import { useCart, useUsers } from '../composables';
-  import { Address } from '../interfaces';
-  import { orderService } from '../services';
+  import { Address, Order, ProductOrder, ProductStock } from '../interfaces';
+  import { orderService, productService } from '../services';
 
   const baseClass = 'order-checkout';
   const router = useRouter();
   const { t } = useI18n();
-  const { openOrder, updateOrderFromLocalStorage, loadUserOrders } = useCart();
+  const { openOrder, saveOrdersToLocalStorage, loadUserOrders } = useCart();
   const { user: userRegister } = useUsers();
 
   const firstStep = ref(true);
@@ -145,6 +145,25 @@
     fourStep.value = true;
   };
 
+  async function updateProductsStock(openOrder: Order) {
+    const productUpdates = await Promise.all(
+      openOrder.products.map(async (product: ProductOrder) => {
+        const productToUpdated = await productService.findProductByIds([product.productId]);
+
+        return productService.updateProduct({
+          ...productToUpdated[0],
+          stock: productToUpdated[0].stock?.map((s: ProductStock) =>
+            s.size === product.size
+              ? { size: s.size, quantity: s.quantity - parseFloat(product.units) }
+              : s
+          )
+        });
+      })
+    );
+
+    return productUpdates;
+  }
+
   const finishOrder = async () => {
     const updateOrder = {
       ...openOrder.value,
@@ -159,10 +178,12 @@
         country: orderAddress.value?.country
       }
     };
+    await updateProductsStock(openOrder.value);
+
     if (userRegister.value) {
       await orderService.updateOrder(updateOrder);
     } else {
-      updateOrderFromLocalStorage(updateOrder);
+      saveOrdersToLocalStorage([]);
     }
     fourStep.value = false;
   };
