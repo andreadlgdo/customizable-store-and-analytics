@@ -1,6 +1,6 @@
 <template>
   <div :class="baseClass">
-    <div v-if="user">
+    <div v-if="user && addresses?.length">
       <UiToggle @click="selectToggle" :options="options" :class="`${baseClass}__toggle`" />
       <UiAddress
         v-if="options[0].selected"
@@ -113,8 +113,14 @@
   );
 
   const options = ref([
-    { label: t('order.address.toggle.first'), selected: props.isFirstSelected && !!user.value },
-    { label: t('order.address.toggle.second'), selected: !props.isFirstSelected || !user.value }
+    {
+      label: t('order.address.toggle.first'),
+      selected: props.isFirstSelected && !!user.value && !!addresses.value?.length
+    },
+    {
+      label: t('order.address.toggle.second'),
+      selected: !props.isFirstSelected || !user.value || !addresses.value?.length
+    }
   ]);
 
   const isValid = computed(() => {

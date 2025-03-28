@@ -36,9 +36,11 @@
 
     &__label {
       font-size: 18px;
+      color: var(--bg-grey);
 
       &--selected {
         font-weight: bold;
+        color: var(--color-main)
       }
     }
   }
