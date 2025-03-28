@@ -12,6 +12,7 @@
 <script lang="ts" setup>
   import { computed, PropType } from 'vue';
 
+  import { useUsers } from '../../../composables';
   import { Order } from '../../../interfaces';
 
   import UiTable from '../../shared/ui-table.component.vue';
@@ -29,14 +30,23 @@
   defineEmits(['seeDetails']);
 
   const { t } = useI18n();
+  const { user } = useUsers();
 
-  const columns = computed(() => [
-    { id: '_id', label: t('dashboard.orders.table.id') },
-    { id: 'userId', label: t('dashboard.orders.table.idUser') },
-    { id: 'units', label: t('dashboard.orders.table.products'), textAlign: 'center' },
-    { id: 'total', label: t('dashboard.orders.table.total'), textAlign: 'center' },
-    { id: 'status', label: t('dashboard.orders.table.status'), textAlign: 'center' }
-  ]);
+  const columns = computed(() => {
+    const baseColumns = [
+      { id: '_id', label: t('dashboard.orders.table.id') },
+      { id: 'units', label: t('dashboard.orders.table.products'), textAlign: 'center' },
+      { id: 'total', label: t('dashboard.orders.table.total'), textAlign: 'center' },
+      { id: 'status', label: t('dashboard.orders.table.status'), textAlign: 'center' }
+    ];
+
+    if (user.value && user.value.type === 'admin') {
+      baseColumns.splice(1, 0, { id: 'userId', label: t('dashboard.orders.table.idUser') });
+    }
+
+    return baseColumns;
+  });
+
 </script>
 
 <style lang="scss" scoped>

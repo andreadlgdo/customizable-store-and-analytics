@@ -20,7 +20,7 @@
   import UiOrdersDetails from '../../components/dashboard/orders/ui-orders-details.component.vue';
   import UiOrdersList from '../../components/dashboard/orders/ui-orders-list.component.vue';
 
-  import { useUserMenu } from '../../composables';
+  import { useUserMenu, useUsers } from '../../composables';
   import { Order } from '../../interfaces';
   import { orderService } from '../../services';
 
@@ -36,6 +36,7 @@
   });
 
   const { menuElements } = useUserMenu();
+  const { user } = useUsers();
   const { t } = useI18n();
   const router = useRouter();
 
@@ -54,7 +55,13 @@
     });
   };
 
-  onMounted(async () => (orders.value = await orderService.getOrders()));
+  onMounted(async () => {
+    if (user.value && user.value.type === 'admin') {
+      orders.value = await orderService.getOrders();
+    } else {
+      orders.value = await orderService.findOrderByUserId(user.value?._id ?? '');
+    }
+  });
 </script>
 
 <style lang="scss" scoped>
