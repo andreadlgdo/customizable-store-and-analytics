@@ -1,7 +1,9 @@
 <template>
   <dashboard :selected-item="menuElements[1]">
     <div :class="baseClass">
-      <h1 :class="`${baseClass}__text ${baseClass}__text--title`">{{ t('dashboard.cart.title')}}</h1>
+      <h1 :class="`${baseClass}__text ${baseClass}__text--title`">
+        {{ t('dashboard.cart.title') }}
+      </h1>
       <p v-if="!openOrder">{{ t('dashboard.cart.empty') }}</p>
       <div v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
         <div
@@ -18,12 +20,22 @@
             <h3 :class="`${baseClass}__text ${baseClass}__text--name`">
               {{ findProduct(product.productId)?.name }}
             </h3>
-            <p>{{ findProduct(product.productId)?.price + ' €' }}</p>
+            <p>
+              {{
+                (findProduct(product.productId)?.priceWithDiscount ??
+                  findProduct(product.productId)?.price) + ' €'
+              }}
+            </p>
           </div>
           <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
             <UiSelect :placeholder="product.units" disabled :class="`${baseClass}__select`" />
             <h3 :class="`${baseClass}__text ${baseClass}__text--price`">
-              {{ product.units * findProduct(product.productId)?.price + ' €' }}
+              {{
+                product.units *
+                  (findProduct(product.productId)?.priceWithDiscount ??
+                    findProduct(product.productId)?.price) +
+                ' €'
+              }}
             </h3>
             <UiIconButton icon="heart" />
             <UiIconButton icon="delete" />
@@ -32,7 +44,9 @@
       </div>
       <hr />
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
-        <p :class="`${baseClass}__text ${baseClass}__text--label`">{{ t('dashboard.cart.label') }}</p>
+        <p :class="`${baseClass}__text ${baseClass}__text--label`">
+          {{ t('dashboard.cart.label') }}
+        </p>
         <p :class="`${baseClass}__text ${baseClass}__text--label`">{{ openOrder?.total + ' €' }}</p>
       </div>
       <ui-button
