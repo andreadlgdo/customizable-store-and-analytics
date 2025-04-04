@@ -65,7 +65,7 @@
             icon="cart"
             :text="t('products.modal.action')"
             :class="`${baseClass}__button`"
-            :disabled="!product.isUniqueSize || (!unit && !size)"
+            :disabled="(!product.isUniqueSize || !unit) && (!size || !unit)"
             transparent
           />
           <UiIconButton
