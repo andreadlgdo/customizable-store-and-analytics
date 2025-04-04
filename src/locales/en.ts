@@ -360,6 +360,13 @@ const messages: AppMessages['en'] = {
       empty: 'The cart is empty',
       label: 'Total price'
     },
+    whistList: {
+      title: 'Your wishlist',
+      empty: 'Your wishlist is empty',
+      action: {
+        add: 'Add to cart'
+      }
+    },
     action: {
       save: 'Save',
       cancel: 'Cancel',

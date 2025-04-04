@@ -360,6 +360,13 @@ const messages: AppMessages['es'] = {
       empty: 'El carrito esta vacio',
       label: 'Precio total'
     },
+    whistList: {
+      title: 'Tu lista de deseos',
+      empty: 'Tu lista de deseos esta vacia',
+      action: {
+        add: 'Añadir al carrito'
+      }
+    },
     action: {
       save: 'Guardar',
       cancel: 'Cancelar',
@@ -374,7 +381,7 @@ const messages: AppMessages['es'] = {
         idUser: 'ID Usuario',
         products: 'Productos',
         total: 'Precio',
-        status: 'Status',
+        status: 'Status'
       },
       form: {
         id: 'ID Pedido',
@@ -393,7 +400,7 @@ const messages: AppMessages['es'] = {
           price: 'Precio',
           units: 'Unidades',
           size: 'Talla'
-        },
+        }
       },
       action: {
         close: 'Cerrar'

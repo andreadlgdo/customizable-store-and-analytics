@@ -13,6 +13,7 @@ import Personalization from '../views/dashboard/personalization.view.vue';
 import UserCart from '../views/dashboard/user-cart.view.vue';
 import Analytics from '../views/dashboard/analytics.view.vue';
 import OrderCheckout from '../views/order-checkout.view.vue';
+import UserWhistList from '../views/dashboard/user-whist-list.view.vue';
 
 const routes = [
   { name: 'Home', path: '/', component: Home },
@@ -27,6 +28,13 @@ const routes = [
     name: 'UserCart',
     path: '/dashboard/cart',
     component: UserCart,
+    meta: { requiresAuth: true },
+    props: true
+  },
+  {
+    name: 'UserWhistList',
+    path: '/dashboard/whistList',
+    component: UserWhistList,
     meta: { requiresAuth: true },
     props: true
   },

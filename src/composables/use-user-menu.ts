@@ -34,7 +34,10 @@ export function useUserMenu() {
           {
             id: 2,
             label: t('menus.user.items.client.whistList'),
-            icon: 'heart'
+            icon: 'heart',
+            route: {
+              name: 'UserWhistList'
+            }
           },
           {
             id: 3,

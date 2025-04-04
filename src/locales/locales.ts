@@ -240,6 +240,13 @@ export interface DashboardMessages {
     title: string;
     empty: string;
     label: string;
+  };
+  whistList: {
+    title: string;
+    empty: string;
+    action: {
+      add: string;
+    }
   }
   action: {
     save: string;

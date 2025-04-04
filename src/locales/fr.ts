@@ -360,6 +360,13 @@ const messages: AppMessages['fr'] = {
       empty: 'Le panier est vide',
       label: 'Prix total'
     },
+    whistList: {
+      title: 'Votre liste de souhaits',
+      empty: 'Votre liste de souhaits est vide',
+      action: {
+        add: 'Ajouter au panier'
+      }
+    },
     action: {
       save: 'Enregistrer',
       cancel: 'Annuler',
