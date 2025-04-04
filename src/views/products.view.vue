@@ -10,6 +10,7 @@
       @selectFavourite="loadProducts(category ? [category] : [])"
       @updateWhistList="value => (isOpenWhistList = value)"
       @updateShoppingCart="value => (isOpenShoppingCart = value)"
+      @addToCart="addToCartWhistList"
     />
     <section :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--title`">
@@ -100,6 +101,11 @@
     }
     await loadProducts(category.value ? [category.value] : []);
     isOpenWhistList.value = true;
+  };
+
+  const addToCartWhistList = (product: Product) => {
+    productDetails.value = product;
+    isOpenWhistList.value = false;
   };
 
   watch(

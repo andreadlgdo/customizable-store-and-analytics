@@ -16,7 +16,11 @@
           <p :class="`${baseClass}__text ${baseClass}__text--name`">{{ product.name }}</p>
           <p :class="`${baseClass}__text ${baseClass}__text--price`">{{ product.price + ' €' }}</p>
         </div>
-        <UiButton :text="t('asides.whistList.action')" transparent />
+        <UiButton
+          @click="emit('addToCart', product)"
+          :text="t('asides.whistList.action')"
+          transparent
+        />
       </div>
     </section>
     <section v-else :class="`${baseClass}__wrapper`">
@@ -52,7 +56,7 @@
     isOpen: Boolean
   });
 
-  const emit = defineEmits(['close', 'selectFavourite']);
+  const emit = defineEmits(['close', 'selectFavourite', 'addToCart']);
 
   const products = ref<Product[]>([]);
 

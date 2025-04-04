@@ -21,6 +21,7 @@
     :error="invalidCredentials"
   />
   <ui-whist-list
+    @addToCart="p => emit('addToCart', p)"
     @selectFavourite="emit('selectFavourite')"
     @close="emit('updateWhistList', !openedWhistList)"
     :is-open="openedWhistList"
