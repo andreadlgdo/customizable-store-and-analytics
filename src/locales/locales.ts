@@ -235,10 +235,11 @@ export interface SignUpMessages {
 
 export interface DashboardMessages {
   personalData: PersonalDataMessages;
-  emptyView: {
+  cart: {
     title: string;
-    action: string;
-  };
+    empty: string;
+    label: string;
+  }
   action: {
     save: string;
     cancel: string;

@@ -352,9 +352,10 @@ const messages: AppMessages['en'] = {
   },
   dashboard: {
     personalData: personalDataMessages,
-    emptyView: {
-      title: 'is empty',
-      action: 'Continue shopping'
+    cart: {
+      title: 'Your cart',
+      empty: 'The cart is empty',
+      label: 'Total price'
     },
     action: {
       save: 'Save',
