@@ -7,7 +7,9 @@
       :data="
         products.map(p => ({
           ...p,
-          stock: p.stock.reduce((acc, stock) => acc + stock.quantity, 0)
+          stock: p.isUniqueSize
+            ? p.uniqueStock
+            : p.stock.reduce((acc, stock) => acc + stock.quantity, 0)
         }))
       "
       editable

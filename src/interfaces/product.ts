@@ -6,6 +6,8 @@ export interface Product {
   price: number;
   priceWithDiscount?: number;
   stock?: ProductStock[];
+  isUniqueSize?: boolean;
+  uniqueStock?: number;
   imageUrl?: string;
   onSale?: boolean;
   isFavouriteUsersIds?: string[];

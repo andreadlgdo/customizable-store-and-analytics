@@ -69,7 +69,9 @@
   const isSelected = ref(props.isFavourite);
 
   const haveStock = computed(() =>
-    props.product.stock?.reduce((acc, stock) => acc + stock.quantity, 0)
+    props.product?.isUniqueSize
+      ? props.product?.uniqueStock
+      : props.product.stock?.reduce((acc, stock) => acc + stock.quantity, 0)
   );
 
   watch(

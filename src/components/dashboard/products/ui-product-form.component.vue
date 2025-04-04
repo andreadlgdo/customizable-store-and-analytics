@@ -54,7 +54,29 @@
           :value="item.price"
           :label="t('dashboard.products.form.price')"
           type="number"
+          :class="`${baseClass}__textbox`"
         />
+        <UiCheckbox
+          @change="item.onSale = !item.onSale"
+          :value="item.onSale"
+          :text="t('dashboard.products.form.onSale')"
+          :class="`${baseClass}__checkbox`"
+        />
+        <UiTextbox
+          @input="value => (item.priceWithDiscount = value)"
+          v-if="item.onSale"
+          :value="item.priceWithDiscount"
+          :label="t('dashboard.products.form.priceWithDiscount')"
+          :style="{ width: '50%' }"
+          type="number"
+        />
+      </div>
+      <UiCheckbox
+        @change="item.isUniqueSize = !item.isUniqueSize"
+        :value="item.isUniqueSize"
+        :text="t('dashboard.products.form.uniqueSize')"
+      />
+      <div v-if="!item.isUniqueSize" :class="`${baseClass}__wrapper`">
         <UiTextbox
           v-for="stock in item.stock"
           :key="stock.size"
@@ -64,18 +86,13 @@
           :label="t('dashboard.products.form.quantity') + ' ' + stock.size"
         />
       </div>
-      <UiCheckbox
-        @change="item.onSale = !item.onSale"
-        :value="item.onSale"
-        :text="t('dashboard.products.form.onSale')"
-      />
       <UiTextbox
-        @input="value => (item.priceWithDiscount = value)"
-        v-if="item.onSale"
-        :value="item.priceWithDiscount"
-        :label="t('dashboard.products.form.priceWithDiscount')"
-        :style="{ width: '50%' }"
+        v-else
+        @input="value => (item.uniqueStock = value)"
+        :value="item.uniqueStock"
+        :label="t('dashboard.products.form.stock')"
         type="number"
+        :class="`${baseClass}__textbox`"
       />
     </div>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
@@ -136,14 +153,16 @@
       price: itemToEdit?.price ?? 0,
       priceWithDiscount: itemToEdit?.priceWithDiscount ?? 0,
       stock: itemToEdit?.stock?.length
-          ? itemToEdit.stock
-          : [
+        ? itemToEdit.stock
+        : [
             { quantity: 0, size: 'XS' },
             { quantity: 0, size: 'S' },
             { quantity: 0, size: 'M' },
             { quantity: 0, size: 'L' },
             { quantity: 0, size: 'XL' }
           ],
+      isUniqueSize: itemToEdit?.isUniqueSize ?? false,
+      uniqueStock: itemToEdit?.uniqueStock ?? 0,
       onSale: itemToEdit?.onSale ?? false
     };
   };
@@ -289,6 +308,19 @@
         bottom: 2rem;
         right: 2rem;
       }
+
+      &--price {
+        align-items: center;
+      }
+    }
+
+    &__textbox {
+      width: 8rem;
+    }
+
+    &__checkbox {
+      align-self: flex-end;
+      margin-bottom: 8px;
     }
   }
 </style>

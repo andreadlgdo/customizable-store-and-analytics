@@ -125,6 +125,8 @@ const productsManagementMessages: ProductsManagementMessages = {
     categories: 'Catégories',
     price: 'Prix',
     priceWithDiscount: 'Prix avec réduction',
+    uniqueSize: 'Taille unique',
+    stock: 'Stock',
     quantity: 'Quantité',
     onSale: 'Reduced'
   }
@@ -286,6 +288,7 @@ const messages: AppMessages['fr'] = {
       title: 'Votre panier',
       label: {
         size: 'Taille',
+        unique: 'unique',
         units: 'Unités'
       },
       action: 'Traiter la commande',

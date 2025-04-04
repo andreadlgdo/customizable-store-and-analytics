@@ -30,6 +30,7 @@
         </p>
         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--select`">
           <UiSelect
+            v-if="!product.isUniqueSize"
             @change="value => (size = value)"
             :value="size"
             label="Talla"
@@ -38,14 +39,18 @@
             :style="{ width: '50%' }"
           />
           <UiSelect
-            v-if="!!size"
+            v-if="!!size || product.isUniqueSize"
             @change="value => (unit = value)"
             :value="unit"
             label="Unidades"
             placeholder="Select"
             :options="
               Array.from(
-                { length: product.stock?.find(s => s.size === size)?.quantity },
+                {
+                  length: product.isUniqueSize
+                    ? product.uniqueStock
+                    : product.stock?.find(s => s.size === size)?.quantity
+                },
                 (_, i) => ({
                   title: (i + 1).toString()
                 })
@@ -59,9 +64,9 @@
             @click="addProductCard"
             icon="cart"
             :text="t('products.modal.action')"
-            transparent
             :class="`${baseClass}__button`"
-            :disabled="!size || !unit"
+            :disabled="!product.isUniqueSize || (!unit && !size)"
+            transparent
           />
           <UiIconButton
             @click="selectFavourite"

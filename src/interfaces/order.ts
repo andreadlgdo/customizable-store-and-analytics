@@ -11,7 +11,7 @@ export interface Order {
 
 export interface ProductOrder {
   units: string;
-  size: string;
+  size?: string;
   productId: string;
 }
 

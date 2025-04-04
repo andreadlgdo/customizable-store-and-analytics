@@ -7,14 +7,16 @@
         {{
           t('asides.cart.label.size') +
           ' ' +
-          orderProduct.size +
+          (product.isUniqueSize ? t('asides.cart.label.unique') : orderProduct.size) +
           ' | ' +
           orderProduct.units +
           ' ' +
           t('asides.cart.label.units')
         }}
       </p>
-      <p>{{  (product.priceWithDiscount ?? product.price) * parseInt(orderProduct.units) + ' €' }}</p>
+      <p>
+        {{ (product.priceWithDiscount ?? product.price) * parseInt(orderProduct.units) + ' €' }}
+      </p>
       <div v-if="showActions" :class="`${baseClass}__wrapper ${baseClass}__wrapper--actions`">
         <UiIconButton
           @click="selectFavourite"

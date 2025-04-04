@@ -125,6 +125,8 @@ const productsManagementMessages: ProductsManagementMessages = {
     categories: 'Categories',
     price: 'Price',
     priceWithDiscount: 'Price with discount',
+    uniqueSize: 'Size unique',
+    stock: 'Stock',
     quantity: 'Quantity',
     onSale: 'On sale'
   }
@@ -286,6 +288,7 @@ const messages: AppMessages['en'] = {
       title: 'Your cart',
       label: {
         size: 'Size',
+        unique: 'unique',
         units: 'Units'
       },
       action: 'Process order',

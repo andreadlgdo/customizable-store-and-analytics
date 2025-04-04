@@ -63,6 +63,7 @@ export interface AppMessages {
         title: string;
         label: {
           size: string;
+          unique: string;
           units: string;
         };
         action: string;
@@ -307,6 +308,8 @@ export interface ProductsManagementMessages {
     categories: string;
     price: string;
     priceWithDiscount: string;
+    uniqueSize: string;
+    stock: string;
     quantity: string;
     onSale: string;
   };
