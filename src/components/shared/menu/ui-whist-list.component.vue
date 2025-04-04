@@ -14,7 +14,9 @@
         </div>
         <div :class="`${baseClass}__info`">
           <p :class="`${baseClass}__text ${baseClass}__text--name`">{{ product.name }}</p>
-          <p :class="`${baseClass}__text ${baseClass}__text--price`">{{ product.price + ' €' }}</p>
+          <p :class="`${baseClass}__text ${baseClass}__text--price`">
+            {{ (product.priceWithDiscount ?? product.price) + ' €' }}
+          </p>
         </div>
         <UiButton
           @click="emit('addToCart', product)"

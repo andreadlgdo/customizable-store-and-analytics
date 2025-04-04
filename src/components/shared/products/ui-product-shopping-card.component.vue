@@ -14,7 +14,7 @@
           t('asides.cart.label.units')
         }}
       </p>
-      <p>{{ product.price * parseInt(orderProduct.units) + ' €' }}</p>
+      <p>{{  (product.priceWithDiscount ?? product.price) * parseInt(orderProduct.units) + ' €' }}</p>
       <div v-if="showActions" :class="`${baseClass}__wrapper ${baseClass}__wrapper--actions`">
         <UiIconButton
           @click="selectFavourite"

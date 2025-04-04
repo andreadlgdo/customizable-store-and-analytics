@@ -5,9 +5,25 @@
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
         <div>
           <h1 :class="`${baseClass}__text ${baseClass}__text--title`">{{ product.name }}</h1>
-          <p :class="`${baseClass}__text ${baseClass}__text--price`">
-            {{ product.price + ' €' }}
-          </p>
+          <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--price`">
+            <p
+              :class="[
+                `${baseClass}__text ${baseClass}__text--price`,
+                {
+                  [`${baseClass}__text ${baseClass}__text--price-discount`]:
+                    product.priceWithDiscount
+                }
+              ]"
+            >
+              {{ product.price + ' €' }}
+            </p>
+            <p
+              v-if="product.priceWithDiscount"
+              :class="`${baseClass}__text ${baseClass}__text--discount`"
+            >
+              {{ product.priceWithDiscount + ' €' }}
+            </p>
+          </div>
         </div>
         <p :class="`${baseClass}__text ${baseClass}__text--description`">
           {{ product.description }}
@@ -132,7 +148,8 @@
         width: 100%;
       }
 
-      &--select {
+      &--select,
+      &--price {
         gap: 14px;
       }
     }
@@ -145,6 +162,16 @@
 
       &--price {
         font-size: 20px;
+      }
+
+      &--price-discount {
+        text-decoration: line-through;
+      }
+
+      &--discount {
+        font-size: 20px;
+        font-weight: bold;
+        color: var(--color-red);
       }
 
       &--description {

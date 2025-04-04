@@ -12,7 +12,20 @@
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
       <p>{{ product.name }}</p>
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
-        <p>{{ product.price + ' €' }}</p>
+        <p
+          :class="[
+            `${baseClass}__text`,
+            { [`${baseClass}__text--have-discount`]: product.priceWithDiscount }
+          ]"
+        >
+          {{ product.price + ' €' }}
+        </p>
+        <p
+          v-if="product.priceWithDiscount"
+          :class="`${baseClass}__text ${baseClass}__text--discount `"
+        >
+          {{ product.priceWithDiscount + ' €' }}
+        </p>
         <UiButton
           v-if="haveStock"
           @click="$emit('addToCart', product)"
@@ -21,7 +34,7 @@
           :text="t('products.card.action')"
           transparent
         />
-        <p v-else :class="`${baseClass}__text`">Out of stock</p>
+        <p v-else :class="`${baseClass}__text ${baseClass}__text--stock`">Out of stock</p>
       </div>
     </div>
   </section>
@@ -114,9 +127,16 @@
     }
 
     &__text {
-      font-size: 16px;
-      font-weight: bold;
-      color: var(--color-red);
+      &--stock,
+      &--discount {
+        font-size: 16px;
+        font-weight: bold;
+        color: var(--color-red);
+      }
+
+      &--have-discount {
+        text-decoration: line-through;
+      }
     }
   }
 </style>
