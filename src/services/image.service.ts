@@ -1,8 +1,32 @@
-const apiUrl = process.env.VUE_APP_API_URL;
+import { fetchData } from './httpClient';
+
+interface ImageResponse {
+  imageUrl: string;
+}
+
+interface ImageUpdateParams {
+  folder: string;
+  oldImageName: string;
+  newImageName: string;
+}
+
+interface ImageDeleteParams {
+  folder: string;
+  imageToRemove: string;
+}
+
+interface ImageOperationResponse {
+  success: boolean;
+  message?: string;
+}
+
+const apiUrl = process.env.VUE_APP_API_URL || '';
+const BASE_PATH = `${apiUrl}/api`;
+const IMAGES_PATH = `${BASE_PATH}/images`;
 
 export const imageService = {
-  addImage: async function (formData: FormData) {
-    const response = await fetch(`${apiUrl}/api/images`, {
+  addImage: async (formData: FormData): Promise<string> => {
+    const response = await fetch(`${IMAGES_PATH}`, {
       method: 'POST',
       body: formData
     });
@@ -11,44 +35,21 @@ export const imageService = {
       throw new Error('Failed to upload an image');
     }
 
-    const data = await response.json();
+    const data = await response.json() as ImageResponse;
     return data.imageUrl;
   },
-  updateImage: async function (folder: string, oldImageName: string, newImageName: string) {
-    const response = await fetch(`${apiUrl}/api/images/updated`, {
+  
+  updateImage: async (params: ImageUpdateParams): Promise<ImageOperationResponse> => {
+    return fetchData(`${IMAGES_PATH}/updated`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        folder,
-        oldImageName,
-        newImageName
-      })
+      body: JSON.stringify(params)
     });
-
-    if (!response.ok) {
-      throw new Error('Error al actualizar la imagen');
-    }
-
-    return response.json();
   },
-  deleteImage: async function (folder: string, imageToRemove: string) {
-    const response = await fetch(`${apiUrl}/api/images/deleted`, {
+  
+  deleteImage: async (params: ImageDeleteParams): Promise<ImageOperationResponse> => {
+    return fetchData(`${IMAGES_PATH}/deleted`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        folder,
-        imageToRemove
-      })
+      body: JSON.stringify(params)
     });
-
-    if (!response.ok) {
-      throw new Error('Error al eliminar la imagen');
-    }
-
-    return response.json();
   }
 };
