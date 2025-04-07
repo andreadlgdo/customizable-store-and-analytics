@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { User } from '../interfaces';
 import { userService } from '../services';
 
-const getStoredUser = () => {
+const getStoredUser = (): User | undefined => {
   const storedUser = localStorage.getItem('user');
   return storedUser ? JSON.parse(storedUser) : undefined;
 };
@@ -11,29 +11,28 @@ const getStoredUser = () => {
 export function useUsers() {
   const user = ref<User | undefined>(getStoredUser());
 
-  const getUsers = async () => {
-    const { users } = await userService.getUsers();
-    return users;
+  const getUsers = async (): Promise<User[]> => {
+    return await userService.getUsers();
   };
 
-  const createUser = async (userToCreate: User) => {
-    const { user } = await userService.createUser(userToCreate);
-    localStorage.setItem('user', JSON.stringify(user));
-    return user;
+  const createUser = async (userToCreate: User): Promise<User> => {
+    const createdUser = await userService.createUser(userToCreate);
+    localStorage.setItem('user', JSON.stringify(createdUser));
+    return createdUser;
   };
 
-  const login = async (email: string, password: string) => {
-    const userData = { email, password };
+  const login = async (email: string, password: string): Promise<Error | void> => {
     try {
-      const response = await userService.validUser(userData);
+      const response = await userService.validUser({ email, password });
       user.value = response.user;
+      
       localStorage.setItem('user', JSON.stringify(user.value));
-    } catch (error: any) {
-      return error;
+    } catch (error) {
+      return error as Error;
     }
   };
 
-  const logout = () => {
+  const logout = (): void => {
     user.value = undefined;
     localStorage.removeItem('user');
     window.location.reload();

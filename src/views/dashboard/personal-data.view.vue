@@ -72,13 +72,13 @@
   import UiButton from '../../components/shared/ui-button.component.vue';
   import UiTextbox from '../../components/shared/ui-textbox.component.vue';
 
-  import { useCurrentUser, useUserMenu, useValidations } from '../../composables';
+  import { useUsers, useUserMenu, useValidations } from '../../composables';
   import { imageService, userService } from '../../services';
 
   import Dashboard from './dashboard.view.vue';
 
   const { menuElements } = useUserMenu();
-  const { user } = useCurrentUser();
+  const { user } = useUsers();
   const { validEmail } = useValidations();
   const { t } = useI18n();
 
