@@ -1,40 +1,46 @@
-import { fetchData } from '../services/httpClient';
+import { fetchData } from './httpClient';
 import { Order } from '../interfaces';
 
-const apiUrl = process.env.VUE_APP_API_URL;
+const apiUrl = process.env.VUE_APP_API_URL || '';
+const BASE_PATH = `${apiUrl}/api`;
+const ORDERS_PATH = `${BASE_PATH}/orders`;
 
 export const orderService = {
-  getOrders: async function () {
-    const url = new URL(`${apiUrl}/api/orders`);
-
-    return await fetchData(url.toString(), { method: 'GET' });
+  getOrders: async (): Promise<Order[]> => {
+    const url = new URL(ORDERS_PATH);
+    return fetchData(url.toString(), { method: 'GET' });
   },
-  createOrder: async function (orderData: Order) {
-    return fetchData(`${apiUrl}/api/orders`, {
+  
+  createOrder: async (orderData: Order): Promise<Order> => {
+    return fetchData(ORDERS_PATH, {
       method: 'POST',
       body: JSON.stringify(orderData)
     });
   },
-  findOrderByUserId: async function (userId: string) {
-    const url = new URL(`${apiUrl}/api/orders/user/${userId}`);
-
-    return await fetchData(url.toString(), { method: 'GET' });
+  
+  findOrderByUserId: async (userId: string): Promise<Order[]> => {
+    const url = new URL(`${ORDERS_PATH}/user/${userId}`);
+    return fetchData(url.toString(), { method: 'GET' });
   },
-  updateOrder: async function (orderData: Order) {
+  
+  updateOrder: async (orderData: Order): Promise<Order> => {
     if (!orderData._id) {
       throw new Error('Order ID is required');
     }
-    const response = await fetchData(`${apiUrl}/api/orders/${orderData._id}`, {
+    
+    const response = await fetchData(`${ORDERS_PATH}/${orderData._id}`, {
       method: 'PUT',
       body: JSON.stringify(orderData)
     });
+    
     return response.order;
   },
-  deleteOrder: async function (_id: string) {
-    if (!_id) {
+  
+  deleteOrder: async (id: string): Promise<void> => {
+    if (!id) {
       throw new Error('Order ID is required');
     }
 
-    await fetchData(`${apiUrl}/api/orders/${_id}`, { method: 'DELETE' });
+    return fetchData(`${ORDERS_PATH}/${id}`, { method: 'DELETE' });
   }
 };
