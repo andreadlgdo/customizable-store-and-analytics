@@ -1,11 +1,12 @@
-const apiUrl = process.env.VUE_APP_API_URL;
+import { fetchData } from './httpClient';
+import { Category } from '../interfaces';
+
+const apiUrl = process.env.VUE_APP_API_URL || '';
+const BASE_PATH = `${apiUrl}/api`;
+const CATEGORY_PATH = `${BASE_PATH}/category`;
 
 export const categoryService = {
-  getCategories: async function () {
-    const response = await fetch(`${apiUrl}/api/category`);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return await response.json();
+  getCategories: async (): Promise<Category[]> => {
+    return fetchData(CATEGORY_PATH, { method: 'GET' });
   }
 };
