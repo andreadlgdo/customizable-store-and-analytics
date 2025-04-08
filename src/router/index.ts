@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import Home from '../views/old-home.view.vue';
+// Public pages
+import Home from '../views/home.view.vue';
 import Products from '../views/products.view.vue';
 import TermsAndConditions from '../views/terms-and-conditions.view.vue';
+import OrderCheckout from '../views/order-checkout.view.vue';
 
-import { useCurrentUser } from '../composables';
+// Dashboard pages
 import PersonalData from '../views/dashboard/personal-data.view.vue';
 import ProductsManagement from '../views/dashboard/products-management.view.vue';
 import OrdersManagement from '../views/dashboard/orders-management.view.vue';
@@ -12,11 +14,20 @@ import UsersManagement from '../views/dashboard/users-management.view.vue';
 import Personalization from '../views/dashboard/personalization.view.vue';
 import UserCart from '../views/dashboard/user-cart.view.vue';
 import Analytics from '../views/dashboard/analytics.view.vue';
-import OrderCheckout from '../views/order-checkout.view.vue';
 import UserWhistList from '../views/dashboard/user-whist-list.view.vue';
 
-const routes = [
+import { useCurrentUser } from '../composables';
+
+// Public routes
+const publicRoutes = [
   { name: 'Home', path: '/', component: Home },
+  { name: 'Products', path: '/products/:category?', component: Products },
+  { name: 'Orders', path: '/order', component: OrderCheckout },
+  { name: 'Terms and conditions', path: '/terms-and-conditions', component: TermsAndConditions }
+];
+
+// Dashboard routes (require authentication)
+const dashboardRoutes = [
   {
     name: 'PersonalData',
     path: '/dashboard/personalData',
@@ -72,11 +83,10 @@ const routes = [
     component: Analytics,
     meta: { requiresAuth: true },
     props: true
-  },
-  { name: 'Products', path: '/products/:category?', component: Products },
-  { name: 'Orders', path: '/order', component: OrderCheckout },
-  { name: 'Terms and conditions', path: '/terms-and-conditions', component: TermsAndConditions }
+  }
 ];
+
+const routes = [...publicRoutes, ...dashboardRoutes];
 
 const router = createRouter({
   history: createWebHistory(),
