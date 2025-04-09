@@ -4,22 +4,23 @@
     :opened-user-menu="isOpenUserMenu"
     :opened-whist-list="isOpenWhistList"
     :opened-shopping-cart="isOpenShoppingCart"
-    @updateMenu="value => (isOpenMenu = value)"
-    @updateUserMenu="value => (isOpenUserMenu = value)"
-    @updateWhistList="value => (isOpenWhistList = value)"
-    @updateShoppingCart="value => (isOpenShoppingCart = value)"
+    @updateMenu="isOpenMenu = $event"
+    @updateUserMenu="isOpenUserMenu = $event"
+    @updateWhistList="isOpenWhistList = $event"
+    @updateShoppingCart="isOpenShoppingCart = $event"
     transparent
   />
   <section
     v-if="landingImage?.imageUrl"
-    :class="`${baseClass}__image `"
+    :class="`${baseClass}__image`"
     :style="{ backgroundImage: `url(${landingImage?.imageUrl})` }"
   />
   <section :class="`${baseClass}__content`">
     <ui-button 
       @click="router.push('/products')" 
       text="Shop now" 
-      :class="`${baseClass}__button`" colorSoft
+      :class="`${baseClass}__button`" 
+      colorSoft
     />
     <div :class="`${baseClass}__info`">
       <p :class="`${baseClass}__text`">Free shipping</p>
