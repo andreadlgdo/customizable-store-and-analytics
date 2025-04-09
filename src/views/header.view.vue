@@ -4,6 +4,7 @@
     @openUserMenu="emit('updateUserMenu', true)"
     @openWhistList="emit('updateWhistList', true)"
     @openShoppingCart="emit('updateShoppingCart', true)"
+    :transparent="transparent"
   />
   <ui-menu @close="emit('updateMenu', !openedMenu)" :is-open="openedMenu" />
   <ui-user-menu
@@ -52,7 +53,8 @@
     openedMenu: Boolean,
     openedUserMenu: Boolean,
     openedWhistList: Boolean,
-    openedShoppingCart: Boolean
+    openedShoppingCart: Boolean,
+    transparent: Boolean
   });
 
   const emit = defineEmits([

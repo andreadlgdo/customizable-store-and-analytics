@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 // Public pages
-import Home from '../views/old-home.view.vue';
+import Home from '../views/home.view.vue';
 import Products from '../views/products.view.vue';
 import TermsAndConditions from '../views/terms-and-conditions.view.vue';
 import OrderCheckout from '../views/order-checkout.view.vue';

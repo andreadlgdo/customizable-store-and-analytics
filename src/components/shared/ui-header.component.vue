@@ -1,5 +1,5 @@
 <template>
-  <section :class="baseClass">
+  <section :class="[baseClass, { [`${baseClass}--transparent`]: transparent }]">
     <UiIconButton
       @click="$emit('openMenu')"
       icon="menu"
@@ -23,6 +23,10 @@
 
   const router = useRouter();
 
+  defineProps({
+    transparent: Boolean
+  });
+
   defineEmits(['openMenu', 'openUserMenu', 'openWhistList', 'openShoppingCart']);
 </script>
 
@@ -34,6 +38,11 @@
     height: 5rem;
     width: 100%;
     background: var(--color-soft-primary);
+
+    &--transparent {
+      position: fixed;
+      background: transparent;
+    }
 
     &__icon {
       &--menu {
