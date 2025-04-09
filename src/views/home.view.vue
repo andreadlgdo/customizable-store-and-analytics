@@ -16,7 +16,11 @@
     :style="{ backgroundImage: `url(${landingImage?.imageUrl})` }"
   />
   <section :class="`${baseClass}__content`">
-    <ui-button text="Shop now" :class="`${baseClass}__button`" colorSoft/>
+    <ui-button 
+      @click="router.push('/products')" 
+      text="Shop now" 
+      :class="`${baseClass}__button`" colorSoft
+    />
     <div :class="`${baseClass}__info`">
       <p :class="`${baseClass}__text`">Free shipping</p>
       <p :class="`${baseClass}__text`">|</p>
@@ -29,13 +33,17 @@
 
 <script lang="ts" setup>
   import { onMounted, ref } from 'vue';
+  import { useRouter } from 'vue-router';
+
+  import UiButton from '@/components/shared/ui-button.component.vue';
+  import { generalService } from '@/services';
 
   import Header from './header.view.vue';
-  import { generalService } from '@/services';
-  import UiButton from '@/components/shared/ui-button.component.vue';
 
   const baseClass = 'home';
 
+  const router = useRouter();
+  
   const isOpenMenu = ref(false);
   const isOpenUserMenu = ref(false);
   const isOpenWhistList = ref(false);
