@@ -12,7 +12,8 @@
       @updateShoppingCart="value => (isOpenShoppingCart = value)"
       @addToCart="addToCartWhistList"
     />
-    <section :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
+    <ui-loading v-if="isLoading" />
+    <section v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--title`">
         <h1 :class="`${baseClass}__text`">
           {{ (category ? category : t('products.allProducts')).toUpperCase() }}
@@ -50,6 +51,7 @@
 
   import UiProductCard from '../components/shared/products/ui-product-card.component.vue';
   import UiProductDetailsModal from '../components/shared/products/ui-product-details-modal.component.vue';
+  import UiLoading from '../components/ui-loading.vue';
 
   import Header from './header.view.vue';
   import { Product } from '@/interfaces';
@@ -66,6 +68,7 @@
   const isOpenUserMenu = ref(false);
   const isOpenWhistList = ref(false);
   const isOpenShoppingCart = ref(false);
+  const isLoading = ref(false);
 
   const productDetails = ref<Product | undefined>(undefined);
 
@@ -111,7 +114,12 @@
   watch(
     category,
     async newCategory => {
-      await loadProducts(newCategory ? [newCategory] : []);
+      isLoading.value = true;
+      try {
+        await loadProducts(newCategory ? [newCategory] : []);
+      } finally {
+        isLoading.value = false;
+      }
     },
     { immediate: true }
   );
