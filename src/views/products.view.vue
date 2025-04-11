@@ -51,7 +51,7 @@
 
   import UiProductCard from '../components/shared/products/ui-product-card.component.vue';
   import UiProductDetailsModal from '../components/shared/products/ui-product-details-modal.component.vue';
-  import UiLoading from '../components/ui-loading.vue';
+  import UiLoading from '../components/shared/ui-loading.vue';
 
   import Header from './header.view.vue';
   import { Product } from '@/interfaces';
