@@ -17,7 +17,8 @@
         icon="plus"
         :class="`${baseClass}__button`"
       />
-      <ui-users-list v-if="!isFormUser" @edit="editUser" @delete="deleteUser" :users="users" />
+      <ui-loading v-if="isLoading" />
+      <ui-users-list v-else-if="!isFormUser" @edit="editUser" @delete="deleteUser" :users="users" />
       <ui-user-form @action="isFormUser = false" v-if="isFormUser" :item-to-edit="itemToEdit" />
     </div>
   </dashboard>
@@ -30,6 +31,7 @@
   import UiUserForm from '../../components/dashboard/users/ui-user-form.component.vue';
   import UiUsersList from '../../components/dashboard/users/ui-users-list.component.vue';
   import UiButton from '../../components/shared/ui-button.component.vue';
+  import UiLoading from '../../components/shared/ui-loading.vue';
 
   import { useUserMenu, useUsers } from '../../composables';
   import { User } from '../../interfaces';
@@ -57,6 +59,7 @@
   });
 
   const users = ref<User[]>([]);
+  const isLoading = ref(false);
 
   const isFormUser = ref(!!props.action && !props.itemId);
 
@@ -79,8 +82,10 @@
   };
 
   const deleteUser = async (item: User) => {
+    isLoading.value = true;
     await userService.deleteUser(item._id ?? '');
     users.value = await getUsers();
+    isLoading.value = false;
   };
 
   watch(
@@ -93,7 +98,11 @@
     { immediate: true }
   );
 
-  onMounted(async () => (users.value = await getUsers()));
+  onMounted(async () => {
+    isLoading.value = true;
+    users.value = await getUsers();
+    isLoading.value = false;
+  });
 </script>
 
 <style lang="scss" scoped>

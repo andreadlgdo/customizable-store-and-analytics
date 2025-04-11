@@ -17,10 +17,11 @@
         icon="plus"
         :class="`${baseClass}__button`"
       />
+      <ui-loading v-if="isLoading" />
       <products-list
+        v-else-if="!isFormProduct"
         @edit="editProduct"
         @delete="deleteProduct"
-        v-if="!isFormProduct"
         :products="products"
       />
       <ui-product-form
@@ -41,6 +42,7 @@
   import ProductsList from '../../components/dashboard/products/ui-products-list.component.vue';
   import UiButton from '../../components/shared/ui-button.component.vue';
   import UiProductForm from '../../components/dashboard/products/ui-product-form.component.vue';
+  import UiLoading from '../../components/shared/ui-loading.vue';
 
   import { useProducts, useUserMenu } from '../../composables';
   import { Product } from '../../interfaces';
@@ -56,6 +58,8 @@
   const { t } = useI18n();
 
   const baseClass = 'products-management';
+
+  const isLoading = ref(false);
 
   const props = defineProps({
     action: {
@@ -91,8 +95,10 @@
   };
 
   const deleteProduct = async (item: Product) => {
+    isLoading.value = true;
     await productService.deleteProduct(item._id ?? '');
     await loadProducts();
+    isLoading.value = false;
   };
 
   const saveItem = async () => {
@@ -110,7 +116,11 @@
     { immediate: true }
   );
 
-  onMounted(async () => await loadProducts());
+  onMounted(async () => {
+    isLoading.value = true;
+    await loadProducts();
+    isLoading.value = false;
+  });
 </script>
 
 <style lang="scss" scoped>

@@ -2,12 +2,15 @@
   <dashboard :selected-item="user.type === 'admin' ? menuElements[2] : menuElements[3]">
     <div :class="baseClass">
       <h1 v-if="!itemId" :class="`${baseClass}__title`">{{ t('dashboard.orders.title') }}</h1>
-      <ui-orders-list v-if="!itemId" @seeDetails="seeOrderDetails" :orders="orders" />
-      <ui-orders-details
-        v-else
-        @cancel="closeDetails"
-        :item="orders.find((o: Order) => o._id === itemId)"
-      />
+      <ui-loading v-if="loading" />
+      <template v-else>
+        <ui-orders-list v-if="!itemId" @seeDetails="seeOrderDetails" :orders="orders" />
+        <ui-orders-details
+          v-else
+          @cancel="closeDetails"
+          :item="orders.find((o: Order) => o._id === itemId)"
+        />
+      </template>
     </div>
   </dashboard>
 </template>
@@ -19,6 +22,7 @@
 
   import UiOrdersDetails from '../../components/dashboard/orders/ui-orders-details.component.vue';
   import UiOrdersList from '../../components/dashboard/orders/ui-orders-list.component.vue';
+  import UiLoading from '../../components/shared/ui-loading.vue';
 
   import { useUserMenu, useUsers } from '../../composables';
   import { Order } from '../../interfaces';
@@ -41,6 +45,7 @@
   const router = useRouter();
 
   const orders = ref<Order[]>([]);
+  const loading = ref(true);
 
   const seeOrderDetails = (item: Order) => {
     router.push({
@@ -56,10 +61,14 @@
   };
 
   onMounted(async () => {
-    if (user.value && user.value.type === 'admin') {
-      orders.value = await orderService.getOrders();
-    } else {
-      orders.value = await orderService.findOrderByUserId(user.value?._id ?? '');
+    try {
+      if (user.value && user.value.type === 'admin') {
+        orders.value = await orderService.getOrders();
+      } else {
+        orders.value = await orderService.findOrderByUserId(user.value?._id ?? '');
+      }
+    } finally {
+      loading.value = false;
     }
   });
 </script>
