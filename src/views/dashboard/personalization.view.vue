@@ -5,7 +5,11 @@
       <section v-if="!action" @click="selectAction('texts')" :class="`${baseClass}__section`">
         <h1>Textos</h1>
       </section>
+      <section v-if="!action" @click="selectAction('products-visuals')" :class="`${baseClass}__section`">
+        <h1>Visualización de productos</h1>
+      </section>
       <ui-custom-text v-if="action === actions[0]" />
+      <ui-products-visuals v-else-if="action === actions[1]" />
     </div>
   </dashboard>
 </template>
@@ -15,7 +19,7 @@
   import Dashboard from './dashboard.view.vue';
   import { useUserMenu } from '@/composables';
   import UiCustomText from '../../components/dashboard/personalization/ui-custom-text.component.vue';
-
+  import UiProductsVisuals from '../../components/dashboard/personalization/ui-products-visuals.component.vue';
   const baseClass = 'personalization';
 
   const { menuElements } = useUserMenu();
@@ -28,7 +32,7 @@
     }
   });
 
-  const actions = ['texts']
+  const actions = ['texts', 'products-visuals'];
 
   const selectAction = (action: string) => {
     router.push({
@@ -52,9 +56,10 @@
       height: 8rem;
       border: 2px solid var(--color-dark-primary);
       border-radius: 20px;
-      width: 12rem;
+      width: 14rem;
       cursor: pointer;
       margin: 16px;
+      text-align: center;
 
       &:hover {
         border: 4px solid var(--color-dark-primary);

@@ -101,25 +101,21 @@ onMounted(async () => {
 <style lang="scss" scoped>
 .custom-text {
     &__header {
-        display: flex
-;
-    align-items: center;
-    position: absolute;
-    left: 21rem;
-   cursor: pointer;
-   
+        display: flex;
+        align-items: center;
+        position: absolute;
+        left: 21rem;
+        cursor: pointer;
     }
 
     &__title {
-
         margin-top: 3rem;
-       
     }
 
     &__text {
         &:hover {
-        font-weight: 600;
-    }
+         font-weight: 600;
+        }
     }
 
     &__icon {
