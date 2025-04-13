@@ -6,11 +6,12 @@ const CUSTOM_TEXTS_PATH = `${BASE_PATH}/customTexts`;
 
 export const customTextsService = {
     getCustomTexts: async (page?: string) => {
-        return await fetchData(CUSTOM_TEXTS_PATH, {
-            method: 'GET',
-            params: {
-                page: page ?? ''
-            }
+        const url = new URL(CUSTOM_TEXTS_PATH);
+        if (page) {
+            url.searchParams.append('page', page);
+        }
+        return await fetchData(url.toString(), {
+            method: 'GET'
         });
     }
 } 

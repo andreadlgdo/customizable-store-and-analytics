@@ -5,7 +5,7 @@
       icon="menu"
       :class="`${baseClass}__icon ${baseClass}__icon--menu`"
     />
-    <h1 @click="router.push('/')" :class="`${baseClass}__text`">KASTO</h1>
+    <h1 @click="router.push('/')" :class="`${baseClass}__text`">{{ name }}</h1>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--actions`">
       <UiIconButton @click="$emit('openUserMenu')" icon="user" />
       <UiIconButton @click="$emit('openWhistList')" icon="heart" />
@@ -15,7 +15,10 @@
 </template>
 
 <script lang="ts" setup>
+  import { onMounted, ref } from 'vue';
   import { useRouter } from 'vue-router';
+
+  import { customTextsService } from '@/services';
 
   import UiIconButton from './ui-icon-button.component.vue';
 
@@ -28,6 +31,13 @@
   });
 
   defineEmits(['openMenu', 'openUserMenu', 'openWhistList', 'openShoppingCart']);
+
+  const name = ref()
+
+  onMounted(async () => {
+    const customTexts = await customTextsService.getCustomTexts('home');
+    name.value = customTexts[0].texts.name;
+  })
 </script>
 
 <style lang="scss" scoped>

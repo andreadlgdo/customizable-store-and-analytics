@@ -16,26 +16,26 @@
     <div v-else-if="options[1].selected" :class="`${baseClass}__wrapper`">
         <div :class="`${baseClass}__content`">
         <p :class="`${baseClass}__subtitle`">El carrito</p>
-        <ui-textbox value="Tu carrito" label="Titulo" />
-        <ui-textbox value="Aun no hay ningun producto en tu cesta" label="Mensaje carrito vacío" info="El mensaje que se muestra cuando el carrito está vacío" />
-        <ui-textbox value="Ver productos" label="Accion carrito vacio" info="Texto del botón que redirige al usuario a la landing con los productos" />
-        <ui-textbox value="Tramitar pedido" label="Accion carrito con productos" info="Texto del botón que redirige al usuario a realizar el pedido" />
+        <ui-textbox :value="asides?.cart?.title" label="Titulo" />
+        <ui-textbox :value="asides?.cart?.empty" label="Mensaje carrito vacío" info="El mensaje que se muestra cuando el carrito está vacío" />
+        <ui-textbox :value="asides?.cart?.actionEmpty" label="Accion carrito vacio" info="Texto del botón que redirige al usuario a la landing con los productos" />
+        <ui-textbox :value="asides?.cart?.action" label="Accion carrito con productos" info="Texto del botón que redirige al usuario a realizar el pedido" />
        </div>
        <hr/>
        <div :class="`${baseClass}__content`">
         <p :class="`${baseClass}__subtitle`">Los productos favoritos</p>
-        <ui-textbox value="Tu lista de deseos" label="Titulo" />
-        <ui-textbox value="Aun no has añadido ningun producto a tu lista de deseos" label="Mensaje carrito vacío" info="El mensaje que se muestra cuando la lista de deseos está vacía" />
-        <ui-textbox value="Ver productos" label="Accion carrito vacio" info="Texto del botón que redirige al usuario a la landing con los productos" />
+        <ui-textbox :value="asides?.whistlist?.title" label="Titulo" />
+        <ui-textbox :value="asides?.whistlist?.empty" label="Mensaje carrito vacío" info="El mensaje que se muestra cuando la lista de deseos está vacía" />
+        <ui-textbox  :value="asides?.whistlist?.actionEmpty" label="Accion carrito vacio" info="Texto del botón que redirige al usuario a la landing con los productos" />
        </div>
     </div>
     <div v-else-if="options[2].selected" :class="`${baseClass}__wrapper`">
         <div :class="`${baseClass}__content`">
         <p :class="`${baseClass}__subtitle`">Menu del usuario</p>
-        <ui-textbox value="Datos personales" label="Sección 1" info="La sección donde el usuario puede editar sus datos personales" />
-        <ui-textbox value="Mi carrito" label="Sección 2" info="La sección donde el usuario puede ver su carrito" />
-        <ui-textbox value="Mi lista de deseos" label="Sección 3" info="La sección donde el usuario puede ver sus productos favoritos" />
-        <ui-textbox value="Mis pedidos" label="Sección 4" info="La sección donde el usuario puede ver los pedidos realizados" />
+        <ui-textbox :value="dashboard?.menu[0]" label="Sección 1" info="La sección donde el usuario puede editar sus datos personales" />
+        <ui-textbox :value="dashboard?.menu[1]" label="Sección 2" info="La sección donde el usuario puede ver su carrito" />
+        <ui-textbox :value="dashboard?.menu[2]" label="Sección 3" info="La sección donde el usuario puede ver sus productos favoritos" />
+        <ui-textbox :value="dashboard?.menu[3]" label="Sección 4" info="La sección donde el usuario puede ver los pedidos realizados" />
        </div>
     </div>
     <div :class="`${baseClass}__footer`">
@@ -61,6 +61,9 @@ const baseClass = 'custom-text';
 const router = useRouter();
 
 const home = ref();
+const asides = ref();
+const dashboard = ref();
+
 const options = ref([
   { label: 'Home page', selected: true },
   { label: 'Asides', selected: false },
@@ -77,6 +80,10 @@ const selectToggle = (option: { label: string; selected: boolean }) => {
 onMounted(async () => {
   const customTexts = await customTextsService.getCustomTexts('home');
   home.value = customTexts[0].texts;
+  const customTextsAsides = await customTextsService.getCustomTexts('asides');
+  asides.value = customTextsAsides[0].texts;
+  const customTextsDashboard = await customTextsService.getCustomTexts('dashboard');
+  dashboard.value = customTextsDashboard[0].texts;
 });
 </script>
 
