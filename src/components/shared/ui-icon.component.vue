@@ -52,8 +52,7 @@
     }
 
     &--small {
-      height: 20px;
-      width: 20px;
+      width: 17px;
     }
   }
 </style>

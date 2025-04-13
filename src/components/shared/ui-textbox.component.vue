@@ -8,7 +8,9 @@
   >
     <p v-if="label">{{ capitalizeSentence(label) }}</p>
     <input :type="type" v-model="query" :placeholder="placeholder" :class="`${baseClass}__input`" />
-    <p v-if="error" :class="`${baseClass}__text`">{{ error }}</p>
+    <p v-if="error" :class="`${baseClass}__text ${baseClass}__text--error`">{{ error }}</p>
+    <p v-if="info" :class="`${baseClass}__text ${baseClass}__text--info`" >
+      <ui-icon :src="require(`../../assets/media/icons/info.svg`)" size="small"></ui-icon>{{ info }}</p>
   </div>
 </template>
 
@@ -16,7 +18,7 @@
   import { ref, watch } from 'vue';
 
   import { useTextTransform } from '../../composables';
-
+  import UiIcon from './ui-icon.component.vue';
   const baseClass = 'ui-textbox';
 
   const { capitalizeSentence } = useTextTransform();
@@ -33,7 +35,8 @@
       default: 'text'
     },
     disabled: Boolean,
-    error: String
+    error: String,
+    info: String
   });
 
   const emit = defineEmits(['input']);
@@ -91,7 +94,16 @@
 
     &__text {
       font-size: 12px;
-      color: var(--color-red);
+
+      &--error {
+        color: var(--color-red);
+      }
+      &--info {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        margin-top: 2px;
+      }
     }
   }
 </style>
