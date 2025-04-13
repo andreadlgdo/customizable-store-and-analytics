@@ -72,7 +72,7 @@ const dashboardRoutes = [
   },
   {
     name: 'Personalization',
-    path: '/dashboard/personalization',
+    path: '/dashboard/personalization/:action?',
     component: Personalization,
     meta: { requiresAuth: true },
     props: true
