@@ -1,4 +1,5 @@
 export * from './category.service';
+export * from './customTexts.service';
 export * from './general.service';
 export * from './image.service';
 export * from './order.service';
