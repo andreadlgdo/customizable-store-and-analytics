@@ -13,5 +13,12 @@ export const customTextsService = {
         return await fetchData(url.toString(), {
             method: 'GET'
         });
+    },
+
+    updateCustomTexts: async (page: string, texts: any) => {
+        return await fetchData(`${CUSTOM_TEXTS_PATH}/${page}`, {
+            method: 'PUT',
+            body: JSON.stringify({ texts })
+        });
     }
 } 
