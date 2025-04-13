@@ -1,5 +1,5 @@
 <template>
-  <div :class="baseClass">
+  <div :class="[baseClass, { [`${baseClass}--border`]: border }]">
     <section
       v-for="(option, index) in options"
       :key="index"
@@ -25,7 +25,8 @@
         }[]
       >,
       required: true
-    }
+    },
+    border: Boolean
   });
 
   defineEmits(['click']);
@@ -40,6 +41,10 @@
     height: 3rem;
     width: 100%;
     background: var(--color-soft-primary);
+   
+    &--border {
+      border: 1px solid var(--color-vibrant-primary);
+    }
 
     &__section {
       display: flex;
