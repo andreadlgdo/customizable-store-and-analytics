@@ -6,7 +6,7 @@
         @selectFavourite="$emit('selectFavourite')"
         @delete="deleteOrderProduct"
         v-for="product in openOrder.products"
-        :key="product.id"
+        :key="product.id || product._id || product.productId"
         :order-product="product"
       />
     </section>

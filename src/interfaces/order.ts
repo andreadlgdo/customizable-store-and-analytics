@@ -10,6 +10,7 @@ export interface Order {
 }
 
 export interface ProductOrder {
+  id?: string;
   units: string;
   size?: string;
   productId: string;

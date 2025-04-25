@@ -2,6 +2,7 @@ import { ref, watch } from 'vue';
 
 import { useUsers } from '../composables/use-users';
 import { orderService } from '../services/order.service';
+import { productService } from '../services/product.service';
 
 import { Order, Product, ProductOrder } from '../interfaces';
 
@@ -54,7 +55,12 @@ export function useCart() {
     }
 
     await loadUserOrders();
-    const newProduct = { productId: product._id, size, units };
+    const newProduct = { 
+      id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      productId: product._id, 
+      size, 
+      units 
+    };
 
     if (user.value) {
       if (openOrder.value) {
@@ -97,25 +103,55 @@ export function useCart() {
     if (!openOrder.value) return;
 
     if (user.value) {
-      const saveProducts = openOrder.value.products.filter(
-        (product: ProductOrder) => product.productId !== id
+      const productToDelete = openOrder.value.products.find(
+        (product: ProductOrder) => product.id === id || product.productId === id
       );
-      if (saveProducts.length) {
-        const updatedOrder = {
-          ...openOrder.value,
-          products: openOrder.value.products.filter(
-            (product: ProductOrder) => product.productId !== id
-          )
-        };
-        openOrder.value = await orderService.updateOrder(updatedOrder);
+      
+      const updatedProducts = openOrder.value.products.filter(
+        (product: ProductOrder) => product.id !== id && (product.id || product.productId !== id)
+      );
+      
+      if (updatedProducts.length) {
+        if (productToDelete) {
+          const productDetails = await productService.findProductByIds([productToDelete.productId]);
+          if (productDetails.length > 0) {
+            const productPrice = productDetails[0].price * parseInt(productToDelete.units);
+            
+            const updatedOrder = {
+              ...openOrder.value,
+              products: updatedProducts,
+              total: openOrder.value.total - productPrice
+            };
+            
+            openOrder.value = await orderService.updateOrder(updatedOrder);
+          }
+        } else {
+          const updatedOrder = {
+            ...openOrder.value,
+            products: updatedProducts
+          };
+          openOrder.value = await orderService.updateOrder(updatedOrder);
+        }
       } else {
         await orderService.deleteOrder(openOrder.value._id);
         openOrder.value = undefined;
       }
     } else {
-      openOrder.value.products = openOrder.value.products.filter(
-        (p: ProductOrder) => p.productId !== id
+      const productToDelete = openOrder.value.products.find(
+        (p: ProductOrder) => p.id === id || p.productId === id
       );
+      
+      openOrder.value.products = openOrder.value.products.filter(
+        (p: ProductOrder) => p.id !== id && (p.id || p.productId !== id)
+      );
+      
+      if (productToDelete) {
+        const productDetails = await productService.findProductByIds([productToDelete.productId]);
+        if (productDetails.length > 0) {
+          openOrder.value.total -= productDetails[0].price * parseInt(productToDelete.units);
+        }
+      }
+      
       if (openOrder.value.products.length === 0) {
         userOrders.value = userOrders.value?.filter((order: Order) => order !== openOrder.value);
         openOrder.value = undefined;

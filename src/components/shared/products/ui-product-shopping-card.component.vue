@@ -27,7 +27,7 @@
           ]"
         />
         <UiIconButton
-          @click="$emit('delete', orderProduct.productId)"
+          @click="$emit('delete', orderProduct.id || orderProduct.productId)"
           icon="delete"
           :class="`${baseClass}__icon ${baseClass}__icon--delete`"
         />
