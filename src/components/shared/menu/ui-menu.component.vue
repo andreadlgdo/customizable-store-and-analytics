@@ -92,7 +92,7 @@
         ...(menuCategories.value ?? [])
       ]
     },
-    { id: 3, label: t('menus.general.items.contact') },
+    { id: 3, label: t('menus.general.items.contact'), route: { name: 'Contact' } },
     { id: 4, label: t('menus.general.items.about') },
     { id: 5, label: t('menus.general.items.faq') }
   ]);

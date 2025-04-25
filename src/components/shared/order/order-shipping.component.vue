@@ -8,6 +8,7 @@
         @setDefault="setDefault"
         :addresses="addresses"
         selectable
+        :editable="false"
       />
     </div>
     <div v-if="options[1].selected" :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">

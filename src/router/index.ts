@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 // Public pages
+import ContactUs from '../views/contact-us.view.vue';
 import Home from '../views/home.view.vue';
 import Products from '../views/products.view.vue';
 import TermsAndConditions from '../views/terms-and-conditions.view.vue';
@@ -22,6 +23,7 @@ import { useCurrentUser } from '../composables';
 const publicRoutes = [
   { name: 'Home', path: '/', component: Home },
   { name: 'Products', path: '/products/:category?', component: Products },
+  { name: 'Contact', path: '/contact', component: ContactUs },
   { name: 'Orders', path: '/order', component: OrderCheckout },
   { name: 'Terms and conditions', path: '/terms-and-conditions', component: TermsAndConditions }
 ];
