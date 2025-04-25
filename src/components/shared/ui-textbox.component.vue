@@ -7,7 +7,8 @@
     ]"
   >
     <p v-if="label">{{ capitalizeSentence(label) }}</p>
-    <input :type="type" v-model="query" :placeholder="placeholder" :class="`${baseClass}__input`" />
+    <input v-if="!multiline" :type="type" v-model="query" :placeholder="placeholder" :class="`${baseClass}__input`" />
+    <textarea v-else v-model="query" :placeholder="placeholder" :class="`${baseClass}__input ${baseClass}__textarea`"></textarea>
     <p v-if="error" :class="`${baseClass}__text ${baseClass}__text--error`">{{ error }}</p>
     <p v-if="info" :class="`${baseClass}__text ${baseClass}__text--info`" >
       <ui-icon :src="require(`../../assets/media/icons/info.svg`)" size="small"></ui-icon>{{ info }}</p>
@@ -33,6 +34,10 @@
     type: {
       type: String,
       default: 'text'
+    },
+    multiline: {
+      type: Boolean,
+      default: false
     },
     disabled: Boolean,
     error: String,
@@ -76,6 +81,14 @@
       &:focus {
         border: 2px solid var(--color-dark-primary);
       }
+    }
+
+    &__textarea {
+      min-height: 100px;
+      resize: vertical;
+      overflow-y: auto;
+      max-height: 300px;
+      line-height: 1.5;
     }
 
     &--error {

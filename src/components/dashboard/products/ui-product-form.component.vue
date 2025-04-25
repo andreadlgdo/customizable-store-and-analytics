@@ -27,6 +27,7 @@
           @input="value => (item.description = value)"
           :value="item.description"
           :label="t('dashboard.products.form.description')"
+          multiline
         />
       </div>
     </section>
