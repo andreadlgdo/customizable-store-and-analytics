@@ -2,31 +2,19 @@
     <div :class="baseClass">
         <h2 :class="`${baseClass}__title`">{{ t('contactUs.legend.title') }}</h2>
         <div :class="`${baseClass}__cards`">
-            <a :class="`${baseClass}__card ${baseClass}__card--email`" href="mailto:support@fashionstore.com">
-                <div :class="`${baseClass}__icon ${baseClass}__icon--email`">
-                    <UiIcon size="small" :src="require('../../assets/media/icons/email.svg')" />
+            <a 
+                v-for="(method, index) in contactMethods" 
+                :key="index"
+                :class="`${baseClass}__card ${baseClass}__card--${method.type}`"
+                :href="method.link"
+                :target="method.target"
+            >
+                <div :class="`${baseClass}__icon ${baseClass}__icon--${method.type}`">
+                    <UiIcon size="small" :src="method.icon" />
                 </div>
                 <div :class="`${baseClass}__info`">
-                    <h3>{{ t('contactUs.legend.email') }}</h3>
-                    <p>support@fashionstore.com</p>
-                </div>
-            </a>
-            <a :class="`${baseClass}__card ${baseClass}__card--phone`" href="tel:+15551234567">
-                <div :class="`${baseClass}__icon ${baseClass}__icon--phone`">
-                    <UiIcon size="small" :src="require('../../assets/media/icons/phone.svg')" />
-                </div>
-                <div :class="`${baseClass}__info`">
-                    <h3>{{ t('contactUs.legend.phone') }}</h3>
-                    <p>+1 (555) 123-4567</p>
-                </div>
-            </a>
-            <a :class="`${baseClass}__card ${baseClass}__card--address`" href="https://maps.google.com/?q=123+Fashion+Street,+Design+District,+New+York,+NY+10001" target="_blank">
-                <div :class="`${baseClass}__icon ${baseClass}__icon--address`">
-                    <UiIcon size="small" :src="require('../../assets/media/icons/ubication.svg')" />
-                </div>
-                <div :class="`${baseClass}__info`">
-                    <h3>{{ t('contactUs.legend.address') }}</h3>
-                    <p>123 Fashion St, NY 10001</p>
+                    <h3>{{ t(`contactUs.legend.${method.type}`) }}</h3>
+                    <p>{{ method.text }}</p>
                 </div>
             </a>
         </div>
@@ -38,8 +26,37 @@ import { useI18n } from 'vue-i18n';
 
 import UiIcon from '../shared/ui-icon.component.vue';
 const baseClass = 'ui-contact-methods';
-
 const { t } = useI18n();
+
+interface ContactMethod {
+    type: string;
+    link: string;
+    text: string;
+    icon: any;
+    target?: string;
+}
+
+const contactMethods: ContactMethod[] = [
+    {
+        type: 'email',
+        link: 'mailto:support@fashionstore.com',
+        text: 'support@fashionstore.com',
+        icon: require('../../assets/media/icons/email.svg')
+    },
+    {
+        type: 'phone',
+        link: 'tel:+15551234567',
+        text: '+1 (555) 123-4567',
+        icon: require('../../assets/media/icons/phone.svg')
+    },
+    {
+        type: 'address',
+        link: 'https://maps.google.com/?q=123+Fashion+Street,+Design+District,+New+York,+NY+10001',
+        text: '123 Fashion St, NY 10001',
+        icon: require('../../assets/media/icons/ubication.svg'),
+        target: '_blank'
+    }
+];
 </script>
 
 <style lang="scss" scoped>
@@ -90,6 +107,10 @@ const { t } = useI18n();
         color: inherit;
         transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
         
+        @media (max-width: 600px) {
+            min-width: 100%;
+        }
+        
         &:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
@@ -137,7 +158,6 @@ const { t } = useI18n();
 
     &__icon {
         font-size: 1.5rem;
-        margin-bottom: 0.5rem;
         width: 45px;
         height: 45px;
         border-radius: 50%;
@@ -168,20 +188,8 @@ const { t } = useI18n();
 
     &__info {
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 0.5rem;
     
-        p {
-            margin: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-        
-            i {
-                color: #db4437;
-            }
-        }
-
         h3 {
             margin-bottom: 0.15rem;
             font-size: 0.95rem;
@@ -191,6 +199,14 @@ const { t } = useI18n();
             margin: 0.1rem 0;
             font-size: 0.85rem;
             color: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        
+            i {
+                color: #db4437;
+            }
         }
     }
 
