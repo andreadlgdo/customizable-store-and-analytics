@@ -44,7 +44,7 @@ import { useI18n } from 'vue-i18n';
 import UiButton from '../shared/ui-button.component.vue';
 import UiTextbox from '../shared/ui-textbox.component.vue';
 
-const baseClass = 'ui-contact-us-form';
+const baseClass = 'ui-contact-form';
 
 const { t } = useI18n();
 
@@ -91,7 +91,7 @@ const submitForm = () => {
 </script>
 
 <style lang="scss" scoped>
-.ui-contact-us-form {
+.ui-contact-form {
     max-width: 600px;
     margin: 0 auto;
     padding: 2rem;

@@ -25,7 +25,7 @@
       <h1 :class="`${baseClass}__title`">
         {{ t('contactUs.title') }}
       </h1>
-      <UiContactUsForm />
+      <UiContactForm />
       <UiContactMethods />
     </div>
   </div>
@@ -36,7 +36,7 @@
   import { useI18n } from 'vue-i18n';
 
   import UiProductDetailsModal from '../components/shared/products/ui-product-details-modal.component.vue';
-  import UiContactUsForm from '../components/contact-us/ui-contact-us-form.component.vue';
+  import UiContactForm from '../components/contact-us/ui-contact-form.component.vue';
   import UiContactMethods from '../components/contact-us/ui-contact-methods.component.vue';
 
   import { useProducts, useUsers } from '../composables';
