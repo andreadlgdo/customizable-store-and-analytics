@@ -1,8 +1,5 @@
 <template>
-    <div @click="router.push({ name: 'Personalization' })" :class="`${baseClass}__header`">
-        <ui-icon-button icon="go-to" :class="`${baseClass}__icon`"/>
-        <p :class="`${baseClass}__text`">Volver al menu</p>
-    </div>
+    <UiHeaderPersonalization />
     <h1 :class="`${baseClass}__title`">Personalizacion de textos</h1>
     <ui-toggle @click="selectToggle" :options="options" border :class="`${baseClass}__toggle`"/>
     <div v-if="options[0].selected" :class="`${baseClass}__wrapper`">
@@ -49,17 +46,17 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, onMounted } from 'vue';
+
+import { customTextsService } from '../../../services';
+
 import UiToggle from '../../shared/ui-toggle.component.vue';
 import UiTextbox from '../../shared/ui-textbox.component.vue';
 import UiButton from '../../shared/ui-button.component.vue';
-import UiIconButton from '../../shared/ui-icon-button.component.vue';
-import { ref, onMounted } from 'vue';
-import { customTextsService } from '@/services';
-import { useRouter } from 'vue-router';
+
+import UiHeaderPersonalization from './ui-header-personalization.component.vue';
 
 const baseClass = 'custom-text';
-
-const router = useRouter();
 
 const home = ref();
 const asides = ref();
@@ -100,27 +97,10 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .custom-text {
-    &__header {
-        display: flex;
-        align-items: center;
-        position: absolute;
-        left: 21rem;
-        cursor: pointer;
-    }
-
     &__title {
         margin-top: 3rem;
     }
 
-    &__text {
-        &:hover {
-         font-weight: 600;
-        }
-    }
-
-    &__icon {
-        transform: rotate(180deg);
-    }
     &__toggle {
       margin-top: 16px;
     }
@@ -131,6 +111,8 @@ onMounted(async () => {
       flex-direction: column;
       gap: 16px;
       margin-top: 16px;
+      max-height: 70%;
+      overflow: scroll;
     }
 
     &__subtitle {
