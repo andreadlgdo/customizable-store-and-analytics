@@ -1,6 +1,5 @@
 import {
   AppMessages,
-  DashboardOldMessages,
   GeneralMessages,
   LogInMessages,
   PersonalDataMessages,
@@ -198,10 +197,6 @@ const generalMessages: GeneralMessages = {
   backToMenu: 'Retour au menu principal'
 };
 
-const dashboardOldMessages: DashboardOldMessages = {
-  action: 'Aller à la maison'
-};
-
 const userMessages: UserMessages = {
   items: {
     general: {
@@ -230,9 +225,6 @@ const messages: AppMessages['fr'] = {
     en: 'Anglais',
     fr: 'Français'
   },
-  header: {
-    searchBox: 'Rechercher...'
-  },
   landing: {
     carousel: {
       newProducts: 'Nouveaux produits',
@@ -254,6 +246,35 @@ const messages: AppMessages['fr'] = {
     },
     modal: {
       action: 'Ajouter au panier'
+    }
+  },
+  contactUs: {
+    title: 'Contactez-nous',
+    form: {
+      name: {
+        label: 'Nom',
+        placeholder: 'Entrez votre nom'
+      },
+      email: {
+        label: 'E-mail',
+        placeholder: 'Entrez votre e-mail',
+        error: 'E-mail invalide'
+      },
+      subject: {
+        label: 'Sujet',
+        placeholder: 'Quel est le sujet de votre message?'
+      },
+      message: {
+        label: 'Votre message',
+        placeholder: 'Dites-nous pour quoi vous avez besoin d´aide...'
+      },
+      action: 'Envoyer le message'
+    },
+    legend: {
+      title: 'Méthodes de contact',
+      email: 'E-mail',
+      phone: 'Téléphone',
+      address: 'Adresse'
     }
   },
   asides: {
@@ -409,7 +430,6 @@ const messages: AppMessages['fr'] = {
   },
   menus: {
     general: generalMessages,
-    dashboard: dashboardOldMessages,
     user: userMessages
   },
   footer: {

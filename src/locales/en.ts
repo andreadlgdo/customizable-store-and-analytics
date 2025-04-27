@@ -1,6 +1,5 @@
 import {
   AppMessages,
-  DashboardOldMessages,
   GeneralMessages,
   LogInMessages,
   PersonalDataMessages,
@@ -198,10 +197,6 @@ const generalMessages: GeneralMessages = {
   backToMenu: 'Back to the main menu'
 };
 
-const dashboardOldMessages: DashboardOldMessages = {
-  action: 'Go to home'
-};
-
 const userMessages: UserMessages = {
   items: {
     general: {
@@ -230,9 +225,6 @@ const messages: AppMessages['en'] = {
     en: 'English',
     fr: 'French'
   },
-  header: {
-    searchBox: 'Search...'
-  },
   landing: {
     carousel: {
       newProducts: 'New products',
@@ -254,6 +246,35 @@ const messages: AppMessages['en'] = {
     },
     modal: {
       action: 'Add to cart'
+    }
+  },
+  contactUs: {
+    title: 'Contact us',
+    form: {
+      name: {
+        label: 'Name',
+        placeholder: 'Enter your name'
+      },
+      email: {
+        label: 'Email',
+        placeholder: 'Enter your email',
+        error: 'Invalid email'
+      },
+      subject: {
+        label: 'Subject',
+        placeholder: 'What is this about?'
+      },
+      message: {
+        label: 'Message',
+        placeholder: 'Tell us what you need help with...'
+      },
+      action: 'Send Message' 
+    },
+    legend: {
+      title: 'Contact Methods',
+      email: 'Email',
+      phone: 'Phone',
+      address: 'Address'
     }
   },
   asides: {
@@ -409,7 +430,6 @@ const messages: AppMessages['en'] = {
   },
   menus: {
     general: generalMessages,
-    dashboard: dashboardOldMessages,
     user: userMessages
   },
   footer: {

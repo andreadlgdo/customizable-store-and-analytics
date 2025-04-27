@@ -5,9 +5,6 @@ export interface AppMessages {
       en: string;
       fr: string;
     };
-    header: {
-      searchBox: string;
-    };
     landing: {
       carousel: {
         newProducts: string;
@@ -30,6 +27,35 @@ export interface AppMessages {
       modal: {
         action: string;
       };
+    };
+    contactUs: {
+      title: string;
+      form: {
+        name: {
+          label: string;
+          placeholder: string;
+        };
+        email: {
+          label: string;
+          placeholder: string;
+          error: string;
+        }
+        subject: {
+          label: string;
+          placeholder: string;
+        };
+        message: {
+          label: string;
+          placeholder: string;
+        };
+        action: string;
+      };
+      legend: {
+        title: string;
+        email: string;
+        phone: string;
+        address: string;
+      }
     };
     asides: {
       register: {
@@ -131,7 +157,6 @@ export interface AppMessages {
     dashboard: DashboardMessages;
     menus: {
       general: GeneralMessages;
-      dashboard: DashboardOldMessages;
       user: UserMessages;
     };
     footer: {
@@ -419,10 +444,6 @@ export interface GeneralMessages {
     faq: string;
   };
   backToMenu: string;
-}
-
-export interface DashboardOldMessages {
-  action: string;
 }
 
 export interface UserMessages {
