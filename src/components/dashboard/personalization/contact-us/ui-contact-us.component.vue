@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div :class="`${baseClass}__section ${baseClass}__section--two`">
-                <p>PREVIEW</p>
+                <p :class="`${baseClass}__subtitle`">PREVIEW</p>
                 <UiContactUsPreview />
             </div>
         </div>
@@ -164,7 +164,6 @@ onMounted(async () => {
 
     &__section {
         padding: 1rem;
-        overflow: scroll;
         margin-bottom: 70px;
 
         &--one {

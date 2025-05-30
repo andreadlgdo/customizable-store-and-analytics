@@ -27,6 +27,9 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .ui-contact-us-preview {
+    overflow: scroll;
+    height: 100%;
+    
     &__title {
         margin-bottom: 1.5rem;
         text-align: center;
