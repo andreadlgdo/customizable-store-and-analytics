@@ -70,7 +70,7 @@
 
   import { useCart, useProducts, useUserMenu } from '../../composables';
 
-  import Dashboard from './dashboard.view.vue';
+  import Dashboard from './base-dashboard.view.vue';
 
   const { menuElements } = useUserMenu();
   const { openOrder, loadUserOrders } = useCart();

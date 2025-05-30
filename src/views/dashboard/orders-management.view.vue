@@ -28,7 +28,7 @@
   import { Order } from '../../interfaces';
   import { orderService } from '../../services';
 
-  import Dashboard from './dashboard.view.vue';
+  import Dashboard from './base-dashboard.view.vue';
 
   const baseClass = 'orders-management';
 

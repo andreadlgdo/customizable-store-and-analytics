@@ -75,7 +75,7 @@
   import { useUsers, useUserMenu, useValidations } from '../../composables';
   import { imageService, userService } from '../../services';
 
-  import Dashboard from './dashboard.view.vue';
+  import Dashboard from './base-dashboard.view.vue';
 
   const { menuElements } = useUserMenu();
   const { user } = useUsers();

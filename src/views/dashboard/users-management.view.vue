@@ -37,7 +37,7 @@
   import { User } from '../../interfaces';
   import { userService } from '../../services';
 
-  import Dashboard from './dashboard.view.vue';
+  import Dashboard from './base-dashboard.view.vue';
   import { useI18n } from 'vue-i18n';
 
   const { menuElements } = useUserMenu();

@@ -48,7 +48,7 @@
   import { Product } from '../../interfaces';
   import { productService } from '../../services';
 
-  import Dashboard from './dashboard.view.vue';
+  import Dashboard from './base-dashboard.view.vue';
 
   const { menuElements } = useUserMenu();
   const { loadProducts, products } = useProducts();
