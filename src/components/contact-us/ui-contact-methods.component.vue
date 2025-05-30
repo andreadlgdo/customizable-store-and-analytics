@@ -13,7 +13,7 @@
                     <UiIcon size="small" :src="method.icon" />
                 </div>
                 <div :class="`${baseClass}__info`">
-                    <h3>{{ t(`contactUs.legend.${method.type}`) }}</h3>
+                    <h3>{{ contactUsTexts?.sections[index] }}</h3>
                     <p>{{ method.text }}</p>
                 </div>
             </a>
@@ -22,11 +22,11 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import UiIcon from '../shared/ui-icon.component.vue';
-const baseClass = 'ui-contact-methods';
-const { t } = useI18n();
+import { customTextsService } from '../../services';
 
 interface ContactMethod {
     type: string;
@@ -35,6 +35,12 @@ interface ContactMethod {
     icon: any;
     target?: string;
 }
+
+const baseClass = 'ui-contact-methods';
+
+const { t } = useI18n();
+
+const contactUsTexts =  ref();
 
 const contactMethods: ContactMethod[] = [
     {
@@ -57,6 +63,10 @@ const contactMethods: ContactMethod[] = [
         target: '_blank'
     }
 ];
+
+onMounted(async () => {
+    contactUsTexts.value = await customTextsService.getCustomTexts("contactUs");
+});
 </script>
 
 <style lang="scss" scoped>

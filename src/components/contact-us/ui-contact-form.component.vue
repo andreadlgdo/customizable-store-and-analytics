@@ -2,34 +2,34 @@
     <div :class="baseClass">
         <form :class="`${baseClass}__form`"  @submit.prevent="submitForm">
             <UiTextbox
-              @input="value => (contactForm.name = value)"
+              @input="(value: string) => (contactForm.name = value)"
               :value="contactForm.name"
-              :label="t('contactUs.form.name.label')"
-              :placeholder="t('contactUs.form.name.placeholder')"
+              :label="contactUsTexts?.form[0].label"
+              :placeholder="contactUsTexts?.form[0].placeholder"
             />
             <UiTextbox
-              @input="value => (contactForm.email = value)"
+              @input="(value: string) => (contactForm.email = value)"
               :value="contactForm.email"
-              :label="t('contactUs.form.email.label')"
-              :placeholder="t('contactUs.form.email.placeholder')"
+              :label="contactUsTexts?.form[1].label"
+              :placeholder="contactUsTexts?.form[1].placeholder"
               :error="emailError"
             />
             <UiTextbox
-              @input="value => (contactForm.subject = value)"
+              @input="(value: string) => (contactForm.subject = value)"
               :value="contactForm.subject"
-              :label="t('contactUs.form.subject.label')"
-              :placeholder="t('contactUs.form.subject.placeholder')"
+              :label="contactUsTexts?.form[2].label"
+              :placeholder="contactUsTexts?.form[2].placeholder"
             />
             <UiTextbox
-              @input="value => (contactForm.message = value)"
+              @input="(value: string) => (contactForm.message = value)"
               :value="contactForm.message"
-              :label="t('contactUs.form.message.label')"
-              :placeholder="t('contactUs.form.message.placeholder')"
+              :label="contactUsTexts?.form[3].label"
+              :placeholder="contactUsTexts?.form[3].placeholder"
               multiline
             />
             <UiButton
               @click="submitForm"
-              :text="t('contactUs.form.action')"
+              :text="contactUsTexts?.form[4].action"
               :disabled="!isFormValid"
               :class="`${baseClass}__button`"
             />
@@ -38,15 +38,18 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import UiButton from '../shared/ui-button.component.vue';
 import UiTextbox from '../shared/ui-textbox.component.vue';
+import { customTextsService } from '../../services';
 
 const baseClass = 'ui-contact-form';
 
 const { t } = useI18n();
+
+const contactUsTexts = ref();
 
 const contactForm = ref({
     name: '',
@@ -88,6 +91,11 @@ const submitForm = () => {
       alert('Thank you for your message! We will get back to you soon.');
     }
   };
+
+  onMounted(async () => {
+    contactUsTexts.value = await customTextsService.getCustomTexts("contactUs");
+    console.log(contactUsTexts.value);
+  });
 </script>
 
 <style lang="scss" scoped>

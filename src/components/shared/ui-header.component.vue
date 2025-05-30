@@ -36,7 +36,7 @@
 
   onMounted(async () => {
     const customTexts = await customTextsService.getCustomTexts('home');
-    name.value = customTexts[0].texts.name;
+    name.value = customTexts.name;
   })
 </script>
 

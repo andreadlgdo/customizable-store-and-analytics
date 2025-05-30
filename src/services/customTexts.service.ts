@@ -10,9 +10,10 @@ export const customTextsService = {
         if (page) {
             url.searchParams.append('page', page);
         }
-        return await fetchData(url.toString(), {
+        const data = await fetchData(url.toString(), {
             method: 'GET'
         });
+        return data[0].texts;
     },
 
     updateCustomTexts: async (page: string, texts: any) => {
