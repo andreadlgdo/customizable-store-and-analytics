@@ -4,49 +4,51 @@
         <h1 :class="`${baseClass}__title`">Contact us Page</h1>
         <div :class="`${baseClass}__container`">
             <div :class="`${baseClass}__section ${baseClass}__section--one`">
+                <p :class="`${baseClass}__subtitle`">TITULO</p>
                 <UiTextbox 
-                    @input="(value: string) => contactUsTexts.title = value" 
-                    label="Titulo" 
-                    :value="contactUsTexts?.title" 
-                    :class="`${baseClass}__textbox`"
+                    @input="(value: string) => contactUsCustom.texts.title = value" 
+                    :value="contactUsCustom?.texts.title" 
+                    :class="`${baseClass}__textbox ${baseClass}__textbox--title`"
                 />
-                <p>FORMULARIO</p>
+                <p :class="`${baseClass}__subtitle`">FORMULARIO</p>
                 <UiExpandSection title="Textos" :style="{ marginTop: '12px' }">
                     <template v-for="(field, index) in formFields" :key="index">
                         <UiTextbox 
-                            @input="(value: string) => contactUsTexts.form[index].label = value" 
+                            @input="(value: string) => contactUsCustom.texts.form[index].label = value" 
                             :label="field.label" 
-                            :value="contactUsTexts?.form[index].label" 
+                            :value="contactUsCustom?.texts.form[index].label" 
                             :info="`Label del campo ${index + 1}`" 
                             :class="`${baseClass}__textbox`" 
                         />
                         <UiTextbox 
-                            @input="(value: string) => contactUsTexts.form[index].placeholder = value" 
-                            :value="contactUsTexts?.form[index].placeholder" 
+                            @input="(value: string) => contactUsCustom.texts.form[index].placeholder = value" 
+                            :value="contactUsCustom?.texts.form[index].placeholder" 
                             :info="`Placeholder del campo ${index + 1}`" 
                             :class="`${baseClass}__textbox`" 
                         />
                     </template>
                     <UiTextbox 
-                        @input="(value: string) => contactUsTexts.form[4].action = value" 
+                        @input="(value: string) => contactUsCustom.texts.form[4].action = value" 
                         label="Botón del formulario" 
-                        :value="contactUsTexts?.form[4].action" 
+                        :value="contactUsCustom?.texts.form[4].action" 
                         info="Label del botón del formulario" 
                         :class="`${baseClass}__textbox`"
                     />
                 </UiExpandSection>
                 <UiExpandSection title="Email de contacto" :style="{ marginTop: '12px' }">
                     <UiTextbox 
-                        value="support@gmail.com" 
+                        @input="(value: string) => contactUsCustom.data.form.email = value" 
+                        :value="contactUsCustom?.data.form.email" 
                         info="Email al que llegara la duda del usuario" 
                         :class="`${baseClass}__textbox`" 
                     />
                 </UiExpandSection>
-                <p>SECCIONES DE CONTACTO</p>
+                <p :class="`${baseClass}__subtitle`">SECCIONES DE CONTACTO</p>
                 <UiExpandSection title="Datos de contacto" :style="{ marginTop: '12px' }">
                     <template v-for="(field, index) in contactFields" :key="index">
                         <UiTextbox 
-                            :value="field.value" 
+                            @input="(value: string) => contactUsCustom.data.sections[index] = value" 
+                            :value="contactUsCustom?.data.sections[index]" 
                             :info="field.info" 
                             :class="`${baseClass}__textbox`" 
                         />
@@ -55,25 +57,20 @@
                 <UiExpandSection title="Textos" :style="{ marginTop: '12px' }">
                     <template v-for="(section, index) in sectionTexts" :key="index">
                         <UiTextbox 
+                            @input="(value: string) => contactUsCustom.texts.sections[index] = value" 
                             :info="section.info" 
-                            :value="contactUsTexts?.sections[index]" 
+                            :value="contactUsCustom?.texts.sections[index]" 
                             :class="`${baseClass}__textbox`"
                         />
                     </template>
                 </UiExpandSection>
                 <UiExpandSection title="Colores" :style="{ marginTop: '12px' }">
-                    <template v-for="(section, key) in colorSections" :key="key">
+                    <template v-for="(section, key, index) in colorSections" :key="key">
                         <UiColorPicker 
                             :label="section.label" 
-                            @update:modelValue="(value: string) => colors[key].normal = value" 
-                            :modelValue="colors[key].normal" 
-                            info="Color primario"
+                            @update:modelValue="(value: string) => contactUsCustom.visuals.colors[index].primary = value" 
+                            :modelValue="contactUsCustom?.visuals.colors[index]?.primary" 
                             :style="key !== 'email' ? { marginTop: '12px' } : {}"
-                        />
-                        <UiColorPicker 
-                            @update:modelValue="(value: string) => colors[key].soft = value" 
-                            :modelValue="colors[key].soft" 
-                            info="Color secundario"
                         />
                     </template>
                 </UiExpandSection>
@@ -99,10 +96,10 @@ import UiContactUsPreview from './ui-contact-us-preview.component.vue';
 import UiTextbox from '../../../shared/ui-textbox.component.vue';
 import UiButton from '../../../shared/ui-button.component.vue';
 import UiColorPicker from '../../../shared/ui-color-picker.component.vue';
-import { customTextsService } from '@/services';
+import { customService } from '@/services';
 
 const baseClass = 'ui-contact-us';
-const contactUsTexts = ref();
+const contactUsCustom = ref();
 
 const formFields = [
     { label: 'Identificador usuario' },
@@ -112,9 +109,9 @@ const formFields = [
 ];
 
 const contactFields = [
-    { value: 'support@gmail.com', info: 'Email de la empresa' },
-    { value: '+1 (555) 123-4567', info: 'Telefono de la empresa' },
-    { value: '123 Fashion St, NY 10001', info: 'Dirección de la empresa' }
+    { info: 'Email de la empresa' },
+    { info: 'Telefono de la empresa' },
+    { info: 'Dirección de la empresa' }
 ];
 
 const sectionTexts = [
@@ -129,24 +126,9 @@ const colorSections = {
     address: { label: 'Sección direccion' }
 };
 
-const colors = ref({
-    email: {
-        normal: '#4285f4',
-        soft: '#f2f6ff'
-    },
-    phone: {
-        normal: '#0b9d58',
-        soft: '#f1f8f3'
-    },
-    address: {
-        normal: '#db4537',
-        soft: '#fdf3f2'
-    }   
-});
-
 const save = async () => {
   try {
-    await customTextsService.updateCustomTexts("contactUs", contactUsTexts.value);
+    await customService.updateCustom("contactUs", { texts: contactUsCustom.value.texts, data: contactUsCustom.value.data, visuals: contactUsCustom.value.visuals });
     window.location.reload();
   } catch (error) {
     console.error('Error saving custom texts:', error);
@@ -154,11 +136,12 @@ const save = async () => {
 };
 
 const cancel = async () => {
-    contactUsTexts.value = await customTextsService.getCustomTexts("contactUs");
+    contactUsCustom.value = await customService.getCustom("contactUs");
 };
 
 onMounted(async () => {
-    contactUsTexts.value = await customTextsService.getCustomTexts("contactUs");
+    contactUsCustom.value = await customService.getCustom("contactUs");
+    console.log(contactUsCustom.value);
 });
 </script>
 
@@ -211,6 +194,14 @@ onMounted(async () => {
 
     &__textbox {
         margin-bottom: 12px;
+
+        &--title {
+            margin-top: 12px;
+        }
+    }
+
+    &__subtitle {
+        font-weight: bold;
     }
 }
 </style>

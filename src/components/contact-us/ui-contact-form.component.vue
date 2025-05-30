@@ -43,7 +43,7 @@ import { useI18n } from 'vue-i18n';
 
 import UiButton from '../shared/ui-button.component.vue';
 import UiTextbox from '../shared/ui-textbox.component.vue';
-import { customTextsService } from '../../services';
+import { customService } from '../../services';
 
 const baseClass = 'ui-contact-form';
 
@@ -93,8 +93,7 @@ const submitForm = () => {
   };
 
   onMounted(async () => {
-    contactUsTexts.value = await customTextsService.getCustomTexts("contactUs");
-    console.log(contactUsTexts.value);
+    contactUsTexts.value = await customService.getCustomTexts("contactUs");
   });
 </script>
 

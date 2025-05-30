@@ -1,19 +1,33 @@
 <template>
     <div :class="baseClass">
-        <h2 :class="`${baseClass}__title`">{{ t('contactUs.legend.title') }}</h2>
+        <h2 :class="`${baseClass}__title`">
+            {{ t('contactUs.legend.title') }}
+        </h2>
         <div :class="`${baseClass}__cards`">
             <a 
                 v-for="(method, index) in contactMethods" 
                 :key="index"
-                :class="`${baseClass}__card ${baseClass}__card--${method.type}`"
+                :class="[
+                    `${baseClass}__card`,
+                    `${baseClass}__card--${method.type}`
+                ]"
                 :href="method.link"
                 :target="method.target"
+                :style="{
+                    '--primary-color': contactUsCustom?.visuals.colors[index]?.primary,
+                    '--secondary-color': contactUsCustom?.visuals.colors[index]?.primary,
+                    '--primary-color-rgb': hexToRgb(contactUsCustom?.visuals.colors[index]?.primary || '#000000')
+                }"
             >
-                <div :class="`${baseClass}__icon ${baseClass}__icon--${method.type}`">
+                <div :class="[
+                    `${baseClass}__icon`,
+                    `${baseClass}__icon--${method.type}`
+                ]">
                     <UiIcon size="small" :src="method.icon" />
                 </div>
+                
                 <div :class="`${baseClass}__info`">
-                    <h3>{{ contactUsTexts?.sections[index] }}</h3>
+                    <h3>{{ contactUsCustom?.texts.sections[index] }}</h3>
                     <p>{{ method.text }}</p>
                 </div>
             </a>
@@ -22,50 +36,60 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed, ComputedRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import UiIcon from '../shared/ui-icon.component.vue';
-import { customTextsService } from '../../services';
+import { customService } from '../../services';
 
 interface ContactMethod {
     type: string;
     link: string;
     text: string;
     icon: any;
-    target?: string;
+    target?: '_blank' | '_self';
 }
 
 const baseClass = 'ui-contact-methods';
 
 const { t } = useI18n();
 
-const contactUsTexts =  ref();
+const contactUsCustom = ref();
 
-const contactMethods: ContactMethod[] = [
+const hexToRgb = (hex: string): string => {
+    hex = hex.replace('#', '');
+    
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    
+    return `${r}, ${g}, ${b}`;
+};
+
+const contactMethods: ComputedRef<ContactMethod[]> = computed(() => [
     {
         type: 'email',
         link: 'mailto:support@fashionstore.com',
-        text: 'support@fashionstore.com',
+        text: contactUsCustom.value?.data.sections[0],
         icon: require('../../assets/media/icons/email.svg')
     },
     {
         type: 'phone',
         link: 'tel:+15551234567',
-        text: '+1 (555) 123-4567',
+        text: contactUsCustom.value?.data.sections[1],
         icon: require('../../assets/media/icons/phone.svg')
     },
     {
         type: 'address',
         link: 'https://maps.google.com/?q=123+Fashion+Street,+Design+District,+New+York,+NY+10001',
-        text: '123 Fashion St, NY 10001',
+        text: contactUsCustom.value?.data.sections[2],
         icon: require('../../assets/media/icons/ubication.svg'),
         target: '_blank'
     }
-];
+]);
 
 onMounted(async () => {
-    contactUsTexts.value = await customTextsService.getCustomTexts("contactUs");
+    contactUsCustom.value = await customService.getCustom("contactUs");
 });
 </script>
 
@@ -90,7 +114,7 @@ onMounted(async () => {
             transform: translateX(-50%);
             width: 40px;
             height: 2px;
-            background: linear-gradient(to right, #4285f4, #0f9d58, #db4437);
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
             border-radius: 2px;
         }
     }
@@ -109,9 +133,7 @@ onMounted(async () => {
         padding: 1rem;
         border-radius: 8px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-        border-left: 0;
-        border-right: 0;
-        border-bottom: 0;
+        border: 0;
         border-top: 3px solid transparent;
         text-decoration: none;
         color: inherit;
@@ -127,41 +149,59 @@ onMounted(async () => {
         }
 
         &--email {
-            border-top-color: #4285f4;
-            background: linear-gradient(to bottom, rgba(66, 133, 244, 0.08), rgba(66, 133, 244, 0.02));
+            border-top-color: var(--primary-color);
+            background: linear-gradient(to bottom, 
+                rgba(var(--primary-color-rgb), 0.08), 
+                rgba(var(--primary-color-rgb), 0.02)
+            );
             
             &:hover {
-                background: linear-gradient(to bottom, rgba(66, 133, 244, 0.12), rgba(66, 133, 244, 0.04));
+                background: linear-gradient(to bottom, 
+                    rgba(var(--primary-color-rgb), 0.12), 
+                    rgba(var(--primary-color-rgb), 0.04)
+                );
             }
             
             h3 {
-                color: #4285f4;
+                color: var(--primary-color);
             }
         }
 
         &--phone {
-            border-top-color: #0f9d58;
-            background: linear-gradient(to bottom, rgba(15, 157, 88, 0.08), rgba(15, 157, 88, 0.02));
+            border-top-color: var(--primary-color);
+            background: linear-gradient(to bottom, 
+                rgba(var(--primary-color-rgb), 0.08), 
+                rgba(var(--primary-color-rgb), 0.02)
+            );
             
             &:hover {
-                background: linear-gradient(to bottom, rgba(15, 157, 88, 0.12), rgba(15, 157, 88, 0.04));
+                background: linear-gradient(to bottom, 
+                    rgba(var(--primary-color-rgb), 0.12), 
+                    rgba(var(--primary-color-rgb), 0.04)
+                );
             }
             
             h3 {
-                color: #0f9d58;
+                color: var(--primary-color);
             }
         }
 
         &--address {
-            border-top-color: #db4437;
-            background: linear-gradient(to bottom, rgba(219, 68, 55, 0.08), rgba(219, 68, 55, 0.02));
+            border-top-color: var(--primary-color);
+            background: linear-gradient(to bottom, 
+                rgba(var(--primary-color-rgb), 0.08), 
+                rgba(var(--primary-color-rgb), 0.02)
+            );
             
             &:hover {
-                background: linear-gradient(to bottom, rgba(219, 68, 55, 0.12), rgba(219, 68, 55, 0.04));
+                background: linear-gradient(to bottom, 
+                    rgba(var(--primary-color-rgb), 0.12), 
+                    rgba(var(--primary-color-rgb), 0.04)
+                );
             }
             
             h3 {
-                color: #db4437;
+                color: var(--primary-color);
             }
         }
     }
@@ -178,21 +218,30 @@ onMounted(async () => {
         transition: transform 0.2s;
 
         &--email {
-            color: #4285f4;
-            background: linear-gradient(135deg, rgba(66, 133, 244, 0.15), rgba(66, 133, 244, 0.05));
-            border: 1px solid rgba(66, 133, 244, 0.2);
+            color: var(--primary-color);
+            background: linear-gradient(135deg, 
+                rgba(var(--primary-color-rgb), 0.15), 
+                rgba(var(--primary-color-rgb), 0.05)
+            );
+            border: 1px solid rgba(var(--primary-color-rgb), 0.2);
         }
 
         &--phone {
-            color: #0f9d58;
-            background: linear-gradient(135deg, rgba(15, 157, 88, 0.15), rgba(15, 157, 88, 0.05));
-            border: 1px solid rgba(15, 157, 88, 0.2);
+            color: var(--primary-color);
+            background: linear-gradient(135deg, 
+                rgba(var(--primary-color-rgb), 0.15), 
+                rgba(var(--primary-color-rgb), 0.05)
+            );
+            border: 1px solid rgba(var(--primary-color-rgb), 0.2);
         }
 
         &--address {
-            color: #db4437;
-            background: linear-gradient(135deg, rgba(219, 68, 55, 0.15), rgba(219, 68, 55, 0.05));
-            border: 1px solid rgba(219, 68, 55, 0.2);
+            color: var(--primary-color);
+            background: linear-gradient(135deg, 
+                rgba(var(--primary-color-rgb), 0.15), 
+                rgba(var(--primary-color-rgb), 0.05)
+            );
+            border: 1px solid rgba(var(--primary-color-rgb), 0.2);
         }
     }
 
@@ -215,7 +264,7 @@ onMounted(async () => {
             gap: 0.75rem;
         
             i {
-                color: #db4437;
+                color: var(--primary-color);
             }
         }
     }

@@ -18,7 +18,7 @@
   import { onMounted, ref } from 'vue';
   import { useRouter } from 'vue-router';
 
-  import { customTextsService } from '@/services';
+  import { customService } from '@/services';
 
   import UiIconButton from './ui-icon-button.component.vue';
 
@@ -35,7 +35,7 @@
   const name = ref()
 
   onMounted(async () => {
-    const customTexts = await customTextsService.getCustomTexts('home');
+    const customTexts = await customService.getCustomTexts('home');
     name.value = customTexts.name;
   })
 </script>

@@ -1,11 +1,12 @@
 <template>
   <div :class="baseClass">
-    <UiTextbox label="Color" @input="value => $emit('update:modelValue', value)" :value="modelValue" />
+    <UiTextbox :label="label" @input="(value: string) => $emit('update:modelValue', value)" :value="modelValue" :info="info" />
     <input 
       type="color" 
       :value="modelValue" 
       @input="updateColor"
       :class="`${baseClass}__input`"
+      :style="{ alignSelf: !label ? 'flex-start' : 'center' }"
     />
   </div>
 </template>
@@ -21,7 +22,9 @@ defineProps({
   modelValue: {
     type: String,
     default: '#000000'
-  }
+  },
+  label: String,
+  info: String
 });
 
 const emit = defineEmits<{
@@ -41,7 +44,6 @@ const updateColor = (event: Event) => {
     gap: 10px;
 
     &__input {
-        align-self: flex-end;
         width: 35px;
         height: 35px;
         padding: 0;
