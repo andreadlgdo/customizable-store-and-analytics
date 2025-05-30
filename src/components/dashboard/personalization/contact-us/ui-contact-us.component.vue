@@ -12,58 +12,21 @@
                 />
                 <p>FORMULARIO</p>
                 <UiExpandSection title="Textos" :style="{ marginTop: '12px' }">
-                    <UiTextbox 
-                        @input="(value: string) => contactUsTexts.form[0].label = value" 
-                        label="Identificador usuario" 
-                        :value="contactUsTexts?.form[0].label" 
-                        info="Label del campo 1" 
-                        :class="`${baseClass}__textbox`" 
-                    />
-                    <UiTextbox 
-                        @input="(value: string) => contactUsTexts.form[0].placeholder = value" 
-                        :value="contactUsTexts?.form[0].placeholder" 
-                        info="Placeholder del campo 1" 
-                        :class="`${baseClass}__textbox`" 
-                    />
-                    <UiTextbox 
-                        @input="(value: string) => contactUsTexts.form[1].label = value" 
-                        label="Email" 
-                        :value="contactUsTexts?.form[1].label" 
-                        info="Label del campo 2" 
-                        :class="`${baseClass}__textbox`"
-                    />
-                    <UiTextbox 
-                        @input="(value: string) => contactUsTexts.form[1].placeholder = value" 
-                        :value="contactUsTexts?.form[1].placeholder" 
-                        info="Placeholder del campo 2" 
-                        :class="`${baseClass}__textbox`"
-                    />
-                    <UiTextbox 
-                        @input="(value: string) => contactUsTexts.form[2].label = value" 
-                        label="Asunto" 
-                        :value="contactUsTexts?.form[2].label" 
-                        info="Label del campo 3" 
-                        :class="`${baseClass}__textbox`"
-                    />
-                    <UiTextbox 
-                        @input="(value: string) => contactUsTexts.form[2].placeholder = value" 
-                        :value="contactUsTexts?.form[2].placeholder" 
-                        info="Placeholder del campo 3" 
-                        :class="`${baseClass}__textbox`"
-                    />
-                    <UiTextbox 
-                        @input="(value: string) => contactUsTexts.form[3].label = value" 
-                        label="Mensaje" 
-                        :value="contactUsTexts?.form[3].label" 
-                        info="Label del campo 4" 
-                        :class="`${baseClass}__textbox`"
-                    />
-                    <UiTextbox 
-                        @input="(value: string) => contactUsTexts.form[3].placeholder = value" 
-                        :value="contactUsTexts?.form[3].placeholder" 
-                        info="Placeholder del campo 4" 
-                        :class="`${baseClass}__textbox`"
-                    />
+                    <template v-for="(field, index) in formFields" :key="index">
+                        <UiTextbox 
+                            @input="(value: string) => contactUsTexts.form[index].label = value" 
+                            :label="field.label" 
+                            :value="contactUsTexts?.form[index].label" 
+                            :info="`Label del campo ${index + 1}`" 
+                            :class="`${baseClass}__textbox`" 
+                        />
+                        <UiTextbox 
+                            @input="(value: string) => contactUsTexts.form[index].placeholder = value" 
+                            :value="contactUsTexts?.form[index].placeholder" 
+                            :info="`Placeholder del campo ${index + 1}`" 
+                            :class="`${baseClass}__textbox`" 
+                        />
+                    </template>
                     <UiTextbox 
                         @input="(value: string) => contactUsTexts.form[4].action = value" 
                         label="Botón del formulario" 
@@ -81,75 +44,38 @@
                 </UiExpandSection>
                 <p>SECCIONES DE CONTACTO</p>
                 <UiExpandSection title="Datos de contacto" :style="{ marginTop: '12px' }">
-                    <UiTextbox 
-                        value="support@gmail.com" 
-                        info="Email de la empresa" 
-                        :class="`${baseClass}__textbox`" 
-                    />
-                    <UiTextbox 
-                        value="+1 (555) 123-4567" 
-                        info="Telefono de la empresa" 
-                        :class="`${baseClass}__textbox`" 
-                    />
-                    <UiTextbox 
-                        value="123 Fashion St, NY 10001" 
-                        info="Dirección de la empresa" 
-                        :class="`${baseClass}__textbox`" 
-                    />
+                    <template v-for="(field, index) in contactFields" :key="index">
+                        <UiTextbox 
+                            :value="field.value" 
+                            :info="field.info" 
+                            :class="`${baseClass}__textbox`" 
+                        />
+                    </template>
                 </UiExpandSection>
                 <UiExpandSection title="Textos" :style="{ marginTop: '12px' }">
-                    <UiTextbox 
-                        info="Sección email" 
-                        :value="contactUsTexts?.sections[0]" 
-                        :class="`${baseClass}__textbox`"
-                    />
-                    <UiTextbox 
-                        info="Sección telefono" 
-                        :value="contactUsTexts?.sections[1]" 
-                        :class="`${baseClass}__textbox`"
-                    />
-                    <UiTextbox 
-                        info="Sección direccion" 
-                        :value="contactUsTexts?.sections[2]" 
-                        :class="`${baseClass}__textbox`"
-                    />
+                    <template v-for="(section, index) in sectionTexts" :key="index">
+                        <UiTextbox 
+                            :info="section.info" 
+                            :value="contactUsTexts?.sections[index]" 
+                            :class="`${baseClass}__textbox`"
+                        />
+                    </template>
                 </UiExpandSection>
                 <UiExpandSection title="Colores" :style="{ marginTop: '12px' }">
-                    <UiColorPicker 
-                        label="Sección email" 
-                        @update:modelValue="(value: string) => colors.email.normal = value" 
-                        :modelValue="colors.email.normal" 
-                        info="Color primario"
-                    />
-                    <UiColorPicker 
-                        @update:modelValue="(value: string) => colors.email.soft = value" 
-                        :modelValue="colors.email.soft" 
-                        info="Color secundario"
-                    />
-                    <UiColorPicker 
-                        label="Sección telefono" 
-                        @update:modelValue="(value: string) => colors.phone.normal = value" 
-                        :modelValue="colors.phone.normal" 
-                        info="Color primario" 
-                        :style="{ marginTop: '12px' }"
-                    />
-                    <UiColorPicker 
-                        @update:modelValue="(value: string) => colors.phone.soft = value" 
-                        :modelValue="colors.phone.soft" 
-                        info="Color secundario"
-                    />
-                    <UiColorPicker 
-                        label="Sección direccion" 
-                        @update:modelValue="(value: string) => colors.address.normal = value" 
-                        :modelValue="colors.address.normal" 
-                        info="Color primario" 
-                        :style="{ marginTop: '12px' }"
-                    />
-                    <UiColorPicker 
-                        @update:modelValue="(value: string) => colors.address.soft = value" 
-                        :modelValue="colors.address.soft" 
-                        info="Color secundario"
-                    />
+                    <template v-for="(section, key) in colorSections" :key="key">
+                        <UiColorPicker 
+                            :label="section.label" 
+                            @update:modelValue="(value: string) => colors[key].normal = value" 
+                            :modelValue="colors[key].normal" 
+                            info="Color primario"
+                            :style="key !== 'email' ? { marginTop: '12px' } : {}"
+                        />
+                        <UiColorPicker 
+                            @update:modelValue="(value: string) => colors[key].soft = value" 
+                            :modelValue="colors[key].soft" 
+                            info="Color secundario"
+                        />
+                    </template>
                 </UiExpandSection>
                 <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
                     <UiButton @click="save" text="Guardar" />
@@ -177,6 +103,31 @@ import { customTextsService } from '@/services';
 
 const baseClass = 'ui-contact-us';
 const contactUsTexts = ref();
+
+const formFields = [
+    { label: 'Identificador usuario' },
+    { label: 'Email' },
+    { label: 'Asunto' },
+    { label: 'Mensaje' }
+];
+
+const contactFields = [
+    { value: 'support@gmail.com', info: 'Email de la empresa' },
+    { value: '+1 (555) 123-4567', info: 'Telefono de la empresa' },
+    { value: '123 Fashion St, NY 10001', info: 'Dirección de la empresa' }
+];
+
+const sectionTexts = [
+    { info: 'Sección email' },
+    { info: 'Sección telefono' },
+    { info: 'Sección direccion' }
+];
+
+const colorSections = {
+    email: { label: 'Sección email' },
+    phone: { label: 'Sección telefono' },
+    address: { label: 'Sección direccion' }
+};
 
 const colors = ref({
     email: {
