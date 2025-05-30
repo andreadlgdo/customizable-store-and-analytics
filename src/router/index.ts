@@ -12,9 +12,9 @@ import PersonalData from '../views/dashboard/personal-data.view.vue';
 import ProductsManagement from '../views/dashboard/products-management.view.vue';
 import OrdersManagement from '../views/dashboard/orders-management.view.vue';
 import UsersManagement from '../views/dashboard/users-management.view.vue';
-import Personalization from '../views/dashboard/personalization.view.vue';
+import Personalization from '../views/dashboard/personalization-dashboard.view.vue';
 import UserCart from '../views/dashboard/user-cart.view.vue';
-import Analytics from '../views/dashboard/analytics.view.vue';
+import Analytics from '../views/dashboard/analytics-dashboard.view.vue';
 import UserWhistList from '../views/dashboard/user-whist-list.view.vue';
 
 import { useCurrentUser } from '../composables';

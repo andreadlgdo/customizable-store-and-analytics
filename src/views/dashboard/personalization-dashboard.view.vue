@@ -1,6 +1,6 @@
 <template>
   <dashboard :selected-item="menuElements[4]">
-    <div :class="baseClass">
+    <div :class="[baseClass, { [`${baseClass}--edit`]: action === actions[2]}]">
       <h1 v-if="!action">Personalizacion</h1>
       <section v-if="!action" @click="selectAction('texts')" :class="`${baseClass}__section`">
         <h1>Textos</h1>
@@ -8,18 +8,23 @@
       <section v-if="!action" @click="selectAction('products-visuals')" :class="`${baseClass}__section`">
         <h1>Visualización de productos</h1>
       </section>
+      <section v-if="!action" @click="selectAction('contact-us')" :class="`${baseClass}__section`">
+        <h1>Contact us Page</h1>
+      </section>
       <ui-custom-text v-if="action === actions[0]" />
       <ui-products-visuals v-else-if="action === actions[1]" />
+      <ui-contact-us v-else-if="action === actions[2]" />
     </div>
   </dashboard>
 </template>
 
 <script lang="ts" setup>
   import { useRouter } from 'vue-router';
-  import Dashboard from './dashboard.view.vue';
-  import { useUserMenu } from '@/composables';
+  import Dashboard from './base-dashboard.view.vue';
+  import { useUserMenu } from '../../composables';
   import UiCustomText from '../../components/dashboard/personalization/ui-custom-text.component.vue';
   import UiProductsVisuals from '../../components/dashboard/personalization/ui-products-visuals.component.vue';
+  import UiContactUs from '../../components/dashboard/personalization/contact-us/ui-contact-us.component.vue';
   const baseClass = 'personalization';
 
   const { menuElements } = useUserMenu();
@@ -32,7 +37,7 @@
     }
   });
 
-  const actions = ['texts', 'products-visuals'];
+  const actions = ['texts', 'products-visuals', 'contact-us'];
 
   const selectAction = (action: string) => {
     router.push({
@@ -44,11 +49,13 @@
 
 <style lang="scss" scoped>
 .personalization {
-    margin: 2rem;
+    padding: 2rem 2rem 0rem 2rem;
     width: 100%;
-    overflow-y: scroll;
-    height: 85%;
 
+    &--edit {
+      background-color: white;
+    }
+    
     &__section {
       display: flex;
       justify-content: center;

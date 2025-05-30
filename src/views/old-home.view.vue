@@ -49,7 +49,7 @@
   import { CategoryEnum } from '../enums';
   import { generalService } from '../services';
 
-  import Header from './header.view.vue';
+  import Header from './app-header.view.vue';
 
   const baseClass = 'home';
 

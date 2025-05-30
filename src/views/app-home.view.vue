@@ -18,16 +18,16 @@
   <section :class="`${baseClass}__content`">
     <ui-button 
       @click="router.push('/products')" 
-      text="Shop now" 
+      text="Ver productos" 
       :class="`${baseClass}__button`" 
       colorSoft
     />
     <div :class="`${baseClass}__info`">
-      <p :class="`${baseClass}__text`">Free shipping</p>
+      <p :class="`${baseClass}__text`">Envío gratis</p>
       <p :class="`${baseClass}__text`">|</p>
-      <p :class="`${baseClass}__text`">Free 30 days return</p>
+      <p :class="`${baseClass}__text`">Devolución gratuita durante 30 días</p>
       <p :class="`${baseClass}__text`">|</p>
-      <p :class="`${baseClass}__text`">Secure payment</p>
+      <p :class="`${baseClass}__text`">Pago seguro</p>
     </div>
   </section>
 </template>
@@ -39,7 +39,7 @@
   import UiButton from '@/components/shared/ui-button.component.vue';
   import { generalService } from '@/services';
 
-  import Header from './header.view.vue';
+  import Header from './app-header.view.vue';
 
   const baseClass = 'home';
 

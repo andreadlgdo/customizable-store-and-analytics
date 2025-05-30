@@ -53,7 +53,7 @@
   import UiProductDetailsModal from '../components/shared/products/ui-product-details-modal.component.vue';
   import UiLoading from '../components/shared/ui-loading.vue';
 
-  import Header from './header.view.vue';
+  import Header from './app-header.view.vue';
   import { Product } from '@/interfaces';
   import { productService } from '@/services';
 
