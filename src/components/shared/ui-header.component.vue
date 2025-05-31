@@ -5,7 +5,7 @@
       icon="menu"
       :class="`${baseClass}__icon ${baseClass}__icon--menu`"
     />
-    <h1 @click="router.push('/')" :class="`${baseClass}__text`">{{ name }}</h1>
+    <h1 @click="router.push('/')" :class="[`${baseClass}__text`, { [`${baseClass}__text--disabled`]: disabled }]">{{ name ?? defaultName }}</h1>
     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--actions`">
       <UiIconButton @click="$emit('openUserMenu')" icon="user" />
       <UiIconButton @click="$emit('openWhistList')" icon="heart" />
@@ -27,16 +27,21 @@
   const router = useRouter();
 
   defineProps({
-    transparent: Boolean
+    name: {
+      type: String,
+      default: undefined
+    },
+    transparent: Boolean,
+    disabled: Boolean
   });
 
   defineEmits(['openMenu', 'openUserMenu', 'openWhistList', 'openShoppingCart']);
 
-  const name = ref()
+  const defaultName = ref();
 
   onMounted(async () => {
     const customTexts = await customService.getCustomTexts('home');
-    name.value = customTexts.name;
+    defaultName.value = customTexts.name;
   })
 </script>
 
@@ -65,6 +70,11 @@
       font-size: 32px;
       font-weight: bold;
       cursor: pointer;
+
+      &--disabled {
+        pointer-events: none;
+        cursor: default;
+      }
     }
 
     &__wrapper {

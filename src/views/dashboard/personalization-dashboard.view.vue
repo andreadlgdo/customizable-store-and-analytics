@@ -1,19 +1,15 @@
 <template>
   <dashboard :selected-item="menuElements[4]">
-    <div :class="[baseClass, { [`${baseClass}--edit`]: action === actions[2]}]">
+    <div :class="[baseClass, { [`${baseClass}--edit`]: action }]">
       <h1 v-if="!action">Personalizacion</h1>
-      <section v-if="!action" @click="selectAction('texts')" :class="`${baseClass}__section`">
-        <h1>Textos</h1>
-      </section>
-      <section v-if="!action" @click="selectAction('products-visuals')" :class="`${baseClass}__section`">
-        <h1>Visualización de productos</h1>
+      <section v-if="!action" @click="selectAction('home-page')" :class="`${baseClass}__section`">
+        <h1>Home Page</h1>
       </section>
       <section v-if="!action" @click="selectAction('contact-us')" :class="`${baseClass}__section`">
         <h1>Contact us Page</h1>
       </section>
-      <ui-custom-text v-if="action === actions[0]" />
-      <ui-products-visuals v-else-if="action === actions[1]" />
-      <ui-contact-us v-else-if="action === actions[2]" />
+      <UiHomePagePersonalization v-else-if="action === actions[0]" />
+      <UiContactUsPersonalization v-else-if="action === actions[1]" />
     </div>
   </dashboard>
 </template>
@@ -22,9 +18,9 @@
   import { useRouter } from 'vue-router';
   import Dashboard from './base-dashboard.view.vue';
   import { useUserMenu } from '../../composables';
-  import UiCustomText from '../../components/dashboard/personalization/ui-custom-text.component.vue';
-  import UiProductsVisuals from '../../components/dashboard/personalization/ui-products-visuals.component.vue';
-  import UiContactUs from '../../components/dashboard/personalization/contact-us/ui-contact-us.component.vue';
+  import UiHomePagePersonalization from '../../components/dashboard/personalization/home-page/ui-home-page-personalization.component.vue';
+  import UiContactUsPersonalization from '../../components/dashboard/personalization/contact-us/ui-contact-us-personalization.component.vue';
+  
   const baseClass = 'personalization';
 
   const { menuElements } = useUserMenu();
@@ -37,7 +33,7 @@
     }
   });
 
-  const actions = ['texts', 'products-visuals', 'contact-us'];
+  const actions = ['home-page','contact-us'];
 
   const selectAction = (action: string) => {
     router.push({
