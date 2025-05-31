@@ -98,7 +98,7 @@ import UiButton from '../../../shared/ui-button.component.vue';
 import UiColorPicker from '../../../shared/ui-color-picker.component.vue';
 import { customService } from '@/services';
 
-const baseClass = 'ui-contact-us';
+const baseClass = 'ui-contact-us-personalization';
 const contactUsCustom = ref();
 
 const formFields = [
@@ -131,7 +131,7 @@ const save = async () => {
     await customService.updateCustom("contactUs", { texts: contactUsCustom.value.texts, data: contactUsCustom.value.data, visuals: contactUsCustom.value.visuals });
     window.location.reload();
   } catch (error) {
-    console.error('Error saving custom texts:', error);
+    console.error('Error saving custom data:', error);
   }
 };
 
@@ -146,7 +146,7 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
-.ui-contact-us {
+.ui-contact-us-personalization {
     display: flex;
     flex-direction: column;
     height: 100%;
