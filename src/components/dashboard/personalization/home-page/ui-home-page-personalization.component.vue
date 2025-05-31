@@ -4,53 +4,49 @@
         <h1 :class="`${baseClass}__title`">Home Page</h1>
         <div :class="`${baseClass}__container`">
             <div :class="`${baseClass}__section ${baseClass}__section--one`">
-                <p :class="`${baseClass}__subtitle`">NOMBRE DE LA TIENDA</p>
-                <UiTextbox 
-                    @input="(value:string) => homePageCustom.texts.name = value"
-                    :value="homePageCustom?.texts.name" 
-                    :class="`${baseClass}__textbox`"
-                />
-                <p :class="`${baseClass}__subtitle`">GENERAL</p>
-                <UiExpandSection title="Textos" :style="{ marginTop: '12px' }">
-                <UiTextbox 
-                    @input="(value:string) => homePageCustom.texts.mainAction = value"
-                    label="Botón principal"
-                    :value="homePageCustom?.texts.mainAction" 
-                    :class="`${baseClass}__textbox`"
-                />
-                </UiExpandSection>
-                <UiExpandSection title="Colores" :style="{ marginTop: '12px' }">
-                    <UiColorPicker
-                        label="Color principal"
-                        @update:modelValue="(value:string) => homePageCustom.visuals.colors.primary = value"
-                        :modelValue="homePageCustom?.visuals?.colors?.primary"
-                        :style="{ marginTop: '12px' }"
-                    />
-                    <UiColorPicker
-                        label="Color secundario"
-                        @update:modelValue="(value:string) => homePageCustom.visuals.colors.secondary = value"
-                        :modelValue="homePageCustom?.visuals?.colors?.secondary"
-                        :style="{ marginTop: '12px' }"
-                    />
-                </UiExpandSection>
-                <p :class="`${baseClass}__subtitle`">HIGHLIGHTS</p>
-                <UiExpandSection title="Textos" :style="{ marginTop: '12px' }">
+                <section :class="`${baseClass}__form-section`">
+                    <p :class="`${baseClass}__subtitle`">NOMBRE DE LA TIENDA</p>
                     <UiTextbox 
-                        @input="(value:string) => homePageCustom.texts.highlights[0] = value"
-                        :value="homePageCustom?.texts.highlights[0]" 
+                        :value="homePageCustom.texts.name"
+                        @input="(value: string) => homePageCustom.texts.name = value"
                         :class="`${baseClass}__textbox`"
                     />
-                    <UiTextbox 
-                        @input="(value:string) => homePageCustom.texts.highlights[1] = value"
-                        :value="homePageCustom?.texts.highlights[1]" 
-                        :class="`${baseClass}__textbox`"
-                    />
-                    <UiTextbox 
-                        @input="(value:string) => homePageCustom.texts.highlights[2] = value"
-                        :value="homePageCustom?.texts.highlights[2]" 
-                        :class="`${baseClass}__textbox`"
-                    />
-                </UiExpandSection>
+                </section>
+                <section :class="`${baseClass}__form-section`">
+                    <p :class="`${baseClass}__subtitle`">GENERAL</p>
+                    <UiExpandSection title="Textos" :style="{ marginTop: '12px' }">
+                        <UiTextbox 
+                            :value="homePageCustom.texts.mainAction"
+                            @input="(value: string) => homePageCustom.texts.mainAction = value"
+                            label="Botón principal"
+                            :class="`${baseClass}__textbox`"
+                        />
+                    </UiExpandSection>
+                    <UiExpandSection title="Colores" :style="{ marginTop: '12px' }">
+                        <UiColorPicker
+                            v-model="homePageCustom.visuals.colors.primary"
+                            label="Color principal"
+                            :style="{ marginTop: '12px' }"
+                        />
+                        <UiColorPicker
+                            v-model="homePageCustom.visuals.colors.secondary"
+                            label="Color secundario"
+                            :style="{ marginTop: '12px' }"
+                        />
+                    </UiExpandSection>
+                </section>
+                <section :class="`${baseClass}__form-section`">
+                    <p :class="`${baseClass}__subtitle`">HIGHLIGHTS</p>
+                    <UiExpandSection title="Textos" :style="{ marginTop: '12px' }">
+                        <UiTextbox 
+                            v-for="(_, index) in homePageCustom.texts.highlights"
+                            :key="index"
+                            :value="homePageCustom.texts.highlights[index]"
+                            @input="(value: string) => homePageCustom.texts.highlights[index] = value"
+                            :class="`${baseClass}__textbox`"
+                        />
+                    </UiExpandSection>
+                </section>
                 <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
                     <UiButton @click="save" text="Guardar" />
                     <UiButton @click="cancel" text="Cancelar" transparent />
@@ -58,21 +54,29 @@
             </div>
             <div :class="`${baseClass}__section ${baseClass}__section--two`">
                 <p :class="`${baseClass}__subtitle`">PREVIEW</p>
-                <UiHomePagePreview :texts="homePageCustom?.texts" :colors="homePageCustom?.visuals.colors" />
+                <UiHomePagePreview 
+                    :texts="homePageCustom.texts" 
+                    :colors="homePageCustom.visuals.colors" 
+                />
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
+import { ref, onMounted } from 'vue';
 import UiColorPicker from '../../../shared/ui-color-picker.component.vue';
 import UiButton from '../../../shared/ui-button.component.vue';
 import UiTextbox from '../../../shared/ui-textbox.component.vue';
 import UiHeaderPersonalization from '../ui-header-personalization.component.vue';
 import UiHomePagePreview from './ui-home-page-preview.component.vue';
 import UiExpandSection from '../../../shared/ui-expand-section.component.vue';
-import { ref, onMounted } from 'vue';
 import { CustomResponse, customService } from '@/services';
+
+interface Colors {
+    primary: string;
+    secondary: string;
+}
 
 interface HomePageTexts {
     name: string;
@@ -81,10 +85,7 @@ interface HomePageTexts {
 }
 
 interface Visuals {
-    colors: {
-        primary: string;
-        secondary: string;
-    };
+    colors: Colors;
 }
 
 interface HomePageCustom extends Omit<CustomResponse, 'texts' | 'visuals'> {
@@ -111,12 +112,15 @@ const homePageCustom = ref<HomePageCustom>({
 });
 
 const save = async () => {
-  try {
-    await customService.updateCustom("home", { texts: homePageCustom.value.texts, visuals: homePageCustom.value.visuals });
-    window.location.reload();
-  } catch (error) {
-    console.error('Error saving custom data:', error);
-  }
+    try {
+        await customService.updateCustom('home', {
+            texts: homePageCustom.value.texts,
+            visuals: homePageCustom.value.visuals
+        });
+        window.location.reload();
+    } catch (error) {
+        console.error('Error saving custom data:', error);
+    }
 };
 
 const cancel = async () => {
@@ -159,6 +163,10 @@ onMounted(async() => {
         &--two {
             flex: 2;
         }
+    }
+
+    &__form-section {
+        margin-bottom: 2rem;
     }
 
     &__wrapper {
