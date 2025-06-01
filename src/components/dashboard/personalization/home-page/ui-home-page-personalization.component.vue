@@ -57,7 +57,7 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
 
-import { CustomResponse, customService } from '../../../../services';
+import { customService } from '../../../../services';
 
 import UiColorPicker from '../../../shared/ui-color-picker.component.vue';
 import UiExpandSection from '../../../shared/ui-expand-section.component.vue';
@@ -66,27 +66,7 @@ import UiTextbox from '../../../shared/ui-textbox.component.vue';
 import UiBasePersonalization from '../ui-base-personalization.component.vue';
 
 import UiHomePagePreview from './ui-home-page-preview.component.vue';
-
-
-interface Colors {
-    primary: string;
-    secondary: string;
-}
-
-interface HomePageTexts {
-    name: string;
-    mainAction: string;
-    highlights: string[];
-}
-
-interface Visuals {
-    colors: Colors;
-}
-
-interface HomePageCustom extends Omit<CustomResponse, 'texts' | 'visuals'> {
-    texts: HomePageTexts;
-    visuals: Visuals;
-}
+import { HomePageCustom } from '../../../../types/home-page.types';
 
 const baseClass = 'ui-home-page-personalization';
 

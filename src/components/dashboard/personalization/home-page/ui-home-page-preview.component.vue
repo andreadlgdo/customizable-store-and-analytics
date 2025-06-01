@@ -32,20 +32,12 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+
+import { Colors, HomePageTexts } from '../../../../types/home-page.types';
+import { generalService } from '../../../../services';
+
 import UiButton from '../../../shared/ui-button.component.vue';
 import UiHeader from '../../../shared/ui-header.component.vue';
-import { generalService } from '@/services';
-
-interface TextContent {
-    name: string;
-    mainAction: string;
-    highlights: string[];
-}
-
-interface ColorScheme {
-    primary: string;
-    secondary: string;
-}
 
 const baseClass = 'ui-home-page-preview';
 const router = useRouter();
@@ -53,16 +45,14 @@ const router = useRouter();
 const landingImage = ref();
 
 const props = defineProps<{
-    texts: TextContent;
-    colors: ColorScheme;
+    texts: HomePageTexts;
+    colors: Colors;
 }>();
 
 const containerStyle = computed(() => ({
     '--color-vibrant-primary': props.colors.secondary,
     '--color-soft-primary': props.colors.primary
 }));
-
-
 
 onMounted(async () => {
     const images = await generalService.getLandingImages();
