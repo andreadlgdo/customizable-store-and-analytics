@@ -58,18 +58,33 @@ const toggleOptions = computed<ToggleOption[]>(() =>[
     width: 100%;
     height: 100%;
 
+    @media (max-width: 1440px) {
+        flex-direction: column;
+        overflow-y: scroll;
+    }
+
     &__left-section,
     &__right-section {
         flex: 1;
         min-width: 0;
-        overflow-y: scroll;
     }
 
     &__wrapper {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        min-height: 92%;
+        width: 400px;
+        padding: 2rem;
+        margin-top: 1rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+
+        @media (max-width: 1440px) {
+            min-height: 34rem;
+        }
     }
 
     &__toggle {
