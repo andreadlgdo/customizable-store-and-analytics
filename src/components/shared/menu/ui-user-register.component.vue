@@ -1,223 +1,274 @@
 <template>
   <UiAside @click="$emit('close')" :class="baseClass" :is-open="isOpen" icon="close" fixed>
-    <UiToggle @click="selectToggle" :options="options" />
-    <div v-if="options[0].selected" :class="`${baseClass}__wrapper`">
+    <UiToggle @click="selectToggle" :options="toggleOptions" />
+    <div v-if="isLoginView" :class="`${baseClass}__wrapper`">
       <p v-if="invalidCredentials" :class="`${baseClass}__text`">{{ invalidCredentials }}</p>
       <ui-textbox
-        @input="value => (newUser.email = value)"
+        @input="(value: string) => handleInput('email', value)"
         :label="t('asides.register.form.email.label')"
-        :value="newUser.email"
+        :value="formData.email"
         :placeholder="t('asides.register.form.email.placeholder')"
-        :error="errors.email"
+        :error="formErrors.email"
       />
       <ui-password
-        @input="value => (newUser.password = value)"
+        @input="(value: string) => handleInput('password', value)"
         :label="t('asides.register.form.password')"
-        :value="newUser.password"
-        :error="errors.password"
+        :value="formData.password"
+        :error="formErrors.password"
       />
-      <ui-button @click="logIn" text="Registrarse" color-soft />
+      <ui-button @click="handleLogin" :text="t('asides.register.actions.logIn')" color-soft />
     </div>
-    <p v-else :class="`${baseClass}__wrapper`">
+    <div v-else :class="`${baseClass}__wrapper`">
       <UiTextbox
-        @input="value => (newUser.name = value)"
+        @input="(value: string) => handleInput('name', value)"
         :label="t('asides.register.form.name')"
-        :value="newUser.name"
+        :value="formData.name"
         :placeholder="t('asides.register.form.name')"
-        :error="errors.name"
+        :error="formErrors.name"
       />
       <UiTextbox
-        @input="value => (newUser.surname = value)"
+        @input="(value: string) => handleInput('surname', value)"
         :label="t('asides.register.form.surname')"
-        :value="newUser.surname"
+        :value="formData.surname"
         :placeholder="t('asides.register.form.surname')"
-        :error="errors.surname"
+        :error="formErrors.surname"
       />
       <UiTextbox
-        @input="value => (newUser.email = value)"
+        @input="(value: string) => handleInput('email', value)"
         :label="t('asides.register.form.email.label')"
-        :value="newUser.email"
+        :value="formData.email"
         :placeholder="t('asides.register.form.email.placeholder')"
-        :error="errors.email"
+        :error="formErrors.email"
       />
       <UiPassword
-        @input="setPassword"
+        @input="handlePasswordChange"
         :label="t('asides.register.form.password')"
-        :value="newUser.password"
-        :error="errors.password"
+        :value="formData.password"
+        :error="formErrors.password"
         haveConditions
       />
       <UiPassword
-        @input="value => (newUser.repeatPassword = value)"
+        @input="(value: string) => handleInput('repeatPassword', value)"
         :label="t('asides.register.form.repeatPassword')"
-        :value="newUser.repeatPassword"
-        :error="errors.repeatPassword"
+        :value="formData.repeatPassword"
+        :error="formErrors.repeatPassword"
       />
       <UiCheckbox
-        @change="acceptTermsAndConditions = !acceptTermsAndConditions"
+        @change="handleTermsChange"
         :value="acceptTermsAndConditions"
         :text="t('asides.register.form.termsAndConditions')"
-        :error="errors.terms"
+        :error="formErrors.terms"
       />
-      <UiButton @click="signUp" text="Inicio de sesion" color-soft :disabled="invalidPassword" />
-    </p>
+      <UiButton 
+        @click="handleRegister" 
+        :text="t('asides.register.actions.signUp')" 
+        color-soft 
+        :disabled="!isFormValid" 
+      />
+    </div>
   </UiAside>
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, watch } from 'vue';
-  import { useI18n } from 'vue-i18n';
+import { computed, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useValidations } from '../../../composables';
 
-  import { useValidations } from '../../../composables';
+import UiAside from '../ui-aside.component.vue';
+import UiButton from '../ui-button.component.vue';
+import UiCheckbox from '../ui-checkbox.component.vue';
+import UiTextbox from '../ui-textbox.component.vue';
+import UiPassword from '../ui-password.component.vue';
+import UiToggle from '../ui-toggle.component.vue';
 
-  import UiAside from '../ui-aside.component.vue';
-  import UiButton from '../ui-button.component.vue';
-  import UiCheckbox from '../ui-checkbox.component.vue';
-  import UiTextbox from '../ui-textbox.component.vue';
-  import UiPassword from '../ui-password.component.vue';
-  import UiToggle from '../ui-toggle.component.vue';
+interface FormData {
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+  repeatPassword: string;
+}
 
-  const baseClass = 'ui-user-register';
+interface FormErrors {
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+  repeatPassword: string;
+  terms: string;
+}
 
-  const { validEmail } = useValidations();
-  const { t } = useI18n();
+interface ToggleOption {
+  label: string;
+  selected: boolean;
+}
 
-  const props = defineProps({
-    isOpen: Boolean,
-    error: String
-  });
+const baseClass = 'ui-user-register';
+const { validEmail } = useValidations();
+const { t } = useI18n();
 
-  const emit = defineEmits(['close', 'logIn', 'signUp']);
+const props = defineProps<{
+  isOpen: boolean;
+  error?: string;
+}>();
 
-  const options = ref([
-    { label: t('asides.register.actions.logIn'), selected: true },
-    { label: t('asides.register.actions.signUp'), selected: false }
-  ]);
+const emit = defineEmits<{
+  (e: 'close'): void;
+  (e: 'logIn', data: Pick<FormData, 'email' | 'password'>): void;
+  (e: 'signUp', data: FormData): void;
+}>();
 
-  const newUser = ref({
+const toggleOptions = ref<ToggleOption[]>([
+  { label: t('asides.register.actions.logIn'), selected: true },
+  { label: t('asides.register.actions.signUp'), selected: false }
+]);
+
+const formData = ref<FormData>({
+  name: '',
+  surname: '',
+  email: '',
+  password: '',
+  repeatPassword: ''
+});
+
+const formErrors = ref<FormErrors>({
+  name: '',
+  surname: '',
+  email: '',
+  password: '',
+  repeatPassword: '',
+  terms: ''
+});
+
+const acceptTermsAndConditions = ref(false);
+const invalidCredentials = ref(props.error);
+const isPasswordValid = ref(false);
+
+const isLoginView = computed(() => toggleOptions.value[0].selected);
+const isFormValid = computed(() => {
+  const hasNoErrors = Object.values(formErrors.value).every(error => !error);
+  return hasNoErrors && isPasswordValid.value && acceptTermsAndConditions.value;
+});
+
+const resetForm = () => {
+  formData.value = {
     name: '',
     surname: '',
     email: '',
     password: '',
     repeatPassword: ''
-  });
-  const errors = ref({
-    email: '',
-    password: '',
+  };
+  formErrors.value = {
     name: '',
     surname: '',
+    email: '',
+    password: '',
     repeatPassword: '',
     terms: ''
-  });
-  const acceptTermsAndConditions = ref(false);
-  const invalidCredentials = ref(props.error);
-  const invalidPassword = ref(true);
-
-  const errorsEmpty = computed(() => Object.values(errors.value).every(error => !error));
-
-  const resetFields = () => {
-    newUser.value = {
-      name: '',
-      surname: '',
-      email: '',
-      password: '',
-      repeatPassword: ''
-    };
-    errors.value = {
-      email: '',
-      password: '',
-      name: '',
-      surname: '',
-      repeatPassword: '',
-      terms: ''
-    };
-    acceptTermsAndConditions.value = false;
-    invalidCredentials.value = '';
-    invalidPassword.value = true;
   };
+  acceptTermsAndConditions.value = false;
+  invalidCredentials.value = '';
+  isPasswordValid.value = false;
+};
 
-  const selectToggle = (option: { label: string; selected: boolean }) => {
-    options.value = options.value.map(item => ({ ...item, selected: item.label === option.label }));
-    resetFields();
-  };
+const selectToggle = (option: ToggleOption) => {
+  toggleOptions.value = toggleOptions.value.map(item => ({
+    ...item,
+    selected: item.label === option.label
+  }));
+  resetForm();
+};
 
-  const checkEmail = () => {
-    if (!newUser.value.email) {
-      errors.value.email = 'Email is required';
-    } else if (!validEmail(newUser.value.email)) {
-      errors.value.email = 'Email is not valid';
-    } else {
-      errors.value.email = '';
-    }
-  };
+const validateEmail = () => {
+  if (!formData.value.email) {
+    formErrors.value.email = t('validation.email.required');
+  } else if (!validEmail(formData.value.email)) {
+    formErrors.value.email = t('validation.email.invalid');
+  } else {
+    formErrors.value.email = '';
+  }
+};
 
-  const checkRepeatPassword = () => {
-    if (!newUser.value.repeatPassword) {
-      errors.value.repeatPassword = 'Repeat password is required';
-    } else if (newUser.value.password !== newUser.value.repeatPassword) {
-      errors.value.repeatPassword = 'Repeat password must be the same as password';
-    } else {
-      errors.value.repeatPassword = '';
-    }
-  };
+const validateRepeatPassword = () => {
+  if (!formData.value.repeatPassword) {
+    formErrors.value.repeatPassword = t('validation.repeatPassword.required');
+  } else if (formData.value.password !== formData.value.repeatPassword) {
+    formErrors.value.repeatPassword = t('validation.repeatPassword.mismatch');
+  } else {
+    formErrors.value.repeatPassword = '';
+  }
+};
 
-  const setPassword = (value: string, isValid: boolean) => {
-    newUser.value.password = value;
-    invalidPassword.value = !isValid;
-  };
+const handleInput = (field: keyof FormData, value: string) => {
+  formData.value[field] = value;
+  if (field === 'email') validateEmail();
+  if (field === 'repeatPassword') validateRepeatPassword();
+};
 
-  const signUp = () => {
-    errors.value.name = !newUser.value.name ? 'Name is required' : '';
-    errors.value.surname = !newUser.value.surname ? 'Surname is required' : '';
-    checkEmail();
-    errors.value.password = !newUser.value.password ? 'Password is required' : '';
-    checkRepeatPassword();
-    errors.value.terms = acceptTermsAndConditions.value
-      ? ''
-      : 'You must accept the terms and conditions';
+const handlePasswordChange = (value: string, isValid: boolean) => {
+  formData.value.password = value;
+  isPasswordValid.value = isValid;
+  validateRepeatPassword();
+};
 
-    if (errorsEmpty.value && !invalidPassword.value) {
-      emit('signUp', newUser.value);
-    }
-  };
+const handleTermsChange = () => {
+  acceptTermsAndConditions.value = !acceptTermsAndConditions.value;
+  formErrors.value.terms = acceptTermsAndConditions.value ? '' : t('validation.terms.required');
+};
 
-  const logIn = () => {
-    checkEmail();
-    errors.value.password = !newUser.value.password ? 'Password is required' : '';
+const handleRegister = () => {
+  formErrors.value.name = !formData.value.name ? t('validation.name.required') : '';
+  formErrors.value.surname = !formData.value.surname ? t('validation.surname.required') : '';
+  validateEmail();
+  formErrors.value.password = !formData.value.password ? t('validation.password.required') : '';
+  validateRepeatPassword();
+  formErrors.value.terms = acceptTermsAndConditions.value ? '' : t('validation.terms.required');
 
-    if (errorsEmpty.value) {
-      emit('logIn', newUser.value);
-    }
-  };
+  if (isFormValid.value) {
+    emit('signUp', formData.value);
+  }
+};
 
-  watch(
-    () => props.error,
-    () => (invalidCredentials.value = props.error),
-    { immediate: true }
-  );
+const handleLogin = () => {
+  validateEmail();
+  formErrors.value.password = !formData.value.password ? t('validation.password.required') : '';
 
-  watch(
-    () => props.isOpen,
-    () => resetFields(),
-    { immediate: true }
-  );
+  if (Object.values(formErrors.value).every(error => !error)) {
+    emit('logIn', {
+      email: formData.value.email,
+      password: formData.value.password
+    });
+  }
+};
+
+watch(
+  () => props.error,
+  (newError) => (invalidCredentials.value = newError),
+  { immediate: true }
+);
+
+watch(
+  () => props.isOpen,
+  () => resetForm(),
+  { immediate: true }
+);
 </script>
 
 <style lang="scss" scoped>
-  .ui-user-register {
-    width: 360px;
-    padding: 6rem 2rem;
+.ui-user-register {
+  width: 360px;
+  padding: 6rem 2rem;
 
-    &__wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      padding: 2rem 0;
-    }
-
-    &__text {
-      text-align: center;
-      color: var(--color-red);
-    }
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 2rem 0;
   }
+
+  &__text {
+    text-align: center;
+    color: var(--color-red);
+  }
+}
 </style>
