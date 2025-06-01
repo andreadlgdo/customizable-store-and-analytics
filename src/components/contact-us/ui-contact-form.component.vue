@@ -2,99 +2,129 @@
     <div :class="baseClass">
         <form :class="`${baseClass}__form`"  @submit.prevent="submitForm">
             <UiTextbox
-              @input="(value: string) => (contactForm.name = value)"
               :value="contactForm.name"
               :label="contactUsTexts?.form[0].label"
               :placeholder="contactUsTexts?.form[0].placeholder"
+              @input="(value: string) => (contactForm.name = value)"
             />
             <UiTextbox
-              @input="(value: string) => (contactForm.email = value)"
               :value="contactForm.email"
               :label="contactUsTexts?.form[1].label"
               :placeholder="contactUsTexts?.form[1].placeholder"
               :error="emailError"
+              @input="(value: string) => (contactForm.email = value)"
             />
             <UiTextbox
-              @input="(value: string) => (contactForm.subject = value)"
               :value="contactForm.subject"
               :label="contactUsTexts?.form[2].label"
               :placeholder="contactUsTexts?.form[2].placeholder"
+              @input="(value: string) => (contactForm.subject = value)"
             />
             <UiTextbox
-              @input="(value: string) => (contactForm.message = value)"
               :value="contactForm.message"
               :label="contactUsTexts?.form[3].label"
               :placeholder="contactUsTexts?.form[3].placeholder"
               multiline
+              @input="(value: string) => (contactForm.message = value)"
             />
             <UiButton
-              @click="submitForm"
               :text="contactUsTexts?.form[4].action"
               :disabled="!isFormValid"
               :class="`${baseClass}__button`"
+              @click="submitForm"
             />
         </form>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import UiButton from '../shared/ui-button.component.vue';
 import UiTextbox from '../shared/ui-textbox.component.vue';
 import { customService } from '../../services';
 
+interface ContactForm {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
 const baseClass = 'ui-contact-form';
 
 const { t } = useI18n();
 
+const props = defineProps<{
+    customTexts?: {
+        form: Array<{
+            label: string;
+            placeholder: string;
+            action?: string;
+        }>;
+        sections: string[];
+    };
+    editMode: boolean;
+}>();
+
 const contactUsTexts = ref();
 
-const contactForm = ref({
+const contactForm = ref<ContactForm>({
     name: '',
     email: '',
     subject: '',
     message: ''
   });
 
-  const emailError = ref('');
+const emailError = ref('');
 
-  const validateForm = () => {
-    emailError.value = ''
+const validateForm = () => {
+  emailError.value = ''
 
-    if (!/^\S+@\S+\.\S+$/.test(contactForm.value.email)) {
-      emailError.value = t('contactUs.form.email.error');
-      return false;
-    }
-    return true;
-  };
+  if (!/^\S+@\S+\.\S+$/.test(contactForm.value.email)) {
+    emailError.value = t('contactUs.form.email.error');
+    return false;
+  }
+  return true;
+};
 
-  const isFormValid = computed(() => {
-    return contactForm.value.name && 
-           contactForm.value.email && 
-           contactForm.value.subject && 
-           contactForm.value.message;
-  });
+const isFormValid = computed(() => {
+  return Boolean(
+    contactForm.value.name &&
+    contactForm.value.email &&
+    contactForm.value.subject &&
+    contactForm.value.message
+  );
+});
 
 const submitForm = () => {
-    if (validateForm()) {
-      console.log('Form submitted:', contactForm.value);
-      
-      contactForm.value = {
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      };
-      
-      alert('Thank you for your message! We will get back to you soon.');
-    }
-  };
+  if (validateForm()) {
+    console.log('Form submitted:', contactForm.value);
+    
+    contactForm.value = {
+      name: '',
+      email: '',
+      subject: '',
+      message: ''
+    };
+    
+    alert('Thank you for your message! We will get back to you soon.');
+  }
+};
 
-  onMounted(async () => {
-    contactUsTexts.value = await customService.getCustomTexts("contactUs");
-  });
+watch(() => props.customTexts, (newTexts) => {
+  if (props.editMode && newTexts) {
+    contactUsTexts.value = newTexts;
+  }
+}, { immediate: true });
+
+onMounted(async () => {
+  if (!props.editMode || !props.customTexts) {
+    const customTexts = await customService.getCustomTexts("contactUs");
+    contactUsTexts.value = customTexts;
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -105,7 +135,6 @@ const submitForm = () => {
     border-radius: 10px;
     border: 1px solid var(--color-dark-primary);
     
-
     &__form {
         display: flex;
         flex-direction: column;

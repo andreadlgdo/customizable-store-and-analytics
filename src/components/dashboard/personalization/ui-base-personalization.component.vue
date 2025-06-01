@@ -5,7 +5,7 @@
         <div :class="`${baseClass}__container`">
             <div :class="`${baseClass}__section ${baseClass}__section--one`">
                 <slot name="customization" />
-                <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
+                <div :class="`${baseClass}__wrapper`">
                     <UiButton @click="$emit('save')" text="Guardar" />
                     <UiButton @click="$emit('cancel')" text="Cancelar" transparent />
                 </div>
@@ -19,6 +19,7 @@
 </template>
 
 <script lang="ts" setup>
+import UiButton from '../../shared/ui-button.component.vue';
 import UiHeaderPersonalization from './ui-header-personalization.component.vue';
 
 const baseClass = 'ui-base-personalization';
@@ -67,16 +68,13 @@ defineEmits<{
     &__wrapper {
         display: flex;
         gap: 1rem;
-
-        &--button {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: white;
-            padding: 1rem;
-            z-index: 10;
-        }
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        padding: 1rem;
+        z-index: 10;
     }
 
     &__subtitle {

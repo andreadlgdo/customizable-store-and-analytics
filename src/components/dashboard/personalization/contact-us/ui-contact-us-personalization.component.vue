@@ -83,7 +83,10 @@
                 </div>
         </template>
         <template #preview>
-            <UiContactUsPreview />
+            <UiContactUsPreview 
+                :title="contactUsCustom?.texts.title" 
+                :customTexts="contactUsCustom?.texts" 
+            />
         </template>
     </UiBasePersonalization>
 </template>

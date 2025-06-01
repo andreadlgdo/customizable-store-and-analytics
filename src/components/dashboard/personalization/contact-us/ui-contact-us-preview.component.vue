@@ -3,26 +3,28 @@
         <h1 :class="`${baseClass}__title`">
             {{ title }}
         </h1>
-        <UiContactForm />
+        <UiContactForm :editMode="true" :customTexts="customTexts" />
         <UiContactMethods />
     </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
-
 import UiContactForm from '../../../contact-us/ui-contact-form.component.vue';
 import UiContactMethods from '../../../contact-us/ui-contact-methods.component.vue';
-import { customService } from '@/services';
 
 const baseClass = 'ui-contact-us-preview';
 
-const title = ref('');
-
-onMounted(async () => {
-    const customTexts = await customService.getCustomTexts("contactUs");
-    title.value = customTexts.title;
-});
+defineProps<{
+    title: string;
+    customTexts?: {
+        form: Array<{
+            label: string;
+            placeholder: string;
+            action?: string;
+        }>;
+        sections: string[];
+    };
+}>();
 </script>
 
 <style lang="scss" scoped>
