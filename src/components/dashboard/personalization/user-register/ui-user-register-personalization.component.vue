@@ -245,6 +245,7 @@ const cancel = async () => {
 
 const save = async () => {
     await customService.updateCustom('register', { texts: userRegisterCustom.value.texts, visuals: userRegisterCustom.value.visuals });
+    window.location.reload();
 }
 
 onMounted(async () => {
