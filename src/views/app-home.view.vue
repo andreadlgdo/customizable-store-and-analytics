@@ -19,7 +19,7 @@
     <ui-button 
       @click="router.push('/products')" 
       :text="homeCustom?.texts.mainAction" 
-      :background-color="homeCustom?.visuals.colors.button"
+      :background-color="homeCustom?.visuals.colors.primary"
       :class="`${baseClass}__button`" 
     />
     <div :class="`${baseClass}__info`" :style="containerStyle">
