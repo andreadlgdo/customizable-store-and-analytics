@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, computed, ComputedRef } from 'vue';
+import { ref, onMounted, computed, ComputedRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import UiIcon from '../shared/ui-icon.component.vue';
@@ -53,6 +53,23 @@ interface ContactMethod {
 const baseClass = 'ui-contact-methods';
 
 const { t } = useI18n();
+
+const props = defineProps<{
+    custom?: {
+        texts: {
+            sections: string[];
+        },
+        visuals: {
+            colors: Array<{
+                primary: string;
+            }>;
+        },
+        data: {
+            sections: string[];
+        }
+    };
+    editMode: boolean;
+}>();
 
 const contactUsCustom = ref();
 
@@ -88,8 +105,17 @@ const contactMethods: ComputedRef<ContactMethod[]> = computed(() => [
     }
 ]);
 
+watch(() => props.custom, (newCustom) => {
+  if (props.editMode && newCustom) {
+    contactUsCustom.value = newCustom;
+  }
+}, { immediate: true });
+
 onMounted(async () => {
-    contactUsCustom.value = await customService.getCustom("contactUs");
+    if (!props.editMode || !props.custom) {
+        const customTexts = await customService.getCustom("contactUs");
+        contactUsCustom.value = customTexts;
+    }
 });
 </script>
 

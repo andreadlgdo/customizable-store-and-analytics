@@ -3,8 +3,8 @@
         <h1 :class="`${baseClass}__title`">
             {{ title }}
         </h1>
-        <UiContactForm :editMode="true" :customTexts="customTexts" />
-        <UiContactMethods />
+        <UiContactForm :editMode="true" :customTexts="custom?.texts" />
+        <UiContactMethods :editMode="true" :custom="custom" />
     </div>
 </template>
 
@@ -16,13 +16,24 @@ const baseClass = 'ui-contact-us-preview';
 
 defineProps<{
     title: string;
-    customTexts?: {
-        form: Array<{
-            label: string;
-            placeholder: string;
-            action?: string;
-        }>;
-        sections: string[];
+    custom?: {
+        texts: {
+            form: Array<{
+                label: string;
+                placeholder: string;
+                action?: string;
+            }>;
+            subtitle: string;
+            sections: string[];
+        }
+        visuals: {
+            colors: Array<{
+                primary: string;
+            }>;
+        },
+        data: {
+            sections: string[];
+        }
     };
 }>();
 </script>

@@ -63,7 +63,6 @@ const props = defineProps<{
             placeholder: string;
             action?: string;
         }>;
-        sections: string[];
     };
     editMode: boolean;
 }>();
