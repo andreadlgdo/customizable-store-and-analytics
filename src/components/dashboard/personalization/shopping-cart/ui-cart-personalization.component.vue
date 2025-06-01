@@ -84,7 +84,7 @@
             </section>
         </template>
         <template #preview>
-            <UiCartAsidePreview :custom="cartAsideCustom" />
+            <UiCartPreview :custom="cartAsideCustom" />
         </template>
     </UiBasePersonalization>
 </template>
@@ -101,7 +101,7 @@ import UiColorPicker from '../../../shared/ui-color-picker.component.vue';
 
 import UiBasePersonalization from '../ui-base-personalization.component.vue';
 
-import UiCartAsidePreview from './ui-cart-aside-preview.component.vue';
+import UiCartPreview from './ui-cart-preview.component.vue';
 
 const baseClass = 'ui-cart-aside-personalization';
 

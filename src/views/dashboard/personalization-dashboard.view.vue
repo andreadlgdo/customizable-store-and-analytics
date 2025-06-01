@@ -20,7 +20,7 @@
       </div>
       <UiHomePagePersonalization v-else-if="action === actions[0]" />
       <UiUserRegisterPersonalization v-else-if="action === actions[1]" />
-      <UiCartAsidePersonalization v-else-if="action === actions[2]" />
+      <UiCartPersonalization v-else-if="action === actions[2]" />
       <UiContactUsPersonalization v-else-if="action === actions[3]" />
     </div>
   </dashboard>
@@ -29,7 +29,7 @@
 <script lang="ts" setup>
   import { useRouter } from 'vue-router';
 
-  import UiCartAsidePersonalization from '../../components/dashboard/personalization/shopping-cart/ui-cart-aside-personalization.component.vue';
+  import UiCartPersonalization from '../../components/dashboard/personalization/shopping-cart/ui-cart-personalization.component.vue';
   import UiUserRegisterPersonalization from '../../components/dashboard/personalization/user-register/ui-user-register-personalization.component.vue';
   import UiHomePagePersonalization from '../../components/dashboard/personalization/home-page/ui-home-page-personalization.component.vue';
   import UiContactUsPersonalization from '../../components/dashboard/personalization/contact-us/ui-contact-us-personalization.component.vue';
