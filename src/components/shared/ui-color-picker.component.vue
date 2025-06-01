@@ -6,7 +6,7 @@
       :value="modelValue" 
       @input="updateColor"
       :class="`${baseClass}__input`"
-      :style="{ alignSelf: !label ? 'flex-start' : 'flex-end' }"
+      :style="{ alignSelf: !label ? 'flex-start' : info ? 'center' : 'flex-end' }"
     />
   </div>
 </template>

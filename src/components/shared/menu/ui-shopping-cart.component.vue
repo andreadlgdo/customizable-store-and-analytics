@@ -1,6 +1,6 @@
 <template>
   <UiAside @click="$emit('close')" :class="baseClass" :is-open="isOpen" icon="close" fixed>
-    <p :class="`${baseClass}__text ${baseClass}__text--title`">{{ t('asides.cart.title') }}</p>
+    <p :class="`${baseClass}__text ${baseClass}__text--title`">{{ uiShoppingCartCustom?.texts.title }}</p>
     <section v-if="openOrder" :class="`${baseClass}__content`">
       <UiProductShoppingCard
         @selectFavourite="$emit('selectFavourite')"
@@ -8,30 +8,31 @@
         v-for="product in openOrder.products"
         :key="product.id || product._id || product.productId"
         :order-product="product"
+        :custom-colors="uiShoppingCartCustom?.visuals.colors"
       />
     </section>
     <div v-if="openOrder" :class="`${baseClass}__wrapper ${baseClass}__wrapper--footer`">
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--price`">
-        <p :class="`${baseClass}__text ${baseClass}__text--total`">Total</p>
+        <p :class="`${baseClass}__text ${baseClass}__text--total`">{{ uiShoppingCartCustom?.texts.order.totalPrice }}</p>
         <p :class="`${baseClass}__text ${baseClass}__text--number`">{{ openOrder.total + ' €' }}</p>
       </div>
-      <UiButton @click="goToOrder" :text="t('asides.cart.action')" />
+      <UiButton @click="goToOrder" :text="uiShoppingCartCustom?.texts.order.action" :background-color="uiShoppingCartCustom?.visuals.colors.order.button" />
     </div>
     <section v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--empty`">
       <p :class="`${baseClass}__text ${baseClass}__text--description`">
-        {{ t('asides.cart.empty.description') }}
+        {{ uiShoppingCartCustom?.texts.empty.description }}
       </p>
-      <UiButton @click="goToProducts" :text="t('asides.cart.empty.action')" />
+      <UiButton @click="goToProducts" :text="uiShoppingCartCustom?.texts.empty.action" :background-color="uiShoppingCartCustom?.visuals.colors.empty.button" />
     </section>
   </UiAside>
 </template>
 
 <script lang="ts" setup>
-  import { watch } from 'vue';
+  import { onMounted, ref, watch } from 'vue';
   import { useRouter } from 'vue-router';
-  import { useI18n } from 'vue-i18n';
 
   import { useCart } from '../../../composables';
+  import { customService } from '../../../services';
 
   import UiProductShoppingCard from '../products/ui-product-shopping-card.component.vue';
 
@@ -41,7 +42,6 @@
   const baseClass = 'ui-shopping-cart';
 
   const router = useRouter();
-  const { t } = useI18n();
   const { openOrder, deleteProduct, loadUserOrders } = useCart();
 
   const props = defineProps({
@@ -50,6 +50,8 @@
 
   const emit = defineEmits(['close', 'editProduct', 'selectFavourite']);
 
+  const uiShoppingCartCustom = ref();
+  
   const goToProducts = () => {
     router.push('/products');
     emit('close');
@@ -72,6 +74,10 @@
       }
     }
   );
+
+  onMounted(async () => {
+    uiShoppingCartCustom.value = await customService.getCustom('cart-aside');
+  });
 </script>
 
 <style lang="scss" scoped>

@@ -152,7 +152,6 @@ const cancel = async () => {
 
 onMounted(async () => {
     contactUsCustom.value = await customService.getCustom("contactUs");
-    console.log(contactUsCustom.value);
 });
 </script>
 

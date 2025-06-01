@@ -41,7 +41,7 @@
   import { useI18n } from 'vue-i18n';
 
   import { Product, ProductOrder } from '../../../interfaces';
-  import { productService } from '../../../services';
+  import { customService, productService } from '../../../services';
 
   import UiIconButton from '../ui-icon-button.component.vue';
   import UiImage from '../ui-image.component.vue';
@@ -57,6 +57,11 @@
     showActions: {
       type: Boolean,
       default: true
+    },
+    isPreview: Boolean,
+    customColors: {
+      type: Object,
+      default: undefined
     }
   });
 
@@ -71,6 +76,8 @@
     product.value?.isFavouriteUsersIds?.includes(user.value?._id ?? '') || false
   );
 
+  const customProductShoppingCard = ref();
+
   const findProduct = async () => {
     const products: Product[] = await productService.findProductByIds([
       props.orderProduct?.productId
@@ -81,6 +88,7 @@
   };
 
   const selectFavourite = async () => {
+    if (props.isPreview) return;
     if (product.value && user.value) {
       isFavourite.value = !isFavourite.value;
 
@@ -123,7 +131,12 @@
 
   onMounted(async () => {
     await findProduct();
-
+    if (props.isPreview) {
+      customProductShoppingCard.value = props.customColors
+    } else {
+      const customVisuals =await customService.getCustomVisuals('cart-aside')
+      customProductShoppingCard.value = customVisuals.colors;
+    }
     if (product.value && user.value) {
       isFavourite.value =
         product.value?.isFavouriteUsersIds?.includes(user.value._id ?? '') || false;
@@ -173,21 +186,21 @@
 
       &--heart {
         &:hover {
-          background-color: var(--bg-red);
+          background-color: v-bind('customProductShoppingCard?.order.icon.favourite');
         }
       }
 
       &--heart-selected {
-        background-color: var(--bg-red);
+        background-color: v-bind('customProductShoppingCard?.order.icon.favourite');
 
         &:hover {
-          background-color: var(--color-red);
+          background-color: v-bind('customProductShoppingCard?.order.icon.favourite');
         }
       }
 
       &--delete {
         &:hover {
-          background-color: var(--color-red);
+          background-color: v-bind('customProductShoppingCard?.order.icon.delete');
         }
       }
     }
