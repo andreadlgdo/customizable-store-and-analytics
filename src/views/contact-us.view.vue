@@ -23,7 +23,7 @@
     />
     <div :class="`${baseClass}__content`">
       <h1 :class="`${baseClass}__title`">
-        {{ t('contactUs.title') }}
+        {{ title }}
       </h1>
       <UiContactForm />
       <UiContactMethods />
@@ -32,8 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { useI18n } from 'vue-i18n';
+  import { ref, onMounted } from 'vue';
 
   import UiProductDetailsModal from '../components/shared/products/ui-product-details-modal.component.vue';
   import UiContactForm from '../components/contact-us/ui-contact-form.component.vue';
@@ -41,21 +40,21 @@
 
   import { useProducts, useUsers } from '../composables';
   import { Product } from '../interfaces';
-  import { productService } from '../services';
+  import { customService, productService } from '../services';
 
-  import Header from './header.view.vue';
+  import Header from './app-header.view.vue';
 
   const baseClass = 'contact-us';
 
   const { loadProducts } = useProducts();
   const { user } = useUsers();
-  const { t } = useI18n();
   
   const isOpenMenu = ref(false);  
   const isOpenUserMenu = ref(false);
   const isOpenWhistList = ref(false);
   const isOpenShoppingCart = ref(false);
   const productDetails = ref<Product | undefined>(undefined);
+  const title = ref('');
 
   const selectFavourite = async (favourite: boolean, product: Product) => {
     if (user.value && user.value._id && product._id) {
@@ -93,6 +92,11 @@
     productDetails.value = product;
     isOpenWhistList.value = false;
   };
+
+  onMounted(async () => {
+    const customTexts = await customService.getCustomTexts("contactUs");
+    title.value = customTexts.title;
+  });
 </script>
 
 <style lang="scss" scoped>
@@ -106,17 +110,8 @@
   }
   
   &__title {
-    font-size: 2rem;
     margin-bottom: 1.5rem;
     text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    
-    i {
-      color: #4285f4;
-    }
   }
 }
 </style>
