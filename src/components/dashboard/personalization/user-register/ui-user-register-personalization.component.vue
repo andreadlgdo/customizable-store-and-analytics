@@ -1,21 +1,6 @@
 <template>
-    <UiBasePersonalization title="User Register">
+    <UiBasePersonalization @save="save" @cancel="cancel" title="User Register">
         <template #customization>
-            <section :class="`${baseClass}__form-section`">
-                <p :class="`${baseClass}__subtitle`">GENERAL</p>
-                <UiExpandSection title="Colores" :style="{ marginTop: '12px' }">
-                    <UiColorPicker
-                        label="Color de fondo"
-                        :modelValue="userRegisterCustom?.visuals.colors.background"
-                        :class="`${baseClass}__textbox`"
-                    />
-                    <UiColorPicker
-                        label="Color de selección del toggle"
-                        :modelValue="userRegisterCustom?.visuals.colors.selected"
-                        :class="`${baseClass}__textbox`"
-                    />
-                </UiExpandSection>
-            </section>
             <section :class="`${baseClass}__form-section`">
                 <p :class="`${baseClass}__subtitle`">SELECTOR</p>
                 <UiExpandSection title="Textos" :style="{ marginTop: '12px' }">
@@ -29,6 +14,31 @@
                         @input="(value: string) => userRegisterCustom.texts.toggle.signUp = value"
                         info="Label de la sección de registro del usuario"
                         :value="userRegisterCustom.texts.toggle.signUp"
+                        :class="`${baseClass}__textbox`"
+                    />
+                </UiExpandSection>
+                <UiExpandSection title="Colores" :style="{ marginTop: '12px' }">
+                    <UiColorPicker
+                        @update:modelValue="(value: string) => userRegisterCustom.visuals.colors.toggle.background = value" 
+                        label="Color de fondo"
+                        :modelValue="userRegisterCustom?.visuals.colors.toggle.background"
+                        :class="`${baseClass}__textbox`"
+                    />
+                    <UiColorPicker
+                        @update:modelValue="(value: string) => userRegisterCustom.visuals.colors.toggle.selected = value" 
+                        label="Color de selección"
+                        :modelValue="userRegisterCustom?.visuals.colors.toggle.selected"
+                        :class="`${baseClass}__textbox`"
+                    />
+                </UiExpandSection>
+            </section>
+            <section :class="`${baseClass}__form-section`">
+                <p :class="`${baseClass}__subtitle`">FORMULARIOS</p>
+                <UiExpandSection title="Colores" :style="{ marginTop: '12px' }">
+                    <UiColorPicker
+                        @update:modelValue="(value: string) => userRegisterCustom.visuals.colors.button = value" 
+                        label="Color de fondo de los botones"
+                        :modelValue="userRegisterCustom?.visuals.colors.button"
                         :class="`${baseClass}__textbox`"
                     />
                 </UiExpandSection>
@@ -220,11 +230,22 @@ const userRegisterCustom = ref<UserRegisterCustom>({
     },
     visuals: {
         colors: {
-            background: '',
-            selected: ''
+            toggle: {
+                background: '',
+                selected: ''
+            },
+            button: ''
         }
     }
 });
+
+const cancel = async () => {
+    userRegisterCustom.value = await customService.getCustom('register') as UserRegisterCustom;
+}
+
+const save = async () => {
+    await customService.updateCustom('register', { texts: userRegisterCustom.value.texts, visuals: userRegisterCustom.value.visuals });
+}
 
 onMounted(async () => {
     userRegisterCustom.value = await customService.getCustom('register') as UserRegisterCustom;

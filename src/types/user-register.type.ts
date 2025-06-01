@@ -42,8 +42,11 @@ export type UserRegisterCustom = {
     },
     visuals: {
         colors: {
-            background: string
-            selected: string
+            toggle: {
+                background: string
+                selected: string
+            },
+            button: string
         }
     }
 };

@@ -31,7 +31,15 @@
       >,
       required: true
     },
-    border: Boolean
+    border: Boolean,
+    background: {
+      type: String,
+      default: 'var(--color-soft-primary)'
+    },
+    selectedColor: {
+      type: String,
+      default: 'var(--color-medium-primary)'
+    }
   });
 
   defineEmits(['click']);
@@ -45,7 +53,7 @@
     border-radius: 25px;
     height: 3rem;
     width: 100%;
-    background: var(--color-soft-primary);
+    background: v-bind(background);
    
     &--border {
       border: 1px solid var(--color-vibrant-primary);
@@ -62,7 +70,7 @@
       cursor: pointer;
 
       &--selected {
-        background: var(--color-medium-primary);
+        background: v-bind(selectedColor);
       }
     }
   }

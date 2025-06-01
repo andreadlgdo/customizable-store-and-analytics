@@ -27,7 +27,8 @@
     icon: String,
     transparent: Boolean,
     disabled: Boolean,
-    colorSoft: Boolean
+    colorSoft: Boolean,
+    backgroundColor: String
   });
 
   defineEmits(['click']);
@@ -43,7 +44,7 @@
     padding: 8px 14px;
     border-radius: 12px;
     border: none;
-    background-color: var(--color-vibrant-primary);
+    background-color: v-bind('backgroundColor || "var(--color-vibrant-primary)"');
     cursor: pointer;
 
     &:hover {
