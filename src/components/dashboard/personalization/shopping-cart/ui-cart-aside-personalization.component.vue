@@ -2,13 +2,13 @@
     <UiBasePersonalization 
         @save="save" 
         @cancel="cancel" 
-        title="Aside del carrito"
+        title="Carrito de la compra"
     >
         <template #customization>
             <UiTextbox 
                 :class="`${baseClass}__textbox`"
                 :value="cartAsideCustom?.texts.title"
-                label="Título del aside"
+                label="Título"
                 @input="(value: string) => cartAsideCustom.texts.title = value"
             />
             <section :class="`${baseClass}__form-section`">

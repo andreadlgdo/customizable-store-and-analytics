@@ -18,22 +18,25 @@
           </div>
         </section>
       </div>
-
       <UiHomePagePersonalization v-else-if="action === actions[0]" />
       <UiUserRegisterPersonalization v-else-if="action === actions[1]" />
-      <UiContactUsPersonalization v-else-if="action === actions[2]" />
+      <UiCartAsidePersonalization v-else-if="action === actions[2]" />
+      <UiContactUsPersonalization v-else-if="action === actions[3]" />
     </div>
   </dashboard>
 </template>
 
 <script lang="ts" setup>
   import { useRouter } from 'vue-router';
-  import Dashboard from './base-dashboard.view.vue';
-  import { useUserMenu } from '../../composables';
-  
+
+  import UiCartAsidePersonalization from '../../components/dashboard/personalization/shopping-cart/ui-cart-aside-personalization.component.vue';
   import UiUserRegisterPersonalization from '../../components/dashboard/personalization/user-register/ui-user-register-personalization.component.vue';
   import UiHomePagePersonalization from '../../components/dashboard/personalization/home-page/ui-home-page-personalization.component.vue';
   import UiContactUsPersonalization from '../../components/dashboard/personalization/contact-us/ui-contact-us-personalization.component.vue';
+
+  import { useUserMenu } from '../../composables';
+  
+  import Dashboard from './base-dashboard.view.vue';
   
   const baseClass = 'personalization';
 
@@ -47,7 +50,7 @@
     }
   });
 
-  const actions = ['home-page','user-register','contact-us'];
+  const actions = ['home-page','user-register','cart','contact-us'];
 
   const sections = [
     {
@@ -59,6 +62,11 @@
       title: 'Registro de Usuario',
       description: 'Configura el formulario de inicio de sesión y registro de usuarios',
       action: 'user-register'
+    },
+    {
+      title: 'Carrito',
+      description: 'Personaliza el carrito de la compra.',
+      action: 'cart'
     },
     {
       title: 'Contacto',
@@ -115,16 +123,9 @@
       background: white;
       border-radius: 16px;
       padding: 2rem;
-      cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border: 2px solid transparent;
-
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-        border-color: var(--color-dark-primary);
-      }
     }
 
     &__section-content {
