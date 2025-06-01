@@ -9,6 +9,8 @@
 </template>
 
 <script lang="ts" setup>
+import { ContactUsCustom } from '../../../../types/custom-us.type';
+
 import UiContactForm from '../../../contact-us/ui-contact-form.component.vue';
 import UiContactMethods from '../../../contact-us/ui-contact-methods.component.vue';
 
@@ -16,25 +18,7 @@ const baseClass = 'ui-contact-us-preview';
 
 defineProps<{
     title: string;
-    custom?: {
-        texts: {
-            form: Array<{
-                label: string;
-                placeholder: string;
-                action?: string;
-            }>;
-            subtitle: string;
-            sections: string[];
-        }
-        visuals: {
-            colors: Array<{
-                primary: string;
-            }>;
-        },
-        data: {
-            sections: string[];
-        }
-    };
+    custom: ContactUsCustom
 }>();
 </script>
 

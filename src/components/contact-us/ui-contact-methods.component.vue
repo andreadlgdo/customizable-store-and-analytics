@@ -39,35 +39,17 @@
 import { ref, onMounted, computed, ComputedRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import UiIcon from '../shared/ui-icon.component.vue';
+import { ContactUsCustom, ContactMethod } from '../../types/custom-us.type';
 import { customService } from '../../services';
 
-interface ContactMethod {
-    type: string;
-    link: string;
-    text: string;
-    icon: any;
-    target?: '_blank' | '_self';
-}
+import UiIcon from '../shared/ui-icon.component.vue';
 
 const baseClass = 'ui-contact-methods';
 
 const { t } = useI18n();
 
 const props = defineProps<{
-    custom?: {
-        texts: {
-            sections: string[];
-        },
-        visuals: {
-            colors: Array<{
-                primary: string;
-            }>;
-        },
-        data: {
-            sections: string[];
-        }
-    };
+    custom: ContactUsCustom;
     editMode: boolean;
 }>();
 

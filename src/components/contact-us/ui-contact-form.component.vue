@@ -41,29 +41,18 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import UiButton from '../shared/ui-button.component.vue';
-import UiTextbox from '../shared/ui-textbox.component.vue';
+import { ContactUsTexts, ContactForm} from '../../types/custom-us.type';
 import { customService } from '../../services';
 
-interface ContactForm {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
+import UiButton from '../shared/ui-button.component.vue';
+import UiTextbox from '../shared/ui-textbox.component.vue';
 
 const baseClass = 'ui-contact-form';
 
 const { t } = useI18n();
 
 const props = defineProps<{
-    customTexts?: {
-        form: Array<{
-            label: string;
-            placeholder: string;
-            action?: string;
-        }>;
-    };
+    customTexts: ContactUsTexts;
     editMode: boolean;
 }>();
 
