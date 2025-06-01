@@ -18,26 +18,25 @@
   <section :class="`${baseClass}__content`">
     <ui-button 
       @click="router.push('/products')" 
-      text="Ver productos" 
+      :text="homeCustom?.texts.mainAction" 
+      :background-color="homeCustom?.visuals.colors.button"
       :class="`${baseClass}__button`" 
-      colorSoft
     />
-    <div :class="`${baseClass}__info`">
-      <p :class="`${baseClass}__text`">Envío gratis</p>
-      <p :class="`${baseClass}__text`">|</p>
-      <p :class="`${baseClass}__text`">Devolución gratuita durante 30 días</p>
-      <p :class="`${baseClass}__text`">|</p>
-      <p :class="`${baseClass}__text`">Pago seguro</p>
+    <div :class="`${baseClass}__info`" :style="containerStyle">
+        <template v-for="(highlight, index) in homeCustom?.texts.highlights" :key="index">
+            <p :class="`${baseClass}__text`">{{ highlight }}</p>
+            <p v-if="index < homeCustom?.texts.highlights.length - 1" :class="`${baseClass}__text`">|</p>
+        </template>
     </div>
   </section>
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref } from 'vue';
+  import { computed, onMounted, ref } from 'vue';
   import { useRouter } from 'vue-router';
 
   import UiButton from '@/components/shared/ui-button.component.vue';
-  import { generalService } from '@/services';
+  import { customService, generalService } from '../services';
 
   import Header from './app-header.view.vue';
 
@@ -51,8 +50,15 @@
   const isOpenShoppingCart = ref(false);
 
   const landingImage = ref();
+  const homeCustom = ref();
+
+  const containerStyle = computed(() => ({
+    '--color-vibrant-primary': homeCustom.value?.visuals.colors.secondary,
+    '--color-soft-primary': homeCustom.value?.visuals.colors.primary
+  }));
 
   onMounted(async () => {
+    homeCustom.value = await customService.getCustom('home');
     const images = await generalService.getLandingImages();
     landingImage.value = images[0];
   });

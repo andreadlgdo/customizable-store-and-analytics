@@ -4,7 +4,9 @@
         :style="containerStyle"
     >
         <UiHeader 
-            :name="texts.name" 
+            :name="texts.name"
+            :style="{ width: '49%' }"
+            transparent
             disabled
         />
         <section
