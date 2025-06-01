@@ -3,7 +3,9 @@
         <div :class="`${baseClass}__left-section`">
             <p>Carrito vacío</p>
             <div :class="`${baseClass}__wrapper`">
-                <p :class="`${baseClass}__text ${baseClass}__text--title`">{{ custom.texts.title }}</p>
+                <p :class="`${baseClass}__text ${baseClass}__text--title`">
+                    {{ custom.texts.title }}
+                </p>
                 <div :class="`${baseClass}__content`">
                     <p :class="`${baseClass}__text ${baseClass}__text--description`">
                         {{ custom.texts.empty.description }}
@@ -15,7 +17,9 @@
         <div :class="`${baseClass}__right-section`">
             <p>Carrito con productos</p>
             <div :class="`${baseClass}__wrapper`">
-                <p :class="`${baseClass}__text ${baseClass}__text--title`">{{ custom.texts.title }}</p>
+                <p :class="`${baseClass}__text ${baseClass}__text--title`">
+                    {{ custom.texts.title }}
+                </p>
                 <div :class="`${baseClass}__products`">
                     <UiProductShoppingCard :order-product="product" isPreview :custom-colors="custom.visuals.colors"></UiProductShoppingCard>
                 </div>
