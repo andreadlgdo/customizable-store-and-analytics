@@ -1,10 +1,7 @@
 <template>
-    <div :class="baseClass">
-        <UiHeaderPersonalization />
-        <h1 :class="`${baseClass}__title`">Contact us Page</h1>
-        <div :class="`${baseClass}__container`">
-            <div :class="`${baseClass}__section ${baseClass}__section--one`">
-                <div :class="`${baseClass}__form-section`">
+    <UiBasePersonalization @save="save" @cancel="cancel" title="Contact us Page">
+        <template #customization>
+            <div :class="`${baseClass}__form-section`">
                     <p :class="`${baseClass}__subtitle`">TITULO</p>
                     <UiTextbox 
                         @input="(value: string) => contactUsCustom.texts.title = value" 
@@ -84,31 +81,28 @@
                         </template>
                     </UiExpandSection>
                 </div>
-                <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
-                    <UiButton @click="save" text="Guardar" />
-                    <UiButton @click="cancel" text="Cancelar" transparent />
-                </div>
-            </div>
-            <div :class="`${baseClass}__section ${baseClass}__section--two`">
-                <p :class="`${baseClass}__subtitle`">PREVIEW</p>
-                <UiContactUsPreview />
-            </div>
-        </div>
-    </div>
+        </template>
+        <template #preview>
+            <UiContactUsPreview />
+        </template>
+    </UiBasePersonalization>
 </template>
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 
-import UiHeaderPersonalization from '../ui-header-personalization.component.vue';
-import UiExpandSection from '../../../shared/ui-expand-section.component.vue';
-import UiContactUsPreview from './ui-contact-us-preview.component.vue';
-import UiTextbox from '../../../shared/ui-textbox.component.vue';
-import UiButton from '../../../shared/ui-button.component.vue';
+import { customService } from '../../../../services';
+
 import UiColorPicker from '../../../shared/ui-color-picker.component.vue';
-import { customService } from '@/services';
+import UiExpandSection from '../../../shared/ui-expand-section.component.vue';
+import UiTextbox from '../../../shared/ui-textbox.component.vue';
+
+import UiBasePersonalization from '../ui-base-personalization.component.vue';
+
+import UiContactUsPreview from './ui-contact-us-preview.component.vue';
 
 const baseClass = 'ui-contact-us-personalization';
+
 const contactUsCustom = ref();
 
 const formFields = [
@@ -157,50 +151,6 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .ui-contact-us-personalization {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-
-    &__title {
-        margin-top: 3rem;
-    }
-
-    &__container {
-        display: flex;
-        flex: 1;
-        overflow: hidden;
-        position: relative;
-    }
-
-    &__section {
-        padding: 1rem;
-        margin-bottom: 70px;
-
-        &--one {
-            flex: 1;
-            border-right: 1px solid #ccc;
-        }
-
-        &--two {
-            flex: 2;
-        }
-    }
-
-    &__wrapper {
-        display: flex;
-        gap: 1rem;
-
-        &--button {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: white;
-            padding: 1rem;
-            z-index: 10;
-        }
-    }
-
     &__textbox {
         margin-bottom: 12px;
 
