@@ -50,3 +50,20 @@ export type UserRegisterCustom = {
         }
     }
 };
+
+export interface FormData {
+    name: string;
+    surname: string;
+    email: string;
+    password: string;
+    repeatPassword: string;
+}
+
+export interface FormErrors {
+    name: string;
+    surname: string;
+    email: string;
+    password: string;
+    repeatPassword: string;
+    terms: string;
+}

@@ -5,64 +5,67 @@
       <p v-if="invalidCredentials" :class="`${baseClass}__text`">{{ invalidCredentials }}</p>
       <ui-textbox
         @input="(value: string) => handleInput('email', value)"
-        :label="t('asides.register.form.email.label')"
+        :label="userRegisterCustom?.texts.logIn.email.label"
         :value="formData.email"
-        :placeholder="t('asides.register.form.email.placeholder')"
+        :placeholder="userRegisterCustom?.texts.logIn.email.placeholder"
         :error="formErrors.email"
       />
       <ui-password
         @input="(value: string) => handleInput('password', value)"
-        :label="t('asides.register.form.password')"
+        :label="userRegisterCustom?.texts.logIn.password.label"
+        :placeholder="userRegisterCustom?.texts.logIn.password.placeholder"
         :value="formData.password"
         :error="formErrors.password"
       />
-      <ui-button @click="handleLogin" :text="t('asides.register.actions.logIn')" color-soft />
+      <ui-button @click="handleLogin" :text="userRegisterCustom?.texts.logIn.action" :background-color="userRegisterCustom?.visuals.colors.button" />
     </div>
     <div v-else :class="`${baseClass}__wrapper`">
       <UiTextbox
         @input="(value: string) => handleInput('name', value)"
-        :label="t('asides.register.form.name')"
+        :label="userRegisterCustom?.texts.signUp.name.label"
         :value="formData.name"
-        :placeholder="t('asides.register.form.name')"
+        :placeholder="userRegisterCustom?.texts.signUp.name.placeholder"
         :error="formErrors.name"
       />
       <UiTextbox
         @input="(value: string) => handleInput('surname', value)"
-        :label="t('asides.register.form.surname')"
+        :label="userRegisterCustom?.texts.signUp.surname.label"
         :value="formData.surname"
-        :placeholder="t('asides.register.form.surname')"
+        :placeholder="userRegisterCustom?.texts.signUp.surname.placeholder"
         :error="formErrors.surname"
       />
       <UiTextbox
         @input="(value: string) => handleInput('email', value)"
-        :label="t('asides.register.form.email.label')"
+        :label="userRegisterCustom?.texts.signUp.email.label"
         :value="formData.email"
-        :placeholder="t('asides.register.form.email.placeholder')"
+        :placeholder="userRegisterCustom?.texts.signUp.email.placeholder"
         :error="formErrors.email"
       />
       <UiPassword
         @input="handlePasswordChange"
-        :label="t('asides.register.form.password')"
+        :label="userRegisterCustom?.texts.signUp.password.label"
+        :placeholder="userRegisterCustom?.texts.signUp.password.placeholder"
         :value="formData.password"
         :error="formErrors.password"
         haveConditions
       />
       <UiPassword
         @input="(value: string) => handleInput('repeatPassword', value)"
-        :label="t('asides.register.form.repeatPassword')"
+        :label="userRegisterCustom?.texts.signUp.repeatPassword.label"
+        :placeholder="userRegisterCustom?.texts.signUp.repeatPassword.placeholder"
         :value="formData.repeatPassword"
         :error="formErrors.repeatPassword"
       />
       <UiCheckbox
         @change="handleTermsChange"
         :value="acceptTermsAndConditions"
-        :text="t('asides.register.form.termsAndConditions')"
+        :text="userRegisterCustom?.texts.signUp.acceptTerms"
         :error="formErrors.terms"
       />
       <UiButton 
         @click="handleRegister" 
-        :text="t('asides.register.actions.signUp')" 
-        color-soft 
+        :text="userRegisterCustom?.texts.signUp.action" 
+        :background-color="userRegisterCustom?.visuals.colors.button"
         :disabled="!isFormValid" 
       />
     </div>
@@ -70,38 +73,19 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
+
+import { FormErrors, FormData, UserRegisterCustom } from '../../../types/user-register.type';
 import { useValidations } from '../../../composables';
+import { customService } from '../../../services';
 
 import UiAside from '../ui-aside.component.vue';
 import UiButton from '../ui-button.component.vue';
 import UiCheckbox from '../ui-checkbox.component.vue';
 import UiTextbox from '../ui-textbox.component.vue';
 import UiPassword from '../ui-password.component.vue';
-import UiToggle from '../ui-toggle.component.vue';
-
-interface FormData {
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
-  repeatPassword: string;
-}
-
-interface FormErrors {
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
-  repeatPassword: string;
-  terms: string;
-}
-
-interface ToggleOption {
-  label: string;
-  selected: boolean;
-}
+import UiToggle, { ToggleOption } from '../ui-toggle.component.vue';
 
 const baseClass = 'ui-user-register';
 const { validEmail } = useValidations();
@@ -118,9 +102,11 @@ const emit = defineEmits<{
   (e: 'signUp', data: FormData): void;
 }>();
 
+const userRegisterCustom = ref<UserRegisterCustom>();
+
 const toggleOptions = ref<ToggleOption[]>([
-  { label: t('asides.register.actions.logIn'), selected: true },
-  { label: t('asides.register.actions.signUp'), selected: false }
+  { label: userRegisterCustom.value?.texts.toggle.logIn ?? '', selected: true },
+  { label: userRegisterCustom.value?.texts.toggle.signUp ?? '', selected: false }
 ]);
 
 const formData = ref<FormData>({
@@ -252,6 +238,21 @@ watch(
   () => resetForm(),
   { immediate: true }
 );
+
+watch(
+  () => userRegisterCustom.value?.texts.toggle,
+  () => {
+    toggleOptions.value = [
+      { label: userRegisterCustom.value?.texts.toggle.logIn ?? '', selected: true },
+      { label: userRegisterCustom.value?.texts.toggle.signUp ?? '', selected: false }
+    ];
+  },
+  { immediate: true, deep: true }
+);
+
+onMounted(async () => {
+  userRegisterCustom.value = await customService.getCustom('register') as UserRegisterCustom;
+});
 </script>
 
 <style lang="scss" scoped>
