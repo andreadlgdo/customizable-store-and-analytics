@@ -14,6 +14,11 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
+  export interface ToggleOption {
+    label: string;
+    selected: boolean;
+  }
+  
   const baseClass = 'ui-toggle';
 
   defineProps({

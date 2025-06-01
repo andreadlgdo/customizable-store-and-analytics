@@ -5,11 +5,15 @@
       <section v-if="!action" @click="selectAction('home-page')" :class="`${baseClass}__section`">
         <h1>Home Page</h1>
       </section>
+      <section v-if="!action" @click="selectAction('user-register')" :class="`${baseClass}__section`">
+        <h1>User Register</h1>
+      </section>
       <section v-if="!action" @click="selectAction('contact-us')" :class="`${baseClass}__section`">
         <h1>Contact us Page</h1>
       </section>
       <UiHomePagePersonalization v-else-if="action === actions[0]" />
-      <UiContactUsPersonalization v-else-if="action === actions[1]" />
+      <UiUserRegisterPersonalization v-else-if="action === actions[1]" />
+      <UiContactUsPersonalization v-else-if="action === actions[2]" />
     </div>
   </dashboard>
 </template>
@@ -18,6 +22,8 @@
   import { useRouter } from 'vue-router';
   import Dashboard from './base-dashboard.view.vue';
   import { useUserMenu } from '../../composables';
+  
+  import UiUserRegisterPersonalization from '../../components/dashboard/personalization/user-register/ui-user-register-personalization.component.vue';
   import UiHomePagePersonalization from '../../components/dashboard/personalization/home-page/ui-home-page-personalization.component.vue';
   import UiContactUsPersonalization from '../../components/dashboard/personalization/contact-us/ui-contact-us-personalization.component.vue';
   
@@ -33,7 +39,7 @@
     }
   });
 
-  const actions = ['home-page','contact-us'];
+  const actions = ['home-page','user-register','contact-us'];
 
   const selectAction = (action: string) => {
     router.push({
