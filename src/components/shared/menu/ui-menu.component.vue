@@ -22,7 +22,6 @@
         :items="isSubmenuOpen ? subMenuSelected : menuElements"
         :expansible="isSubmenuOpen"
       />
-      <LanguageToggle />
     </div>
   </UiAside>
 </template>
@@ -35,8 +34,6 @@
   import { useCategories } from '../../../composables';
   import { MenuItem } from '../../../interfaces';
   import { generalService } from '../../../services';
-
-  import LanguageToggle from '../../toggles/language-toggle.component.vue';
 
   import UiAside from '../ui-aside.component.vue';
   import UiIcon from '../ui-icon.component.vue';
@@ -93,8 +90,8 @@
       ]
     },
     { id: 3, label: t('menus.general.items.contact'), route: { name: 'Contact' } },
-    { id: 4, label: t('menus.general.items.about') },
-    { id: 5, label: t('menus.general.items.faq') }
+    { id: 4, label: t('menus.general.items.about'), route: { name: 'About' } },
+    { id: 5, label: t('menus.general.items.faq'), route: { name: 'Questions and answers' } }
   ]);
 
   const clickItem = (item: MenuItem) => {

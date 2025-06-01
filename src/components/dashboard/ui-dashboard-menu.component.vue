@@ -4,7 +4,6 @@
     icon="menu"
     :is-collapsed="isCollapsed"
     :fixed="false"
-    language
     is-open
   >
     <div v-if="!isCollapsed" :class="`${baseClass}__user`">
