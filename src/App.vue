@@ -58,4 +58,8 @@
   .app.order {
     overflow: hidden;
   }
+
+  .app.personalization {
+    overflow: hidden;
+  }
 </style>
