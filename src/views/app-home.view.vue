@@ -29,20 +29,28 @@
         </template>
     </div>
   </section>
+  <div v-if="user && recommendedProductsByOrders?.length">
+    <UiProductCarrousel title="Recomendaciones segun tus ultimas compras" :products="recommendedProductsByOrders" />
+  </div>
 </template>
 
 <script lang="ts" setup>
   import { computed, onMounted, ref } from 'vue';
   import { useRouter } from 'vue-router';
 
-  import UiButton from '@/components/shared/ui-button.component.vue';
-  import { customService, generalService } from '../services';
+  import UiProductCarrousel from '../components/shared/products/ui-product-carrousel.component.vue';
+  import UiButton from '../components/shared/ui-button.component.vue';
+  
+  import { useRecommendations, useUsers } from '../composables';
+  import { customService, generalService, productService } from '../services';
 
   import Header from './app-header.view.vue';
 
   const baseClass = 'home';
 
   const router = useRouter();
+  const { user } = useUsers();
+  const { getTopCategories } = useRecommendations();
   
   const isOpenMenu = ref(false);
   const isOpenUserMenu = ref(false);
@@ -51,6 +59,7 @@
 
   const landingImage = ref();
   const homeCustom = ref();
+  const recommendedProductsByOrders = ref();
 
   const containerStyle = computed(() => ({
     '--color-vibrant-primary': homeCustom.value?.visuals.colors.secondary,
@@ -61,6 +70,10 @@
     homeCustom.value = await customService.getCustom('home');
     const images = await generalService.getLandingImages();
     landingImage.value = images[0];
+    if(user.value) {
+      const topCategories = await getTopCategories(user.value._id ?? '');
+      recommendedProductsByOrders.value = await productService.getCategoriesWithProductCount(topCategories, 5);
+    }
   });
 </script>
 
@@ -101,10 +114,6 @@
 
     &__text {
       align-self: center;
-      color: var(--color-vibrant-primary);
-    }
-
-    &__tab {
       color: var(--color-dark-primary);
     }
   }

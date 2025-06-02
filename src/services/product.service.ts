@@ -56,5 +56,24 @@ export const productService = {
     }
 
     return fetchData(`${PRODUCTS_PATH}/${id}`, { method: 'DELETE' });
+  },
+
+  getCategoriesWithProductCount: async (
+    categories: string[],
+    count: number
+  ): Promise<Product[]> => {
+    const products: Product[] = await productService.getProducts(categories);
+    const selected: Product[] = [];
+    const seen = new Set<string>();
+    for (const category of categories) {
+      const filtered = products.filter(p => p.categories?.includes(category));
+      for (const product of filtered.slice(0, count)) {
+        if (product._id && !seen.has(product._id)) {
+          selected.push(product);
+          seen.add(product._id);
+        }
+      }
+    }
+    return selected;
   }
 };

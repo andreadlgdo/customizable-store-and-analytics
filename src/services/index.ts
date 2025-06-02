@@ -5,4 +5,5 @@ export * from './image.service';
 export * from './order.service';
 export * from './address.service';
 export * from './product.service';
+export * from './recommendation.service';
 export * from './user.service';
