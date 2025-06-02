@@ -7,7 +7,13 @@ const RECOMMENDATION_PATH = `${BASE_PATH}/recommendations`;
 
 export const recommendationService = {
     getTopCategoriesByUserId: async (userId: string) => {
-        const url = new URL(`${RECOMMENDATION_PATH}/${userId}`);
+        const url = new URL(`${RECOMMENDATION_PATH}/orders/${userId}`);
+        const data = fetchData(url.toString(), { method: 'GET' });
+        return data;
+    },
+
+    getFavouriteCategoriesByUserId: async (userId: string) => {
+        const url = new URL(`${RECOMMENDATION_PATH}/favourites/${userId}`);
         const data = fetchData(url.toString(), { method: 'GET' });
         return data;
     }
