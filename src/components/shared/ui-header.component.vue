@@ -1,5 +1,9 @@
 <template>
-  <section :class="[baseClass, { [`${baseClass}--transparent`]: transparent }]">
+  <section :class="[
+    baseClass,
+    { [`${baseClass}--transparent`]: transparent && !isScrolled },
+    { [`${baseClass}--scrolled`]: isScrolled }
+  ]">
     <UiIconButton
       @click="$emit('openMenu')"
       icon="menu"
@@ -15,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref } from 'vue';
+  import { onMounted, ref, onUnmounted } from 'vue';
   import { useRouter } from 'vue-router';
 
   import { customService } from '@/services';
@@ -23,8 +27,8 @@
   import UiIconButton from './ui-icon-button.component.vue';
 
   const baseClass = 'ui-header';
-
   const router = useRouter();
+  const isScrolled = ref(false);
 
   defineProps({
     name: {
@@ -39,10 +43,19 @@
 
   const defaultName = ref();
 
+  const handleScroll = () => {
+    isScrolled.value = window.scrollY > 0;
+  };
+
   onMounted(async () => {
     const customTexts = await customService.getCustomTexts('home');
     defaultName.value = customTexts.name;
-  })
+    window.addEventListener('scroll', handleScroll);
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll);
+  });
 </script>
 
 <style lang="scss" scoped>
@@ -53,10 +66,19 @@
     height: 5rem;
     width: 100%;
     background: var(--color-soft-primary);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
 
     &--transparent {
-      position: fixed;
       background: transparent;
+    }
+
+    &--scrolled {
+      background: var(--color-primary);
+      box-shadow: var(--shadow-soft);
     }
 
     &__icon {
