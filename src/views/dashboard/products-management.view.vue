@@ -11,14 +11,17 @@
         }}
       </h1>
       <div v-if="!isFormProduct" :class="`${baseClass}__header`">
-        <UiSelect
-          @change="selectCategory"
-          label="Categorias"
-          :value="category"
-          :options="categories"
-          :class="`${baseClass}__select`"
-          show-all-option
-        />
+        <div :class="`${baseClass}__filters`">
+          <UiSearch placeholder="Buscar por nombre" @search="searchProduct" :class="`${baseClass}__search`" />
+          <UiSelect
+            @change="selectCategory"
+            label="Categorias"
+            :value="category"
+            :options="categories"
+            :class="`${baseClass}__select`"
+            show-all-option
+          />
+        </div>
          <ui-button
             @click="addProduct"
             :text="t('dashboard.products.action.add')"
@@ -48,6 +51,7 @@
   import { useRouter } from 'vue-router';
 
   import ProductsList from '../../components/dashboard/products/ui-products-list.component.vue';
+  import UiSearch from '../../components/shared/ui-search.component.vue';
   import UiSelect from '../../components/shared/ui-select.component.vue';
   import UiButton from '../../components/shared/ui-button.component.vue';
   import UiProductForm from '../../components/dashboard/products/ui-product-form.component.vue';
@@ -95,10 +99,14 @@
     })) ?? [];
   });
 
+  const searchProduct = async (value: string) => {
+    await loadProducts({ name: value });
+  };
+
   const selectCategory = async (value: string) => {
     category.value = value === 'all by default' ? '' : value;
     isLoading.value = true;
-    await loadProducts([category.value]);
+    await loadProducts({ categories: [category.value] });
     isLoading.value = false;
   };
 
@@ -158,8 +166,19 @@
     &__header {
       display: flex;
       justify-content: space-between;
+      align-items: flex-end;
       width: 100%;
-      margin: 1rem 0;
+      margin: 1rem 0 2rem 0;
+    }
+
+    &__filters {
+      display: flex;
+      align-items: flex-end;
+      gap: 24px;
+    }
+
+    &__search {
+      width: 300px;
     }
 
     &__select {
