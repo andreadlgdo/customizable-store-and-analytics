@@ -19,7 +19,7 @@ export const orderService = {
   },
   
   findOrderByUserId: async (userId: string): Promise<Order[]> => {
-    const url = new URL(`${ORDERS_PATH}/user/${userId}`);
+    const url = new URL(`${ORDERS_PATH}/${userId}`);
     return fetchData(url.toString(), { method: 'GET' });
   },
   

@@ -29,18 +29,20 @@
         </template>
     </div>
   </section>
-  <div v-if="user && recommendedProductsByOrders?.length">
-    <UiProductCarrousel title="Recomendaciones segun tus ultimas compras" :products="recommendedProductsByOrders" />
-  </div>
+  <HomeRecommendations 
+    v-if="user"
+    :recommended-products-by-orders="recommendedProductsByOrders"
+    :recommended-products-by-favourites="recommendedProductsByFavourites"
+  />
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, ref } from 'vue';
+  import { computed, onMounted, ref, watchEffect } from 'vue';
   import { useRouter } from 'vue-router';
 
-  import UiProductCarrousel from '../components/shared/products/ui-product-carrousel.component.vue';
   import UiButton from '../components/shared/ui-button.component.vue';
-  
+  import HomeRecommendations from '../components/home/home-recommendations.component.vue';
+
   import { useRecommendations, useUsers } from '../composables';
   import { customService, generalService, productService } from '../services';
 
@@ -50,7 +52,7 @@
 
   const router = useRouter();
   const { user } = useUsers();
-  const { getTopCategories } = useRecommendations();
+  const { getTopOrdersCategories, getTopFavouritesCategories } = useRecommendations();
   
   const isOpenMenu = ref(false);
   const isOpenUserMenu = ref(false);
@@ -60,20 +62,33 @@
   const landingImage = ref();
   const homeCustom = ref();
   const recommendedProductsByOrders = ref();
+  const recommendedProductsByFavourites = ref();
 
   const containerStyle = computed(() => ({
     '--color-vibrant-primary': homeCustom.value?.visuals.colors.secondary,
     '--color-soft-primary': homeCustom.value?.visuals.colors.primary
   }));
 
+  const loadRecommendations = async () => {
+    if (user.value) {
+      const topOrdersCategories = await getTopOrdersCategories(user.value._id ?? '');
+      recommendedProductsByOrders.value = await productService.getCategoriesWithProductCount(topOrdersCategories, 5);
+      const topFavouritesCategories = await getTopFavouritesCategories(user.value._id ?? '');
+      recommendedProductsByFavourites.value = await productService.getCategoriesWithProductCount(topFavouritesCategories, 5);
+    } else {
+      recommendedProductsByOrders.value = undefined;
+      recommendedProductsByFavourites.value = undefined;
+    }
+  };
+
+  watchEffect(async () => {
+    await loadRecommendations();
+  });
+
   onMounted(async () => {
     homeCustom.value = await customService.getCustom('home');
     const images = await generalService.getLandingImages();
     landingImage.value = images[0];
-    if(user.value) {
-      const topCategories = await getTopCategories(user.value._id ?? '');
-      recommendedProductsByOrders.value = await productService.getCategoriesWithProductCount(topCategories, 5);
-    }
   });
 </script>
 

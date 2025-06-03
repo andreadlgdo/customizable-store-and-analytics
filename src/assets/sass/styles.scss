@@ -33,6 +33,32 @@ body {
   font-weight: normal;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+* {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    display: none;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-medium);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--color-dark-primary);
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 @keyframes slide-in-left {
   0% {
     transform: translateX(-1000px);

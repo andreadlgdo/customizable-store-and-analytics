@@ -24,8 +24,9 @@ export function useUsers() {
   const login = async (email: string, password: string): Promise<Error | void> => {
     try {
       const response = await userService.validUser({ email, password });
+      console.log(response);
       user.value = response.user;
-      
+
       localStorage.setItem('user', JSON.stringify(user.value));
     } catch (error) {
       return error as Error;
