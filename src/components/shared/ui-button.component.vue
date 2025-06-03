@@ -42,6 +42,7 @@
     justify-content: center;
     gap: 8px;
     padding: 8px 14px;
+    max-height: 42px;
     border-radius: 12px;
     border: none;
     background-color: v-bind('backgroundColor || "var(--color-vibrant-primary)"');

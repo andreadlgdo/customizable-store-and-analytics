@@ -63,7 +63,7 @@
 
 <style lang="scss" scoped>
   .ui-products-list {
-    height: 85%;
+    height: 82%;
     overflow-y: scroll;
   }
 </style>

@@ -74,6 +74,7 @@
       outline: none;
       padding: 10px 16px;
       width: 100%;
+      max-height: 42px;
       border-radius: 10px;
       border: 1px solid var(--color-dark-primary);
       background: var(--bg-transparent);

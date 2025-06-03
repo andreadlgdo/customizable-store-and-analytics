@@ -99,6 +99,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 16px;
+      max-height: 42px;
       border-radius: 10px;
       border: 1px solid var(--color-dark-primary);
       background: var(--bg-transparent);
