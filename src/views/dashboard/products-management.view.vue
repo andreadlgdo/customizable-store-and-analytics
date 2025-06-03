@@ -12,7 +12,11 @@
       </h1>
       <div v-if="!isFormProduct" :class="`${baseClass}__header`">
         <div :class="`${baseClass}__filters`">
-          <UiSearch placeholder="Buscar por nombre" @search="searchProduct" :class="`${baseClass}__search`" />
+          <UiSearch
+            placeholder="Buscar por nombre"
+            @search="searchProduct"
+            :class="`${baseClass}__search`"
+          />
           <UiSelect
             @change="selectCategory"
             label="Categorias"
@@ -22,12 +26,13 @@
             show-all-option
           />
         </div>
-         <ui-button
-            @click="addProduct"
-            :text="t('dashboard.products.action.add')"
-            icon="plus"
+        <ui-button
+          @click="addProduct"
+          :text="t('dashboard.products.action.add')"
+          icon="plus"
         />
       </div>
+
       <ui-loading v-if="isLoading" />
       <products-list
         v-else-if="!isFormProduct"
@@ -46,143 +51,143 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, ref, watch } from 'vue';
-  import { useI18n } from 'vue-i18n';
-  import { useRouter } from 'vue-router';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 
-  import ProductsList from '../../components/dashboard/products/ui-products-list.component.vue';
-  import UiSearch from '../../components/shared/ui-search.component.vue';
-  import UiSelect from '../../components/shared/ui-select.component.vue';
-  import UiButton from '../../components/shared/ui-button.component.vue';
-  import UiProductForm from '../../components/dashboard/products/ui-product-form.component.vue';
-  import UiLoading from '../../components/shared/ui-loading.vue';
+// Components
+import Dashboard from './base-dashboard.view.vue';
+import ProductsList from '../../components/dashboard/products/ui-products-list.component.vue';
+import UiSearch from '../../components/shared/ui-search.component.vue';
+import UiSelect from '../../components/shared/ui-select.component.vue';
+import UiButton from '../../components/shared/ui-button.component.vue';
+import UiProductForm from '../../components/dashboard/products/ui-product-form.component.vue';
+import UiLoading from '../../components/shared/ui-loading.vue';
 
-  import { useCategories, useProducts, useUserMenu } from '../../composables';
-  import { Product } from '../../interfaces';
-  import { productService } from '../../services';
+import { useCategories, useProducts, useUserMenu } from '../../composables';
 
-  import Dashboard from './base-dashboard.view.vue';
+import { Product } from '../../interfaces';
 
-  const router = useRouter();
+import { productService } from '../../services';
 
-  const { t } = useI18n();
+const router = useRouter();
+const { t } = useI18n();
+const { menuElements } = useUserMenu();
+const { loadProducts, products } = useProducts();
+const { categories: categoriesList, loadCategories } = useCategories();
 
-  const { menuElements } = useUserMenu();
-  const { loadProducts, products } = useProducts();
-  const { categories: categoriesList, loadCategories } = useCategories();
+const baseClass = 'products-management';
 
-  const baseClass = 'products-management';
+const props = defineProps({
+  action: {
+    type: String,
+    default: undefined
+  },
+  itemId: {
+    type: String,
+    default: undefined
+  }
+});
 
-  const props = defineProps({
-    action: {
-      type: String,
-      default: undefined
-    },
-    itemId: {
-      type: String,
-      default: undefined
+const isLoading = ref(false);
+const isFormProduct = ref(!!props.action && !props.itemId);
+const category = ref<string>('');
+
+const itemToEdit = computed(() =>
+  products.value.find((product: Product) => product._id === props.itemId)
+);
+
+const categories = computed(() => {
+  return categoriesList.value?.map(category => ({
+    title: category.title,
+    disabled: false
+  })) ?? [];
+});
+
+const searchProduct = async (value: string) => {
+  await loadProducts({ name: value });
+};
+
+const selectCategory = async (value: string) => {
+  category.value = value === 'all by default' ? '' : value;
+  isLoading.value = true;
+  await loadProducts({ categories: [category.value] });
+  isLoading.value = false;
+};
+
+const addProduct = () => {
+  isFormProduct.value = true;
+  router.push({
+    name: 'ProductsManagement',
+    params: { action: 'add' }
+  });
+};
+
+const editProduct = (item: Product) => {
+  isFormProduct.value = true;
+  router.push({
+    name: 'ProductsManagement',
+    params: { action: 'edit', itemId: item._id }
+  });
+};
+
+const deleteProduct = async (item: Product) => {
+  isLoading.value = true;
+  await productService.deleteProduct(item._id ?? '');
+  await loadProducts();
+  isLoading.value = false;
+};
+
+const saveItem = async () => {
+  isFormProduct.value = false;
+  await loadProducts();
+};
+
+watch(
+  () => [props.action, props.itemId],
+  () => {
+    if (!props.action && !props.itemId) {
+      isFormProduct.value = false;
     }
-  });
+  },
+  { immediate: true }
+);
 
-  const isLoading = ref(false);
-  const isFormProduct = ref(!!props.action && !props.itemId);
-  const category = ref<string>('');
-
-  const itemToEdit = computed(() =>
-    products.value.find((product: Product) => product._id === props.itemId)
-  );
-
-  const categories = computed(() => {
-    return categoriesList.value?.map(category => ({
-      title: category.title,
-      disabled: false
-    })) ?? [];
-  });
-
-  const searchProduct = async (value: string) => {
-    await loadProducts({ name: value });
-  };
-
-  const selectCategory = async (value: string) => {
-    category.value = value === 'all by default' ? '' : value;
-    isLoading.value = true;
-    await loadProducts({ categories: [category.value] });
-    isLoading.value = false;
-  };
-
-  const addProduct = () => {
-    isFormProduct.value = true;
-    router.push({
-      name: 'ProductsManagement',
-      params: { action: 'add' }
-    });
-  };
-
-  const editProduct = (item: Product) => {
-    isFormProduct.value = true;
-    router.push({
-      name: 'ProductsManagement',
-      params: { action: 'edit', itemId: item._id }
-    });
-  };
-
-  const deleteProduct = async (item: Product) => {
-    isLoading.value = true;
-    await productService.deleteProduct(item._id ?? '');
-    await loadProducts();
-    isLoading.value = false;
-  };
-
-  const saveItem = async () => {
-    isFormProduct.value = false;
-    await loadProducts();
-  };
-
-  watch(
-    () => [props.action, props.itemId],
-    () => {
-      if (!props.action && !props.itemId) {
-        isFormProduct.value = false;
-      }
-    },
-    { immediate: true }
-  );
-
-  onMounted(async () => {
-    isLoading.value = true;
-    await loadProducts();
-    await loadCategories();
-    isLoading.value = false;
-  });
+onMounted(async () => {
+  isLoading.value = true;
+  await loadProducts();
+  await loadCategories();
+  isLoading.value = false;
+});
 </script>
 
 <style lang="scss" scoped>
-  .products-management {
+.products-management {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+  width: 100%;
+
+  &__header {
     display: flex;
-    flex-direction: column;
-    margin: 2rem;
+    justify-content: space-between;
+    align-items: flex-end;
     width: 100%;
-
-    &__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      width: 100%;
-      margin: 1rem 0 2rem 0;
-    }
-
-    &__filters {
-      display: flex;
-      align-items: flex-end;
-      gap: 24px;
-    }
-
-    &__search {
-      width: 300px;
-    }
-
-    &__select {
-      width: 200px;
-    }
+    margin: 1rem 0 2rem 0;
   }
+
+  &__filters {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+  }
+
+  &__search {
+    width: 300px;
+  }
+
+  &__select {
+    width: 200px;
+  }
+}
 </style>
