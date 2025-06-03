@@ -14,8 +14,6 @@
     switch (route.name) {
       case 'PersonalData':
         return 'dashboard';
-      case 'ProductsManagement':
-        return 'dashboard';
       case 'UsersManagement':
         return 'dashboard';
       case 'OrdersManagement':

@@ -10,13 +10,21 @@
             : t('dashboard.products.title.list')
         }}
       </h1>
-      <ui-button
-        v-if="!isFormProduct"
-        @click="addProduct"
-        :text="t('dashboard.products.action.add')"
-        icon="plus"
-        :class="`${baseClass}__button`"
-      />
+      <div v-if="!isFormProduct" :class="`${baseClass}__header`">
+        <UiSelect
+          @change="value => (category = value)"
+          label="Categorias"
+          placeholder="filter by category"
+          :value="category"
+          :options="categories"
+          :class="`${baseClass}__select`"
+        />
+         <ui-button
+            @click="addProduct"
+            :text="t('dashboard.products.action.add')"
+            icon="plus"
+        />
+      </div>
       <ui-loading v-if="isLoading" />
       <products-list
         v-else-if="!isFormProduct"
@@ -40,26 +48,26 @@
   import { useRouter } from 'vue-router';
 
   import ProductsList from '../../components/dashboard/products/ui-products-list.component.vue';
+  import UiSelect from '../../components/shared/ui-select.component.vue';
   import UiButton from '../../components/shared/ui-button.component.vue';
   import UiProductForm from '../../components/dashboard/products/ui-product-form.component.vue';
   import UiLoading from '../../components/shared/ui-loading.vue';
 
-  import { useProducts, useUserMenu } from '../../composables';
+  import { useCategories, useProducts, useUserMenu } from '../../composables';
   import { Product } from '../../interfaces';
   import { productService } from '../../services';
 
   import Dashboard from './base-dashboard.view.vue';
 
-  const { menuElements } = useUserMenu();
-  const { loadProducts, products } = useProducts();
-
   const router = useRouter();
 
   const { t } = useI18n();
 
-  const baseClass = 'products-management';
+  const { menuElements } = useUserMenu();
+  const { loadProducts, products } = useProducts();
+  const { categories: categoriesList, loadCategories } = useCategories();
 
-  const isLoading = ref(false);
+  const baseClass = 'products-management';
 
   const props = defineProps({
     action: {
@@ -72,11 +80,20 @@
     }
   });
 
+  const isLoading = ref(false);
   const isFormProduct = ref(!!props.action && !props.itemId);
+  const category = ref<string>('');
 
   const itemToEdit = computed(() =>
     products.value.find((product: Product) => product._id === props.itemId)
   );
+
+  const categories = computed(() => {
+    return categoriesList.value?.map(category => ({
+      title: category.title,
+      disabled: false
+    })) ?? [];
+  });
 
   const addProduct = () => {
     isFormProduct.value = true;
@@ -119,6 +136,7 @@
   onMounted(async () => {
     isLoading.value = true;
     await loadProducts();
+    await loadCategories();
     isLoading.value = false;
   });
 </script>
@@ -130,10 +148,15 @@
     margin: 2rem;
     width: 100%;
 
-    &__button {
-      align-self: flex-end;
-      width: fit-content;
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
       margin: 1rem 0;
+    }
+
+    &__select {
+      width: 200px;
     }
   }
 </style>

@@ -3,7 +3,10 @@
     <p v-if="label">{{ label }}</p>
 
     <div :class="`${baseClass}__selected`" @click="isOpen = !isOpen">
-      {{ capitalizeSentence(selectedOption ?? placeholder) }}
+      <span :class="{ [`${baseClass}__placeholder`]: !selectedOption }">
+        {{ capitalizeSentence(selectedOption ?? placeholder) }}
+      </span>
+      <UiIcon size="small"  :class="`${baseClass}__icon`" :src="require(`../../assets/media/icons/arrow.svg`)" />
     </div>
 
     <ul v-if="isOpen" :class="`${baseClass}__dropdown`">
@@ -26,6 +29,8 @@
 <script lang="ts" setup>
   import { ref, computed, PropType, onMounted, onBeforeUnmount } from 'vue';
   import { useTextTransform } from '../../composables';
+
+  import UiIcon from './ui-icon.component.vue';
 
   const baseClass = 'ui-select';
 
@@ -82,6 +87,9 @@
     overflow: visible !important;
 
     &__selected {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 10px 16px;
       border-radius: 10px;
       border: 1px solid var(--color-dark-primary);
@@ -118,9 +126,17 @@
       }
     }
 
+    &__icon {
+      transform: rotate(90deg);
+    }
+
     &--disabled {
       opacity: 0.5;
       pointer-events: none;
+    }
+
+    &__placeholder {
+      color: #999;
     }
   }
 </style>
