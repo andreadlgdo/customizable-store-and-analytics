@@ -73,6 +73,7 @@
     transition: all 0.3s ease;
 
     &--transparent {
+      z-index: 0;
       background: transparent;
     }
 
