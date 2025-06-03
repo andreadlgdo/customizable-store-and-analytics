@@ -3,11 +3,16 @@ import { ref } from 'vue';
 import { productService } from '../services';
 import { Product } from '../interfaces';
 
+interface LoadProductsParams {
+  categories?: string[];
+  name?: string;
+}
+
 export function useProducts() {
   const products = ref<Product[]>([]);
 
-  const loadProducts = async (categories?: string[]) => {
-    products.value = await productService.getProducts(categories);
+  const loadProducts = async ({ categories, name }: LoadProductsParams = {}) => {
+    products.value = await productService.getProducts(categories, name);
   };
 
   const findProduct = (productId: string) => products.value.find(p => p._id === productId);

@@ -7,7 +7,7 @@
       :opened-shopping-cart="isOpenShoppingCart"
       @updateMenu="value => (isOpenMenu = value)"
       @updateUserMenu="value => (isOpenUserMenu = value)"
-      @selectFavourite="loadProducts(category ? [category] : [])"
+      @selectFavourite="loadProducts({ categories: category ? [category] : [] })"
       @updateWhistList="value => (isOpenWhistList = value)"
       @updateShoppingCart="value => (isOpenShoppingCart = value)"
       @addToCart="addToCartWhistList"
@@ -102,7 +102,7 @@
       }
       localStorage.setItem('favouriteProducts', JSON.stringify(localFavouritesProductsIds));
     }
-    await loadProducts(category.value ? [category.value] : []);
+    await loadProducts({ categories: category.value ? [category.value] : [] });
     isOpenWhistList.value = true;
   };
 
@@ -116,7 +116,7 @@
     async newCategory => {
       isLoading.value = true;
       try {
-        await loadProducts(newCategory ? [newCategory] : []);
+        await loadProducts({ categories: newCategory ? [newCategory] : [] });
       } finally {
         isLoading.value = false;
       }

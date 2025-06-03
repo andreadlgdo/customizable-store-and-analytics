@@ -7,7 +7,7 @@
       :opened-shopping-cart="isOpenShoppingCart"
       @updateMenu="value => (isOpenMenu = value)"
       @updateUserMenu="value => (isOpenUserMenu = value)"
-      @selectFavourite="loadProducts([])"
+      @selectFavourite="loadProducts()"
       @updateWhistList="value => (isOpenWhistList = value)"
       @updateShoppingCart="value => (isOpenShoppingCart = value)"
       @addToCart="addToCartWhistList"
@@ -124,7 +124,7 @@ if (user.value && user.value._id && product._id) {
     }
     localStorage.setItem('favouriteProducts', JSON.stringify(localFavouritesProductsIds));
 }
-await loadProducts([]);
+await loadProducts();
 isOpenWhistList.value = true;
 };
 

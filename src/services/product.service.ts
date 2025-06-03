@@ -6,11 +6,15 @@ const BASE_PATH = `${apiUrl}/api`;
 const PRODUCTS_PATH = `${BASE_PATH}/products`;
 
 export const productService = {
-  getProducts: async (categories?: string[]): Promise<Product[]> => {
+  getProducts: async (categories?: string[], name?: string): Promise<Product[]> => {
     const url = new URL(PRODUCTS_PATH);
 
     if (categories?.length) {
       categories.forEach(category => url.searchParams.append('categories', category));
+    }
+
+    if (name) {
+      url.searchParams.append('name', name);
     }
 
     return fetchData(url.toString(), { method: 'GET' });
