@@ -3,7 +3,7 @@
     <p v-if="label">{{ label }}</p>
 
     <div :class="`${baseClass}__selected`" @click="isOpen = !isOpen">
-      <span :class="{ [`${baseClass}__placeholder`]: !selectedOption }">
+      <span :class="{ [`${baseClass}__placeholder`]: !selectedOption || selectedOption === 'all by default' }">
         {{ capitalizeSentence(selectedOption ?? placeholder) }}
       </span>
       <UiIcon size="small"  :class="`${baseClass}__icon`" :src="require(`../../assets/media/icons/arrow.svg`)" />
@@ -11,12 +11,12 @@
 
     <ul v-if="isOpen" :class="`${baseClass}__dropdown`">
       <li
-        v-for="(option, index) in options"
+        v-for="(option, index) in allOptions"
         :key="index"
         :class="[
           `${baseClass}__option`,
           { [`${baseClass}__option--selected`]: option.title === selectedOption },
-           { [`${baseClass}__option--disabled`]: option.disabled }
+          { [`${baseClass}__option--disabled`]: option.disabled }
         ]"
         @click.stop="selectOption(option.title)"
       >
@@ -47,7 +47,8 @@
     },
     label: String,
     placeholder: String,
-    disabled: Boolean
+    disabled: Boolean,
+    showAllOption: Boolean
   });
 
   const emit = defineEmits(['change']);
@@ -55,8 +56,15 @@
   const isOpen = ref(false);
   const dropdownRef = ref<HTMLElement | null>(null);
 
+  const allOptions = computed(() => !props.showAllOption ? props.options : [{ title: 'all by default' }, ...props.options]);
+
   const selectedOption = computed(
-    () => props.options.find(opt => opt.title === props.value)?.title
+    () => {
+      if (props.showAllOption && !props.value) {
+        return 'all by default';
+      }
+      return allOptions.value.find(opt => opt.title === props.value)?.title ?? 'all by default';
+    }
   );
 
   const selectOption = (title: string) => {

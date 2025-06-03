@@ -12,12 +12,12 @@
       </h1>
       <div v-if="!isFormProduct" :class="`${baseClass}__header`">
         <UiSelect
-          @change="value => (category = value)"
+          @change="selectCategory"
           label="Categorias"
-          placeholder="filter by category"
           :value="category"
           :options="categories"
           :class="`${baseClass}__select`"
+          show-all-option
         />
          <ui-button
             @click="addProduct"
@@ -94,6 +94,13 @@
       disabled: false
     })) ?? [];
   });
+
+  const selectCategory = async (value: string) => {
+    category.value = value === 'all by default' ? '' : value;
+    isLoading.value = true;
+    await loadProducts([category.value]);
+    isLoading.value = false;
+  };
 
   const addProduct = () => {
     isFormProduct.value = true;
