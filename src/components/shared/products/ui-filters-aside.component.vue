@@ -41,6 +41,11 @@
                   :value="showDiscountedProducts"
                   @change="selectDiscountedProducts"
                 />
+                <UiCheckbox
+                  text="Productos disponibles"
+                  :value="showAvailableProducts"
+                  @change="selectAvailableProducts"
+                />
               </div>
               <div :class="`${baseClass}__footer`">
                 <UiButton @click="cleanFilters" text="Limpiar filtros" transparent :class="`${baseClass}__button`"/>
@@ -82,6 +87,7 @@ const {
 const parentCategory = ref<string>('');
 const childrenCategory = ref<string>('');
 const showDiscountedProducts = ref<boolean>(false);
+const showAvailableProducts = ref<boolean>(false);
 
 const orderOptions = ref([
   { label: 'Orden descendente', value: 'desc', selected: false },
@@ -108,26 +114,41 @@ const isParentCategorySelected = computed(() => {
     return parentCategories.value.find(category => category.title === props.categoryFilter);
 });
 
+const selectedCategory = computed(() => {
+    if (props.categoryFilter) {
+        return props.categoryFilter;
+    } else if (childrenCategory.value) {
+        return childrenCategory.value;
+    } else {
+        return parentCategory.value;
+    }
+});
+
 const selectOrder = (value: string) => {
     orderOptions.value.forEach(order => {
         order.selected = order.value === value ? !order.selected : false;
     });
-    emit('applyFilters', childrenCategory.value ? childrenCategory.value : parentCategory.value, orderSelected.value,  showDiscountedProducts.value);
+    emit('applyFilters', selectedCategory.value, orderSelected.value,  showDiscountedProducts.value);
 };
 
 const selectCategory = async (value: string) => {
     parentCategory.value = value === 'all by default' ? '' : value;
-    emit('applyFilters', parentCategory.value, orderSelected.value,  showDiscountedProducts.value);
+    emit('applyFilters', parentCategory.value, orderSelected.value,  showDiscountedProducts.value, showAvailableProducts.value);
 };
 
 const selectSubcategory = async (value: string) => {
     childrenCategory.value = value === 'all by default' ? '' : value;
-    emit('applyFilters', childrenCategory.value, orderSelected.value,  showDiscountedProducts.value);
+    emit('applyFilters', childrenCategory.value, orderSelected.value,  showDiscountedProducts.value, showAvailableProducts.value);
 };
 
 const selectDiscountedProducts = () => {
     showDiscountedProducts.value = !showDiscountedProducts.value;
-    emit('applyFilters', childrenCategory.value ? childrenCategory.value : parentCategory.value, orderSelected.value, showDiscountedProducts.value);
+    emit('applyFilters', selectedCategory.value, orderSelected.value, showDiscountedProducts.value, showAvailableProducts.value);
+};
+
+const selectAvailableProducts = () => {
+    showAvailableProducts.value = !showAvailableProducts.value;
+    emit('applyFilters', selectedCategory.value, orderSelected.value, showDiscountedProducts.value, showAvailableProducts.value);
 };
 
 const cleanFilters = () => {

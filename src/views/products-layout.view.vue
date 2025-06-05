@@ -133,8 +133,8 @@
     isOpenWhistList.value = false;
   };
 
-  const filterProducts = async (category: string, order: string, discounted: boolean) => {
-    await loadProducts({ categories: category ? [category] : [], order: order ?? undefined, discounted: discounted});
+  const filterProducts = async (category: string, order: string, discounted: boolean, available: boolean) => {
+    await loadProducts({ categories: category ? [category] : [], order: order ?? undefined, discounted: discounted, hasStock: available ?? undefined});
   };
 
   const cleanFilters = async () => {
