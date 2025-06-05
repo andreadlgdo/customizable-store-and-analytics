@@ -56,8 +56,8 @@
     { id: '_id', label: t('dashboard.products.table.id') },
     { id: 'name', label: t('dashboard.products.table.name') },
     { id: 'categories', label: t('dashboard.products.table.categories') },
-    { id: 'price', label: t('dashboard.products.table.price'), textAlign: 'center' },
-    { id: 'stock', label: t('dashboard.products.table.stock'), textAlign: 'center' }
+    { id: 'price', label: t('dashboard.products.table.price'), textAlign: 'center', sortable: true },
+    { id: 'stock', label: t('dashboard.products.table.stock'), textAlign: 'center', sortable: true }
   ]);
 </script>
 

@@ -35,8 +35,8 @@
   const columns = computed(() => {
     const baseColumns = [
       { id: '_id', label: t('dashboard.orders.table.id') },
-      { id: 'units', label: t('dashboard.orders.table.products'), textAlign: 'center' },
-      { id: 'total', label: t('dashboard.orders.table.total'), textAlign: 'center' },
+      { id: 'units', label: t('dashboard.orders.table.products'), textAlign: 'center', sortable: true },
+      { id: 'total', label: t('dashboard.orders.table.total'), textAlign: 'center'},
       { id: 'status', label: t('dashboard.orders.table.status'), textAlign: 'center' }
     ];
 
