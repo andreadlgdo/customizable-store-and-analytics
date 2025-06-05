@@ -13,6 +13,7 @@
       <div v-if="!isFormProduct" :class="`${baseClass}__header`">
         <div :class="`${baseClass}__filters`">
           <UiSearch
+            :value="query"
             placeholder="Buscar por nombre"
             @search="searchProduct"
             :class="`${baseClass}__search`"
@@ -33,6 +34,7 @@
             show-all-option
              :class="`${baseClass}__select`"
           />
+          <p @click="resetFilters" :class="`${baseClass}__text`">Reset filters</p>
         </div>
         <ui-button
           @click="addProduct"
@@ -101,6 +103,7 @@ const isLoading = ref(false);
 const isFormProduct = ref(!!props.action && !props.itemId);
 const category = ref<string>('');
 const hasStock = ref<string>('');
+const query = ref<string>('');
 
 const itemToEdit = computed(() =>
   products.value.find((product: Product) => product._id === props.itemId)
@@ -114,20 +117,30 @@ const categories = computed(() => {
 });
 
 const searchProduct = async (value: string) => {
-  await loadProducts({ name: value });
+  query.value = value;
+  await loadProducts({ categories: [category.value], name: query.value, hasStock: hasStock.value });
 };
 
 const selectCategory = async (value: string) => {
   category.value = value === 'all by default' ? '' : value;
   isLoading.value = true;
-  await loadProducts({ categories: [category.value], hasStock: hasStock.value });
+  await loadProducts({ categories: [category.value], name: query.value, hasStock: hasStock.value });
   isLoading.value = false;
 };
 
 const selectHasStock = async (value: string) => {
   hasStock.value = value === 'all by default' ? '' : value;
   isLoading.value = true;
-  await loadProducts({ categories: [category.value], hasStock: hasStock.value });
+  await loadProducts({ categories: [category.value], name: query.value, hasStock: hasStock.value });
+  isLoading.value = false;
+};
+
+const resetFilters = async () => {
+  isLoading.value = true;
+  category.value = '';
+  hasStock.value = '';
+  query.value = '';
+  await loadProducts();
   isLoading.value = false;
 };
 
@@ -195,7 +208,7 @@ onMounted(async () => {
   &__filters {
     display: flex;
     align-items: flex-end;
-    gap: 24px;
+    gap: 18px;
   }
 
   &__search {
@@ -203,7 +216,16 @@ onMounted(async () => {
   }
 
   &__select {
-    width: 200px;
+    width: 170px;
+  }
+
+  &__text {
+    margin-bottom: 12px;
+    cursor: pointer;
+
+    &:hover {
+      font-weight: bold;
+    }
   }
 }
 </style>

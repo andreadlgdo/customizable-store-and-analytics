@@ -31,6 +31,10 @@ const emit = defineEmits<{
 
 const query = ref<string>(props.value);
 
+watch(() => props.value, (newValue) => {
+    query.value = newValue;
+});
+
 watch(query, (newQuery: string) => {
     emit('search', newQuery);
 });
