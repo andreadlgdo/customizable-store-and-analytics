@@ -36,6 +36,11 @@
                     :value="childrenCategory" 
                     show-all-option
                 />
+                <UiCheckbox
+                  text="Productos con descuento"
+                  :value="showDiscountedProducts"
+                  @change="selectDiscountedProducts"
+                />
               </div>
               <div :class="`${baseClass}__footer`">
                 <UiButton @click="cleanFilters" text="Limpiar filtros" transparent :class="`${baseClass}__button`"/>
@@ -53,6 +58,7 @@ import { useCategories } from '../../../composables';
 
 import UiAside from '../ui-aside.component.vue';
 import UiButton from '../ui-button.component.vue';
+import UiCheckbox from '../ui-checkbox.component.vue';
 import UiSelect from '../ui-select.component.vue';
 
 const props = defineProps({
@@ -75,6 +81,7 @@ const {
 
 const parentCategory = ref<string>('');
 const childrenCategory = ref<string>('');
+const showDiscountedProducts = ref<boolean>(false);
 
 const orderOptions = ref([
   { label: 'Orden descendente', value: 'desc', selected: false },
@@ -105,17 +112,22 @@ const selectOrder = (value: string) => {
     orderOptions.value.forEach(order => {
         order.selected = order.value === value ? !order.selected : false;
     });
-    emit('applyFilters', childrenCategory.value ? childrenCategory.value : parentCategory.value, orderSelected.value);
+    emit('applyFilters', childrenCategory.value ? childrenCategory.value : parentCategory.value, orderSelected.value,  showDiscountedProducts.value);
 };
 
 const selectCategory = async (value: string) => {
     parentCategory.value = value === 'all by default' ? '' : value;
-    emit('applyFilters', parentCategory.value, orderSelected.value);
+    emit('applyFilters', parentCategory.value, orderSelected.value,  showDiscountedProducts.value);
 };
 
 const selectSubcategory = async (value: string) => {
     childrenCategory.value = value === 'all by default' ? '' : value;
-    emit('applyFilters', childrenCategory.value, orderSelected.value);
+    emit('applyFilters', childrenCategory.value, orderSelected.value,  showDiscountedProducts.value);
+};
+
+const selectDiscountedProducts = () => {
+    showDiscountedProducts.value = !showDiscountedProducts.value;
+    emit('applyFilters', childrenCategory.value ? childrenCategory.value : parentCategory.value, orderSelected.value, showDiscountedProducts.value);
 };
 
 const cleanFilters = () => {

@@ -6,7 +6,7 @@ const BASE_PATH = `${apiUrl}/api`;
 const PRODUCTS_PATH = `${BASE_PATH}/products`;
 
 export const productService = {
-  getProducts: async (categories?: string[], name?: string, order?: string): Promise<Product[]> => {
+  getProducts: async (categories?: string[], name?: string, order?: string, discounted?: boolean): Promise<Product[]> => {
     const url = new URL(PRODUCTS_PATH);
 
     if (categories?.length) {
@@ -19,6 +19,10 @@ export const productService = {
 
     if (order) {
       url.searchParams.append('order', order);
+    }
+
+    if (discounted) {
+      url.searchParams.append('discounted', discounted.toString());
     }
 
     return fetchData(url.toString(), { method: 'GET' });
