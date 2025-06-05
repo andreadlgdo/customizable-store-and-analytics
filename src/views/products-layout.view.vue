@@ -23,7 +23,13 @@
         </div>
         <div>
           <UiButton @click="isOpenFilters = true" icon="filter" text="Filtros" transparent/>
-          <UiFiltersAside @selectCategory="filterByCategory" @close="isOpenFilters = false" :is-open="isOpenFilters" :categoryFilter="category"/>
+          <UiFiltersAside 
+            @selectCategory="filterByCategory" 
+            @close="isOpenFilters = false"
+            @cleanFilters="cleanFilters" 
+            :is-open="isOpenFilters" 
+            :categoryFilter="category"
+          />
         </div>
       </div>
       <section :class="`${baseClass}__wrapper ${baseClass}__wrapper--product`">
@@ -125,6 +131,11 @@
     await loadProducts({ categories: category ? [category] : [] });
   };
 
+  const cleanFilters = async () => {
+    isOpenFilters.value = false;
+    await loadProducts();
+  };
+
   watch(
     category,
     async newCategory => {
@@ -145,7 +156,7 @@
 
     &__wrapper {
       display: flex;
-      transition: margin-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: margin-right 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 
       &--content {
         flex-direction: column;
