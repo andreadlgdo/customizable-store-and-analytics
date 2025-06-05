@@ -41,10 +41,10 @@
           label="Categories"
         />
         <UiSelect
-          v-if="parentCategory && !!childrenCategories(parentCategory).length"
+          v-if="parentCategory && !!getChildrenByParent(parentCategory).length"
           @change="value => (childrenCategory = value)"
           :value="childrenCategory"
-          :options="childrenCategories(parentCategory)"
+          :options="getChildrenByParent(parentCategory)"
           placeholder="Select subcategory"
           label="Subcategorias"
         />
@@ -126,7 +126,7 @@
   const router = useRouter();
   const { t } = useI18n();
 
-  const { parentCategories, loadCategories, childrenCategories } = useCategories();
+  const { parentCategories, loadCategories, getChildrenByParent } = useCategories();
 
   const baseClass = 'ui-product-form';
 
@@ -269,7 +269,7 @@
       if (selectedParentCategory) {
         parentCategory.value = selectedParentCategory.title;
 
-        const children = childrenCategories(selectedParentCategory.title);
+        const children = getChildrenByParent(selectedParentCategory.title);
         const selectedChildrenCategory = findCategory(children ?? []);
 
         childrenCategory.value = selectedChildrenCategory?.title ?? '';

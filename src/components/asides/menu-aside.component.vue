@@ -62,7 +62,7 @@
 
   const emit = defineEmits(['close', 'openLogInAside']);
 
-  const { parentCategories, loadCategories, getOneCategory, childrenCategories } = useCategories();
+  const { parentCategories, loadCategories, getOneCategory, getChildrenByParent } = useCategories();
 
   const { t } = useI18n();
 
@@ -79,7 +79,7 @@
 
   const menuCategories = computed(() => {
     return parentCategories.value?.map(category => {
-      const children = childrenCategories(category.title);
+      const children = getChildrenByParent(category.title);
       return {
         id: parseInt(category._id ?? ''),
         label: category.title,

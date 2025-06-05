@@ -10,6 +10,10 @@ export function useCategories() {
     categories.value?.filter((category: Category) => !category.parentId)
   );
 
+  const childrenCategories = computed(() =>
+    categories.value?.filter((category: Category) => category.parentId)
+  );
+
   const getOneCategory = (filterCategories: string): Category | undefined => {
     return categories.value?.find(category => filterCategories === category.title);
   };
@@ -18,7 +22,7 @@ export function useCategories() {
     return categories.value?.filter(category => filterCategories.includes(category.title)) ?? [];
   };
 
-  const childrenCategories = (parentCategory: string) => {
+  const getChildrenByParent = (parentCategory: string) => {
     const parentCategoryId = parentCategories.value?.find(p => p.title === parentCategory);
     return categories.value?.filter(
       (category: Category) => category.parentId === parentCategoryId?._id
@@ -32,9 +36,10 @@ export function useCategories() {
   return {
     categories,
     parentCategories,
+    childrenCategories,
     loadCategories,
     getOneCategory,
     getCategoriesByFilter,
-    childrenCategories
+    getChildrenByParent
   };
 }

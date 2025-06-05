@@ -47,7 +47,7 @@
 
   const emit = defineEmits(['close']);
 
-  const { parentCategories, loadCategories, childrenCategories } = useCategories();
+  const { parentCategories, loadCategories, getChildrenByParent } = useCategories();
   const { t } = useI18n();
   const router = useRouter();
 
@@ -59,7 +59,7 @@
 
   const menuCategories = computed(() => {
     return parentCategories.value?.map(category => {
-      const children = childrenCategories(category.title);
+      const children = getChildrenByParent(category.title);
       return {
         id: parseInt(category._id ?? ''),
         label: category.title,

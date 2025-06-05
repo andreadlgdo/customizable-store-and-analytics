@@ -7,7 +7,7 @@ type CategoryResponse = {
 };
 
 export const useRecommendations = () => {
-    const { parentCategories, loadCategories, childrenCategories } = useCategories();
+    const { parentCategories, loadCategories, getChildrenByParent } = useCategories();
 
     const processCategories = async (categories: string[]): Promise<string[]> => {
         if (!categories?.length) return [];
@@ -24,7 +24,7 @@ export const useRecommendations = () => {
         // Process each parent category and its children
         const results = await Promise.all(
             matchingParentCategories.map(async (parentCategory: string) => {
-                const children = await childrenCategories(parentCategory);
+                const children = await getChildrenByParent(parentCategory);
                 
                 if (!children?.length) {
                     return parentCategory;
