@@ -18,7 +18,7 @@
           { [`${baseClass}__option--selected`]: option.title === selectedOption },
           { [`${baseClass}__option--disabled`]: option.disabled }
         ]"
-        @click.stop="selectOption(option.title)"
+        @click.stop="selectOption(option.value ?? option.title)"
       >
         {{ capitalizeSentence(option.title) }}
       </li>
@@ -42,7 +42,7 @@
       required: true
     },
     options: {
-      type: Array as PropType<{ title: string; disabled?: boolean }[]>,
+      type: Array as PropType<{ title: string; value?: string; disabled?: boolean }[]>,
       default: () => []
     },
     label: String,
@@ -63,7 +63,7 @@
       if (props.showAllOption && !props.value) {
         return 'all by default';
       }
-      return allOptions.value.find(opt => opt.title === props.value)?.title ?? 'all by default';
+      return allOptions.value.find(opt => opt.title === props.value || opt.value === props.value)?.title ?? 'all by default';
     }
   );
 
