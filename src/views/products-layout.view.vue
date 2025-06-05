@@ -13,12 +13,20 @@
       @addToCart="addToCartWhistList"
     />
     <ui-loading v-if="isLoading" />
-    <section v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--content`">
+    <section v-else :class="[`${baseClass}__wrapper`, `${baseClass}__wrapper--content`, { [`${baseClass}__wrapper--aside`]: isOpenFilters }]">
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--title`">
-        <h1 :class="`${baseClass}__text`">
-          {{ (category ? category : t('products.allProducts')).toUpperCase() }}
-        </h1>
-        <p>{{ products.length }} {{ t('products.results') }}</p>
+        <div>
+          <h1 :class="`${baseClass}__text`">
+            {{ (category ? category : t('products.allProducts')).toUpperCase() }}
+          </h1>
+          <p>{{ products.length }} {{ t('products.results') }}</p>
+        </div>
+        <div>
+          <UiButton @click="isOpenFilters = true" icon="filter" text="Filtros" transparent/>
+          <UiAside :is-open="isOpenFilters" @click="isOpenFilters = false" icon="close">
+            
+          </UiAside>
+        </div>
       </div>
       <section :class="`${baseClass}__wrapper ${baseClass}__wrapper--product`">
         <ui-product-card
@@ -49,6 +57,8 @@
 
   import { useProducts, useUsers } from '../composables';
 
+  import UiAside from '../components/shared/ui-aside.component.vue';
+  import UiButton from '../components/shared/ui-button.component.vue';
   import UiProductCard from '../components/shared/products/ui-product-card.component.vue';
   import UiProductDetailsModal from '../components/shared/products/ui-product-details-modal.component.vue';
   import UiLoading from '../components/shared/ui-loading.component.vue';
@@ -69,6 +79,8 @@
   const isOpenWhistList = ref(false);
   const isOpenShoppingCart = ref(false);
   const isLoading = ref(false);
+
+  const isOpenFilters = ref(false);
 
   const productDetails = ref<Product | undefined>(undefined);
 
@@ -131,6 +143,7 @@
 
     &__wrapper {
       display: flex;
+      transition: margin-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
       &--content {
         flex-direction: column;
@@ -138,9 +151,13 @@
         gap: 2rem;
       }
 
+      &--aside {
+        margin-right: calc(320px + 4rem);
+      }
+
       &--title {
-        flex-direction: column;
-        gap: 0.5rem;
+        align-items: center;
+        justify-content: space-between;
       }
 
       &--product {
