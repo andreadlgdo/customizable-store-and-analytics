@@ -133,6 +133,7 @@ const selectDiscountedProducts = () => {
 const cleanFilters = () => {
     parentCategory.value = '';
     childrenCategory.value = '';
+    showDiscountedProducts.value = false;
     emit('cleanFilters');
 };
 

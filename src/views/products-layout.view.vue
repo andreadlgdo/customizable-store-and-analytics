@@ -33,14 +33,20 @@
         </div>
       </div>
       <section :class="`${baseClass}__wrapper ${baseClass}__wrapper--product`">
-        <ui-product-card
-          @selectFavourite="selectFavourite"
-          @addToCart="p => (productDetails = p)"
-          v-for="product in products"
-          :key="product._id"
-          :product="product"
-          :is-favourite="product.isFavouriteUsersIds?.includes(user?._id)"
-        />
+        <template v-if="products.length > 0">
+          <ui-product-card
+            @selectFavourite="selectFavourite"
+            @addToCart="p => (productDetails = p)"
+            v-for="product in products"
+            :key="product._id"
+            :product="product"
+            :is-favourite="product.isFavouriteUsersIds?.includes(user?._id)"
+          />
+        </template>
+        <div v-else :class="`${baseClass}__no-products`">
+          <p :class="`${baseClass}__text`">No se encontraron productos</p>
+          <p>Intenta otra combinación de filtros.</p>
+        </div>
         <ui-product-details-modal
           @addToCart="isOpenShoppingCart = true"
           @selectFavourite="selectFavourite"
@@ -183,6 +189,17 @@
     &__text {
       font-size: 22px;
       font-weight: bold;
+    }
+
+    &__no-products {
+      text-align: center;
+      padding: 4rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 100px;
+      gap: 8px;
     }
   }
 </style>
