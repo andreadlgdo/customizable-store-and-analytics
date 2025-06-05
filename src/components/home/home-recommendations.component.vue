@@ -5,7 +5,7 @@
       <UiProductCarrousel title="Basado en tus últimas compras" :products="recommendedProductsByOrders" />
     </div>
     <div v-if="recommendedProductsByFavourites?.length">
-      <UiProductCarrousel title="Basado en tus favoritos" :products="recommendedProductsByFavourites" />
+      <UiProductCarrousel title="Inspirado en tus favoritos" :products="recommendedProductsByFavourites" />
     </div>
   </div>
 </template>

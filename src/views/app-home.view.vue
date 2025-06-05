@@ -10,6 +10,7 @@
     @updateWhistList="isOpenWhistList = $event"
     @updateShoppingCart="isOpenShoppingCart = $event"
     transparent
+    fixed
   />
   <section
     v-if="landingImage?.imageUrl"

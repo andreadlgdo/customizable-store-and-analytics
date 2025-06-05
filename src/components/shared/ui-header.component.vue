@@ -2,7 +2,8 @@
   <section :class="[
     baseClass,
     { [`${baseClass}--transparent`]: transparent && !isScrolled },
-    { [`${baseClass}--scrolled`]: isScrolled }
+    { [`${baseClass}--scrolled`]: isScrolled },
+    { [`${baseClass}--fixed`]: fixed }
   ]">
     <UiIconButton
       @click="$emit('openMenu')"
@@ -36,6 +37,7 @@
       default: undefined
     },
     transparent: Boolean,
+    fixed: Boolean,
     disabled: Boolean
   });
 
@@ -66,11 +68,14 @@
     height: 5rem;
     width: 100%;
     background: var(--color-soft-primary);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
     transition: all 0.3s ease;
+
+    &--fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
 
     &--transparent {
       z-index: 0;
