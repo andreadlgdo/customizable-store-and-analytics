@@ -25,6 +25,14 @@
             :class="`${baseClass}__select`"
             show-all-option
           />
+          <UiSelect 
+           @change="selectHasStock"
+            label="Stock"
+            :value="hasStock"
+            :options="[{ title: 'Con stock', value: 'true'}, { title: 'Sin stock', value: 'false'}]"
+            show-all-option
+             :class="`${baseClass}__select`"
+          />
         </div>
         <ui-button
           @click="addProduct"
@@ -92,6 +100,7 @@ const props = defineProps({
 const isLoading = ref(false);
 const isFormProduct = ref(!!props.action && !props.itemId);
 const category = ref<string>('');
+const hasStock = ref<string>('');
 
 const itemToEdit = computed(() =>
   products.value.find((product: Product) => product._id === props.itemId)
@@ -111,7 +120,14 @@ const searchProduct = async (value: string) => {
 const selectCategory = async (value: string) => {
   category.value = value === 'all by default' ? '' : value;
   isLoading.value = true;
-  await loadProducts({ categories: [category.value] });
+  await loadProducts({ categories: [category.value], hasStock: hasStock.value });
+  isLoading.value = false;
+};
+
+const selectHasStock = async (value: string) => {
+  hasStock.value = value === 'all by default' ? '' : value;
+  isLoading.value = true;
+  await loadProducts({ categories: [category.value], hasStock: hasStock.value });
   isLoading.value = false;
 };
 

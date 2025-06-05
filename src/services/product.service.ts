@@ -6,7 +6,7 @@ const BASE_PATH = `${apiUrl}/api`;
 const PRODUCTS_PATH = `${BASE_PATH}/products`;
 
 export const productService = {
-  getProducts: async (categories?: string[], name?: string, order?: string, discounted?: boolean, hasStock?: boolean): Promise<Product[]> => {
+  getProducts: async (categories?: string[], name?: string, order?: string, discounted?: boolean, hasStock?: string): Promise<Product[]> => {
     const url = new URL(PRODUCTS_PATH);
 
     if (categories?.length) {

@@ -155,6 +155,7 @@ const cleanFilters = () => {
     parentCategory.value = '';
     childrenCategory.value = '';
     showDiscountedProducts.value = false;
+    showAvailableProducts.value = false;
     emit('cleanFilters');
 };
 

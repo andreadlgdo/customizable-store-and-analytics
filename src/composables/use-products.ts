@@ -8,7 +8,7 @@ interface LoadProductsParams {
   name?: string;
   order?: string;
   discounted?: boolean;
-  hasStock?: boolean;
+  hasStock?: string;
 }
 
 export function useProducts() {
