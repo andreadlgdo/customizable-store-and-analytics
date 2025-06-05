@@ -62,7 +62,7 @@ import UiSearch from '../../components/shared/ui-search.component.vue';
 import UiSelect from '../../components/shared/ui-select.component.vue';
 import UiButton from '../../components/shared/ui-button.component.vue';
 import UiProductForm from '../../components/dashboard/products/ui-product-form.component.vue';
-import UiLoading from '../../components/shared/ui-loading.vue';
+import UiLoading from '../../components/shared/ui-loading.component.vue';
 
 import { useCategories, useProducts, useUserMenu } from '../../composables';
 

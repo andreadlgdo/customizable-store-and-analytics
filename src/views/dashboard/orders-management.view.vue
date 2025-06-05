@@ -22,7 +22,7 @@
 
   import UiOrdersDetails from '../../components/dashboard/orders/ui-orders-details.component.vue';
   import UiOrdersList from '../../components/dashboard/orders/ui-orders-list.component.vue';
-  import UiLoading from '../../components/shared/ui-loading.vue';
+  import UiLoading from '../../components/shared/ui-loading.component.vue';
 
   import { useUserMenu, useUsers } from '../../composables';
   import { Order } from '../../interfaces';

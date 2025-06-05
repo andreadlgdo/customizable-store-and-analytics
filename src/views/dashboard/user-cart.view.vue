@@ -72,7 +72,7 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
-import UiLoading from '../../components/shared/ui-loading.vue';
+import UiLoading from '../../components/shared/ui-loading.component.vue';
 import UiImage from '../../components/shared/ui-image.component.vue';
 import UiSelect from '../../components/shared/ui-select.component.vue';
 import UiIconButton from '../../components/shared/ui-icon-button.component.vue';

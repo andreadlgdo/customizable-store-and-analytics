@@ -1,4 +1,5 @@
 <template>
+  <UiLoading v-if="isLoading" />
   <Header
     :opened-menu="isOpenMenu"
     :opened-user-menu="isOpenUserMenu"
@@ -16,7 +17,7 @@
     :style="{ backgroundImage: `url(${landingImage?.imageUrl})` }"
   />
   <section :class="`${baseClass}__content`">
-    <ui-button 
+    <UiButton 
       @click="router.push('/products')" 
       :text="homeCustom?.texts.mainAction" 
       :background-color="homeCustom?.visuals.colors.primary"
@@ -40,9 +41,11 @@
   import { computed, onMounted, ref, watchEffect } from 'vue';
   import { useRouter } from 'vue-router';
 
-  import UiButton from '../components/shared/ui-button.component.vue';
   import HomeRecommendations from '../components/home/home-recommendations.component.vue';
 
+  import UiButton from '../components/shared/ui-button.component.vue';
+  import UiLoading from '../components/shared/ui-loading.component.vue';
+  
   import { useRecommendations, useUsers } from '../composables';
   import { customService, generalService, productService } from '../services';
 
@@ -63,6 +66,8 @@
   const homeCustom = ref();
   const recommendedProductsByOrders = ref();
   const recommendedProductsByFavourites = ref();
+
+  const isLoading = ref(true);
 
   const containerStyle = computed(() => ({
     '--color-vibrant-primary': homeCustom.value?.visuals.colors.secondary,
@@ -86,9 +91,11 @@
   });
 
   onMounted(async () => {
+    isLoading.value = true;
     homeCustom.value = await customService.getCustom('home');
     const images = await generalService.getLandingImages();
     landingImage.value = images[0];
+    isLoading.value = false;
   });
 </script>
 

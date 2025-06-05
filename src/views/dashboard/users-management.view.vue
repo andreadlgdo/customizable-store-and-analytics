@@ -31,7 +31,7 @@
   import UiUserForm from '../../components/dashboard/users/ui-user-form.component.vue';
   import UiUsersList from '../../components/dashboard/users/ui-users-list.component.vue';
   import UiButton from '../../components/shared/ui-button.component.vue';
-  import UiLoading from '../../components/shared/ui-loading.vue';
+  import UiLoading from '../../components/shared/ui-loading.component.vue';
 
   import { useUserMenu, useUsers } from '../../composables';
   import { User } from '../../interfaces';
