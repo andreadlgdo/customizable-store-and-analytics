@@ -23,9 +23,7 @@
         </div>
         <div>
           <UiButton @click="isOpenFilters = true" icon="filter" text="Filtros" transparent/>
-          <UiAside :is-open="isOpenFilters" @click="isOpenFilters = false" icon="close">
-            
-          </UiAside>
+          <UiFiltersAside @selectCategory="filterByCategory" @close="isOpenFilters = false" :is-open="isOpenFilters" :categoryFilter="category"/>
         </div>
       </div>
       <section :class="`${baseClass}__wrapper ${baseClass}__wrapper--product`">
@@ -57,8 +55,8 @@
 
   import { useProducts, useUsers } from '../composables';
 
-  import UiAside from '../components/shared/ui-aside.component.vue';
   import UiButton from '../components/shared/ui-button.component.vue';
+  import UiFiltersAside from '../components/shared/products/ui-filters-aside.component.vue';
   import UiProductCard from '../components/shared/products/ui-product-card.component.vue';
   import UiProductDetailsModal from '../components/shared/products/ui-product-details-modal.component.vue';
   import UiLoading from '../components/shared/ui-loading.component.vue';
@@ -121,6 +119,10 @@
   const addToCartWhistList = (product: Product) => {
     productDetails.value = product;
     isOpenWhistList.value = false;
+  };
+
+  const filterByCategory = async (category: string) => {
+    await loadProducts({ categories: category ? [category] : [] });
   };
 
   watch(
