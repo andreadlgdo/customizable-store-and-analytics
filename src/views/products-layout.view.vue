@@ -24,7 +24,7 @@
         <div>
           <UiButton @click="isOpenFilters = true" icon="filter" text="Filtros" transparent/>
           <UiFiltersAside 
-            @selectCategory="filterByCategory" 
+            @applyFilters="filterProducts" 
             @close="isOpenFilters = false"
             @cleanFilters="cleanFilters" 
             :is-open="isOpenFilters" 
@@ -127,8 +127,8 @@
     isOpenWhistList.value = false;
   };
 
-  const filterByCategory = async (category: string) => {
-    await loadProducts({ categories: category ? [category] : [] });
+  const filterProducts = async (category: string, order: string) => {
+    await loadProducts({ categories: category ? [category] : [], order: order ?? undefined });
   };
 
   const cleanFilters = async () => {

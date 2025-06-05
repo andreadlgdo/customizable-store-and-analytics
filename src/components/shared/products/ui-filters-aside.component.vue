@@ -10,6 +10,16 @@
             </h1>
             <div :class="`${baseClass}__body`">
               <div :class="`${baseClass}__content`">
+               <div :class="`${baseClass}__wrapper`">
+                    <div 
+                      @click="selectOrder(order.value)" 
+                      v-for="order in orderOptions" 
+                      :key="order.value" 
+                      :class="[`${baseClass}__order-option`,{[`${baseClass}__order-option--selected`]: order.selected}]"
+                    >
+                        {{ order.label }}
+                    </div>
+                </div>
                 <UiSelect 
                   v-if="!categoryFilter" 
                   @change="selectCategory" 
@@ -53,7 +63,7 @@ const props = defineProps({
     }
 });
 
-const emit = defineEmits(['close', 'selectCategory', 'cleanFilters']);
+const emit = defineEmits(['close', 'applyFilters', 'cleanFilters']);
 
 const baseClass = 'ui-filters-aside';
 
@@ -66,6 +76,13 @@ const {
 const parentCategory = ref<string>('');
 const childrenCategory = ref<string>('');
 
+const orderOptions = ref([
+  { label: 'Orden descendente', value: 'desc', selected: false },
+  { label: 'Orden ascendente', value: 'asc', selected: false }
+]);
+
+const orderSelected = computed(() => orderOptions.value.find(order => order.selected)?.value ?? '');
+
 const parentCategories = computed(() => {
     return parentCategoriesList.value?.map(category => ({
         title: category.title,
@@ -74,7 +91,7 @@ const parentCategories = computed(() => {
 });
 
 const childrenCategories = computed(() => {
-    return getChildrenByParent(props.categoryFilter ?? parentCategory.value)?.map(subcategory => ({
+    return getChildrenByParent(props.categoryFilter ? props.categoryFilter : parentCategory.value)?.map(subcategory => ({
         title: subcategory.title,
         disabled: false
     })) ?? [];
@@ -84,14 +101,21 @@ const isParentCategorySelected = computed(() => {
     return parentCategories.value.find(category => category.title === props.categoryFilter);
 });
 
+const selectOrder = (value: string) => {
+    orderOptions.value.forEach(order => {
+        order.selected = order.value === value ? !order.selected : false;
+    });
+    emit('applyFilters', childrenCategory.value ? childrenCategory.value : parentCategory.value, orderSelected.value);
+};
+
 const selectCategory = async (value: string) => {
     parentCategory.value = value === 'all by default' ? '' : value;
-    emit('selectCategory', parentCategory.value);
+    emit('applyFilters', parentCategory.value, orderSelected.value);
 };
 
 const selectSubcategory = async (value: string) => {
     childrenCategory.value = value === 'all by default' ? '' : value;
-    emit('selectCategory', childrenCategory.value);
+    emit('applyFilters', childrenCategory.value, orderSelected.value);
 };
 
 const cleanFilters = () => {
@@ -115,6 +139,32 @@ onMounted(async () => {
     &__title {
         font-size: 2rem;
         font-weight: bolder;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    &__order-option {
+        text-align: center;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        background: #f5f5f5;
+        font-size: 1rem;
+        transition: background 0.2s;
+        cursor: pointer;
+        width: 100%;
+
+        &:hover {
+            background: rgba(225, 224, 224, 0.843)
+        }
+
+        &--selected {
+            background: var(--color-vibrant-primary) !important;
+        }
     }
 
     &__body {
