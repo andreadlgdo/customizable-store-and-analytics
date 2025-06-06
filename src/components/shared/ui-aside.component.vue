@@ -17,7 +17,6 @@
         :icon="icon"
       />
       <slot />
-      <UiLanguage v-if="language && !isCollapsed" :class="`${baseClass}__toggle`" />
     </div>
   </transition>
 </template>
@@ -26,7 +25,6 @@
   import { ref, onMounted, onBeforeUnmount } from 'vue';
 
   import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
-  import UiLanguage from '@/components/shared/ui-language.component.vue';
 
   const baseClass = 'ui-aside';
 
@@ -41,8 +39,7 @@
     },
     icon: String,
     isOpen: Boolean,
-    isCollapsed: Boolean,
-    language: Boolean
+    isCollapsed: Boolean
   });
 
   const emit = defineEmits(['click']);
