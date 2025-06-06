@@ -7,7 +7,7 @@
         </div>
     </div>
     <div :class="`${baseClass}__carrousel`">
-        <div @click="router.push(`/products/${product._id}`)" v-for="product in products" :key="product._id" :class="`${baseClass}__product`">
+        <div @click="clickProduct(product)" v-for="product in products" :key="product._id" :class="`${baseClass}__product`">
             <UiImage :image="product.imageUrl" type="semi-round" size="large" />
             <p :class="`${baseClass}__text ${baseClass}__text--name`">{{ product.name }}</p>
         </div>
@@ -22,6 +22,8 @@ import { Product } from '@/interfaces';
 
 import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
 import UiImage from '@/components/shared/ui-image.component.vue';
+import { useProductViews } from '@/composables/use-product-views';
+import { useUsers } from '@/composables';
 
 const baseClass = 'ui-product-carrousel';
 
@@ -34,6 +36,18 @@ defineProps({
 });
 
 const router = useRouter();
+const { user } = useUsers();
+const { createProductView } = useProductViews();
+
+const clickProduct = async (product: Product) => {
+  await createProductView({
+    userId: user.value?._id ?? '',
+    productId: product._id ?? '',
+    timestamp: new Date()
+  });
+
+  router.push(`/products/${product._id}`);
+};
 </script>
 
 <style lang="scss" scoped>

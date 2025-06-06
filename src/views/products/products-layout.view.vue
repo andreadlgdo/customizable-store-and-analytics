@@ -52,7 +52,7 @@
             :key="product._id"
             :product="product"
             :is-favourite="isProductFavourite(product)"
-            @selectProduct="p =>router.push(category ? `/products/${category}/${p._id}` : `/products/${p._id}`)"
+            @selectProduct="clickProduct(product)"
             @selectFavourite="selectFavourite"
             @addToCart="p => (productDetails = p)"
           />
@@ -90,10 +90,12 @@ import UiProductCard from '@/components/products/ui-product-card.component.vue';
 import UiProductDetailsModal from '@/components/products/ui-product-details-modal.component.vue';
 import UiLoading from '@/components/shared/ui-loading.component.vue';
 import Header from '@/views/app-header.view.vue';
+import { useProductViews } from '@/composables/use-product-views';
 
 const baseClass = 'products';
 
 const { products, loadProducts } = useProducts();
+const { createProductView } = useProductViews();
 const route = useRoute();
 const router = useRouter();
 const { t } = useI18n();
@@ -113,6 +115,16 @@ const category = computed<string>(() => (route.params.category as string)?.toLow
 const isProductFavourite = (product: Product): boolean => {
   if (!product.isFavouriteUsersIds || !user.value?._id) return false;
   return product.isFavouriteUsersIds.includes(user.value._id);
+};
+
+const clickProduct = async (product: Product) => {
+  await createProductView({
+    userId: user.value?._id ?? '',
+    productId: product._id ?? '',
+    timestamp: new Date()
+  });
+
+  router.push(category.value ? `/products/${category.value}/${product._id}` : `/products/${product._id}`)
 };
 
 const handleFavouriteSelection = () => {
