@@ -39,10 +39,10 @@
 import { ref, onMounted, computed, ComputedRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { ContactUsCustom, ContactMethod } from '../../types/custom-us.type';
-import { customService } from '../../services';
+import { ContactUsCustom, ContactMethod } from '@/types/custom-us.type';
+import { customService } from '@/services';
 
-import UiIcon from '../shared/ui-icon.component.vue';
+import UiIcon from '@/components/shared/ui-icon.component.vue';
 
 const baseClass = 'ui-contact-methods';
 

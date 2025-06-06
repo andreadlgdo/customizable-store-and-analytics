@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-  import BaseText from '../base-text.component.vue';
+  import BaseText from '@/components/base-text.component.vue';
 
   const baseClass = 'base-tooltip';
 

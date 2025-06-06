@@ -41,11 +41,11 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { ContactUsTexts, ContactForm} from '../../types/custom-us.type';
-import { customService } from '../../services';
+import { ContactUsTexts, ContactForm } from '@/types/custom-us.type';
+import { customService } from '@/services';
 
-import UiButton from '../shared/ui-button.component.vue';
-import UiTextbox from '../shared/ui-textbox.component.vue';
+import UiButton from '@/components/shared/ui-button.component.vue';
+import UiTextbox from '@/components/shared/ui-textbox.component.vue';
 
 const baseClass = 'ui-contact-form';
 
