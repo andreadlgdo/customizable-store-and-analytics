@@ -1,6 +1,5 @@
 export * from './use-cart';
 export * from './use-categories';
-export * from './use-mobile';
 export * from './use-products';
 export * from './use-recommendations';
 export * from './use-text-transform';
