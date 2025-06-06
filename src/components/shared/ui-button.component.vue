@@ -10,7 +10,7 @@
   >
     <UiIcon
       v-if="icon"
-      :src="require(`../../assets/media/icons/${icon}.svg`)"
+      :src="require(`@/assets/media/icons/${icon}.svg`)"
       :class="`${baseClass}__icon`"
     />
     <p v-if="text">{{ text }}</p>
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-  import UiIcon from './ui-icon.component.vue';
+  import UiIcon from '@/components/shared/ui-icon.component.vue';
 
   const baseClass = 'ui-button';
 

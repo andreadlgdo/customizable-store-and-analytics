@@ -1,6 +1,5 @@
 <template>
   <section :class="baseClass">
-    <!-- TODO: Cambiar base-text -->
     <BaseText
       @click="locale = language.value"
       v-for="language in languages"
@@ -20,7 +19,7 @@
   import { computed } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import BaseText from '../base-text.component.vue';
+  import BaseText from '@/components/base-text.component.vue';
 
   const baseClass = 'language-toggle';
 

@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-  import UiIconButton from './ui-icon-button.component.vue';
+  import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
 
   const baseClass = 'ui-modal';
 

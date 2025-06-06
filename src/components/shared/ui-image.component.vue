@@ -27,9 +27,9 @@
 <script lang="ts" setup>
   import { PropType, ref } from 'vue';
 
-  import { InputFormType, SizeType } from '../../types';
+  import { InputFormType, SizeType } from '@/types';
 
-  import IconButton from './ui-icon-button.component.vue';
+  import IconButton from '@/components/shared/ui-icon-button.component.vue';
 
   const baseClass = 'ui-image';
 

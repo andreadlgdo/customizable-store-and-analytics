@@ -9,8 +9,8 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 
-import UiIconButton from './ui-icon-button.component.vue';
-import UiIcon from './ui-icon.component.vue';
+import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
+import UiIcon from '@/components/shared/ui-icon.component.vue';
 
 const baseClass = 'ui-search';
 

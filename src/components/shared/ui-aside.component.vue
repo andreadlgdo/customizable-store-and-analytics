@@ -25,8 +25,8 @@
 <script lang="ts" setup>
   import { ref, onMounted, onBeforeUnmount } from 'vue';
 
-  import UiIconButton from './ui-icon-button.component.vue';
-  import UiLanguage from '../shared/ui-language.component.vue';
+  import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
+  import UiLanguage from '@/components/shared/ui-language.component.vue';
 
   const baseClass = 'ui-aside';
 

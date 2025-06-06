@@ -6,7 +6,7 @@
       <span :class="{ [`${baseClass}__placeholder`]: !selectedOption || selectedOption === 'all by default' }">
         {{ capitalizeSentence(selectedOption ?? placeholder) }}
       </span>
-      <UiIcon size="small"  :class="`${baseClass}__icon`" :src="require(`../../assets/media/icons/arrow.svg`)" />
+      <UiIcon size="small"  :class="`${baseClass}__icon`" :src="require(`@/assets/media/icons/arrow.svg`)" />
     </div>
 
     <ul v-if="isOpen" :class="`${baseClass}__dropdown`">
@@ -28,9 +28,9 @@
 
 <script lang="ts" setup>
   import { ref, computed, PropType, onMounted, onBeforeUnmount } from 'vue';
-  import { useTextTransform } from '../../composables';
+  import { useTextTransform } from '@/composables';
 
-  import UiIcon from './ui-icon.component.vue';
+  import UiIcon from '@/components/shared/ui-icon.component.vue';
 
   const baseClass = 'ui-select';
 

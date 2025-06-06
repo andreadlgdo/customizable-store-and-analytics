@@ -36,9 +36,9 @@
 <script lang="ts" setup>
   import { PropType, ref, watch } from 'vue';
 
-  import { useTextTransform } from '../../composables';
+  import { useTextTransform } from '@/composables';
 
-  import UiIconButton from './ui-icon-button.component.vue';
+  import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
 
   interface Item {
     id: number;
@@ -47,6 +47,7 @@
     subItem?: Item[];
     image?: string;
     icon?: string;
+    isExpand?: boolean;
   }
 
   const baseClass = 'list-items';

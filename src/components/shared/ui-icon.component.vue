@@ -5,7 +5,7 @@
 <script lang="ts" setup>
   import { ref, onMounted, watch, PropType } from 'vue';
 
-  import { SizeType } from '../../types';
+  import { SizeType } from '@/types';
 
   const baseClass = 'ui-icon';
 

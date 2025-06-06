@@ -76,7 +76,7 @@
 <script lang="ts" setup>
   import { PropType, ref, computed } from 'vue';
 
-  import UiIconButton from '../shared/ui-icon-button.component.vue';
+  import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
 
   interface Column {
     id: string;

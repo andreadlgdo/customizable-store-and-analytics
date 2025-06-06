@@ -11,15 +11,15 @@
     <textarea v-else v-model="query" :placeholder="placeholder" :class="`${baseClass}__input ${baseClass}__textarea`"></textarea>
     <p v-if="error" :class="`${baseClass}__text ${baseClass}__text--error`">{{ error }}</p>
     <p v-if="info" :class="`${baseClass}__text ${baseClass}__text--info`" >
-      <ui-icon :src="require(`../../assets/media/icons/info.svg`)" size="small"></ui-icon>{{ info }}</p>
+      <ui-icon :src="require(`@/assets/media/icons/info.svg`)" size="small"></ui-icon>{{ info }}</p>
   </div>
 </template>
 
 <script lang="ts" setup>
   import { ref, watch } from 'vue';
 
-  import { useTextTransform } from '../../composables';
-  import UiIcon from './ui-icon.component.vue';
+  import { useTextTransform } from '@/composables';
+  import UiIcon from '@/components/shared/ui-icon.component.vue';
   const baseClass = 'ui-textbox';
 
   const { capitalizeSentence } = useTextTransform();

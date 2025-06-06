@@ -14,7 +14,7 @@
 <script lang="ts" setup>
 import { defineProps, defineEmits } from 'vue';
 
-import UiTextbox from './ui-textbox.component.vue';
+import UiTextbox from '@/components/shared/ui-textbox.component.vue';
 
 const baseClass = 'ui-color-picker';
 

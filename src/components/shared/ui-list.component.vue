@@ -21,7 +21,7 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import UiIcon from './ui-icon.component.vue';
+  import UiIcon from '@/components/shared/ui-icon.component.vue';
 
   interface Item {
     id: number;

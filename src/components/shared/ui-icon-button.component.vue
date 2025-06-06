@@ -14,11 +14,11 @@
 <script lang="ts" setup>
   import { PropType, ref } from 'vue';
 
-  import { SizeType } from '../../types';
+  import { SizeType } from '@/types';
 
-  import { BaseTooltip } from '../inputs';
+  import { BaseTooltip } from '@/components/inputs';
 
-  import UiIcon from './ui-icon.component.vue';
+  import UiIcon from '@/components/shared/ui-icon.component.vue';
 
   const baseClass = 'ui-icon-button';
 

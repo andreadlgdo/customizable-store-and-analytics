@@ -23,8 +23,8 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
 
-  import UiTextbox from './ui-textbox.component.vue';
-  import UiPill from './ui-pill.component.vue';
+  import UiTextbox from '@/components/shared/ui-textbox.component.vue';
+  import UiPill from '@/components/shared/ui-pill.component.vue';
 
   const baseClass = 'ui-password';
 

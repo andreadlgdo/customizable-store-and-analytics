@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
   import { PropType } from 'vue';
-  import { SizeType } from '../../types';
+  import { SizeType } from '@/types';
 
   const baseClass = 'ui-pill';
 
