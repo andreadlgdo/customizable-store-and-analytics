@@ -21,10 +21,10 @@
 <script lang="ts" setup>
   import { PropType } from 'vue';
 
-  import { useTextTransform } from '../composables';
-  import { ColorType, PositionType, TextTagType } from '../types';
+  import { useTextTransform } from '@/composables';
+  import { ColorType, PositionType, TextTagType } from '@/types';
 
-  import BaseText from './base-text.component.vue';
+  import BaseText from '@/components/base-text.component.vue';
 
   const baseClass = 'base-pìll';
 
