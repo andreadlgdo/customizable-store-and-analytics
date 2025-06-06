@@ -70,12 +70,12 @@
 <script lang="ts" setup>
 import { computed, ref, onMounted } from 'vue';
 
-import { useCategories, useProducts } from '../../composables';
+import { useCategories, useProducts } from '@/composables';
 
-import UiAside from '../shared/ui-aside.component.vue';
-import UiButton from '../shared/ui-button.component.vue';
-import UiCheckbox from '../shared/ui-checkbox.component.vue';
-import UiSelect from '../shared/ui-select.component.vue';
+import UiAside from '@/components/shared/ui-aside.component.vue';
+import UiButton from '@/components/shared/ui-button.component.vue';
+import UiCheckbox from '@/components/shared/ui-checkbox.component.vue';
+import UiSelect from '@/components/shared/ui-select.component.vue';
 
 const props = defineProps({
     isOpen: Boolean,
