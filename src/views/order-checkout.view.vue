@@ -78,12 +78,12 @@
   import UiIconButton from '../components/shared/ui-icon-button.component.vue';
   import UiAside from '../components/shared/ui-aside.component.vue';
   import UiProductShoppingCard from '../components/products/ui-product-shopping-card.component.vue';
-  import UiLabelLegend from '../components/shared/order/ui-label-legend.component.vue';
-  import OrderPersonalData from '../components/shared/order/order-personal-data.component.vue';
-  import OrderShipping from '../components/shared/order/order-shipping.component.vue';
-  import OrderPayment from '../components/shared/order/order-payment.component.vue';
-  import OrderSummary from '../components/shared/order/order-summary.component.vue';
-  import OrderCompleted from '../components/shared/order/order-completed.component.vue';
+  import UiLabelLegend from '../components/order/ui-label-legend.component.vue';
+  import OrderPersonalData from '../components/order/order-personal-data.component.vue';
+  import OrderShipping from '../components/order/order-shipping.component.vue';
+  import OrderPayment from '../components/order/order-payment.component.vue';
+  import OrderSummary from '../components/order/order-summary.component.vue';
+  import OrderCompleted from '../components/order/order-completed.component.vue';
 
   import { useCart, useUsers } from '../composables';
   import { Address, Order, ProductOrder, ProductStock } from '../interfaces';
