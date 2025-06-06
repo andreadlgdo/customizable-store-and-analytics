@@ -3,12 +3,12 @@ import { useRouter } from 'vue-router';
 
 import { MenuItem } from '../interfaces';
 
-import { useCurrentUser } from './use-current-user';
+import { useUsers } from './use-users';
 
 export function useUserMenu() {
   const { t } = useI18n();
 
-  const { user } = useCurrentUser();
+  const { user } = useUsers();
 
   const router = useRouter();
 

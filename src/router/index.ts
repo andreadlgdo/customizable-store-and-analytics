@@ -19,7 +19,7 @@ import UserCart from '../views/dashboard/user-cart.view.vue';
 import Analytics from '../views/dashboard/analytics-dashboard.view.vue';
 import UserWhistList from '../views/dashboard/user-whist-list.view.vue';
 
-import { useCurrentUser } from '../composables';
+import { useUsers } from '../composables';
 
 // Public routes
 const publicRoutes = [
@@ -104,7 +104,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
-    const { user } = useCurrentUser();
+    const { user } = useUsers();
     if (!user.value) {
       next({ name: 'Home' });
     } else {

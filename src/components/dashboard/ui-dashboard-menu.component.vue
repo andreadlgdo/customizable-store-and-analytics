@@ -8,9 +8,9 @@
   >
     <div v-if="!isCollapsed" :class="`${baseClass}__user`">
       <p :class="`${baseClass}__text ${baseClass}__text--name`">
-        {{ user.name + ' ' + user.surname }}
+        {{ user?.name + ' ' + user?.surname }}
       </p>
-      <p :class="`${baseClass}__text ${baseClass}__text--email`">{{ user.email }}</p>
+      <p :class="`${baseClass}__text ${baseClass}__text--email`">{{ user?.email }}</p>
     </div>
     <UiList
       @click="clickItem"
@@ -28,13 +28,13 @@
   import UiAside from '../shared/ui-aside.component.vue';
   import UiList from '../shared/ui-list.component.vue';
 
-  import { useCurrentUser, useUserMenu } from '../../composables';
+  import { useUsers, useUserMenu } from '../../composables';
   import { MenuItem } from '../../interfaces';
 
   const baseClass = 'ui-dashboard-menu';
 
   const { menuElements } = useUserMenu();
-  const { user } = useCurrentUser();
+  const { user } = useUsers();
 
   const router = useRouter();
 
