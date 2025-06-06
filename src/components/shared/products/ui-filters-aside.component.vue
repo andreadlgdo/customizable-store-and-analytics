@@ -68,7 +68,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, onMounted, watch } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 
 import { useCategories, useProducts } from '../../../composables';
 
@@ -100,23 +100,25 @@ const parentCategory = ref<string>('');
 const childrenCategory = ref<string>('');
 const showDiscountedProducts = ref<boolean>(false);
 const showAvailableProducts = ref<boolean>(false);
-const minPrice = ref<number>(0);
-const maxPrice = ref<number>(0);
 
 const orderOptions = ref([
   { label: 'Orden descendente', value: 'desc', selected: false },
   { label: 'Orden ascendente', value: 'asc', selected: false }
 ]);
 
-const priceRange = computed(() => 
-    priceRangeList.value.map(price => ({
+const priceState = ref({
+    min: 0,
+    max: 0,
+    selectedIndex: -1
+});
+
+const priceOptions = computed(() => 
+    priceRangeList.value.map((price, index) => ({
         min: price.min,
         max: price.max,
-        selected: false
+        selected: index === priceState.value.selectedIndex
     }))
 );
-
-const priceOptions = ref(priceRange.value);
 
 const orderSelected = computed(() => orderOptions.value.find(order => order.selected)?.value ?? '');
 
@@ -152,36 +154,50 @@ const selectOrder = (value: string) => {
     orderOptions.value.forEach(order => {
         order.selected = order.value === value ? !order.selected : false;
     });
-    emit('applyFilters', selectedCategory.value, orderSelected.value,  showDiscountedProducts.value, showAvailableProducts.value, minPrice.value, maxPrice.value);
+    applyFilters();
 };
 
 const selectCategory = async (value: string) => {
     parentCategory.value = value === 'all by default' ? '' : value;
-    emit('applyFilters', parentCategory.value, orderSelected.value,  showDiscountedProducts.value, showAvailableProducts.value, minPrice.value, maxPrice.value);
+    applyFilters(parentCategory.value);
 };
 
 const selectSubcategory = async (value: string) => {
     childrenCategory.value = value === 'all by default' ? '' : value;
-    emit('applyFilters', childrenCategory.value, orderSelected.value,  showDiscountedProducts.value, showAvailableProducts.value, minPrice.value, maxPrice.value);
+    applyFilters(childrenCategory.value);
 };
 
 const selectPriceRange = (index: number) => {
-    minPrice.value = priceOptions.value[index].min;
-    maxPrice.value = priceOptions.value[index].max;
-    priceOptions.value.forEach((price, i) => {
-        price.selected = i === index ? !price.selected : false;
-    });
-    emit('applyFilters', selectedCategory.value, orderSelected.value,  showDiscountedProducts.value, showAvailableProducts.value, minPrice.value, maxPrice.value);
+    const isAlreadySelected = priceState.value.selectedIndex === index;
+    
+    priceState.value = {
+        min: isAlreadySelected ? 0 : priceOptions.value[index].min,
+        max: isAlreadySelected ? 0 : priceOptions.value[index].max,
+        selectedIndex: isAlreadySelected ? -1 : index
+    };
+
+    applyFilters();
 };
 
 const selectDiscountedProducts = () => {
     showDiscountedProducts.value = !showDiscountedProducts.value;
-    emit('applyFilters', selectedCategory.value, orderSelected.value, showDiscountedProducts.value, showAvailableProducts.value, minPrice.value, maxPrice.value);
+    applyFilters();
 };
 
 const selectAvailableProducts = () => {
     showAvailableProducts.value = !showAvailableProducts.value;
-    emit('applyFilters', selectedCategory.value, orderSelected.value, showDiscountedProducts.value, showAvailableProducts.value, minPrice.value, maxPrice.value);
+    applyFilters();
+};
+
+const applyFilters = (specificCategory?: string) => {
+    emit('applyFilters', 
+        specificCategory ?? selectedCategory.value, 
+        orderSelected.value, 
+        showDiscountedProducts.value, 
+        showAvailableProducts.value, 
+        priceState.value.min, 
+        priceState.value.max
+    );
 };
 
 const cleanFilters = () => {
@@ -189,20 +205,16 @@ const cleanFilters = () => {
     childrenCategory.value = '';
     showDiscountedProducts.value = false;
     showAvailableProducts.value = false;
-    minPrice.value = 0;
-    maxPrice.value = 0;
-    priceOptions.value.forEach(price => {
-        price.selected = false;
-    });
+    priceState.value = {
+        min: 0,
+        max: 0,
+        selectedIndex: -1
+    };
     orderOptions.value.forEach(order => {
         order.selected = false;
     });
     emit('cleanFilters');
 };
-
-watch(priceRangeList, () => {
-    priceOptions.value = priceRange.value;
-});
 
 onMounted(async () => {
     await loadCategories();
