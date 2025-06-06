@@ -10,7 +10,7 @@
     <div :class="`${baseClass}__content`">
       <div v-if="isSubmenuOpen" @click="isSubmenuOpen = false" :class="`${baseClass}__action`">
         <UiIcon
-          :src="require(`../../../assets/media/icons/go-to.svg`)"
+          :src="require(`../../assets/media/icons/go-to.svg`)"
           :class="`${baseClass}__icon`"
           size="small"
         />

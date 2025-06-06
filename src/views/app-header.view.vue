@@ -39,11 +39,11 @@
   import { ref } from 'vue';
 
   import UiHeader from '../components/shared/ui-header.component.vue';
-  import UiUserMenu from '../components/shared/menu/ui-user-menu.component.vue';
-  import UiMenu from '../components/shared/menu/ui-menu.component.vue';
-  import UiUserRegister from '../components/shared/menu/ui-user-register.component.vue';
-  import UiWhistList from '../components/shared/menu/ui-whist-list.component.vue';
-  import UiShoppingCart from '../components/shared/menu/ui-shopping-cart.component.vue';
+  import UiUserMenu from '../components/menu/ui-user-menu.component.vue';
+  import UiMenu from '../components/menu/ui-menu.component.vue';
+  import UiUserRegister from '../components/menu/ui-user-register.component.vue';
+  import UiWhistList from '../components/menu/ui-whist-list.component.vue';
+  import UiShoppingCart from '../components/menu/ui-shopping-cart.component.vue';
 
   import { useUsers } from '../composables';
   import { User } from '../interfaces';
@@ -63,7 +63,9 @@
     'updateMenu',
     'updateUserMenu',
     'updateWhistList',
-    'updateShoppingCart'
+    'updateShoppingCart',
+    'addToCart',
+    'selectFavourite'
   ]);
 
   const invalidCredentials = ref('');
