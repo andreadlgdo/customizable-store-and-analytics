@@ -82,7 +82,7 @@ import Header from './app-header.view.vue';
 import { Product } from '@/interfaces';
 import { productService } from '@/services';
 import { useProducts, useUsers } from '@/composables';
-import UiProductDetailsModal from '@/components/shared/products/ui-product-details-modal.component.vue';
+import UiProductDetailsModal from '@/components/products/ui-product-details-modal.component.vue';
 
 
 const baseClass = 'about-us';

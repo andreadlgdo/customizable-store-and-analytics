@@ -83,14 +83,14 @@
   import { PropType, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { useCart } from '../../../composables';
-  import { Product } from '../../../interfaces';
+  import { useCart } from '../../composables';
+  import { Product } from '../../interfaces';
 
-  import UiModal from '../ui-modal.component.vue';
-  import UiImage from '../ui-image.component.vue';
-  import UiSelect from '../ui-select.component.vue';
-  import UiIconButton from '../ui-icon-button.component.vue';
-  import UiButton from '../ui-button.component.vue';
+  import UiModal from '../shared/ui-modal.component.vue';
+  import UiImage from '../shared/ui-image.component.vue';
+  import UiSelect from '../shared/ui-select.component.vue';
+  import UiIconButton from '../shared/ui-icon-button.component.vue';
+  import UiButton from '../shared/ui-button.component.vue';
 
   const baseClass = 'ui-product-details-modal';
 

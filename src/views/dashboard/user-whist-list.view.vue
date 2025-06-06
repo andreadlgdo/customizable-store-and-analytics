@@ -42,7 +42,7 @@
   import { onMounted, ref } from 'vue';
   import { useRouter } from 'vue-router';
 
-  import UiProductDetailsModal from '../../components/shared/products/ui-product-details-modal.component.vue';
+  import UiProductDetailsModal from '../../components/products/ui-product-details-modal.component.vue';
   import UiImage from '../../components/shared/ui-image.component.vue';
   import UiIconButton from '../../components/shared/ui-icon-button.component.vue';
   import UiButton from '../../components/shared/ui-button.component.vue';

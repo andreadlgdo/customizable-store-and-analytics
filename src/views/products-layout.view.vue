@@ -68,9 +68,9 @@
   import { useProducts, useUsers } from '../composables';
 
   import UiButton from '../components/shared/ui-button.component.vue';
-  import UiFiltersAside from '../components/shared/products/ui-filters-aside.component.vue';
-  import UiProductCard from '../components/shared/products/ui-product-card.component.vue';
-  import UiProductDetailsModal from '../components/shared/products/ui-product-details-modal.component.vue';
+  import UiFiltersAside from '../components/products/ui-filters-aside.component.vue';
+  import UiProductCard from '../components/products/ui-product-card.component.vue';
+  import UiProductDetailsModal from '../components/products/ui-product-details-modal.component.vue';
   import UiLoading from '../components/shared/ui-loading.component.vue';
 
   import Header from './app-header.view.vue';

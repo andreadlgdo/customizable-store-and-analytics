@@ -34,7 +34,7 @@
 <script lang="ts" setup>
   import { ref, onMounted } from 'vue';
 
-  import UiProductDetailsModal from '../components/shared/products/ui-product-details-modal.component.vue';
+  import UiProductDetailsModal from '../components/products/ui-product-details-modal.component.vue';
   import UiContactForm from '../components/contact-us/ui-contact-form.component.vue';
   import UiContactMethods from '../components/contact-us/ui-contact-methods.component.vue';
 

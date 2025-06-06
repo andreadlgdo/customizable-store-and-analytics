@@ -44,12 +44,12 @@
   import { computed, PropType, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { useUsers } from '../../../composables';
-  import { Product } from '../../../interfaces';
+  import { useUsers } from '../../composables';
+  import { Product } from '../../interfaces';
 
-  import UiButton from '../ui-button.component.vue';
-  import UiImage from '../ui-image.component.vue';
-  import UiIconButton from '../ui-icon-button.component.vue';
+  import UiButton from '../shared/ui-button.component.vue';
+  import UiImage from '../shared/ui-image.component.vue';
+  import UiIconButton from '../shared/ui-icon-button.component.vue';
 
   const baseClass = 'ui-product-cart';
 

@@ -40,12 +40,12 @@
   import { onMounted, PropType, ref, watch } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { Product, ProductOrder } from '../../../interfaces';
-  import { customService, productService } from '../../../services';
+  import { useUsers } from '../../composables';
+  import { Product, ProductOrder } from '../../interfaces';
+  import { customService, productService } from '../../services';
 
-  import UiIconButton from '../ui-icon-button.component.vue';
-  import UiImage from '../ui-image.component.vue';
-  import { useUsers } from '@/composables';
+  import UiIconButton from '../shared/ui-icon-button.component.vue';
+  import UiImage from '../shared/ui-image.component.vue';
 
   const baseClass = 'ui-product-shopping-card';
 

@@ -77,7 +77,7 @@
 
   import UiIconButton from '../components/shared/ui-icon-button.component.vue';
   import UiAside from '../components/shared/ui-aside.component.vue';
-  import UiProductShoppingCard from '../components/shared/products/ui-product-shopping-card.component.vue';
+  import UiProductShoppingCard from '../components/products/ui-product-shopping-card.component.vue';
   import UiLabelLegend from '../components/shared/order/ui-label-legend.component.vue';
   import OrderPersonalData from '../components/shared/order/order-personal-data.component.vue';
   import OrderShipping from '../components/shared/order/order-shipping.component.vue';

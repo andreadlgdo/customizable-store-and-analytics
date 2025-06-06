@@ -34,7 +34,7 @@
   import { useCart } from '../../../composables';
   import { customService } from '../../../services';
 
-  import UiProductShoppingCard from '../products/ui-product-shopping-card.component.vue';
+  import UiProductShoppingCard from '../../products/ui-product-shopping-card.component.vue';
 
   import UiAside from '../ui-aside.component.vue';
   import UiButton from '../ui-button.component.vue';

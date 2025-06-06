@@ -39,7 +39,7 @@
 import { CartAsideCustom } from '../../../../types/cart.type';
 import { ProductOrder } from '../../../../interfaces';
 
-import UiProductShoppingCard from '../../../shared/products/ui-product-shopping-card.component.vue';
+import UiProductShoppingCard from '../../../products/ui-product-shopping-card.component.vue';
 
 import UiButton from '../../../shared/ui-button.component.vue';
 

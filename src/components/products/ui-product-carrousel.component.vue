@@ -17,10 +17,10 @@
 <script lang="ts" setup>
 import { PropType } from 'vue';
 
-import { Product } from '../../../interfaces';
+import { Product } from '../../interfaces';
 
-import UiIconButton from '../ui-icon-button.component.vue';
-import UiImage from '../ui-image.component.vue';
+import UiIconButton from '../shared/ui-icon-button.component.vue';
+import UiImage from '../shared/ui-image.component.vue';
 
 const baseClass = 'ui-product-carrousel';
 

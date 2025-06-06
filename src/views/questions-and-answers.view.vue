@@ -50,7 +50,7 @@ import { ref } from 'vue';
   import { Product } from '@/interfaces';
   import { productService } from '@/services';
   import { useProducts, useUsers } from '@/composables';
-  import UiProductDetailsModal from '@/components/shared/products/ui-product-details-modal.component.vue';
+  import UiProductDetailsModal from '@/components/products/ui-product-details-modal.component.vue';
   import UiHierarchicalList from '@/components/shared/ui-hierarchical-list.component.vue';
 
   const baseClass = 'questions-and-answers';

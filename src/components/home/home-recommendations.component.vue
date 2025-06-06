@@ -15,7 +15,7 @@ import { computed } from 'vue';
 
 import { Product } from '../../interfaces';
 
-import UiProductCarrousel from '../shared/products/ui-product-carrousel.component.vue';
+import UiProductCarrousel from '../products/ui-product-carrousel.component.vue';
 
 const baseClass = 'home-recommendations';
 
