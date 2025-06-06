@@ -68,15 +68,15 @@
   import { computed, onMounted, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import UiAddress from '../../dashboard/personal-data/ui-address.component.vue';
+  import UiAddress from '@/components/dashboard/personal-data/ui-address.component.vue';
 
-  import { useUsers } from '../../../composables';
-  import { Address } from '../../../interfaces';
-  import { addressService } from '../../../services';
+  import { useUsers } from '@/composables';
+  import { Address } from '@/interfaces';
+  import { addressService } from '@/services';
 
-  import UiButton from '../ui-button.component.vue';
-  import UiTextbox from '../ui-textbox.component.vue';
-  import UiToggle from '../ui-toggle.component.vue';
+  import UiButton from '@/components/shared/ui-button.component.vue';
+  import UiTextbox from '@/components/shared/ui-textbox.component.vue';
+  import UiToggle from '@/components/shared/ui-toggle.component.vue';
 
   const baseClass = 'order-shipping';
 

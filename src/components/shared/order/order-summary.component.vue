@@ -46,13 +46,13 @@
   import { PropType } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import UiAddress from '../../dashboard/personal-data/ui-address.component.vue';
+  import UiAddress from '@/components/dashboard/personal-data/ui-address.component.vue';
 
-  import { Address } from '../../../interfaces';
-  import { useUsers } from '../../../composables';
+  import { Address } from '@/interfaces';
+  import { useUsers } from '@/composables';
 
-  import UiButton from '../ui-button.component.vue';
-  import UiTextbox from '../ui-textbox.component.vue';
+  import UiButton from '@/components/shared/ui-button.component.vue';
+  import UiTextbox from '@/components/shared/ui-textbox.component.vue';
 
   const baseClass = 'order-summary';
 

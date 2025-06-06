@@ -22,9 +22,9 @@
   import { useRouter } from 'vue-router';
   import { useI18n } from 'vue-i18n';
 
-  import { useUsers } from '../../../composables';
+  import { useUsers } from '@/composables';
 
-  import UiButton from '../ui-button.component.vue';
+  import UiButton from '@/components/shared/ui-button.component.vue';
 
   const baseClass = 'order-completed';
 

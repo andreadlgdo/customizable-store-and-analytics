@@ -152,16 +152,16 @@
   import { computed, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { useCart, useUsers, useValidations } from '../../../composables';
-  import { Order } from '../../../interfaces';
-  import { orderService } from '../../../services';
+  import { useCart, useUsers, useValidations } from '@/composables';
+  import { Order } from '@/interfaces';
+  import { orderService } from '@/services';
 
-  import UiCheckbox from '../ui-checkbox.component.vue';
-  import UiButton from '../ui-button.component.vue';
-  import UiPassword from '../ui-password.component.vue';
-  import UiTextbox from '../ui-textbox.component.vue';
-  import UiToggle from '../ui-toggle.component.vue';
-  import UiSeparator from '../ui-separator.component.vue';
+  import UiCheckbox from '@/components/shared/ui-checkbox.component.vue';
+  import UiButton from '@/components/shared/ui-button.component.vue';
+  import UiPassword from '@/components/shared/ui-password.component.vue';
+  import UiTextbox from '@/components/shared/ui-textbox.component.vue';
+  import UiToggle from '@/components/shared/ui-toggle.component.vue';
+  import UiSeparator from '@/components/shared/ui-separator.component.vue';
 
   const baseClass = 'order-personal-data';
 

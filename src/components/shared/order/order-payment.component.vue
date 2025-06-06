@@ -60,10 +60,10 @@
   import { computed, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  import { useValidations } from '../../../composables';
+  import { useValidations } from '@/composables';
 
-  import UiButton from '../ui-button.component.vue';
-  import UiTextbox from '../ui-textbox.component.vue';
+  import UiButton from '@/components/shared/ui-button.component.vue';
+  import UiTextbox from '@/components/shared/ui-textbox.component.vue';
 
   const baseClass = 'order-payment';
 
