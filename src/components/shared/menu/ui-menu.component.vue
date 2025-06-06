@@ -31,13 +31,13 @@
   import { useRouter } from 'vue-router';
   import { useI18n } from 'vue-i18n';
 
-  import { useCategories } from '../../../composables';
-  import { MenuItem } from '../../../interfaces';
-  import { generalService } from '../../../services';
+  import { useCategories } from '@/composables';
+  import { MenuItem } from '@/interfaces';
+  import { generalService } from '@/services';
 
-  import UiAside from '../ui-aside.component.vue';
-  import UiIcon from '../ui-icon.component.vue';
-  import UiHierarchicalList from '../ui-hierarchical-list.component.vue';
+  import UiAside from '@/components/shared/ui-aside.component.vue';
+  import UiIcon from '@/components/shared/ui-icon.component.vue';
+  import UiHierarchicalList from '@/components/shared/ui-hierarchical-list.component.vue';
 
   const baseClass = 'ui-menu';
 

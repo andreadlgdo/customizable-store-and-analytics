@@ -25,13 +25,13 @@
 </template>
 
 <script lang="ts" setup>
-  import { useUserMenu, useUsers } from '../../../composables';
-  import { MenuItem } from '../../../interfaces';
+  import { useUserMenu, useUsers } from '@/composables';
+  import { MenuItem } from '@/interfaces';
 
-  import UiAside from '../ui-aside.component.vue';
-  import UiButton from '../ui-button.component.vue';
-  import UiImage from '../ui-image.component.vue';
-  import UiList from '../ui-list.component.vue';
+  import UiAside from '@/components/shared/ui-aside.component.vue';
+  import UiButton from '@/components/shared/ui-button.component.vue';
+  import UiImage from '@/components/shared/ui-image.component.vue';
+  import UiList from '@/components/shared/ui-list.component.vue';
 
   import { useRouter } from 'vue-router';
   import { useI18n } from 'vue-i18n';

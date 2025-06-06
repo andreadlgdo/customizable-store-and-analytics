@@ -31,13 +31,13 @@
   import { onMounted, ref, watch } from 'vue';
   import { useRouter } from 'vue-router';
 
-  import { useCart } from '../../../composables';
-  import { customService } from '../../../services';
+  import { useCart } from '@/composables';
+  import { customService } from '@/services';
 
-  import UiProductShoppingCard from '../../products/ui-product-shopping-card.component.vue';
+  import UiProductShoppingCard from '@/components/products/ui-product-shopping-card.component.vue';
 
-  import UiAside from '../ui-aside.component.vue';
-  import UiButton from '../ui-button.component.vue';
+  import UiAside from '@/components/shared/ui-aside.component.vue';
+  import UiButton from '@/components/shared/ui-button.component.vue';
 
   const baseClass = 'ui-shopping-cart';
 

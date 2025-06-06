@@ -39,14 +39,14 @@
   import { useRouter } from 'vue-router';
   import { useI18n } from 'vue-i18n';
 
-  import { useUsers } from '../../../composables';
-  import { Product } from '../../../interfaces';
-  import { productService } from '../../../services';
+  import { useUsers } from '@/composables';
+  import { Product } from '@/interfaces';
+  import { productService } from '@/services';
 
-  import UiAside from '../ui-aside.component.vue';
-  import UiImage from '../ui-image.component.vue';
-  import UiIconButton from '../ui-icon-button.component.vue';
-  import UiButton from '../ui-button.component.vue';
+  import UiAside from '@/components/shared/ui-aside.component.vue';
+  import UiImage from '@/components/shared/ui-image.component.vue';
+  import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
+  import UiButton from '@/components/shared/ui-button.component.vue';
 
   const baseClass = 'ui-whist-list';
 

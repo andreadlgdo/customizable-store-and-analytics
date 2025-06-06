@@ -76,16 +76,16 @@
 import { computed, ref, watch, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { FormErrors, FormData, UserRegisterCustom } from '../../../types/user-register.type';
-import { useValidations } from '../../../composables';
-import { customService } from '../../../services';
+import { FormErrors, FormData, UserRegisterCustom } from '@/types/user-register.type';
+import { useValidations } from '@/composables';
+import { customService } from '@/services';
 
-import UiAside from '../ui-aside.component.vue';
-import UiButton from '../ui-button.component.vue';
-import UiCheckbox from '../ui-checkbox.component.vue';
-import UiTextbox from '../ui-textbox.component.vue';
-import UiPassword from '../ui-password.component.vue';
-import UiToggle, { ToggleOption } from '../ui-toggle.component.vue';
+import UiAside from '@/components/shared/ui-aside.component.vue';
+import UiButton from '@/components/shared/ui-button.component.vue';
+import UiCheckbox from '@/components/shared/ui-checkbox.component.vue';
+import UiTextbox from '@/components/shared/ui-textbox.component.vue';
+import UiPassword from '@/components/shared/ui-password.component.vue';
+import UiToggle, { ToggleOption } from '@/components/shared/ui-toggle.component.vue';
 
 const baseClass = 'ui-user-register';
 const { validEmail } = useValidations();
