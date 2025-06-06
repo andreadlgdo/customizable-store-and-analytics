@@ -1,5 +1,4 @@
 export * from './header';
-export * from './icons';
 export * from './inputs';
 
 export { default as BasePill } from './base-pill.component.vue';
