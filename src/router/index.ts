@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import AboutUs from '../views/about-us.view.vue';
 import ContactUs from '../views/contact-us.view.vue';
 import Home from '../views/app-home.view.vue';
-import Products from '../views/products-layout.view.vue';
+import ProductsLayout from '../views/products/products-layout.view.vue';
 import QuestionsAndAnswers from '../views/questions-and-answers.view.vue';
 import TermsAndConditions from '../views/terms-and-conditions.view.vue';
 import OrderCheckout from '../views/order-checkout.view.vue';
@@ -24,7 +24,7 @@ import { useUsers } from '../composables';
 // Public routes
 const publicRoutes = [
   { name: 'Home', path: '/', component: Home },
-  { name: 'Products', path: '/products/:category?', component: Products },
+  { name: 'Products', path: '/products/:category?', component: ProductsLayout },
   { name: 'Contact', path: '/contact', component: ContactUs },
   { name: 'About', path: '/about', component: AboutUs },
   { name: 'Orders', path: '/order', component: OrderCheckout },

@@ -65,15 +65,15 @@
   import { useRoute } from 'vue-router';
   import { useI18n } from 'vue-i18n';
 
-  import { useProducts, useUsers } from '../composables';
+  import { useProducts, useUsers } from '@/composables';
 
-  import UiButton from '../components/shared/ui-button.component.vue';
-  import UiFiltersAside from '../components/products/ui-filters-aside.component.vue';
-  import UiProductCard from '../components/products/ui-product-card.component.vue';
-  import UiProductDetailsModal from '../components/products/ui-product-details-modal.component.vue';
-  import UiLoading from '../components/shared/ui-loading.component.vue';
+  import UiButton from '@/components/shared/ui-button.component.vue';
+  import UiFiltersAside from '@/components/products/ui-filters-aside.component.vue';
+  import UiProductCard from '@/components/products/ui-product-card.component.vue';
+  import UiProductDetailsModal from '@/components/products/ui-product-details-modal.component.vue';
+  import UiLoading from '@/components/shared/ui-loading.component.vue';
 
-  import Header from './app-header.view.vue';
+  import Header from '@/views/app-header.view.vue';
   import { Product } from '@/interfaces';
   import { productService } from '@/services';
 
