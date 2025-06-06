@@ -12,13 +12,22 @@
             @updateShoppingCart="(value) => (isOpenShoppingCart = value)"
             @addToCart="addToCartWhistList"
         />
-        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--main`">
+        <div :class="[
+            `${baseClass}__wrapper ${baseClass}__wrapper--main`,
+            {
+                'open-aside': isOpenUserMenu || isOpenWhistList || isOpenShoppingCart,
+            }
+        ]">
             <UiIconButton 
                 icon="go-to" 
                 :class="`${baseClass}__icon ${baseClass}__icon--arrow`" 
                 @click="router.back()"
             />
-            <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--product`" v-if="productDetails">
+            <div :class="[`${baseClass}__wrapper ${baseClass}__wrapper--product`,
+                {
+                'open-aside': isOpenUserMenu || isOpenWhistList || isOpenShoppingCart,
+            }
+            ]" v-if="productDetails">
                 <div :class="`${baseClass}__image-container`">
                     <UiImage :image="productDetails?.imageUrl" type="semi-round" size="super-large" />
                 </div>
@@ -198,18 +207,27 @@
                 height: calc(100% - 5rem);
                 padding: 3rem;
                 background-color: var(--bg-light);
+                transition: all 0.3s ease;
+                width: 100%;
+
+                &.open-aside {
+                    width: calc(100% - 320px);
+                    margin-right: 320px;
+                }
             }
 
             &--product {
                 display: flex;
                 align-items: flex-start;
                 justify-content: center;
-                max-width: 80%;
-                width: fit-content;
-                width: -webkit-fill-available;;
-                padding: 4rem 8rem;
+                width: 90%;
+                padding: 4rem 6rem;
                 border-radius: 16px;
                 box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+
+                &.open-aside {
+                    padding: 2rem;
+                }
             }
 
             &--info {
