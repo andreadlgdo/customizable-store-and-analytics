@@ -10,12 +10,12 @@
             </h1>
             <div :class="`${baseClass}__body`">
               <div :class="`${baseClass}__content`">
-               <div :class="`${baseClass}__wrapper`">
+               <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--order`">
                     <div 
                       @click="selectOrder(order.value)" 
                       v-for="order in orderOptions" 
                       :key="order.value" 
-                      :class="[`${baseClass}__order-option`,{[`${baseClass}__order-option--selected`]: order.selected}]"
+                      :class="[`${baseClass}__option ${baseClass}__option--order`,{[`${baseClass}__option--selected`]: order.selected}]"
                     >
                         {{ order.label }}
                     </div>
@@ -36,6 +36,17 @@
                     :value="childrenCategory" 
                     show-all-option
                 />
+                <p>Precio</p>
+                <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--price`">
+                    <div 
+                      @click="selectPriceRange(index)"
+                      v-for="(price, index) in priceOptions" 
+                      :key="index"
+                      :class="[`${baseClass}__option ${baseClass}__option--price`,{[`${baseClass}__option--selected`]: price.selected}]"
+                    >
+                        {{ price.min + '€' }} - {{ price.max + '€' }}
+                    </div>
+                </div>
                 <UiCheckbox
                   text="Productos con descuento"
                   :value="showDiscountedProducts"
@@ -57,9 +68,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, onMounted } from 'vue';
+import { computed, ref, onMounted, watch } from 'vue';
 
-import { useCategories } from '../../../composables';
+import { useCategories, useProducts } from '../../../composables';
 
 import UiAside from '../ui-aside.component.vue';
 import UiButton from '../ui-button.component.vue';
@@ -83,16 +94,29 @@ const {
     loadCategories, 
     getChildrenByParent 
 } = useCategories();
+const { priceRange: priceRangeList, loadProducts } = useProducts();
 
 const parentCategory = ref<string>('');
 const childrenCategory = ref<string>('');
 const showDiscountedProducts = ref<boolean>(false);
 const showAvailableProducts = ref<boolean>(false);
+const minPrice = ref<number>(0);
+const maxPrice = ref<number>(0);
 
 const orderOptions = ref([
   { label: 'Orden descendente', value: 'desc', selected: false },
   { label: 'Orden ascendente', value: 'asc', selected: false }
 ]);
+
+const priceRange = computed(() => 
+    priceRangeList.value.map(price => ({
+        min: price.min,
+        max: price.max,
+        selected: false
+    }))
+);
+
+const priceOptions = ref(priceRange.value);
 
 const orderSelected = computed(() => orderOptions.value.find(order => order.selected)?.value ?? '');
 
@@ -128,27 +152,36 @@ const selectOrder = (value: string) => {
     orderOptions.value.forEach(order => {
         order.selected = order.value === value ? !order.selected : false;
     });
-    emit('applyFilters', selectedCategory.value, orderSelected.value,  showDiscountedProducts.value);
+    emit('applyFilters', selectedCategory.value, orderSelected.value,  showDiscountedProducts.value, showAvailableProducts.value, minPrice.value, maxPrice.value);
 };
 
 const selectCategory = async (value: string) => {
     parentCategory.value = value === 'all by default' ? '' : value;
-    emit('applyFilters', parentCategory.value, orderSelected.value,  showDiscountedProducts.value, showAvailableProducts.value);
+    emit('applyFilters', parentCategory.value, orderSelected.value,  showDiscountedProducts.value, showAvailableProducts.value, minPrice.value, maxPrice.value);
 };
 
 const selectSubcategory = async (value: string) => {
     childrenCategory.value = value === 'all by default' ? '' : value;
-    emit('applyFilters', childrenCategory.value, orderSelected.value,  showDiscountedProducts.value, showAvailableProducts.value);
+    emit('applyFilters', childrenCategory.value, orderSelected.value,  showDiscountedProducts.value, showAvailableProducts.value, minPrice.value, maxPrice.value);
+};
+
+const selectPriceRange = (index: number) => {
+    minPrice.value = priceOptions.value[index].min;
+    maxPrice.value = priceOptions.value[index].max;
+    priceOptions.value.forEach((price, i) => {
+        price.selected = i === index ? !price.selected : false;
+    });
+    emit('applyFilters', selectedCategory.value, orderSelected.value,  showDiscountedProducts.value, showAvailableProducts.value, minPrice.value, maxPrice.value);
 };
 
 const selectDiscountedProducts = () => {
     showDiscountedProducts.value = !showDiscountedProducts.value;
-    emit('applyFilters', selectedCategory.value, orderSelected.value, showDiscountedProducts.value, showAvailableProducts.value);
+    emit('applyFilters', selectedCategory.value, orderSelected.value, showDiscountedProducts.value, showAvailableProducts.value, minPrice.value, maxPrice.value);
 };
 
 const selectAvailableProducts = () => {
     showAvailableProducts.value = !showAvailableProducts.value;
-    emit('applyFilters', selectedCategory.value, orderSelected.value, showDiscountedProducts.value, showAvailableProducts.value);
+    emit('applyFilters', selectedCategory.value, orderSelected.value, showDiscountedProducts.value, showAvailableProducts.value, minPrice.value, maxPrice.value);
 };
 
 const cleanFilters = () => {
@@ -156,11 +189,24 @@ const cleanFilters = () => {
     childrenCategory.value = '';
     showDiscountedProducts.value = false;
     showAvailableProducts.value = false;
+    minPrice.value = 0;
+    maxPrice.value = 0;
+    priceOptions.value.forEach(price => {
+        price.selected = false;
+    });
+    orderOptions.value.forEach(order => {
+        order.selected = false;
+    });
     emit('cleanFilters');
 };
 
+watch(priceRangeList, () => {
+    priceOptions.value = priceRange.value;
+});
+
 onMounted(async () => {
     await loadCategories();
+    await loadProducts();
 });
 </script>
 
@@ -170,6 +216,7 @@ onMounted(async () => {
     flex-direction: column;
     height: 100%;
     padding: 2rem;
+    width: 350px;
 
     &__title {
         font-size: 2rem;
@@ -178,9 +225,46 @@ onMounted(async () => {
 
     &__wrapper {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        gap: 1rem;
+
+        &--order {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        &--price {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+    }
+
+    &__option {
+        text-align: center;
+        background: #f5f5f5;
+        transition: background 0.2s;
+        cursor: pointer;
+
+        &--order {
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            width: 100%;
+        }
+
+        &--price {
+            padding: 0.5rem;
+            border-radius: 4px;
+            width: 45%;
+        }
+
+        &:hover {
+            background: rgba(225, 224, 224, 0.843)
+        }
+
+        &--selected {
+            background: var(--color-vibrant-primary) !important;
+        }
     }
 
     &__order-option {
@@ -233,6 +317,28 @@ onMounted(async () => {
     &__button {
       width: 100%;
       height: 3rem;
+    }
+
+    &__price-ranges {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    &__price-range {
+        text-align: center;
+        padding: 0.5rem;
+        border-radius: 4px;
+        background: #f5f5f5;
+        cursor: pointer;
+        transition: background 0.2s;
+        width: 45%;
+
+        &:hover {
+            background: rgba(225, 224, 224, 0.843);
+        }
     }
 }
 </style>

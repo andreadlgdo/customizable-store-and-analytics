@@ -22,7 +22,7 @@
           <p>{{ products.length }} {{ t('products.results') }}</p>
         </div>
         <div>
-          <UiButton @click="isOpenFilters = true" icon="filter" text="Filtros" transparent/>
+          <UiButton v-if="!isOpenFilters" @click="isOpenFilters = true" icon="filter" text="Filtros" transparent/>
           <UiFiltersAside 
             @applyFilters="filterProducts" 
             @close="isOpenFilters = false"
@@ -133,8 +133,8 @@
     isOpenWhistList.value = false;
   };
 
-  const filterProducts = async (category: string, order: string, discounted: boolean, available: boolean) => {
-    await loadProducts({ categories: category ? [category] : [], order: order ?? undefined, discounted: discounted, hasStock: available ? 'true' : undefined});
+  const filterProducts = async (category: string, order: string, discounted: boolean, available: boolean, minPrice: number, maxPrice: number) => {
+    await loadProducts({ categories: category ? [category] : [], order: order ?? undefined, discounted: discounted, hasStock: available ? 'true' : undefined, minPrice: minPrice, maxPrice: maxPrice});
   };
 
   const cleanFilters = async () => {

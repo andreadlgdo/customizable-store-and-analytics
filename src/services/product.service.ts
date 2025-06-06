@@ -6,7 +6,7 @@ const BASE_PATH = `${apiUrl}/api`;
 const PRODUCTS_PATH = `${BASE_PATH}/products`;
 
 export const productService = {
-  getProducts: async (categories?: string[], name?: string, order?: string, discounted?: boolean, hasStock?: string): Promise<Product[]> => {
+  getProducts: async (categories?: string[], name?: string, order?: string, discounted?: boolean, hasStock?: string, minPrice?: number, maxPrice?: number): Promise<Product[]> => {
     const url = new URL(PRODUCTS_PATH);
 
     if (categories?.length) {
@@ -27,6 +27,14 @@ export const productService = {
 
     if (hasStock) {
       url.searchParams.append('hasStock', hasStock.toString());
+    }
+
+    if (minPrice) {
+      url.searchParams.append('minPrice', minPrice.toString());
+    }
+
+    if (maxPrice) {
+      url.searchParams.append('maxPrice', maxPrice.toString());
     }
 
     return fetchData(url.toString(), { method: 'GET' });
