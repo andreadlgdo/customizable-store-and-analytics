@@ -1,5 +1,5 @@
 <template>
-  <button :class="baseClass" @click="$emit('click')">
+  <button :class="baseClass" @click="(event) => $emit('click', event)">
     <UiIcon
       @mouseenter="isHovered = true"
       @mouseleave="isHovered = false"

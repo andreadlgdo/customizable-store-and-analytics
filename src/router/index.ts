@@ -26,7 +26,7 @@ import { useUsers } from '../composables';
 const publicRoutes = [
   { name: 'Home', path: '/', component: Home },
   { name: 'Products', path: '/products/:category?', component: ProductsLayout },
-  { name: 'ProductDetails', path: '/products/:productId', component: ProductDetails },
+  { name: 'ProductDetails', path: '/products/:category?/:productId', component: ProductDetails },
   { name: 'Contact', path: '/contact', component: ContactUs },
   { name: 'About', path: '/about', component: AboutUs },
   { name: 'Orders', path: '/order', component: OrderCheckout },

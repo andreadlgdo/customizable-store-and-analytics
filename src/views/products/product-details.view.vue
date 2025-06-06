@@ -7,7 +7,7 @@
             :opened-shopping-cart="isOpenShoppingCart"
             @updateMenu="(value) => (isOpenMenu = value)"
             @updateUserMenu="(value) => (isOpenUserMenu = value)"
-            @selectFavourite="handleFavouriteSelection"
+            @selectFavourite="loadProducts"
             @updateWhistList="(value) => (isOpenWhistList = value)"
             @updateShoppingCart="(value) => (isOpenShoppingCart = value)"
             @addToCart="addToCartWhistList"
@@ -21,7 +21,7 @@
             <UiIconButton 
                 icon="go-to" 
                 :class="`${baseClass}__icon ${baseClass}__icon--arrow`" 
-                @click="router.back()"
+                @click="goBack"
             />
             <div :class="[`${baseClass}__wrapper ${baseClass}__wrapper--product`,
                 {
@@ -36,8 +36,12 @@
                         <h1 :class="`${baseClass}__title`">{{ productDetails?.name }}</h1>
                         <p :class="`${baseClass}__description`" v-if="productDetails?.description">{{ productDetails?.description }}</p>
                         <div :class="`${baseClass}__price-container`">
-                            <p :class="`${baseClass}__price`">{{ productDetails?.price + '€' }}</p>
-                            <p :class="`${baseClass}__price ${baseClass}__price--discount`" v-if="productDetails?.priceWithDiscount">{{ productDetails?.priceWithDiscount + '€' }}</p>
+                            <p :class="[
+                                    `${baseClass}__text ${baseClass}__text--price`,
+                                    { [`${baseClass}__text--have-discount`]: productDetails?.priceWithDiscount }
+                                ]"
+                            >{{ productDetails?.price + '€' }}</p>
+                            <p :class="`${baseClass}__text ${baseClass}__text--discount`" v-if="productDetails?.priceWithDiscount">{{ productDetails?.priceWithDiscount + '€' }}</p>
                         </div>
                         <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--categories`">
                             <UiPill 
@@ -48,7 +52,7 @@
                                 status="default"
                             />
                         </div>
-                        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--selects`">
+                        <div v-if="haveStock" :class="`${baseClass}__wrapper ${baseClass}__wrapper--selects`">
                             <UiSelect   
                                 v-if="!productDetails?.isUniqueSize"   
                                 @change="selectSize" 
@@ -75,9 +79,11 @@
                                 :value="unit"
                             />
                         </div>
+                        <p v-else :class="`${baseClass}__text ${baseClass}__text--stock`">Out of stock</p>
                     </div>
                     <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--footer`">
-                        <UiButton 
+                        <UiButton
+                            @click="addProductCard"
                             text="Añadir al carrito" 
                             icon="cart" 
                             :class="`${baseClass}__button`"  
@@ -101,7 +107,7 @@
     import { useRoute, useRouter } from 'vue-router';
 
     import Header from '@/views/app-header.view.vue';
-    import { useProducts, useUsers } from '@/composables';
+    import { useCart, useProducts, useUsers } from '@/composables';
     import { Product } from '@/interfaces';
     import UiImage from '@/components/shared/ui-image.component.vue';
     import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
@@ -111,7 +117,8 @@
     import { productService } from '@/services';
 
     const baseClass = 'product-details';
-
+    
+    const { addProduct } = useCart();
     const { loadProducts, findProduct } = useProducts();
     const { user } = useUsers();
     const route = useRoute();
@@ -129,15 +136,23 @@
     const unit = ref('');
     const isFavourite = ref<boolean>(productDetails.value?.isFavouriteUsersIds?.includes(user.value?._id ?? '') ?? false);
 
-    const handleFavouriteSelection = (): void => {
-        loadProducts();
-    };
-
+    const haveStock = computed(() =>
+        productDetails.value?.isUniqueSize
+            ? productDetails.value?.uniqueStock
+            : productDetails.value?.stock?.reduce((acc, stock) => acc + stock.quantity, 0)
+    );
+    
     const addToCartWhistList = (product: Product): void => {
         productDetails.value = product;
         isOpenWhistList.value = false;
     };
 
+    const addProductCard = async () => {
+        await addProduct(productDetails.value!, size.value, unit.value);
+        size.value = '';
+        unit.value = '';
+        isOpenShoppingCart.value = true;
+    };
 
     const selectSize = (value: string) => {
         size.value = value;
@@ -179,6 +194,15 @@
 
         await loadProducts();
         isOpenWhistList.value = true;
+    };
+
+    const goBack = () => {
+        const category = route.params.category as string;
+        if (category) {
+            router.push({ name: 'Products', params: { category: category } });
+        } else {
+            router.back();
+        }
     };
 
     watch(productDetails, () => {
@@ -304,19 +328,6 @@
             margin: 0.5rem 0;
         }
 
-        &__price {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin: 0;
-
-            &--discount {
-                color: var(--text-accent);
-                text-decoration: line-through;
-                font-size: 1.25rem;
-            }
-        }
-
         &__icon {
             width: 48px;
             height: 48px;
@@ -367,6 +378,25 @@
             &:not(:disabled):hover {
                 transform: translateY(-2px);
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+        }
+        
+        &__text {
+            &--price {
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            &--stock,
+            &--discount {
+                font-size: 24px;
+                font-weight: bold;
+                color: var(--color-red);
+            }
+
+            &--have-discount {
+                font-size: 18px;
+                text-decoration: line-through;
             }
         }
     }

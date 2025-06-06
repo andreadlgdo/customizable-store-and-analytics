@@ -1,9 +1,9 @@
 <template>
-  <section :class="baseClass">
+  <section :class="baseClass" @click="$emit('selectProduct', product)">
     <div :class="`${baseClass}__image`">
       <UiImage :image="product.imageUrl" type="square" size="large" />
       <UiIconButton
-        @click="$emit('selectFavourite', !isSelected, product)"
+        @click.prevent.stop="$emit('selectFavourite', !isSelected, product)"
         :icon="isSelected ? 'heartSelected' : 'heart'"
         size="small"
         :class="` ${baseClass}__icon`"
@@ -28,7 +28,7 @@
         </p>
         <UiButton
           v-if="haveStock"
-          @click="$emit('addToCart', product)"
+          @click.prevent.stop="$emit('addToCart', product)"
           icon="cart"
           size="small"
           :text="t('products.card.action')"
@@ -61,7 +61,7 @@
     isFavourite: Boolean
   });
 
-  defineEmits(['selectFavourite', 'addToCart']);
+  defineEmits(['selectProduct','selectFavourite', 'addToCart']);
 
   const { user } = useUsers();
   const { t } = useI18n();
@@ -96,6 +96,7 @@
 <style lang="scss" scoped>
   .ui-product-cart {
     box-shadow: var(--shadow-section);
+    cursor: pointer;
 
     &__image {
       position: relative;

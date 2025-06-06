@@ -1,6 +1,6 @@
 <template>
   <button
-    @click="$emit('click')"
+    @click="(event) => $emit('click', event)"
     :class="[
       baseClass,
       { [`${baseClass}--transparent`]: transparent },

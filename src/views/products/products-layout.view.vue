@@ -52,6 +52,7 @@
             :key="product._id"
             :product="product"
             :is-favourite="isProductFavourite(product)"
+            @selectProduct="p =>router.push(category ? `/products/${category}/${p._id}` : `/products/${p._id}`)"
             @selectFavourite="selectFavourite"
             @addToCart="p => (productDetails = p)"
           />
@@ -76,7 +77,7 @@
 
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 import { useProducts, useUsers } from '@/composables';
@@ -94,6 +95,7 @@ const baseClass = 'products';
 
 const { products, loadProducts } = useProducts();
 const route = useRoute();
+const router = useRouter();
 const { t } = useI18n();
 const { user } = useUsers();
 
