@@ -89,28 +89,47 @@ const emit = defineEmits(['close', 'applyFilters', 'cleanFilters']);
 
 const baseClass = 'ui-filters-aside';
 
+const useFilterState = () => {
+    const parentCategory = ref<string>('');
+    const childrenCategory = ref<string>('');
+    const showDiscountedProducts = ref<boolean>(false);
+    const showAvailableProducts = ref<boolean>(false);
+    const orderOptions = ref([
+        { label: 'Orden descendente', value: 'desc', selected: false },
+        { label: 'Orden ascendente', value: 'asc', selected: false }
+    ]);
+    const priceState = ref({
+        min: 0,
+        max: 0,
+        selectedIndex: -1
+    });
+
+    return {
+        parentCategory,
+        childrenCategory,
+        showDiscountedProducts,
+        showAvailableProducts,
+        orderOptions,
+        priceState
+    };
+};
+
 const { 
     parentCategories: parentCategoriesList, 
     loadCategories, 
     getChildrenByParent 
 } = useCategories();
+
 const { priceRange: priceRangeList, loadProducts } = useProducts();
 
-const parentCategory = ref<string>('');
-const childrenCategory = ref<string>('');
-const showDiscountedProducts = ref<boolean>(false);
-const showAvailableProducts = ref<boolean>(false);
-
-const orderOptions = ref([
-  { label: 'Orden descendente', value: 'desc', selected: false },
-  { label: 'Orden ascendente', value: 'asc', selected: false }
-]);
-
-const priceState = ref({
-    min: 0,
-    max: 0,
-    selectedIndex: -1
-});
+const {
+    parentCategory,
+    childrenCategory,
+    showDiscountedProducts,
+    showAvailableProducts,
+    orderOptions,
+    priceState
+} = useFilterState();
 
 const priceOptions = computed(() => 
     priceRangeList.value.map((price, index) => ({
@@ -169,10 +188,11 @@ const selectSubcategory = async (value: string) => {
 
 const selectPriceRange = (index: number) => {
     const isAlreadySelected = priceState.value.selectedIndex === index;
+    const selectedPrice = priceOptions.value[index];
     
     priceState.value = {
-        min: isAlreadySelected ? 0 : priceOptions.value[index].min,
-        max: isAlreadySelected ? 0 : priceOptions.value[index].max,
+        min: isAlreadySelected ? 0 : selectedPrice.min,
+        max: isAlreadySelected ? 0 : selectedPrice.max,
         selectedIndex: isAlreadySelected ? -1 : index
     };
 
@@ -279,25 +299,6 @@ onMounted(async () => {
         }
     }
 
-    &__order-option {
-        text-align: center;
-        padding: 0.5rem 1.5rem;
-        border-radius: 50px;
-        background: #f5f5f5;
-        font-size: 1rem;
-        transition: background 0.2s;
-        cursor: pointer;
-        width: 100%;
-
-        &:hover {
-            background: rgba(225, 224, 224, 0.843)
-        }
-
-        &--selected {
-            background: var(--color-vibrant-primary) !important;
-        }
-    }
-
     &__body {
         display: flex;
         flex-direction: column;
@@ -329,28 +330,6 @@ onMounted(async () => {
     &__button {
       width: 100%;
       height: 3rem;
-    }
-
-    &__price-ranges {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    &__price-range {
-        text-align: center;
-        padding: 0.5rem;
-        border-radius: 4px;
-        background: #f5f5f5;
-        cursor: pointer;
-        transition: background 0.2s;
-        width: 45%;
-
-        &:hover {
-            background: rgba(225, 224, 224, 0.843);
-        }
     }
 }
 </style>

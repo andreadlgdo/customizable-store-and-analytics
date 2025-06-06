@@ -139,7 +139,7 @@
 
   const cleanFilters = async () => {
     isOpenFilters.value = false;
-    await loadProducts();
+    await loadProducts({ categories: category.value ? [category.value] : [] });
   };
 
   watch(
