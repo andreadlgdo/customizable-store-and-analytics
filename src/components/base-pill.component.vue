@@ -15,13 +15,6 @@
     <base-text :tag="textSize" :class="`${baseClass}__text`">
       {{ capitalizeSentence(text) }}
     </base-text>
-    <icon-button
-      v-if="isRemovable"
-      @click="$emit('remove', text)"
-      :class="`${baseClass}__icon ${baseClass}__icon--close`"
-      icon="close"
-      size="mini"
-    />
   </div>
 </template>
 
@@ -32,7 +25,6 @@
   import { ColorType, PositionType, TextTagType } from '../types';
 
   import BaseText from './base-text.component.vue';
-  import { IconButton, SvgIcon } from './icons';
 
   const baseClass = 'base-pìll';
 
@@ -55,8 +47,7 @@
     iconPosition: {
       type: String as PropType<PositionType>,
       default: 'left'
-    },
-    isRemovable: Boolean
+    }
   });
 
   defineEmits(['remove']);
