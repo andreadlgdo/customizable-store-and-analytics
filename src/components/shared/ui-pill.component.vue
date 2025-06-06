@@ -36,5 +36,10 @@
     &--success {
       background: var(--bg-green);
     }
+
+    &--large {
+      padding: 8px 24px;
+      font-size: 16px;
+    }
   }
 </style>

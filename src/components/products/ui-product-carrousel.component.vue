@@ -7,7 +7,7 @@
         </div>
     </div>
     <div :class="`${baseClass}__carrousel`">
-        <div v-for="product in products" :key="product._id" :class="`${baseClass}__product`">
+        <div @click="router.push(`/products/${product._id}`)" v-for="product in products" :key="product._id" :class="`${baseClass}__product`">
             <UiImage :image="product.imageUrl" type="semi-round" size="large" />
             <p :class="`${baseClass}__text ${baseClass}__text--name`">{{ product.name }}</p>
         </div>
@@ -16,6 +16,7 @@
 
 <script lang="ts" setup>
 import { PropType } from 'vue';
+import { useRouter } from 'vue-router';
 
 import { Product } from '@/interfaces';
 
@@ -31,6 +32,8 @@ defineProps({
     required: true
   }
 });
+
+const router = useRouter();
 </script>
 
 <style lang="scss" scoped>

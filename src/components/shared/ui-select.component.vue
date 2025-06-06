@@ -4,7 +4,7 @@
 
     <div :class="`${baseClass}__selected`" @click="isOpen = !isOpen">
       <span :class="{ [`${baseClass}__placeholder`]: !selectedOption || selectedOption === 'all by default' }">
-        {{ capitalizeSentence(selectedOption ?? placeholder) }}
+        {{ capitalizeSentence(selectedOption === 'all by default' && !showAllOption ? placeholder : selectedOption ?? placeholder) }}
       </span>
       <UiIcon size="small"  :class="`${baseClass}__icon`" :src="require(`@/assets/media/icons/arrow.svg`)" />
     </div>
@@ -46,7 +46,10 @@
       default: () => []
     },
     label: String,
-    placeholder: String,
+    placeholder: {
+      type: String,
+      default: 'Select'
+    },
     disabled: Boolean,
     showAllOption: Boolean
   });

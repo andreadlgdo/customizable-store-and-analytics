@@ -5,6 +5,7 @@ import AboutUs from '../views/about-us.view.vue';
 import ContactUs from '../views/contact-us.view.vue';
 import Home from '../views/app-home.view.vue';
 import ProductsLayout from '../views/products/products-layout.view.vue';
+import ProductDetails from '../views/products/product-details.view.vue';
 import QuestionsAndAnswers from '../views/questions-and-answers.view.vue';
 import TermsAndConditions from '../views/terms-and-conditions.view.vue';
 import OrderCheckout from '../views/order-checkout.view.vue';
@@ -25,6 +26,7 @@ import { useUsers } from '../composables';
 const publicRoutes = [
   { name: 'Home', path: '/', component: Home },
   { name: 'Products', path: '/products/:category?', component: ProductsLayout },
+  { name: 'ProductDetails', path: '/products/:productId', component: ProductDetails },
   { name: 'Contact', path: '/contact', component: ContactUs },
   { name: 'About', path: '/about', component: AboutUs },
   { name: 'Orders', path: '/order', component: OrderCheckout },
