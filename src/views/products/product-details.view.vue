@@ -12,57 +12,69 @@
             @updateShoppingCart="(value) => (isOpenShoppingCart = value)"
             @addToCart="addToCartWhistList"
         />
-        <div :class="`${baseClass}__wrapper`">
+        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--main`">
             <UiIconButton 
                 icon="go-to" 
                 :class="`${baseClass}__icon ${baseClass}__icon--arrow`" 
                 @click="router.back()"
             />
-            <div :class="`${baseClass}__product`" v-if="productDetails">
-                <UiImage :image="productDetails?.imageUrl" size="extra-large" type="semi-round" />
-                <div :class="`${baseClass}__product-info`">
-                    <h1>{{ productDetails?.name }}</h1>
-                    <p v-if="productDetails?.description">{{ productDetails?.description }}</p>
-                    <p>{{ productDetails?.price + '€' }}</p>
-                    <div :class="`${baseClass}__categories`">
-                        <UiPill 
-                            v-for="category in productDetails?.categories" 
-                            :key="category"
-                            :text="category"
-                            size="large"
-                            status="default"
-                        />
+            <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--product`" v-if="productDetails">
+                <div :class="`${baseClass}__image-container`">
+                    <UiImage :image="productDetails?.imageUrl" type="semi-round" size="super-large" />
+                </div>
+                <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--info`">
+                    <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--info-content`">
+                        <h1 :class="`${baseClass}__title`">{{ productDetails?.name }}</h1>
+                        <p :class="`${baseClass}__description`" v-if="productDetails?.description">{{ productDetails?.description }}</p>
+                        <div :class="`${baseClass}__price-container`">
+                            <p :class="`${baseClass}__price`">{{ productDetails?.price + '€' }}</p>
+                            <p :class="`${baseClass}__price ${baseClass}__price--discount`" v-if="productDetails?.priceWithDiscount">{{ productDetails?.priceWithDiscount + '€' }}</p>
+                        </div>
+                        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--categories`">
+                            <UiPill 
+                                v-for="category in productDetails?.categories" 
+                                :key="category"
+                                :text="category"
+                                size="large"
+                                status="default"
+                            />
+                        </div>
+                        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--selects`">
+                            <UiSelect   
+                                v-if="!productDetails?.isUniqueSize"   
+                                @change="selectSize" 
+                                label="Talla"
+                                placeholder="Talla"
+                                :options="productDetails?.stock?.map(s => ({ title: s.size, disabled: !s.quantity }))"
+                                :value="size"
+                            />
+                            <UiSelect  
+                                v-if="!!size || productDetails?.isUniqueSize"
+                                @change="value => (unit = value)"
+                                label="Unidades"
+                                placeholder="Uds."
+                                :options="Array.from(
+                                    {
+                                        length: (productDetails.isUniqueSize
+                                            ? productDetails.uniqueStock
+                                            : productDetails.stock?.find(s => s.size === size)?.quantity) ?? 0
+                                    },
+                                    (_, i) => ({
+                                    title: (i + 1).toString()
+                                    })
+                                )"
+                                :value="unit"
+                            />
+                        </div>
                     </div>
-                    <p v-if="productDetails?.priceWithDiscount">{{ productDetails?.priceWithDiscount + '€' }}</p>
-                    <div :class="`${baseClass}__selects`">
-                        <UiSelect   
-                            v-if="!productDetails?.isUniqueSize"   
-                            @change="value => (size = value)" 
-                            label="Talla"
-                            placeholder="Talla"
-                            :options="productDetails?.stock?.map(s => ({ title: s.size, disabled: !s.quantity }))"
-                            :value="size"
+                    <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--footer`">
+                        <UiButton 
+                            text="Añadir al carrito" 
+                            icon="cart" 
+                            :class="`${baseClass}__button`"  
+                            :disabled="(!productDetails.isUniqueSize || !unit) && (!size || !unit)"
+                            transparent 
                         />
-                        <UiSelect  
-                            v-if="!!size || productDetails?.isUniqueSize"
-                            @change="value => (unit = value)"
-                            label="Unidades"
-                            placeholder="Uds."
-                            :options="Array.from(
-                                {
-                                    length: (productDetails.isUniqueSize
-                                        ? productDetails.uniqueStock
-                                        : productDetails.stock?.find(s => s.size === size)?.quantity) ?? 0
-                                },
-                                (_, i) => ({
-                                   title: (i + 1).toString()
-                                })
-                            )"
-                            :value="unit"
-                        />
-                    </div>
-                    <div :class="`${baseClass}__selects`">
-                        <UiButton text="Añadir al carrito" :class="`${baseClass}__button`" />
                         <UiIconButton
                             @click="selectFavourite"
                             :icon="isFavourite ? 'heartSelected' : 'heart'"
@@ -106,7 +118,7 @@
     const productDetails = ref<Product | undefined>(undefined);
     const size = ref('');
     const unit = ref('');
-    const isFavourite = ref<boolean>(productDetails.value?.isFavouriteUsersIds?.includes(user.id) ?? false);
+    const isFavourite = ref<boolean>(productDetails.value?.isFavouriteUsersIds?.includes(user.value?._id ?? '') ?? false);
 
     const handleFavouriteSelection = (): void => {
         loadProducts();
@@ -117,9 +129,11 @@
         isOpenWhistList.value = false;
     };
 
-    watch(productDetails, () => {
-        isFavourite.value = productDetails.value?.isFavouriteUsersIds?.includes(user.value?._id ?? '') ?? false;
-    });
+
+    const selectSize = (value: string) => {
+        size.value = value;
+        unit.value = '';
+    };
 
     const selectFavourite = async () => {
         if (!productDetails.value?._id) return;
@@ -158,6 +172,10 @@
         isOpenWhistList.value = true;
     };
 
+    watch(productDetails, () => {
+        isFavourite.value = productDetails.value?.isFavouriteUsersIds?.includes(user.value?._id ?? '') ?? false;
+    });
+
     onMounted(async () => {
         await loadProducts();
         productDetails.value = findProduct(productId.value);
@@ -167,45 +185,152 @@
 <style lang="scss" scoped>
     .product-details {
         height: 100%;
+        background-color: var(--bg-white);
 
         &__wrapper {
-            position: relative;
+            display: flex;
+
+            &--main {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: calc(100% - 5rem);
+                padding: 3rem;
+                background-color: var(--bg-light);
+            }
+
+            &--product {
+                display: flex;
+                align-items: flex-start;
+                justify-content: center;
+                max-width: 80%;
+                width: fit-content;
+                width: -webkit-fill-available;;
+                padding: 4rem 8rem;
+                border-radius: 16px;
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            }
+
+            &--info {
+                flex-direction: column;
+                justify-content: space-between;
+                height: auto;
+                min-height: 30rem;
+                flex: 1;
+                max-width: 500px;
+            }
+
+            &--info-content {
+                flex-direction: column;
+            }
+
+            &--categories {
+                flex-wrap: wrap;
+                gap: 0.75rem;
+                margin: 1rem 0;
+            }
+
+            &--selects {
+                gap: 1.5rem;
+                margin-top: 0.5rem;
+            }
+
+            &--footer {
+                gap: 1.5rem;
+                margin-top: 2rem;
+                padding-top: 1.5rem;
+                border-top: 1px solid var(--border-color);
+            }
+        }
+
+        &__image-container {
+            flex: 1;
+            max-width: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: transparent;
+            transition: transform 0.3s ease;
+
+            :deep(img) {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 12px;
+            }
+
+            &:hover {
+                transform: scale(1.02);
+            }
+        }
+
+        &__title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        &__description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        &__price-container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            height: calc(100% - 5rem);
-            padding: 2rem;
+            gap: 1rem;
+            margin: 0.5rem 0;
+        }
+
+        &__price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+
+            &--discount {
+                color: var(--text-accent);
+                text-decoration: line-through;
+                font-size: 1.25rem;
+            }
         }
 
         &__icon {
-            width: 40px;
-            height: 40px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            border: 1px solid #f5f5f5;
+            border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            background-color: var(--bg-white);
 
             &--arrow {
                 position: absolute;
-                top: 20px;
-                left: 40px;
+                top: 2rem;
+                left: 2rem;
                 transform: rotate(180deg);
 
                 &:hover {
-                    background: #f5f5f5;
+                    background: var(--bg-light);
                     box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+                    transform: rotate(180deg) scale(1.1);
                 }
             }
 
             &--heart {
-                padding: 8px;
+                padding: 10px;
                 border-radius: 50px;
 
                 &:hover {
                     background-color: var(--bg-red);
+                    transform: scale(1.1);
                 }
 
                 &--selected {
@@ -214,32 +339,17 @@
             }
         }
 
-        &__product {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        &__product-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        &__categories {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        &__selects {
-            display: flex;
-            gap: 1rem;
-        }
-
         &__button {
             width: 100%;
+            height: 48px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+
+            &:not(:disabled):hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
         }
     }
 </style>

@@ -102,6 +102,13 @@
       }
     }
 
+    &--super-large {
+      #{$baseClass}__image {
+        height: 30rem;
+        width: 24rem;
+      }
+    }
+
     &--round {
       #{$baseClass}__image {
         border-radius: 50%;
