@@ -1,4 +1,3 @@
-export * from './asides';
 export * from './categories';
 export * from './header';
 export * from './icons';
