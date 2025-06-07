@@ -7,15 +7,15 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import UiIconButton from '../../shared/ui-icon-button.component.vue';
+import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
 
-const baseClass = 'ui-header-personalization';
+const baseClass = 'ui-header-dashboard';
 
 const router = useRouter();
 </script>
 
 <style lang="scss" scoped>
-.ui-header-personalization {
+.ui-header-dashboard {
     display: flex;
     align-items: center;
     position: absolute;
