@@ -1,8 +1,8 @@
 <template>
-    <div :class="baseClass">
+    <div v-if="topProducts.length" :class="baseClass">
         <div v-for="(item, index) in topProducts" 
-             :key="item.product._id" 
-             :class="`${baseClass}__card`">
+                :key="item.product._id" 
+                :class="`${baseClass}__card`">
             <div :class="`${baseClass}__rank`">#{{ index + 1 }}</div>
             <div :class="`${baseClass}__content`">
                 <h3 :class="`${baseClass}__text ${baseClass}__text--name`">{{ item.product.name }}</h3>
@@ -10,6 +10,9 @@
                 <div :class="`${baseClass}__text ${baseClass}__text--clicks`">{{ item.viewCount }} Clicks</div>
             </div>
         </div>
+    </div>
+    <div v-else class="no-data-message">
+        No hay datos de productos para mostrar
     </div>
 </template>
 
@@ -28,9 +31,10 @@ const baseClass = 'ui-products-grid';
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
+    height: 100%;
     max-height: 550px;
     overflow-y: auto;
-    padding-right: 0.5rem;
+    padding: 0.5rem;
 
     &__card {
         background: white;
@@ -86,5 +90,16 @@ const baseClass = 'ui-products-grid';
             color: #666;
         }
     }
+}
+
+.no-data-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    color: #666;
+    font-size: 2rem;
+    font-weight: 700;
+    width: 100%;
 }
 </style> 

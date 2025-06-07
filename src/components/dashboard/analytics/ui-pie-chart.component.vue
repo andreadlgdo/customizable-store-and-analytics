@@ -4,6 +4,9 @@
         :data="chartData"
         :options="pieChartOptions"
     />
+    <div v-else class="no-data-message">
+        No hay datos de productos para mostrar
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -56,4 +59,16 @@ const pieChartOptions = {
         }
     }
 };
-</script> 
+</script>
+
+<style scoped>
+.no-data-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    color: #666;
+    font-size: 2rem;
+    font-weight: 700;
+}
+</style> 
