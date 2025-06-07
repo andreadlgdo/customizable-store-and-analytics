@@ -65,8 +65,13 @@ export const useRecommendations = () => {
         return fetchCategories(userId, recommendationService.getFavouriteCategoriesByUserId);
     };
 
+    const getRecommendedProductsByNavigation = (userId: string): Promise<string[]> => {
+        return fetchCategories(userId, recommendationService.getRecommendedProductsByNavigation);
+    };
+
     return {
         getTopOrdersCategories,
-        getTopFavouritesCategories
+        getTopFavouritesCategories,
+        getRecommendedProductsByNavigation
     };
 };

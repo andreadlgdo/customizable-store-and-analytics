@@ -29,14 +29,14 @@
 <script lang="ts" setup>
   import { useRouter } from 'vue-router';
 
-  import UiCartPersonalization from '../../components/dashboard/personalization/shopping-cart/ui-cart-personalization.component.vue';
-  import UiUserRegisterPersonalization from '../../components/dashboard/personalization/user-register/ui-user-register-personalization.component.vue';
-  import UiHomePagePersonalization from '../../components/dashboard/personalization/home-page/ui-home-page-personalization.component.vue';
-  import UiContactUsPersonalization from '../../components/dashboard/personalization/contact-us/ui-contact-us-personalization.component.vue';
+  import UiCartPersonalization from '@/components/dashboard/personalization/shopping-cart/ui-cart-personalization.component.vue';
+  import UiUserRegisterPersonalization from '@/components/dashboard/personalization/user-register/ui-user-register-personalization.component.vue';
+  import UiHomePagePersonalization from '@/components/dashboard/personalization/home-page/ui-home-page-personalization.component.vue';
+  import UiContactUsPersonalization from '@/components/dashboard/personalization/contact-us/ui-contact-us-personalization.component.vue';
 
-  import { useUserMenu } from '../../composables';
+  import { useUserMenu } from '@/composables';
   
-  import Dashboard from './base-dashboard.view.vue';
+  import Dashboard from '@/views/dashboard/base-dashboard.view.vue';
   
   const baseClass = 'personalization';
 
@@ -126,6 +126,13 @@
       transition: all 0.3s ease;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border: 2px solid transparent;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        border-color: var(--color-primary, #007bff);
+      }
     }
 
     &__section-content {

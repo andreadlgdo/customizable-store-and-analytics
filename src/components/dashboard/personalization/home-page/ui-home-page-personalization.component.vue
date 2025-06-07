@@ -56,19 +56,22 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
-import { customService } from '../../../../services';
+import { customService } from '@/services';
+import { HomePageCustom } from '@/types/home-page.types';
 
-import UiColorPicker from '../../../shared/ui-color-picker.component.vue';
-import UiExpandSection from '../../../shared/ui-expand-section.component.vue';
-import UiTextbox from '../../../shared/ui-textbox.component.vue';
+import UiColorPicker from '@/components/shared/ui-color-picker.component.vue';
+import UiExpandSection from '@/components/shared/ui-expand-section.component.vue';
+import UiTextbox from '@/components/shared/ui-textbox.component.vue';
 
-import UiBasePersonalization from '../ui-base-personalization.component.vue';
+import UiBasePersonalization from '@/components/dashboard/personalization/ui-base-personalization.component.vue';
 
-import UiHomePagePreview from './ui-home-page-preview.component.vue';
-import { HomePageCustom } from '../../../../types/home-page.types';
+import UiHomePagePreview from '@/components/dashboard/personalization/home-page/ui-home-page-preview.component.vue';
 
 const baseClass = 'ui-home-page-personalization';
+
+const router = useRouter();
 
 const homePageCustom = ref<HomePageCustom>({
     _id: '',
@@ -101,6 +104,7 @@ const save = async () => {
 const cancel = async () => {
     const response = await customService.getCustom('home');
     homePageCustom.value = response as HomePageCustom;
+    router.push({ name: 'Personalization' })
 }
 
 onMounted(async() => {

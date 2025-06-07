@@ -92,16 +92,16 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 
-import { CartAsideCustom } from '../../../../types/cart.type';
-import { customService } from '../../../../services';
+import { CartAsideCustom } from '@/types/cart.type';
+import { customService } from '@/services';
 
-import UiExpandSection from '../../../shared/ui-expand-section.component.vue';
-import UiTextbox from '../../../shared/ui-textbox.component.vue';
-import UiColorPicker from '../../../shared/ui-color-picker.component.vue';
+import UiExpandSection from '@/components/shared/ui-expand-section.component.vue';
+import UiTextbox from '@/components/shared/ui-textbox.component.vue';
+import UiColorPicker from '@/components/shared/ui-color-picker.component.vue';
 
-import UiBasePersonalization from '../ui-base-personalization.component.vue';
+import UiBasePersonalization from '@/components/dashboard/personalization/ui-base-personalization.component.vue';
 
-import UiCartPreview from './ui-cart-preview.component.vue';
+import UiCartPreview from '@/components/dashboard/personalization/shopping-cart/ui-cart-preview.component.vue';
 
 const baseClass = 'ui-cart-aside-personalization';
 

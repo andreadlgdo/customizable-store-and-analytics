@@ -175,14 +175,14 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
 
-import { UserRegisterCustom } from '../../../../types/user-register.type';
-import { customService } from '../../../../services';
+import { UserRegisterCustom } from '@/types/user-register.type';
+import { customService } from '@/services';
 
-import UiBasePersonalization from '../ui-base-personalization.component.vue';
-import UiColorPicker from '../../../shared/ui-color-picker.component.vue';
-import UiExpandSection from '../../../shared/ui-expand-section.component.vue';
-import UiTextbox from '../../../shared/ui-textbox.component.vue';
-import UiUserRegisterPreview from './ui-user-register-preview.component.vue';
+import UiBasePersonalization from '@/components/dashboard/personalization/ui-base-personalization.component.vue';
+import UiColorPicker from '@/components/shared/ui-color-picker.component.vue';
+import UiExpandSection from '@/components/shared/ui-expand-section.component.vue';
+import UiTextbox from '@/components/shared/ui-textbox.component.vue';
+import UiUserRegisterPreview from '@/components/dashboard/personalization/user-register/ui-user-register-preview.component.vue';
 
 const baseClass = 'ui-user-register-personalization';
 

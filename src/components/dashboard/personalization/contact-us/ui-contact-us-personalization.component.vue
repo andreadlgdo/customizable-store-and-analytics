@@ -98,15 +98,15 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 
-import { customService } from '../../../../services';
+import { customService } from '@/services';
 
-import UiColorPicker from '../../../shared/ui-color-picker.component.vue';
-import UiExpandSection from '../../../shared/ui-expand-section.component.vue';
-import UiTextbox from '../../../shared/ui-textbox.component.vue';
+import UiColorPicker from '@/components/shared/ui-color-picker.component.vue';
+import UiExpandSection from '@/components/shared/ui-expand-section.component.vue';
+import UiTextbox from '@/components/shared/ui-textbox.component.vue';
 
-import UiBasePersonalization from '../ui-base-personalization.component.vue';
+import UiBasePersonalization from '@/components/dashboard/personalization/ui-base-personalization.component.vue';
 
-import UiContactUsPreview from './ui-contact-us-preview.component.vue';
+import UiContactUsPreview from '@/components/dashboard/personalization/contact-us/ui-contact-us-preview.component.vue';
 
 const baseClass = 'ui-contact-us-personalization';
 

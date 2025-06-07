@@ -16,5 +16,11 @@ export const recommendationService = {
         const url = new URL(`${RECOMMENDATION_PATH}/favourites/${userId}`);
         const data = fetchData(url.toString(), { method: 'GET' });
         return data;
+    },
+
+    getRecommendedProductsByNavigation: async (userId: string) => {
+        const url = new URL(`${RECOMMENDATION_PATH}/productViews/${userId}`);
+        const data = fetchData(url.toString(), { method: 'GET' });
+        return data;
     }
 }

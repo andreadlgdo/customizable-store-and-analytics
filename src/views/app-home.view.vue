@@ -35,6 +35,7 @@
     v-if="user"
     :recommended-products-by-orders="recommendedProductsByOrders"
     :recommended-products-by-favourites="recommendedProductsByFavourites"
+    :recommended-products-by-navigation="recommendedProductsByNavigation"
   />
 </template>
 
@@ -56,7 +57,7 @@
 
   const router = useRouter();
   const { user } = useUsers();
-  const { getTopOrdersCategories, getTopFavouritesCategories } = useRecommendations();
+  const { getTopOrdersCategories, getTopFavouritesCategories, getRecommendedProductsByNavigation } = useRecommendations();
   
   const isOpenMenu = ref(false);
   const isOpenUserMenu = ref(false);
@@ -65,8 +66,10 @@
 
   const landingImage = ref();
   const homeCustom = ref();
+
   const recommendedProductsByOrders = ref();
   const recommendedProductsByFavourites = ref();
+  const recommendedProductsByNavigation = ref();
 
   const isLoading = ref(true);
 
@@ -81,9 +84,12 @@
       recommendedProductsByOrders.value = await productService.getCategoriesWithProductCount(topOrdersCategories, 5);
       const topFavouritesCategories = await getTopFavouritesCategories(user.value._id ?? '');
       recommendedProductsByFavourites.value = await productService.getCategoriesWithProductCount(topFavouritesCategories, 5);
+      const topNavigationCategories = await getRecommendedProductsByNavigation(user.value._id ?? '');
+      recommendedProductsByNavigation.value = await productService.getCategoriesWithProductCount(topNavigationCategories, 5);
     } else {
       recommendedProductsByOrders.value = undefined;
       recommendedProductsByFavourites.value = undefined;
+      recommendedProductsByNavigation.value = undefined;
     }
   };
 

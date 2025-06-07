@@ -7,6 +7,9 @@
     <div v-if="recommendedProductsByFavourites?.length">
       <UiProductCarrousel title="Inspirado en tus favoritos" :products="recommendedProductsByFavourites" />
     </div>
+    <div v-if="recommendedProductsByNavigation?.length">
+      <UiProductCarrousel title="Basado en tu actividad reciente" :products="recommendedProductsByNavigation" />
+    </div>
   </div>
 </template>
 
@@ -22,10 +25,11 @@ const baseClass = 'home-recommendations';
 const props = defineProps<{
     recommendedProductsByOrders?: Product[];
     recommendedProductsByFavourites?: Product[];
+    recommendedProductsByNavigation?: Product[];
 }>();
 
 const hasRecommendations = computed(() =>
-  props.recommendedProductsByOrders?.length || props.recommendedProductsByFavourites?.length
+  props.recommendedProductsByOrders?.length || props.recommendedProductsByFavourites?.length || props.recommendedProductsByNavigation?.length
 );
 </script>
 
