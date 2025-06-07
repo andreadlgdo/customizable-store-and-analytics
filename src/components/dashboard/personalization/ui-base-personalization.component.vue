@@ -1,6 +1,6 @@
 <template>
       <div :class="baseClass">
-        <UiHeaderDashboard />
+        <UiHeaderDashboard route="Personalization" />
         <h1 :class="`${baseClass}__title`">{{ title }}</h1>
         <div :class="`${baseClass}__container`">
             <div :class="`${baseClass}__section ${baseClass}__section--one`">

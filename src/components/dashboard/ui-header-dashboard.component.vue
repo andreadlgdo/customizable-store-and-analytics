@@ -1,5 +1,5 @@
 <template>
-     <div @click="router.push({ name: 'Personalization' })" :class="baseClass">
+     <div @click="router.push({ name: route })" :class="baseClass">
         <ui-icon-button icon="go-to" :class="`${baseClass}__icon`"/>
         <p :class="`${baseClass}__text`">Volver al menu</p>
     </div>
@@ -12,6 +12,10 @@ import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
 const baseClass = 'ui-header-dashboard';
 
 const router = useRouter();
+
+defineProps<{
+    route: string;
+}>();
 </script>
 
 <style lang="scss" scoped>

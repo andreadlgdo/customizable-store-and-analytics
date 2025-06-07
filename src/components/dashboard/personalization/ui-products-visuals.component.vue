@@ -1,5 +1,5 @@
 <template>
-    <UiHeaderDashboard />
+    <UiHeaderDashboard route="Personalization" />
     <h1 :class="`${baseClass}__title`">Personalizacion de productos</h1>
     <ui-toggle @click="selectToggle" :options="options" border :class="`${baseClass}__toggle`"/>
 </template>

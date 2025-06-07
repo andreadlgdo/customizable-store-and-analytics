@@ -1,3 +1,4 @@
+export * from './analytics.service';
 export * from './category.service';
 export * from './customTexts.service';
 export * from './general.service';

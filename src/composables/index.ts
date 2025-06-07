@@ -1,3 +1,4 @@
+export * from './use-analytics';
 export * from './use-cart';
 export * from './use-categories';
 export * from './use-products';
