@@ -19,6 +19,7 @@
         </section>
       </div>
       <UiProductsAnalytics v-else-if="action === actions[0]" />
+      <UiProductsByCategoryAnalytics v-else-if="action === actions[1]" />
     </div>
   </dashboard>
 </template>
@@ -29,6 +30,7 @@
   import { useUserMenu } from '@/composables';
   import Dashboard from '@/views/dashboard/base-dashboard.view.vue';
   import UiProductsAnalytics from '@/components/dashboard/analytics/ui-products-analytics.component.vue';
+  import UiProductsByCategoryAnalytics from '@/components/dashboard/analytics/ui-products-by-category-analytics.component.vue';
 
   const baseClass = 'analytics-dashboard';
 
@@ -99,6 +101,7 @@
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0.5rem;
   }
   
   &__section {
