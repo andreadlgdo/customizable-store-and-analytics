@@ -1,6 +1,6 @@
 <template>
       <div :class="baseClass">
-        <UiHeaderPersonalization />
+        <UiHeaderDashboard />
         <h1 :class="`${baseClass}__title`">{{ title }}</h1>
         <div :class="`${baseClass}__container`">
             <div :class="`${baseClass}__section ${baseClass}__section--one`">
@@ -19,8 +19,8 @@
 </template>
 
 <script lang="ts" setup>
-import UiButton from '../../shared/ui-button.component.vue';
-import UiHeaderPersonalization from './ui-header-personalization.component.vue';
+import UiButton from '@/components/shared/ui-button.component.vue';
+import UiHeaderDashboard from '@/components/dashboard/ui-header-dashboard.component.vue';
 
 const baseClass = 'ui-base-personalization';
 

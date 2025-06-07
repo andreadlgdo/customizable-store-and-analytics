@@ -1,5 +1,5 @@
 <template>
-    <UiHeaderPersonalization />
+    <UiHeaderDashboard />
     <h1 :class="`${baseClass}__title`">Personalizacion de productos</h1>
     <ui-toggle @click="selectToggle" :options="options" border :class="`${baseClass}__toggle`"/>
 </template>
@@ -7,9 +7,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import UiToggle from '../../shared/ui-toggle.component.vue';
+import UiToggle from '@/components/shared/ui-toggle.component.vue';
 
-import UiHeaderPersonalization from './ui-header-personalization.component.vue';
+import UiHeaderDashboard from '@/components/dashboard/ui-header-dashboard.component.vue';
 
 const baseClass = 'ui-products-visuals';
 
