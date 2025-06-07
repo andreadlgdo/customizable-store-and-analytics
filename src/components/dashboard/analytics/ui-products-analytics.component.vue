@@ -1,18 +1,16 @@
 <template>
     <UiHeaderDashboard route="Analytics" />
     <div :class="baseClass">
-        <h1 :class="`${baseClass}__title`">10 Productos Más Vistos</h1>
-        <div :class="`${baseClass}__grid`">
-            <div v-for="(item, index) in topProducts" 
-                 :key="item.product._id" 
-                 :class="`${baseClass}__card`">
-                <div :class="`${baseClass}__rank`">#{{ index + 1 }}</div>
-                <div :class="`${baseClass}__content`">
-                    <h3 :class="`${baseClass}__text ${baseClass}__text--name`">{{ item.product.name }}</h3>
-                    <p :class="`${baseClass}__text ${baseClass}__text--id`">{{ item.product._id }}</p>
-                    <div :class="`${baseClass}__text ${baseClass}__text--clicks`">{{ item.viewCount }} Clicks</div>
-                </div>
-            </div>
+        <h1 :class="`${baseClass}__title`">Top 10 productos</h1>
+        <UiToggle @click="selectToggle" :options="toggleOptions" :class="`${baseClass}__toggle`" />
+        <div v-if="toggleOptions[0].selected" :class="`${baseClass}__chart-container`">
+            <UiBarChart :top-products="topProducts" />
+        </div>
+        <div v-else-if="toggleOptions[1].selected" :class="`${baseClass}__chart-container`">
+            <UiPieChart :top-products="topProducts" />
+        </div>
+        <div v-else>
+            <UiProductsGrid :top-products="topProducts" />
         </div>
     </div>
 </template>
@@ -20,8 +18,32 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
 import UiHeaderDashboard from '@/components/dashboard/ui-header-dashboard.component.vue';
+import UiToggle, { ToggleOption } from '@/components/shared/ui-toggle.component.vue';
+import UiBarChart from './ui-bar-chart.component.vue';
+import UiPieChart from './ui-pie-chart.component.vue';
+import UiProductsGrid from './ui-products-grid.component.vue';
 import { useAnalytics } from '@/composables';
 import { TopProduct } from '@/interfaces';
+import {
+    Chart as ChartJS,
+    Title,
+    Tooltip,
+    Legend,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    ArcElement
+} from 'chart.js';
+
+ChartJS.register(
+    Title,
+    Tooltip,
+    Legend,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    ArcElement
+);
 
 const baseClass = 'ui-products-analytics';
 
@@ -29,8 +51,22 @@ const { getTopProducts } = useAnalytics();
 
 const topProducts = ref<TopProduct[]>([]);
 
+const toggleOptions = ref<ToggleOption[]>([
+  { label: 'Barras', selected: true },
+  { label: 'Circular', selected: false },
+  { label: 'Listado', selected: false }
+]);
+
+const selectToggle = (option: ToggleOption) => {
+  toggleOptions.value = toggleOptions.value.map(item => ({
+    ...item,
+    selected: item.label === option.label
+  }));
+};
+
 onMounted(async () => {
-    topProducts.value = await getTopProducts();
+    const products = await getTopProducts();
+    topProducts.value = products.slice(0, 10);
 });
 </script>
 
@@ -46,64 +82,16 @@ onMounted(async () => {
         color: #2c3e50;
     }
 
-    &__grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 1.5rem;
+    &__toggle {
+        margin-bottom: 2rem;
     }
-
-    &__card {
+    
+    &__chart-container {
+        height: 400px;
         background: white;
+        padding: 1rem;
         border-radius: 8px;
-        padding: 1.5rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        display: flex;
-        position: relative;
-        transition: transform 0.2s ease;
-
-        &:hover {
-            transform: translateY(-2px);
-        }
-    }
-
-    &__rank {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: #e8f4fd;
-        color: #3498db;
-        width: 2rem;
-        height: 2rem;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 600;
-        border: 1px solid #bde0fe;
-    }
-
-    &__content {
-        width: 100%;
-    }
-
-    &__text {
-        &--name {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-        }
-
-        &--id {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        &--clicks {
-            font-size: 1.2rem;
-            color: #666;
-        }
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 }
 </style>

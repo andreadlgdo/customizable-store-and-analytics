@@ -94,7 +94,9 @@
   };
 
   watchEffect(async () => {
+    isLoading.value = true;
     await loadRecommendations();
+    isLoading.value = false;
   });
 
   onMounted(async () => {

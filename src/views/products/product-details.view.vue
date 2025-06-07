@@ -1,5 +1,6 @@
 <template>
     <div :class="baseClass">
+        <UiLoading v-if="isLoading" />
         <Header 
             :opened-menu="isOpenMenu"
             :opened-user-menu="isOpenUserMenu"
@@ -114,6 +115,7 @@
     import UiPill from '@/components/shared/ui-pill.component.vue';
     import UiSelect from '@/components/shared/ui-select.component.vue';
     import UiButton from '@/components/shared/ui-button.component.vue';
+    import UiLoading from '@/components/shared/ui-loading.component.vue';
     import { productService } from '@/services';
 
     const baseClass = 'product-details';
@@ -126,6 +128,7 @@
     
     const productId = computed<string>(() => route.params.productId as string);
 
+    const isLoading = ref<boolean>(false);
     const isOpenMenu = ref<boolean>(false);
     const isOpenUserMenu = ref<boolean>(false);
     const isOpenWhistList = ref<boolean>(false);
@@ -210,8 +213,10 @@
     });
 
     onMounted(async () => {
+        isLoading.value = true;
         await loadProducts();
         productDetails.value = findProduct(productId.value);
+        isLoading.value = false;
     });
 </script>
 

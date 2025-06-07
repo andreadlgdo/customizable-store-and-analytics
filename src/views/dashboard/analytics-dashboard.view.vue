@@ -42,18 +42,18 @@
     }
   });
 
-  const actions = ['products', 'categories'];
+  const actions = ['products', 'productsByCategory'];
 
   const sections = [
     {
-      title: 'Productos',
-      description: 'Analiza el rendimiento y comportamiento de tus productos',
+      title: 'Top 10 productos',
+      description: 'Los productos con más visualizaciones en la tienda',
       action: 'products'
     },
     {
-      title: 'Categorias',
-      description: 'Analiza el rendimiento y comportamiento de tus categorias productos',
-      action: 'categories'
+      title: 'Top 10 productos por Categoria',
+      description: 'Los productos con más visualizaciones en la tienda por categoría',
+      action: 'productsByCategory'
     }
   ];
 
