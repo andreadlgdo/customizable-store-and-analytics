@@ -87,7 +87,7 @@ const dashboardRoutes = [
   },
   {
     name: 'Analytics',
-    path: '/dashboard/analytics',
+    path: '/dashboard/analytics/:action?',
     component: Analytics,
     meta: { requiresAuth: true },
     props: true
