@@ -89,9 +89,13 @@ export const productService = {
     const products: Product[] = await productService.getProducts(categories);
     const selected: Product[] = [];
     const seen = new Set<string>();
+    
     for (const category of categories) {
       const filtered = products.filter(p => p.categories?.includes(category));
-      for (const product of filtered.slice(0, count)) {
+      // Shuffle the filtered products array
+      const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+      
+      for (const product of shuffled.slice(0, count)) {
         if (product._id && !seen.has(product._id)) {
           selected.push(product);
           seen.add(product._id);

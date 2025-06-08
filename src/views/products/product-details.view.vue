@@ -219,6 +219,15 @@
         isFavourite.value = productDetails.value?.isFavouriteUsersIds?.includes(user.value?._id ?? '') ?? false;
     });
 
+    watch(productId, async () => {
+        isLoading.value = true;
+        productDetails.value = await findProduct(productId.value);
+        const productCategories = await processCategories(productDetails.value?.categories ?? []);
+        const relatedCategories = await getRelatedIdCategories(productCategories);
+        relatedCategoriesWithProductCount.value = await productService.getCategoriesWithProductCount(relatedCategories, 5);
+        isLoading.value = false;
+    });
+
     onMounted(async () => {
         isLoading.value = true;
         await loadProducts();
