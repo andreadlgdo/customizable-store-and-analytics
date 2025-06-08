@@ -14,12 +14,12 @@ export function useCategories() {
     categories.value?.filter((category: Category) => category.parentId)
   );
 
-  const getOneCategory = (filterCategories: string): Category | undefined => {
-    return categories.value?.find(category => filterCategories === category.title);
-  };
-
   const getCategoriesByFilter = (filterCategories: string[]): Category[] => {
     return categories.value?.filter(category => filterCategories.includes(category.title)) ?? [];
+  };
+
+  const getOneCategory = (filterCategories: string): Category | undefined => {
+    return categories.value?.find(category => filterCategories === category.title);
   };
 
   const getChildrenByParent = (parentCategory: string) => {
@@ -28,6 +28,24 @@ export function useCategories() {
       (category: Category) => category.parentId === parentCategoryId?._id
     );
   };
+
+  const getRelatedIdCategories = async (categories: string[]) => {
+    const results = await Promise.all(
+      categories.map(async (c: string) => {
+        const category = await getOneCategory(c);
+        if (!category?.relatedId) return [];
+        
+        const relatedCategories = await Promise.all(
+          category.relatedId.map(async (id: string) => {
+            const response = await categoryService.getCategoryById(id);
+            return response.title;
+          })
+        );
+        return relatedCategories;
+      })
+    );
+    return results.flat();
+  }
 
   const loadCategories = async () => {
     categories.value = await categoryService.getCategories();
@@ -38,8 +56,8 @@ export function useCategories() {
     parentCategories,
     childrenCategories,
     loadCategories,
-    getOneCategory,
     getCategoriesByFilter,
-    getChildrenByParent
+    getChildrenByParent,
+    getRelatedIdCategories
   };
 }

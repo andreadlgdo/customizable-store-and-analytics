@@ -100,6 +100,9 @@
                 </div>
             </div>
         </div>
+        <div :class="`${baseClass}__related-products`">
+            <UiProductCarrousel :products="relatedCategoriesWithProductCount" title="Completa tu compra" />
+        </div>
     </div>
 </template>
 
@@ -108,7 +111,7 @@
     import { useRoute, useRouter } from 'vue-router';
 
     import Header from '@/views/app-header.view.vue';
-    import { useCart, useProducts, useUsers } from '@/composables';
+    import { useCart, useCategories, useProducts, useRecommendations, useUsers } from '@/composables';
     import { Product } from '@/interfaces';
     import UiImage from '@/components/shared/ui-image.component.vue';
     import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
@@ -116,12 +119,15 @@
     import UiSelect from '@/components/shared/ui-select.component.vue';
     import UiButton from '@/components/shared/ui-button.component.vue';
     import UiLoading from '@/components/shared/ui-loading.component.vue';
+    import UiProductCarrousel from '@/components/products/ui-product-carrousel.component.vue';
     import { productService } from '@/services';
 
     const baseClass = 'product-details';
     
     const { addProduct } = useCart();
     const { loadProducts, findProduct } = useProducts();
+    const { getRelatedIdCategories, loadCategories } = useCategories();
+    const { processCategories } = useRecommendations();
     const { user } = useUsers();
     const route = useRoute();
     const router = useRouter();
@@ -138,7 +144,8 @@
     const size = ref('');
     const unit = ref('');
     const isFavourite = ref<boolean>(productDetails.value?.isFavouriteUsersIds?.includes(user.value?._id ?? '') ?? false);
-
+    const relatedCategoriesWithProductCount = ref<Product[]>([]);
+    
     const haveStock = computed(() =>
         productDetails.value?.isUniqueSize
             ? productDetails.value?.uniqueStock
@@ -215,7 +222,11 @@
     onMounted(async () => {
         isLoading.value = true;
         await loadProducts();
-        productDetails.value = findProduct(productId.value);
+        productDetails.value = await findProduct(productId.value);
+        await loadCategories();
+        const productCategories = await processCategories(productDetails.value?.categories ?? []);
+        const relatedCategories = await getRelatedIdCategories(productCategories);
+        relatedCategoriesWithProductCount.value = await productService.getCategoriesWithProductCount(relatedCategories, 5);
         isLoading.value = false;
     });
 </script>
@@ -289,6 +300,12 @@
                 padding-top: 1.5rem;
                 border-top: 1px solid var(--border-color);
             }
+        }
+
+        &__related-products {
+            padding: 2rem;
+            background-color: var(--bg-white);
+            border-top: 1px solid var(--border-color);
         }
 
         &__image-container {

@@ -3,4 +3,5 @@ export interface Category {
   title: string;
   imageUrl: string;
   parentId?: string;
+  relatedId?: string[];
 }

@@ -10,6 +10,7 @@ export const useRecommendations = () => {
     const { parentCategories, loadCategories, getChildrenByParent } = useCategories();
 
     const processCategories = async (categories: string[]): Promise<string[]> => {
+        await loadCategories();
         if (!categories?.length) return [];
 
         // Find parent categories from the top categories
@@ -48,7 +49,6 @@ export const useRecommendations = () => {
         fetchFn: (userId: string) => Promise<CategoryResponse>
     ): Promise<string[]> => {
         try {
-            await loadCategories();
             const { topCategories } = await fetchFn(userId);
             return await processCategories(topCategories);
         } catch (error) {
@@ -70,6 +70,7 @@ export const useRecommendations = () => {
     };
 
     return {
+        processCategories,
         getTopOrdersCategories,
         getTopFavouritesCategories,
         getRecommendedProductsByNavigation

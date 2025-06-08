@@ -8,5 +8,8 @@ const CATEGORY_PATH = `${BASE_PATH}/category`;
 export const categoryService = {
   getCategories: async (): Promise<Category[]> => {
     return fetchData(CATEGORY_PATH, { method: 'GET' });
+  },
+  getCategoryById: async (id: string): Promise<Category> => {
+    return fetchData(`${CATEGORY_PATH}/${id}`, { method: 'GET' });
   }
 };
