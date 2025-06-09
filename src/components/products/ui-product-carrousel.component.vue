@@ -1,10 +1,10 @@
 <template>
-    <div :class="`${baseClass}__header`">
+    <div :class="`${baseClass}__header ${baseClass}__header--${size}`">
       <p :class="`${baseClass}__title`">{{ title }}</p>
     </div>
-    <div :class="`${baseClass}__carrousel`">
+    <div :class="`${baseClass}__carrousel ${baseClass}__carrousel--${size}`">
         <div @click="clickProduct(product)" v-for="product in products" :key="product._id" :class="`${baseClass}__product`">
-            <UiImage :image="product.imageUrl" type="semi-round" size="large" />
+            <UiImage :image="product.imageUrl" type="semi-round" :size="size" />
             <p :class="`${baseClass}__text ${baseClass}__text--name`">{{ product.name }}</p>
         </div>
     </div>
@@ -27,6 +27,10 @@ defineProps({
   products: {
     type: Array as PropType<Product[]>,
     required: true
+  },
+  size: {
+    type: String as PropType<'small' | 'normal' | 'large'>,
+    default: 'large'
   }
 });
 
@@ -54,6 +58,10 @@ const clickProduct = async (product: Product) => {
     margin-top: 2rem;
     margin-right: 2rem;
     width: 100%;
+
+    &--small {
+      margin-left: 0;
+    }
   }
 
   &__title {
@@ -67,6 +75,11 @@ const clickProduct = async (product: Product) => {
     gap: 1rem;
     padding: 1rem 2rem 2rem 2rem;
     width: 100%;
+
+    &--small {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 
   &__product {

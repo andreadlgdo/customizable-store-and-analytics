@@ -6,10 +6,11 @@
         @selectFavourite="$emit('selectFavourite')"
         @delete="deleteOrderProduct"
         v-for="product in openOrder.products"
-        :key="product.id || product._id || product.productId"
+        :key="product.id || product.productId"
         :order-product="product"
         :custom-colors="uiShoppingCartCustom?.visuals.colors"
       />
+      <UiProductCarrousel v-if="relatedCategoriesWithCardProduct.length" title="Completa tu compra" :products="relatedCategoriesWithCardProduct" size="small" />
     </section>
     <div v-if="openOrder" :class="`${baseClass}__wrapper ${baseClass}__wrapper--footer`">
       <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--price`">
@@ -30,13 +31,15 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref, watch } from 'vue';
+  import { computed, onMounted, ref, watch } from 'vue';
   import { useRouter } from 'vue-router';
 
-  import { useCart } from '@/composables';
-  import { customService } from '@/services';
+  import { useCart, useCategories, useProducts, useRecommendations } from '@/composables';
+  import { customService, productService } from '@/services';
+  import { Product } from '@/interfaces';
 
   import UiProductShoppingCard from '@/components/products/ui-product-shopping-card.component.vue';
+  import UiProductCarrousel from '@/components/products/ui-product-carrousel.component.vue';
 
   import UiAside from '@/components/shared/ui-aside.component.vue';
   import UiButton from '@/components/shared/ui-button.component.vue';
@@ -45,6 +48,10 @@
 
   const router = useRouter();
   const { openOrder, deleteProduct, loadUserOrders } = useCart();
+  const { loadCategories, getRelatedIdCategories } = useCategories();
+  const { findProduct, loadProducts } = useProducts();
+  const { processCategories } = useRecommendations();
+  
 
   const props = defineProps({
     isOpen: Boolean
@@ -53,7 +60,8 @@
   const emit = defineEmits(['close', 'editProduct', 'selectFavourite']);
 
   const uiShoppingCartCustom = ref();
-  
+  const relatedCategoriesWithCardProduct = ref<Product[]>([]);
+
   const goToProducts = () => {
     router.push('/products');
     emit('close');
@@ -68,11 +76,33 @@
     await deleteProduct(productId);
   };
 
+  const topCategories = computed<string[]>(() => {
+    if (!openOrder.value?.products) return [];
+    const categoryCount = new Map<string, number>();
+    
+    openOrder.value.products.forEach(product => {
+      const productInfo = findProduct(product.productId);
+      productInfo?.categories?.forEach(category => {
+        categoryCount.set(category, (categoryCount.get(category) || 0) + 1);
+      });
+    });
+    
+    return Array.from(categoryCount.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([category]) => category);
+  });
+
   watch(
     () => props.isOpen,
     async () => {
       if (props.isOpen) {
         await loadUserOrders();
+        await loadCategories();
+        await loadProducts();
+        const productCategories = await processCategories(topCategories.value ?? []);
+        const relatedCategories = await getRelatedIdCategories(productCategories);
+        relatedCategoriesWithCardProduct.value = await productService.getCategoriesWithProductCount(relatedCategories, 5);    
       }
     }
   );
