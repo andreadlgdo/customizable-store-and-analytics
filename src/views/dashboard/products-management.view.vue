@@ -1,5 +1,5 @@
 <template>
-  <dashboard :selected-item="menuElements[1]">
+  <dashboard :selected-item="menuElements[3]">
     <div :class="baseClass">
       <h1>
         {{

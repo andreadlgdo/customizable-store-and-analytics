@@ -1,5 +1,5 @@
 <template>
-  <dashboard :selected-item="menuElements[4]">
+  <dashboard :selected-item="menuElements[6]">
     <div :class="[baseClass, { [`${baseClass}--edit`]: action }]">
       <div v-if="!action" :class="`${baseClass}__header`">
         <h1 :class="`${baseClass}__title`">Personalización</h1>
