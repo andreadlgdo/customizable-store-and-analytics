@@ -105,7 +105,8 @@ export function useCart(): CartComposable {
         userId: user.value._id,
         status: 'open',
         products: [newProduct],
-        total: productTotal
+        total: productTotal,
+        timestamp: new Date()
       });
     }
   };
@@ -124,7 +125,8 @@ export function useCart(): CartComposable {
         userId: 'guest',
         status: 'open',
         products: [newProduct],
-        total: productTotal
+        total: productTotal,
+        timestamp: new Date()
       };
       openOrder.value = newOrder;
       addOrderToLocalStorage(newOrder);

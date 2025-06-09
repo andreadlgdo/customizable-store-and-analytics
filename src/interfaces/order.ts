@@ -7,6 +7,7 @@ export interface Order {
   products: ProductOrder[];
   promotionCode?: string;
   total: number;
+  timestamp: Date;
 }
 
 export interface ProductOrder {

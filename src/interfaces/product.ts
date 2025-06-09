@@ -11,6 +11,8 @@ export interface Product {
   imageUrl?: string;
   onSale?: boolean;
   isFavouriteUsersIds?: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface ProductStock {
