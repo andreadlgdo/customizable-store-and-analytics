@@ -163,13 +163,13 @@ const editProduct = (item: Product) => {
 const deleteProduct = async (item: Product) => {
   isLoading.value = true;
   await productService.deleteProduct(item._id ?? '');
-  await loadProducts();
+  await loadProducts({ categories: [category.value], name: query.value, hasStock: hasStock.value });
   isLoading.value = false;
 };
 
 const saveItem = async () => {
   isFormProduct.value = false;
-  await loadProducts();
+  await loadProducts({ categories: [category.value], name: query.value, hasStock: hasStock.value });
 };
 
 watch(
