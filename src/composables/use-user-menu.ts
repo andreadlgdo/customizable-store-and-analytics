@@ -29,15 +29,7 @@ const getCommonMenuItems = (t: (key: string) => string): MenuItem[] => [
     route: {
       name: 'UserWhistList'
     }
-  },
-  {
-    id: 3,
-    label: 'Mis pedidos',
-    icon: 'pack',
-    route: {
-      name: 'OrdersManagement'
-    }
-  },
+  }
 ];
 
 const getAdminMenuItems = (t: (key: string) => string): MenuItem[] => [
@@ -92,6 +84,14 @@ export function useUserMenu() {
 
   const menuElements: MenuItem[] = [
     ...getCommonMenuItems(t),
+    ...(user.value?.type === 'client' ? [{
+      id: 3,
+      label: 'Mis pedidos',
+      icon: 'pack',
+      route: {
+        name: 'OrdersManagement'
+      }
+    }] : []),
     ...(user.value?.type === 'admin' ? getAdminMenuItems(t) : [])
   ];
 

@@ -99,9 +99,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div :class="`${baseClass}__related-products`">
-            <UiProductCarrousel :products="relatedCategoriesWithProductCount" title="Completa tu compra" />
+            <div v-if="relatedCategoriesWithProductCount.length" :class="`${baseClass}__related-products`">
+                <UiProductCarrousel :products="relatedCategoriesWithProductCount" title="Completa tu compra" />
+            </div>
         </div>
     </div>
 </template>
@@ -251,8 +251,7 @@
             &--main {
                 position: relative;
                 display: flex;
-                align-items: center;
-                justify-content: center;
+                flex-direction: column;
                 height: calc(100% - 5rem);
                 padding: 3rem;
                 background-color: var(--bg-light);
@@ -268,6 +267,7 @@
             &--product {
                 display: flex;
                 align-items: flex-start;
+                align-self: center;
                 justify-content: center;
                 width: 90%;
                 padding: 4rem 6rem;

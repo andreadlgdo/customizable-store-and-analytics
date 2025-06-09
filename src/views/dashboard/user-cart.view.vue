@@ -4,71 +4,94 @@
       <h1 :class="`${baseClass}__text ${baseClass}__text--title`">
         {{ t('dashboard.cart.title') }}
       </h1>
-      <UiLoading v-if="loading" />
-      <div v-else-if="!openOrder" :class="`${baseClass}__empty-state`">
-        <p :class="`${baseClass}__text ${baseClass}__text--empty`">
-          Aun no hay ningun producto en el carrito
-        </p>
-        <ui-button
-          @click="router.push('/products')"
-          text="Empezar a comprar"
-          :class="`${baseClass}__button`"
-        />
-      </div>
-      <div v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
-        <div
-          v-for="product in openOrder.products"
-          :key="product.productId"
-          :class="`${baseClass}__wrapper ${baseClass}__wrapper--row ${baseClass}__wrapper--content`"
-        >
-          <UiImage
-            :image="findProduct(product.productId)?.imageUrl"
-            type="semi-round"
-            size="small"
+      <UiLoading v-if="loading" />   
+      <!-- Empty State -->
+      <template v-else-if="!openOrder">
+        <div :class="`${baseClass}__empty-state`">
+          <p :class="`${baseClass}__text ${baseClass}__text--empty`">
+            Aun no hay ningun producto en el carrito
+          </p>
+          <ui-button
+            @click="router.push('/products')"
+            text="Empezar a comprar"
+            :class="`${baseClass}__button`"
           />
-          <div :class="`${baseClass}__content`">
-            <h3 :class="`${baseClass}__text ${baseClass}__text--name`">
-              {{ findProduct(product.productId)?.name }}
-            </h3>
-            <p>
-              {{ (findProduct(product.productId)?.priceWithDiscount ?? findProduct(product.productId)?.price) + ' €' }}
+        </div>
+      </template>
+      <!-- Cart Content -->
+      <template v-else>
+        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--column`">
+          <!-- Cart Items -->
+          <div
+            v-for="product in openOrder.products"
+            :key="product.productId"
+            :class="`${baseClass}__wrapper ${baseClass}__wrapper--row ${baseClass}__wrapper--content`"
+          >
+            <UiImage
+              :image="findProduct(product.productId)?.imageUrl"
+              type="semi-round"
+              size="small"
+            />
+            <div :class="`${baseClass}__content`">
+              <h3 :class="`${baseClass}__text ${baseClass}__text--name`">
+                {{ findProduct(product.productId)?.name }}
+              </h3>
+              <p>
+                {{ formatPrice(findProduct(product.productId)) }}
+              </p>
+            </div>
+            <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
+              <UiSelect 
+                :value="product.units"
+                :options="[{ title: product.units }]"
+                :class="`${baseClass}__select`" 
+                disabled 
+              />
+              <h3 :class="`${baseClass}__text ${baseClass}__text--price`">
+                {{ formatTotalPrice(product) }}
+              </h3>
+              <UiIconButton icon="heart" />
+              <UiIconButton icon="delete" />
+            </div>
+          </div>
+          <hr />
+          <!-- Cart Summary -->
+          <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
+            <p :class="`${baseClass}__text ${baseClass}__text--label`">
+              {{ t('dashboard.cart.label') }}
+            </p>
+            <p :class="`${baseClass}__text ${baseClass}__text--label`">
+              {{ formatPrice({ price: openOrder?.total }) }}
             </p>
           </div>
-          <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
-            <UiSelect 
-              :value="product.units"
-              :options="[{ title: product.units }]"
-              :class="`${baseClass}__select`" 
-              disabled 
+          <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--button`">
+            <ui-button
+              @click="router.push('/products')"
+              text="Seguir comprando"
+              :class="`${baseClass}__button`"
+              transparent
             />
-            <h3 :class="`${baseClass}__text ${baseClass}__text--price`">
-              {{ Number(product.units) * ((findProduct(product.productId)?.priceWithDiscount ?? findProduct(product.productId)?.price) ?? 0) + ' €' }}
-            </h3>
-            <UiIconButton icon="heart" />
-            <UiIconButton icon="delete" />
+            <ui-button
+              @click="router.push('/order')"
+              :text="t('asides.cart.action')"
+              :class="`${baseClass}__button`"
+            />
+          </div>
+          <!-- Related Products -->
+          <div v-if="relatedCategoriesWithCardProduct.length" :class="`${baseClass}__carrousel`">
+            <UiProductCarrousel 
+              title="Completa tu pedido" 
+              :products="relatedCategoriesWithCardProduct" 
+            />
           </div>
         </div>
-        <hr />
-        <div :class="`${baseClass}__wrapper ${baseClass}__wrapper--row`">
-          <p :class="`${baseClass}__text ${baseClass}__text--label`">
-            {{ t('dashboard.cart.label') }}
-          </p>
-          <p :class="`${baseClass}__text ${baseClass}__text--label`">
-            {{ openOrder?.total + ' €' }}
-          </p>
-        </div>
-        <ui-button
-          @click="router.push('/order')"
-          :text="t('asides.cart.action')"
-          :class="`${baseClass}__button`"
-        />
-      </div>
+      </template>
     </div>
   </dashboard>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
@@ -77,25 +100,68 @@ import UiImage from '../../components/shared/ui-image.component.vue';
 import UiSelect from '../../components/shared/ui-select.component.vue';
 import UiIconButton from '../../components/shared/ui-icon-button.component.vue';
 import UiButton from '../../components/shared/ui-button.component.vue';
+import UiProductCarrousel from '@/components/products/ui-product-carrousel.component.vue';
 
-import { useCart, useProducts, useUserMenu } from '../../composables';
+import { useCart, useCategories, useProducts, useRecommendations, useUserMenu } from '../../composables';
 import Dashboard from './base-dashboard.view.vue';
+import { productService } from '@/services';
+import { Product } from '@/interfaces';
 
 const { menuElements } = useUserMenu();
 const { openOrder, loadUserOrders } = useCart();
 const { loadProducts, findProduct } = useProducts();
+const { processCategories } = useRecommendations();
+const { getRelatedIdCategories, loadCategories } = useCategories()
+
 const router = useRouter();
 const { t } = useI18n();
 
 const baseClass = 'user-cart';
 
 const loading = ref(false);
+const relatedCategoriesWithCardProduct = ref<Product[]>([]);
+
+const topCategories = computed<string[]>(() => {
+  if (!openOrder.value?.products) return [];
+  
+  const categoryCount = new Map<string, number>();
+  
+  openOrder.value.products.forEach(product => {
+    const productInfo = findProduct(product.productId);
+    productInfo?.categories?.forEach(category => {
+      categoryCount.set(category, (categoryCount.get(category) || 0) + 1);
+    });
+  });
+  
+  return Array.from(categoryCount.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([category]) => category);
+});
+
+const formatPrice = (product?: Partial<Product>): string => {
+  const price = product?.priceWithDiscount ?? product?.price ?? 0;
+  return `${price} €`;
+};
+
+const formatTotalPrice = (product: { productId: string; units: string }): string => {
+  const productInfo = findProduct(product.productId);
+  const price = productInfo?.priceWithDiscount ?? productInfo?.price ?? 0;
+  return `${Number(product.units) * price} €`;
+};
 
 onMounted(async () => {
   try {
     loading.value = true;
-    await loadProducts();
-    await loadUserOrders();
+    await Promise.all([
+      loadProducts(),
+      loadUserOrders(),
+      loadCategories()
+    ]);
+    
+    const productCategories = await processCategories(topCategories.value ?? []);
+    const relatedCategories = await getRelatedIdCategories(productCategories);
+    relatedCategoriesWithCardProduct.value = await productService.getCategoriesWithProductCount(relatedCategories, 5);    
   } finally {
     loading.value = false;
   }
@@ -108,7 +174,8 @@ onMounted(async () => {
   flex-direction: column;
   gap: 1rem;
   margin: 2rem;
-  width: 100%;
+  height: 100%;
+  width: calc(100% - 400px);
 
   &__empty-state {
     display: flex;
@@ -136,6 +203,10 @@ onMounted(async () => {
       border-radius: 20px;
       width: 100%;
     }
+
+    &--button {
+      justify-content: flex-end;
+    }
   }
 
   &__content {
@@ -160,15 +231,28 @@ onMounted(async () => {
     &--empty {
       font-size: 1.5rem;
     }
+
+    &--category {
+      background-color: var(--color-primary);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      margin: 0 0.25rem;
+    }
   }
 
   &__select {
-    width: 4rem;
+    width: 5rem;
+    margin-right: 1rem;
   }
 
   &__button {
     width: 12rem;
     align-self: center;
+  }
+
+  &__carrousel {
+    width: 100%;
   }
 }
 </style>

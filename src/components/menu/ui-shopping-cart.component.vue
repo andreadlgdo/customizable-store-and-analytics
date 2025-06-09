@@ -17,11 +17,13 @@
         <p :class="`${baseClass}__text ${baseClass}__text--number`">{{ openOrder.total + ' €' }}</p>
       </div>
       <UiButton @click="goToOrder" :text="uiShoppingCartCustom?.texts.order.action" :background-color="uiShoppingCartCustom?.visuals.colors.order.button" />
+      <UiButton @click="goToProducts" text="Seguir comprando" transparent/>
     </div>
     <section v-else :class="`${baseClass}__wrapper ${baseClass}__wrapper--empty`">
       <p :class="`${baseClass}__text ${baseClass}__text--description`">
         {{ uiShoppingCartCustom?.texts.empty.description }}
       </p>
+    
       <UiButton @click="goToProducts" :text="uiShoppingCartCustom?.texts.empty.action" :background-color="uiShoppingCartCustom?.visuals.colors.empty.button" />
     </section>
   </UiAside>

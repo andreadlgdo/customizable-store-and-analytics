@@ -18,6 +18,8 @@
         return 'dashboard';
       case 'OrdersManagement':
         return 'dashboard';
+      case 'UserCart':
+        return 'user-cart';
       case 'Analytics':
         return 'dashboard';
       case 'Orders':
@@ -57,6 +59,10 @@
 
   .app.order {
     overflow: hidden;
+  }
+
+  .app.user-cart {
+    overflow-y: hidden;
   }
 
   .app.personalization {

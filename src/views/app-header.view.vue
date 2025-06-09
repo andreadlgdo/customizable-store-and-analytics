@@ -72,6 +72,7 @@
 
   const logOut = () => {
     logout();
+    emit('updateUserMenu', false)
   };
 
   const logIn = async (newUser: User) => {

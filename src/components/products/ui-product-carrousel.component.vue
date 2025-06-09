@@ -1,10 +1,6 @@
 <template>
     <div :class="`${baseClass}__header`">
-        <p :class="`${baseClass}__title`">{{ title }}</p>
-        <div :class="`${baseClass}__see-all`">  
-          <p :class="`${baseClass}__text ${baseClass}__text--see-all`">Ver todo</p>
-          <UiIconButton icon="go-to" size="small" />
-        </div>
+      <p :class="`${baseClass}__title`">{{ title }}</p>
     </div>
     <div :class="`${baseClass}__carrousel`">
         <div @click="clickProduct(product)" v-for="product in products" :key="product._id" :class="`${baseClass}__product`">
@@ -20,7 +16,6 @@ import { useRouter } from 'vue-router';
 
 import { Product } from '@/interfaces';
 
-import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
 import UiImage from '@/components/shared/ui-image.component.vue';
 import { useProductViews } from '@/composables/use-product-views';
 import { useUsers } from '@/composables';
@@ -58,6 +53,7 @@ const clickProduct = async (product: Product) => {
     margin-left: 2rem;
     margin-top: 2rem;
     margin-right: 2rem;
+    width: 100%;
   }
 
   &__title {
@@ -65,18 +61,12 @@ const clickProduct = async (product: Product) => {
     font-weight: bold;
   }
 
-
-  &__see-all {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-
   &__carrousel {
     display: flex;
     overflow-x: scroll;
     gap: 1rem;
-    padding: 2rem;
+    padding: 1rem 2rem 2rem 2rem;
+    width: 100%;
   }
 
   &__product {
