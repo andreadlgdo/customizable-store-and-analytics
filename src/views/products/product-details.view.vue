@@ -102,6 +102,9 @@
             <div v-if="relatedCategoriesWithProductCount.length" :class="`${baseClass}__related-products`">
                 <UiProductCarrousel :products="relatedCategoriesWithProductCount" title="Completa tu compra" />
             </div>
+            <div v-if="recommendedProductsByFavourites.length">
+                <UiProductCarrousel :products="recommendedProductsByFavourites" title="Productos que podrían gustarte" />
+            </div>
         </div>
     </div>
 </template>
@@ -127,7 +130,7 @@
     const { addProduct } = useCart();
     const { loadProducts, findProduct } = useProducts();
     const { getRelatedIdCategories, loadCategories } = useCategories();
-    const { processCategories } = useRecommendations();
+    const { processCategories, getTopFavouritesCategories } = useRecommendations();
     const { user } = useUsers();
     const route = useRoute();
     const router = useRouter();
@@ -145,6 +148,7 @@
     const unit = ref('');
     const isFavourite = ref<boolean>(productDetails.value?.isFavouriteUsersIds?.includes(user.value?._id ?? '') ?? false);
     const relatedCategoriesWithProductCount = ref<Product[]>([]);
+    const recommendedProductsByFavourites = ref<Product[]>([]);
     
     const haveStock = computed(() =>
         productDetails.value?.isUniqueSize
@@ -236,6 +240,9 @@
         const productCategories = await processCategories(productDetails.value?.categories ?? []);
         const relatedCategories = await getRelatedIdCategories(productCategories);
         relatedCategoriesWithProductCount.value = await productService.getCategoriesWithProductCount(relatedCategories, 5);
+
+        const topFavouritesCategories = await getTopFavouritesCategories(user.value?._id ?? '');
+        recommendedProductsByFavourites.value = await productService.getCategoriesWithProductCount(topFavouritesCategories, 5);
         isLoading.value = false;
     });
 </script>
@@ -312,9 +319,7 @@
         }
 
         &__related-products {
-            padding: 2rem;
-            background-color: var(--bg-white);
-            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
         }
 
         &__image-container {
