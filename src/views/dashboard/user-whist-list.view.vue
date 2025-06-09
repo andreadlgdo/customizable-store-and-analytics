@@ -23,6 +23,9 @@
           />
         </div>
       </section>
+      <div v-if="products.length && recommendedProductsByFavourites.length">
+        <UiProductCarrousel title="Productos que podrían gustarte" :products="recommendedProductsByFavourites" />
+      </div>
       <section v-else>
         <p>{{ t('dashboard.whistList.empty') }}</p>
       </section>
@@ -42,27 +45,30 @@
   import { onMounted, ref } from 'vue';
   import { useRouter } from 'vue-router';
 
-  import UiProductDetailsModal from '../../components/products/ui-product-details-modal.component.vue';
-  import UiImage from '../../components/shared/ui-image.component.vue';
-  import UiIconButton from '../../components/shared/ui-icon-button.component.vue';
-  import UiButton from '../../components/shared/ui-button.component.vue';
+  import UiProductDetailsModal from '@/components/products/ui-product-details-modal.component.vue';
+  import UiImage from '@/components/shared/ui-image.component.vue';
+  import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
+  import UiButton from '@/components/shared/ui-button.component.vue';
+  import UiProductCarrousel from '@/components/products/ui-product-carrousel.component.vue';
 
-  import { useUserMenu, useUsers } from '../../composables';
-  import { Product } from '../../interfaces';
-  import { productService } from '../../services';
+  import { useRecommendations, useUserMenu, useUsers } from '@/composables';
+  import { Product } from '@/interfaces';
+  import { productService } from '@/services';
 
   import Dashboard from './base-dashboard.view.vue';
   import { useI18n } from 'vue-i18n';
 
   const baseClass = 'user-whist-list';
 
+  const { t } = useI18n();
   const { menuElements } = useUserMenu();
   const { user } = useUsers();
   const router = useRouter();
-  const { t } = useI18n();
+  const { getTopFavouritesCategories } = useRecommendations();
 
   const products = ref<Product[]>([]);
   const productDetails = ref<Product | undefined>(undefined);
+  const recommendedProductsByFavourites = ref<Product[]>([]);
 
   const deselectFavourite = async (product: Product) => {
     if (user.value && user.value._id) {
@@ -98,6 +104,9 @@
     products.value = user.value?._id
       ? await productService.findProductByUserId(user.value._id)
       : await productService.findProductByIds(localFavouritesProductsIds);
+
+    const topFavouritesCategories = await getTopFavouritesCategories(user.value?._id ?? '');
+    recommendedProductsByFavourites.value = await productService.getCategoriesWithProductCount(topFavouritesCategories, 5);
   });
 </script>
 
@@ -107,7 +116,9 @@
     flex-direction: column;
     gap: 1rem;
     margin: 2rem;
-    width: 100%;
+    width: calc(100% - 400px);
+    padding-bottom: 2rem;
+    overflow-y: scroll;
 
     &__text {
       font-weight: bold;

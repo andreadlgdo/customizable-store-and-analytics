@@ -25,6 +25,9 @@
         />
       </div>
     </section>
+    <div v-if="products.length && recommendedProductsByFavourites.length">
+      <UiProductCarrousel title="Productos que podrían gustarte" :products="recommendedProductsByFavourites" size="small" />
+     </div>
     <section v-else :class="`${baseClass}__wrapper`">
       <p :class="`${baseClass}__text ${baseClass}__text--description`">
         {{ t('asides.whistList.empty.description') }}
@@ -39,7 +42,7 @@
   import { useRouter } from 'vue-router';
   import { useI18n } from 'vue-i18n';
 
-  import { useUsers } from '@/composables';
+  import { useRecommendations, useUsers } from '@/composables';
   import { Product } from '@/interfaces';
   import { productService } from '@/services';
 
@@ -47,13 +50,15 @@
   import UiImage from '@/components/shared/ui-image.component.vue';
   import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
   import UiButton from '@/components/shared/ui-button.component.vue';
+  import UiProductCarrousel from '@/components/products/ui-product-carrousel.component.vue';
 
   const baseClass = 'ui-whist-list';
 
-  const { user } = useUsers();
-  const router = useRouter();
   const { t } = useI18n();
-
+  const { getTopFavouritesCategories } = useRecommendations();
+  const router = useRouter();
+  const { user } = useUsers();
+  
   const props = defineProps({
     isOpen: Boolean
   });
@@ -61,7 +66,8 @@
   const emit = defineEmits(['close', 'selectFavourite', 'addToCart']);
 
   const products = ref<Product[]>([]);
-
+  const recommendedProductsByFavourites = ref<Product[]>([]);
+  
   const goToProducts = () => {
     router.push('/products');
     emit('close');
@@ -105,6 +111,9 @@
         products.value = user.value?._id
           ? await productService.findProductByUserId(user.value._id)
           : await productService.findProductByIds(localFavouritesProductsIds);
+
+        const topFavouritesCategories = await getTopFavouritesCategories(user.value?._id ?? '');
+        recommendedProductsByFavourites.value = await productService.getCategoriesWithProductCount(topFavouritesCategories, 5);
       }
     },
     { immediate: true }

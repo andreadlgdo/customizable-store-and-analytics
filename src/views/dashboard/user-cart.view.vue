@@ -95,15 +95,15 @@ import { onMounted, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
-import UiLoading from '../../components/shared/ui-loading.component.vue';
-import UiImage from '../../components/shared/ui-image.component.vue';
-import UiSelect from '../../components/shared/ui-select.component.vue';
-import UiIconButton from '../../components/shared/ui-icon-button.component.vue';
-import UiButton from '../../components/shared/ui-button.component.vue';
+import UiLoading from '@/components/shared/ui-loading.component.vue';
+import UiImage from '@/components/shared/ui-image.component.vue';
+import UiSelect from '@/components/shared/ui-select.component.vue';
+import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
+import UiButton from '@/components/shared/ui-button.component.vue';
 import UiProductCarrousel from '@/components/products/ui-product-carrousel.component.vue';
 
-import { useCart, useCategories, useProducts, useRecommendations, useUserMenu } from '../../composables';
-import Dashboard from './base-dashboard.view.vue';
+import { useCart, useCategories, useProducts, useRecommendations, useUserMenu } from '@/composables';
+import Dashboard from '@/views/dashboard/base-dashboard.view.vue';
 import { productService } from '@/services';
 import { Product } from '@/interfaces';
 
@@ -176,6 +176,7 @@ onMounted(async () => {
   margin: 2rem;
   height: 100%;
   width: calc(100% - 400px);
+  padding-bottom: 2rem;
 
   &__empty-state {
     display: flex;
