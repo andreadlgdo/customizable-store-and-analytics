@@ -81,7 +81,7 @@
   .order-summary {
     flex: 1;
     overflow-y: auto;
-    max-height: 80%;
+    height: 65vh;
 
     &__title {
       font-weight: bold;
@@ -98,7 +98,7 @@
 
     &__footer {
       position: absolute;
-      bottom: 88px;
+      bottom: 26px;
       right: 0;
       display: flex;
       justify-content: space-between;

@@ -8,8 +8,10 @@ const getStoredUser = (): User | undefined => {
   return storedUser ? JSON.parse(storedUser) : undefined;
 };
 
+const sharedUser = ref<User | undefined>(getStoredUser());
+
 export function useUsers() {
-  const user = ref<User | undefined>(getStoredUser());
+  const user = sharedUser;
 
   const getUsers = async (): Promise<User[]> => {
     return await userService.getUsers();
@@ -18,15 +20,14 @@ export function useUsers() {
   const createUser = async (userToCreate: User): Promise<User> => {
     const createdUser = await userService.createUser(userToCreate);
     localStorage.setItem('user', JSON.stringify(createdUser));
+    user.value = createdUser;
     return createdUser;
   };
 
   const login = async (email: string, password: string): Promise<Error | void> => {
     try {
       const response = await userService.validUser({ email, password });
-      console.log(response);
       user.value = response.user;
-
       localStorage.setItem('user', JSON.stringify(user.value));
     } catch (error) {
       return error as Error;

@@ -66,7 +66,7 @@
     min-width: 320px;
     background: var(--bg-main);
     box-shadow: var(--shadow-soft);
-    z-index: 1;
+    z-index: 6;
 
     &--relative {
       position: relative;

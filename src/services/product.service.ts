@@ -90,12 +90,19 @@ export const productService = {
     const selected: Product[] = [];
     const seen = new Set<string>();
     
+    let productsPerCategory = count;
+    if (categories.length === 1) {
+      productsPerCategory = 10; 
+    } else if (categories.length === 3) {
+      productsPerCategory = 3;
+    }
+    
     for (const category of categories) {
       const filtered = products.filter(p => p.categories?.includes(category));
       // Shuffle the filtered products array
       const shuffled = [...filtered].sort(() => Math.random() - 0.5);
       
-      for (const product of shuffled.slice(0, count)) {
+      for (const product of shuffled.slice(0, productsPerCategory)) {
         if (product._id && !seen.has(product._id)) {
           selected.push(product);
           seen.add(product._id);
