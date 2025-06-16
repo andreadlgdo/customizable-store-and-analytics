@@ -18,9 +18,9 @@
             <span v-else class="`${baseClass}__arrow ${baseClass}__arrow--inactive`">▲▼</span>
           </span>
         </th>
-        <th v-if="editable" :class="`${baseClass}__column`" />
-        <th v-if="removable" :class="`${baseClass}__column`" />
-        <th v-if="details" :class="`${baseClass}__column`" />
+        <th v-if="editable" :class="`${baseClass}__column`"  aria-label="edit" />
+        <th v-if="removable" :class="`${baseClass}__column`" aria-label="delete" />
+        <th v-if="details" :class="`${baseClass}__column`" aria-label="see details" />
       </tr>
     </thead>
     <tbody>

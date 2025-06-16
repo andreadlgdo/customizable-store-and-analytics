@@ -7,6 +7,7 @@
       @input="updateColor"
       :class="`${baseClass}__input`"
       :style="{ alignSelf: !label ? 'flex-start' : info ? 'center' : 'flex-end' }"
+      aria-label="color-picker"
     />
   </div>
 </template>

@@ -20,6 +20,7 @@
       type="file"
       accept="image/*"
       style="display: none"
+      aria-label="Subir imagen"
     />
   </span>
 </template>

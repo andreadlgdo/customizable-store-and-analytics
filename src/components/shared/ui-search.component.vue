@@ -1,7 +1,7 @@
 <template>
     <div :class="baseClass">
         <UiIcon :src="require('../../assets/media/icons/search.svg')" size="small"  :class="`${baseClass}__icon ${baseClass}__icon--left`" />
-        <input type="text" :placeholder="placeholder" v-model="query" :class="`${baseClass}__input`"/>
+        <input type="text" :placeholder="placeholder" v-model="query" :class="`${baseClass}__input`" aria-label="search"/>
         <UiIconButton @click="query = ''" icon="close" size="small" :class="`${baseClass}__icon ${baseClass}__icon--right`" />
     </div>
 </template>

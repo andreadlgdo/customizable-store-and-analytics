@@ -7,6 +7,7 @@
         type="checkbox"
         :class="`${baseClass}__checkbox`"
         :disabled="disabled"
+        aria-label="checkbox"
       />
       <span>
         {{ text }}

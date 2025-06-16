@@ -1,6 +1,6 @@
 <template>
   <div :class="baseClass">
-    <p v-if="hasRecommendations" :class="`${baseClass}__title`">- RECOMENDACIONES -</p>
+    <h1 v-if="hasRecommendations" :class="`${baseClass}__title`">- RECOMENDACIONES -</h1>
     <div v-if="recommendedProductsByOrders?.length">
       <UiProductCarrousel title="Basado en tus últimas compras" :products="recommendedProductsByOrders" />
     </div>

@@ -1,6 +1,6 @@
 <template>
     <div :class="`${baseClass}__header ${baseClass}__header--${size}`">
-      <p :class="`${baseClass}__title`">{{ title }}</p>
+      <h2 :class="`${baseClass}__title`">{{ title }}</h2>
     </div>
     <div :class="`${baseClass}__carrousel ${baseClass}__carrousel--${size}`">
         <div @click="clickProduct(product)" v-for="product in products" :key="product._id" :class="`${baseClass}__product`">
