@@ -1,5 +1,8 @@
 <template>
-  <table v-if="data.length" :class="baseClass">
+  <div v-if="!data.length" :class="`${baseClass}__empty`">
+    <p>{{ emptyMessage }}</p>
+  </div>
+  <table v-else :class="baseClass">
     <thead>
       <tr>
         <th
@@ -33,20 +36,20 @@
           v-for="column in columns"
           :key="column.id"
           :class="`${baseClass}__cell ${baseClass}__cell--custom`"
-          :style="{ textAlign: column.textAlign ?? 'left' }"
+          :style="{ textAlign: column.textAlign ?? 'left' } as any"
         >
           <slot :name="column.id" :data="(item as any)[column?.id]">{{ (item as any)[column?.id] ?? '-' }}</slot>
         </td>
         <td
           v-if="editable"
-          :style="{ textAlign: 'center' }"
+          :style="{ textAlign: 'center' } as any"
           :class="`${baseClass}__cell ${baseClass}__cell--icon`"
         >
           <UiIconButton @click="$emit('edit', item)" icon="edit" size="small" tooltip-text="Edit" />
         </td>
         <td
           v-if="removable"
-          :style="{ textAlign: 'center' }"
+          :style="{ textAlign: 'center' } as any"
           :class="`${baseClass}__cell ${baseClass}__cell--icon`"
         >
           <UiIconButton
@@ -58,7 +61,7 @@
         </td>
         <td
           v-if="details"
-          :style="{ textAlign: 'center' }"
+          :style="{ textAlign: 'center' } as any"
           :class="`${baseClass}__cell ${baseClass}__cell--icon`"
         >
           <UiIconButton
@@ -96,7 +99,11 @@
     },
     editable: Boolean,
     removable: Boolean,
-    details: Boolean
+    details: Boolean,
+    emptyMessage: {
+      type: String,
+      default: 'No data available'
+    }
   });
 
   defineEmits(['edit', 'delete','seeDetails']);
@@ -149,6 +156,16 @@
   .ui-table {
     width: 100%;
     border-collapse: collapse;
+
+    &__empty {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      text-align: center;
+      color: var(--color-text-secondary);
+      font-style: italic;
+    }
 
     &__column {
       padding: 12px;

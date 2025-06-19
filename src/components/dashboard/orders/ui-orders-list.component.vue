@@ -4,6 +4,7 @@
       @seeDetails="item => $emit('seeDetails', item)"
       :columns="columns"
       :data="orders.map(o => ({ ...o, units: o.products.length, total: o.total + ' €' }))"
+      empty-message="Aún no has realizado ningun pedido"
       details
     />
   </div>
