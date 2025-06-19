@@ -20,6 +20,7 @@
       <ui-button @click="handleLogin" :text="userRegisterCustom?.texts.logIn.action" :background-color="userRegisterCustom?.visuals.colors.button" />
     </div>
     <div v-else :class="`${baseClass}__wrapper`">
+      <p v-if="repeatedCredentialsEmail" :class="`${baseClass}__text`">{{ repeatedCredentialsEmail }}</p>
       <UiTextbox
         @input="(value: string) => handleInput('name', value)"
         :label="userRegisterCustom?.texts.signUp.name.label"
@@ -66,7 +67,6 @@
         @click="handleRegister" 
         :text="userRegisterCustom?.texts.signUp.action" 
         :background-color="userRegisterCustom?.visuals.colors.button"
-        :disabled="!isFormValid" 
       />
     </div>
   </UiAside>
@@ -74,7 +74,6 @@
 
 <script lang="ts" setup>
 import { computed, ref, watch, onMounted } from 'vue';
-import { useI18n } from 'vue-i18n';
 
 import { FormErrors, FormData, UserRegisterCustom } from '@/types/user-register.type';
 import { useValidations } from '@/composables';
@@ -89,11 +88,11 @@ import UiToggle, { ToggleOption } from '@/components/shared/ui-toggle.component.
 
 const baseClass = 'ui-user-register';
 const { validEmail } = useValidations();
-const { t } = useI18n();
 
 const props = defineProps<{
   isOpen: boolean;
-  error?: string;
+  errorLogIn?: string;
+  errorSignUp?: string;
 }>();
 
 const emit = defineEmits<{
@@ -127,7 +126,8 @@ const formErrors = ref<FormErrors>({
 });
 
 const acceptTermsAndConditions = ref(false);
-const invalidCredentials = ref(props.error);
+const invalidCredentials = ref(props.errorLogIn);
+const repeatedCredentialsEmail = ref(props.errorSignUp);
 const isPasswordValid = ref(false);
 
 const isLoginView = computed(() => toggleOptions.value[0].selected);
@@ -154,6 +154,7 @@ const resetForm = () => {
   };
   acceptTermsAndConditions.value = false;
   invalidCredentials.value = '';
+  repeatedCredentialsEmail.value = '';
   isPasswordValid.value = false;
 };
 
@@ -167,9 +168,9 @@ const selectToggle = (option: ToggleOption) => {
 
 const validateEmail = () => {
   if (!formData.value.email) {
-    formErrors.value.email = t('validation.email.required');
+    formErrors.value.email = 'El email es obligatorio';
   } else if (!validEmail(formData.value.email)) {
-    formErrors.value.email = t('validation.email.invalid');
+    formErrors.value.email = 'El email no es válido';
   } else {
     formErrors.value.email = '';
   }
@@ -177,9 +178,9 @@ const validateEmail = () => {
 
 const validateRepeatPassword = () => {
   if (!formData.value.repeatPassword) {
-    formErrors.value.repeatPassword = t('validation.repeatPassword.required');
+    formErrors.value.password = 'La contraseña es obligatoria';
   } else if (formData.value.password !== formData.value.repeatPassword) {
-    formErrors.value.repeatPassword = t('validation.repeatPassword.mismatch');
+    formErrors.value.repeatPassword = 'Las contraseñas no coinciden';
   } else {
     formErrors.value.repeatPassword = '';
   }
@@ -187,28 +188,25 @@ const validateRepeatPassword = () => {
 
 const handleInput = (field: keyof FormData, value: string) => {
   formData.value[field] = value;
-  if (field === 'email') validateEmail();
-  if (field === 'repeatPassword') validateRepeatPassword();
 };
 
 const handlePasswordChange = (value: string, isValid: boolean) => {
   formData.value.password = value;
   isPasswordValid.value = isValid;
-  validateRepeatPassword();
 };
 
 const handleTermsChange = () => {
   acceptTermsAndConditions.value = !acceptTermsAndConditions.value;
-  formErrors.value.terms = acceptTermsAndConditions.value ? '' : t('validation.terms.required');
+  formErrors.value.terms = acceptTermsAndConditions.value ? '' : 'Debes aceptar los términos y condiciones';
 };
 
 const handleRegister = () => {
-  formErrors.value.name = !formData.value.name ? t('validation.name.required') : '';
-  formErrors.value.surname = !formData.value.surname ? t('validation.surname.required') : '';
+  formErrors.value.name = !formData.value.name ? 'El nombre es obligatorio' : '';
+  formErrors.value.surname = !formData.value.surname ? 'El apellido es obligatorio' : '';
   validateEmail();
-  formErrors.value.password = !formData.value.password ? t('validation.password.required') : '';
+  formErrors.value.password = !formData.value.password ? 'La contraseña es obligatoria' : '';
   validateRepeatPassword();
-  formErrors.value.terms = acceptTermsAndConditions.value ? '' : t('validation.terms.required');
+  formErrors.value.terms = acceptTermsAndConditions.value ? '' : 'Debes aceptar los términos y condiciones';
 
   if (isFormValid.value) {
     emit('signUp', formData.value);
@@ -217,7 +215,7 @@ const handleRegister = () => {
 
 const handleLogin = () => {
   validateEmail();
-  formErrors.value.password = !formData.value.password ? t('validation.password.required') : '';
+  formErrors.value.password = !formData.value.password ? 'La contraseña es obligatoria' : '';
 
   if (Object.values(formErrors.value).every(error => !error)) {
     emit('logIn', {
@@ -228,8 +226,14 @@ const handleLogin = () => {
 };
 
 watch(
-  () => props.error,
+  () => props.errorLogIn,
   (newError) => (invalidCredentials.value = newError),
+  { immediate: true }
+);
+
+watch(
+  () => props.errorSignUp,
+  (newError) => (repeatedCredentialsEmail.value = newError),
   { immediate: true }
 );
 

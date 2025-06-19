@@ -20,7 +20,8 @@
     @signUp="signUp"
     @close="emit('updateUserMenu', !openedUserMenu)"
     :is-open="openedUserMenu"
-    :error="invalidCredentials"
+    :errorLogIn="invalidCredentialsLogin"
+    :errorSignUp="repeatedCredentialsEmail"
   />
   <ui-whist-list
     @addToCart="p => emit('addToCart', p)"
@@ -48,7 +49,7 @@
   import { useUsers } from '../composables';
   import { User } from '../interfaces';
 
-  const { user, createUser, logout, login } = useUsers();
+  const { user, getUsers, createUser, logout, login } = useUsers();
 
   defineProps({
     openedMenu: Boolean,
@@ -68,7 +69,8 @@
     'selectFavourite'
   ]);
 
-  const invalidCredentials = ref('');
+  const invalidCredentialsLogin = ref('');
+  const repeatedCredentialsEmail = ref('');
 
   const logOut = () => {
     logout();
@@ -78,11 +80,17 @@
   const logIn = async (newUser: User) => {
     const error = await login(newUser.email, newUser.password);
     if (error) {
-      invalidCredentials.value = 'Incorrect credentials';
+      invalidCredentialsLogin.value = 'Credenciales incorrectas';
     }
   };
 
   const signUp = async (newUser: User) => {
+    const users = await getUsers();
+    const userExists = users.find(user => user.email === newUser.email);
+    if (userExists) {
+      repeatedCredentialsEmail.value = 'El usuario ya existe';
+      return;
+    }
     user.value = await createUser({
       name: newUser.name,
       surname: newUser.surname,
