@@ -1,8 +1,25 @@
 <template>
-  <UiAside @click="$emit('close')" :class="baseClass" :is-open="isOpen" icon="close" fixed>
-    <UiToggle @click="selectToggle" :options="toggleOptions" />
-    <div v-if="isLoginView" :class="`${baseClass}__wrapper`">
-      <p v-if="invalidCredentials" :class="`${baseClass}__text`">{{ invalidCredentials }}</p>
+  <UiAside 
+    @click="$emit('close')" 
+    :class="baseClass" 
+    :is-open="isOpen" 
+    icon="close" 
+    fixed
+  >
+    <UiToggle 
+      @click="selectToggle" 
+      :options="toggleOptions" 
+    />
+    <div 
+      v-if="isLoginView" 
+      :class="`${baseClass}__wrapper`"
+    >
+      <p 
+        v-if="invalidCredentials" 
+        :class="`${baseClass}__text`"
+      >
+        {{ invalidCredentials }}
+      </p>
       <ui-textbox
         @input="(value: string) => handleInput('email', value)"
         :label="userRegisterCustom?.texts.logIn.email.label"
@@ -17,10 +34,23 @@
         :value="formData.password"
         :error="formErrors.password"
       />
-      <ui-button @click="handleLogin" :text="userRegisterCustom?.texts.logIn.action" :background-color="userRegisterCustom?.visuals.colors.button" />
+      <ui-button 
+        @click="handleLogin" 
+        :text="userRegisterCustom?.texts.logIn.action" 
+        :background-color="userRegisterCustom?.visuals.colors.button"   
+        :class="`${baseClass}__button`" 
+      />
     </div>
-    <div v-else :class="`${baseClass}__wrapper`">
-      <p v-if="repeatedCredentialsEmail" :class="`${baseClass}__text`">{{ repeatedCredentialsEmail }}</p>
+    <div 
+      v-else 
+      :class="`${baseClass}__wrapper`"
+    >
+      <p 
+        v-if="repeatedCredentialsEmail" 
+        :class="`${baseClass}__text`"
+      >
+        {{ repeatedCredentialsEmail }}
+      </p>
       <UiTextbox
         @input="(value: string) => handleInput('name', value)"
         :label="userRegisterCustom?.texts.signUp.name.label"
@@ -67,6 +97,7 @@
         @click="handleRegister" 
         :text="userRegisterCustom?.texts.signUp.action" 
         :background-color="userRegisterCustom?.visuals.colors.button"
+        :class="`${baseClass}__button`"
       />
     </div>
   </UiAside>
@@ -74,11 +105,9 @@
 
 <script lang="ts" setup>
 import { computed, ref, watch, onMounted } from 'vue';
-
 import { FormErrors, FormData, UserRegisterCustom } from '@/types/user-register.type';
 import { useValidations } from '@/composables';
 import { customService } from '@/services';
-
 import UiAside from '@/components/shared/ui-aside.component.vue';
 import UiButton from '@/components/shared/ui-button.component.vue';
 import UiCheckbox from '@/components/shared/ui-checkbox.component.vue';
@@ -104,8 +133,14 @@ const emit = defineEmits<{
 const userRegisterCustom = ref<UserRegisterCustom>();
 
 const toggleOptions = ref<ToggleOption[]>([
-  { label: userRegisterCustom.value?.texts.toggle.logIn ?? '', selected: true },
-  { label: userRegisterCustom.value?.texts.toggle.signUp ?? '', selected: false }
+  { 
+    label: userRegisterCustom.value?.texts.toggle.logIn ?? '', 
+    selected: true 
+  },
+  { 
+    label: userRegisterCustom.value?.texts.toggle.signUp ?? '', 
+    selected: false 
+  }
 ]);
 
 const formData = ref<FormData>({
@@ -197,7 +232,9 @@ const handlePasswordChange = (value: string, isValid: boolean) => {
 
 const handleTermsChange = () => {
   acceptTermsAndConditions.value = !acceptTermsAndConditions.value;
-  formErrors.value.terms = acceptTermsAndConditions.value ? '' : 'Debes aceptar los términos y condiciones';
+  formErrors.value.terms = acceptTermsAndConditions.value 
+    ? '' 
+    : 'Debes aceptar los términos y condiciones';
 };
 
 const handleRegister = () => {
@@ -206,7 +243,9 @@ const handleRegister = () => {
   validateEmail();
   formErrors.value.password = !formData.value.password ? 'La contraseña es obligatoria' : '';
   validateRepeatPassword();
-  formErrors.value.terms = acceptTermsAndConditions.value ? '' : 'Debes aceptar los términos y condiciones';
+  formErrors.value.terms = acceptTermsAndConditions.value 
+    ? '' 
+    : 'Debes aceptar los términos y condiciones';
 
   if (isFormValid.value) {
     emit('signUp', formData.value);
@@ -247,8 +286,14 @@ watch(
   () => userRegisterCustom.value?.texts.toggle,
   () => {
     toggleOptions.value = [
-      { label: userRegisterCustom.value?.texts.toggle.logIn ?? '', selected: true },
-      { label: userRegisterCustom.value?.texts.toggle.signUp ?? '', selected: false }
+      { 
+        label: userRegisterCustom.value?.texts.toggle.logIn ?? '', 
+        selected: true 
+      },
+      { 
+        label: userRegisterCustom.value?.texts.toggle.signUp ?? '', 
+        selected: false 
+      }
     ];
   },
   { immediate: true, deep: true }
@@ -274,6 +319,13 @@ onMounted(async () => {
   &__text {
     text-align: center;
     color: var(--color-red);
+  }
+
+  &__button {
+    &:focus {
+      outline: none;
+      border: 2px solid var(--color-dark-primary);
+    }
   }
 }
 </style>

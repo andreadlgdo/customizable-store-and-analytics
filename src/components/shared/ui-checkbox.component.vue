@@ -3,6 +3,7 @@
     <label :class="[baseClass, {[`${baseClass}--disabled`]: disabled }]">
       <input
         @change="$emit('change')"
+        @keydown.enter="$emit('change')"
         :checked="value"
         type="checkbox"
         :class="`${baseClass}__checkbox`"
@@ -35,6 +36,8 @@
 
 <style lang="scss" scoped>
   .ui-checkbox {
+    $baseClass: &;
+
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -79,6 +82,11 @@
 
       &:disabled {
         cursor: default;
+      }
+
+      &:focus-visible {
+        outline: none;
+        border: 2px solid var(--color-vibrant-primary);
       }
     }
 
