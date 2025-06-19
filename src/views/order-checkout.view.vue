@@ -85,7 +85,7 @@
   import OrderSummary from '../components/order/order-summary.component.vue';
   import OrderCompleted from '../components/order/order-completed.component.vue';
 
-  import { useCart, useUsers } from '../composables';
+  import { useCart, useEmail, useUsers } from '../composables';
   import { Address, Order, ProductOrder, ProductStock } from '../interfaces';
   import { orderService, productService } from '../services';
 
@@ -94,7 +94,8 @@
   const { t } = useI18n();
   const { openOrder, saveOrdersToLocalStorage, loadUserOrders } = useCart();
   const { user: userRegister } = useUsers();
-
+  const { sendOrderConfirmation } = useEmail();
+  
   const firstStep = ref(true);
   const secondStep = ref(false);
   const thirdStep = ref(false);
@@ -177,14 +178,16 @@
         city: orderAddress.value?.city,
         country: orderAddress.value?.country
       }
-    };
-    await updateProductsStock(openOrder.value);
+    } as Order;
+    await updateProductsStock(openOrder.value as Order);
 
     if (userRegister.value) {
       await orderService.updateOrder(updateOrder);
     } else {
       saveOrdersToLocalStorage([]);
     }
+    
+    await sendOrderConfirmation(updateOrder);
     fourStep.value = false;
   };
 
