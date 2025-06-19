@@ -39,8 +39,9 @@ const { user } = useUsers();
 const { createProductView } = useProductViews();
 
 const clickProduct = async (product: Product) => {
+  const userId = user.value && user.value._id ? user.value._id : 'no user'; 
   await createProductView({
-    userId: user.value?._id ?? '',
+    userId,
     productId: product._id ?? '',
     timestamp: new Date()
   });

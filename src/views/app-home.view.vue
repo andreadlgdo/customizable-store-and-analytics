@@ -80,11 +80,12 @@
 
   const loadRecommendations = async () => {
     if (user.value) {
-      const topOrdersCategories = await getTopOrdersCategories(user.value._id ?? '');
+      const userId = user.value && user.value._id ? user.value._id : 'no user';
+      const topOrdersCategories = await getTopOrdersCategories(userId);
       recommendedProductsByOrders.value = await productService.getCategoriesWithProductCount(topOrdersCategories, 5);
-      const topFavouritesCategories = await getTopFavouritesCategories(user.value._id ?? '');
+      const topFavouritesCategories = await getTopFavouritesCategories(userId);
       recommendedProductsByFavourites.value = await productService.getCategoriesWithProductCount(topFavouritesCategories, 5);
-      const topNavigationCategories = await getRecommendedProductsByNavigation(user.value._id ?? '');
+      const topNavigationCategories = await getRecommendedProductsByNavigation(userId);
       recommendedProductsByNavigation.value = await productService.getCategoriesWithProductCount(topNavigationCategories, 5);
     } else {
       recommendedProductsByOrders.value = undefined;
