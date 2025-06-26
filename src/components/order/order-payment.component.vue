@@ -104,13 +104,26 @@
   const monthError = computed(
     () =>
       paymentData.value.month.length > 0 &&
-      (paymentData.value.month.length !== 2 || !isNumber(paymentData.value.month))
+      (
+        paymentData.value.month.length !== 2 ||
+        !isNumber(paymentData.value.month) ||
+        Number(paymentData.value.month) < 1 ||
+        Number(paymentData.value.month) > 12
+      )
   );
 
   const yearError = computed(
-    () =>
-      paymentData.value.year.length > 0 &&
-      (paymentData.value.year.length !== 2 || !isNumber(paymentData.value.year))
+    () => {
+      const currentYear = new Date().getFullYear() % 100; // last two digits
+      return (
+        paymentData.value.year.length > 0 &&
+        (
+          paymentData.value.year.length !== 2 ||
+          !isNumber(paymentData.value.year) ||
+          Number(paymentData.value.year) < currentYear
+        )
+      );
+    }
   );
 
   const isValid = computed(
