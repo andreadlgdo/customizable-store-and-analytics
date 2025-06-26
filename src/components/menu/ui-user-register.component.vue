@@ -29,6 +29,7 @@
       />
       <ui-password
         @input="(value: string) => handleInput('password', value)"
+        @keyup.enter="handleLogin"
         :label="userRegisterCustom?.texts.logIn.password.label"
         :placeholder="userRegisterCustom?.texts.logIn.password.placeholder"
         :value="formData.password"
