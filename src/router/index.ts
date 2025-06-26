@@ -30,7 +30,7 @@ const publicRoutes = [
   { name: 'Contact', path: '/contact', component: ContactUs },
   { name: 'About', path: '/about', component: AboutUs },
   { name: 'Orders', path: '/order', component: OrderCheckout },
-  { name: 'Questions and answers', path: '/questions-and-answers', component: QuestionsAndAnswers },
+  { name: 'Questions and answers', path: '/faq', component: QuestionsAndAnswers },
   { name: 'Terms and conditions', path: '/terms-and-conditions', component: TermsAndConditions }
 ];
 

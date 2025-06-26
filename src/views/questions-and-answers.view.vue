@@ -23,21 +23,21 @@
     />
     
     <main :class="`${baseClass}__content`">
-      <h1 :class="`${baseClass}__title`">Frequently Asked Questions</h1>
-      <p :class="`${baseClass}__description`">Find answers to the most common questions about our products and services.</p>
+      <h1 :class="`${baseClass}__title`">Preguntas Frecuentes</h1>
+      <p :class="`${baseClass}__description`">Encuentra respuestas a las dudas más comunes sobre nuestra tienda, productos y servicios.</p>
       
       <div :class="`${baseClass}__faq-container`">
         <UiHierarchicalList
           :items="faqItems"
           :expansible="true"
-          @clickItem="handleFaqClick"
+          clickable
         />
       </div>
       
       <div :class="`${baseClass}__contact-info`">
-        <h2>Can't find what you're looking for?</h2>
-        <p>Our customer service team is here to help.</p>
-        <a href="mailto:support@example.com" :class="`${baseClass}__contact-link`">Contact Us</a>
+        <h2>¿No encuentras lo que buscas?</h2>
+        <p>Nuestro equipo de atención al cliente está aquí para ayudarte.</p>
+        <router-link to="/contact" :class="`${baseClass}__contact-link`">Contáctanos</router-link>
       </div>
     </main>
     
@@ -45,10 +45,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+  import { ref, onMounted } from 'vue';
   import Header from './app-header.view.vue';
   import { Product } from '@/interfaces';
-  import { productService } from '@/services';
+  import { customService, productService } from '@/services';
   import { useProducts, useUsers } from '@/composables';
   import UiProductDetailsModal from '@/components/products/ui-product-details-modal.component.vue';
   import UiHierarchicalList from '@/components/shared/ui-hierarchical-list.component.vue';
@@ -64,58 +64,55 @@ import { ref } from 'vue';
   const isOpenShoppingCart = ref(false);
   const productDetails = ref<Product | undefined>(undefined);
 
+  const contactUsCustom = ref();
+  
   const faqItems = ref([
     {
       id: 1,
-      label: 'Shipping & Delivery',
+      label: 'Envíos y Entregas',
       subItem: [
-        { id: 11, label: 'How long does shipping take?', description: 'Standard shipping takes 3-5 business days. Express shipping takes 1-2 business days.' },
-        { id: 12, label: 'Do you ship internationally?', description: 'Yes, we ship to most countries worldwide. International shipping typically takes 7-14 business days.' },
-        { id: 13, label: 'How much does shipping cost?', description: 'Standard shipping is free for orders over $50. For orders under $50, shipping costs $5.99. Express shipping is available for an additional fee.' }
+        { id: 11, label: '¿Cuánto tarda en llegar mi pedido?', description: 'El envío tarda entre 2 y 4 días laborables. No disponemos de envío exprés.' },
+        { id: 12, label: '¿Realizáis envíos internacionales?', description: 'Sí, enviamos a la mayoría de países de Europa. Consulta los plazos y tarifas en el proceso de compra.' },
+        { id: 13, label: '¿Cuánto cuesta el envío?', description: 'El envío es gratuito para todos los pedidos.' }
       ]
     },
     {
       id: 2,
-      label: 'Returns & Refunds',
+      label: 'Devoluciones y Reembolsos',
       subItem: [
-        { id: 21, label: 'What is your return policy?', description: 'You can return any unused item within 30 days of delivery for a full refund.' },
-        { id: 22, label: 'How do I start a return?', description: 'To start a return, go to your order history and select the items you wish to return. Print the return label and drop off your package at any post office.' },
-        { id: 23, label: 'How long do refunds take?', description: 'Once we receive your return, refunds are processed within 3-5 business days. It may take an additional 2-7 days for the funds to appear in your account.' }
+        { id: 21, label: '¿Puedo devolver un producto?', description: 'Sí, puedes devolver cualquier producto en un plazo de 30 días desde la recepción, siempre que esté en perfecto estado.' },
+        { id: 22, label: '¿Cómo solicito una devolución?', description: `Para solicitar una devolución, envía un correo electrónico a ${contactUsCustom.value?.data.sections[0]} con los detalles de tu pedido.` },
+        { id: 23, label: '¿Cuándo recibiré mi reembolso?', description: 'Procesamos los reembolsos en un plazo de 3 a 5 días laborables tras recibir y comprobar el producto devuelto.' }
       ]
     },
     {
       id: 3,
-      label: 'Account & Orders',
+      label: 'Cuenta y Pedidos',
       subItem: [
-        { id: 31, label: 'How do I track my order?', description: 'You can track your order by logging into your account and viewing your order history. You will also receive tracking information via email once your order ships.' },
-        { id: 32, label: 'Can I change or cancel my order?', description: 'You can modify or cancel your order within 1 hour of placing it. After that, please contact customer service for assistance.' },
-        { id: 33, label: 'Do I need an account to place an order?', description: 'No, you can check out as a guest. However, creating an account allows you to track orders, save favorites, and enjoy a faster checkout experience.' }
+        { id: 31, label: '¿Cómo puedo seguir mi pedido?', description: 'Puedes consultar el estado de tu pedido en tu cuenta, en la sección "Mis pedidos".' },
+        { id: 32, label: '¿Puedo modificar o cancelar mi pedido?', description: 'No, los pedidos no pueden ser modificados ni cancelados una vez realizados.' },
+        { id: 33, label: '¿Necesito una cuenta para comprar?', description: 'No es necesario, puedes comprar como invitado. Sin embargo, tener una cuenta te permite más funcionalidades.' }
       ]
     },
     {
       id: 4,
-      label: 'Payment & Security',
+      label: 'Pagos y Seguridad',
       subItem: [
-        { id: 41, label: 'What payment methods do you accept?', description: 'We accept all major credit cards, PayPal, Apple Pay, and Google Pay.' },
-        { id: 42, label: 'Is my payment information secure?', description: 'Yes, all payment information is encrypted and we never store your full credit card details.' },
-        { id: 43, label: 'Do you offer financing options?', description: 'Yes, we offer financing through Affirm for orders over $100. Apply at checkout to see if you qualify.' }
+        { id: 41, label: '¿Qué métodos de pago aceptáis?', description: 'Solo aceptamos tarjetas de crédito.' },
+        { id: 42, label: '¿Es seguro comprar en vuestra tienda?', description: 'Sí, todos los pagos se procesan de forma segura y tus datos están protegidos.' },
+        { id: 43, label: '¿Puedo pagar a plazos?', description: 'No, no ofrecemos pago a plazos.' }
       ]
     },
     {
       id: 5,
-      label: 'Product Information',
+      label: 'Información de Productos',
       subItem: [
-        { id: 51, label: 'Are your products covered by warranty?', description: 'Most products come with a manufacturer\'s warranty. Check the product description for specific warranty information.' },
-        { id: 52, label: 'How can I find product dimensions?', description: 'Product dimensions are listed in the "Specifications" section of each product page.' },
-        { id: 53, label: 'Do you offer bulk discounts?', description: 'Yes, we offer discounts for bulk orders. Please contact our sales team for a custom quote.' }
+        { id: 51, label: '¿Vuestros productos tienen garantía?', description: 'Sí, la mayoría de nuestros productos cuentan con garantía del fabricante.' },
+        { id: 52, label: '¿Dónde puedo ver las tallas y medidas?', description: 'Las tallas disponibles se muestran en cada producto. No disponemos de guía de tallas.' },
+        { id: 53, label: '¿Hacéis descuentos por compras grandes?', description: 'Sí, ofrecemos descuentos para compras al por mayor. Contacta con nuestro equipo para recibir una oferta personalizada.' }
       ]
     }
   ]);
-
-  const handleFaqClick = (item: any) => {
-    console.log('FAQ item clicked:', item);
-    // You can implement custom behavior here if needed
-  };
 
   const selectFavourite = async (favourite: boolean, product: Product) => {
     if (user.value && user.value._id && product._id) {
@@ -153,6 +150,11 @@ import { ref } from 'vue';
     productDetails.value = product;
     isOpenWhistList.value = false;
   };
+
+  onMounted(async () => {
+    const customContactUsTexts = await customService.getCustom("contactUs");
+    contactUsCustom.value = customContactUsTexts;
+  });
 </script>
 
 <style scoped lang="scss">

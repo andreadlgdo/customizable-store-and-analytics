@@ -1,6 +1,6 @@
 <template>
   <section v-for="item in listItems" :key="item.id" :class="baseClass">
-    <div :class="`${baseClass}__item`">
+    <div @click="expansible && clickable ? (item.isExpand = !item.isExpand) : undefined" :class="[`${baseClass}__item`, { [`${baseClass}__item--clickable`]: clickable }]">
       <section :class="`${baseClass}__label`">
         <div
           v-if="item.image"
@@ -15,19 +15,25 @@
         v-if="item.subItem"
         :icon="expansible ? (item.isExpand ? 'less' : 'plus') : 'arrow'"
         :size="expansible ? (item.isExpand ? 'small' : 'normal') : 'small'"
-        @click="expansible ? (item.isExpand = !item.isExpand) : $emit('clickSubItem', item)"
+        @click="expansible && !clickable ? (item.isExpand = !item.isExpand) : $emit('clickSubItem', item)"
       />
     </div>
     <transition :name="`${baseClass}__subItem--animation`">
       <div v-if="item.subItem && expansible && item.isExpand" :class="`${baseClass}__subItem`">
-        <p
-          @click="$emit('clickItem', subItem)"
+        <div
           v-for="(subItem, index) in item.subItem"
           :key="index"
-          :class="`${baseClass}__text ${baseClass}__text--subItem`"
         >
-          {{ capitalizeSentence(subItem.label) }}
-        </p>
+          <p
+            @click="$emit('clickItem', subItem)"
+            :class="[`${baseClass}__text ${baseClass}__text--subItem`, { [`${baseClass}__text--clickable`]: clickable }]"
+          >
+            {{ capitalizeSentence(subItem.label) }}
+          </p>
+          <p v-if="subItem.description" :class="`${baseClass}__description`">
+            {{ subItem.description }}
+          </p>
+        </div>
       </div>
     </transition>
   </section>
@@ -57,7 +63,8 @@
       type: Array as PropType<Item[]>,
       required: true
     },
-    expansible: Boolean
+    expansible: Boolean,
+    clickable: Boolean
   });
 
   const emit = defineEmits(['clickItem', 'clickSubItem']);
@@ -95,6 +102,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      &--clickable {
+        cursor: pointer;
+      }
     }
 
     &__label {
@@ -132,6 +143,15 @@
           font-weight: bold;
         }
       }
+
+      &--clickable {
+        margin-top: 1rem;
+      }
+
+      &--clickable:hover {
+          font-weight: 400;
+          cursor: default;
+      }
     }
 
     &__subItem {
@@ -149,6 +169,16 @@
           animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
         }
       }
+    }
+
+    &__description {
+      font-size: 1.1rem;
+      color: var(--color-medium-dark, #666);
+      margin-left: 2.5rem;
+      margin-top: 0.1rem;
+      margin-bottom: 0.2rem;
+      line-height: 1.3;
+      font-weight: 400;
     }
   }
 
