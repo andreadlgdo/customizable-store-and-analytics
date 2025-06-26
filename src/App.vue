@@ -1,12 +1,15 @@
 <template>
   <div :class="['app', routeClass]">
     <router-view />
+    <UiFooter v-if="routeClass !== 'dashboard' && routeClass !== 'dashboard-user'" />
   </div>
 </template>
 
 <script lang="ts" setup>
   import { computed, watch } from 'vue';
   import { useRoute } from 'vue-router';
+
+  import UiFooter from './components/shared/ui-footer.component.vue';
 
   const route = useRoute();
 

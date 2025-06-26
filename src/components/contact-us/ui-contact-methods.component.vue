@@ -68,13 +68,13 @@ const hexToRgb = (hex: string): string => {
 const contactMethods: ComputedRef<ContactMethod[]> = computed(() => [
     {
         type: 'email',
-        link: 'mailto:support@fashionstore.com',
+        link: `mailto:${contactUsCustom.value?.data.sections[0]}`,
         text: contactUsCustom.value?.data.sections[0],
         icon: require('../../assets/media/icons/email.svg')
     },
     {
         type: 'phone',
-        link: 'tel:+15551234567',
+        link: `tel:${contactUsCustom.value?.data.sections[1]}`,
         text: contactUsCustom.value?.data.sections[1],
         icon: require('../../assets/media/icons/phone.svg')
     },
