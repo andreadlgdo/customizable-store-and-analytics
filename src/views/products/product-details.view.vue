@@ -225,6 +225,8 @@
 
     watch(productId, async () => {
         isLoading.value = true;
+        size.value = '';
+        unit.value = '';
         productDetails.value = await findProduct(productId.value);
         const productCategories = await processCategories(productDetails.value?.categories ?? []);
         const relatedCategories = await getRelatedIdCategories(productCategories);

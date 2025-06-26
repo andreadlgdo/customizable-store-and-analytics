@@ -1,7 +1,7 @@
 <template>
   <div :class="['app', routeClass]">
     <router-view />
-    <UiFooter v-if="routeClass !== 'dashboard' && routeClass !== 'dashboard-user'" />
+    <UiFooter v-if="routeClass !== 'dashboard' && routeClass !== 'dashboard-user' && routeClass !== 'product-details'" />
   </div>
 </template>
 
@@ -27,8 +27,14 @@
         return 'dashboard-user';
       case 'Analytics':
         return 'dashboard';
+      case 'Products':
+        return 'dashboard';
+      case 'Personalization':
+        return 'dashboard-user';
       case 'Orders':
         return 'order';
+      case 'ProductDetails':
+        return 'product-details';
       default:
         return '';
     }
