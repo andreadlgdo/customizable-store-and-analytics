@@ -72,7 +72,7 @@
       label: 'Envíos y Entregas',
       subItem: [
         { id: 11, label: '¿Cuánto tarda en llegar mi pedido?', description: 'El envío tarda entre 2 y 4 días laborables. No disponemos de envío exprés.' },
-        { id: 12, label: '¿Realizáis envíos internacionales?', description: 'Sí, enviamos a la mayoría de países de Europa. Consulta los plazos y tarifas en el proceso de compra.' },
+        { id: 12, label: '¿Realizáis envíos internacionales?', description: 'No, en KASTO realizamos envíos a toda España peninsular y Baleares. Actualmente, no realizamos envíos a Canarias, Ceuta, Melilla ni internacionalmente.' },
         { id: 13, label: '¿Cuánto cuesta el envío?', description: 'El envío es gratuito para todos los pedidos.' }
       ]
     },

@@ -9,6 +9,9 @@ import ProductDetails from '../views/products/product-details.view.vue';
 import QuestionsAndAnswers from '../views/questions-and-answers.view.vue';
 import TermsAndConditions from '../views/terms-and-conditions.view.vue';
 import OrderCheckout from '../views/order-checkout.view.vue';
+import ShippingPolicy from '../views/shipping-policy.view.vue';
+import ReturnPolicy from '../views/return-policy.view.vue';
+import PrivacyPolicy from '../views/privacy-policy.view.vue';
 
 // Dashboard pages
 import PersonalData from '../views/dashboard/personal-data.view.vue';
@@ -31,7 +34,10 @@ const publicRoutes = [
   { name: 'About', path: '/about', component: AboutUs },
   { name: 'Orders', path: '/order', component: OrderCheckout },
   { name: 'Questions and answers', path: '/faq', component: QuestionsAndAnswers },
-  { name: 'Terms and conditions', path: '/terms-and-conditions', component: TermsAndConditions }
+  { name: 'Terms and conditions', path: '/terms-and-conditions', component: TermsAndConditions },
+  { name: 'Shipping policy', path: '/shipping-policy', component: ShippingPolicy },
+  { name: 'Return policy', path: '/return-policy', component: ReturnPolicy },
+  { name: 'Privacy policy', path: '/privacy-policy', component: PrivacyPolicy }
 ];
 
 // Dashboard routes (require authentication)
