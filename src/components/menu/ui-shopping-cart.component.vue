@@ -101,7 +101,8 @@
         await loadCategories();
         await loadProducts();
         const productCategories = await processCategories(topCategories.value ?? []);
-        const relatedCategories = await getRelatedIdCategories(productCategories);
+        let relatedCategories = await getRelatedIdCategories(productCategories);
+        relatedCategories = relatedCategories.filter((cat: string) => !productCategories.includes(cat));
         relatedCategoriesWithCardProduct.value = await productService.getCategoriesWithProductCount(relatedCategories, 5);    
       }
     }
