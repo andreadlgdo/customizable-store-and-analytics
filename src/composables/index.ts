@@ -2,6 +2,7 @@ export * from './use-analytics';
 export * from './use-cart';
 export * from './use-categories';
 export * from './use-email';
+export * from './use-pdf-export';
 export * from './use-products';
 export * from './use-recommendations';
 export * from './use-text-transform';
