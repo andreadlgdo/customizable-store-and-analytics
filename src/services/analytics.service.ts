@@ -14,5 +14,15 @@ export const analyticsService = {
         
         const data = fetchData(url.toString(), { method: 'GET' });
         return data;
-    }
+    },
+    getTopPurchasedProductsAnalytics: async (categories?: string[]) => {
+        const url = new URL(`${ANALYTICS_PATH}/topPurchased`);
+
+        if (categories?.length) {
+            categories.forEach(category => url.searchParams.append('categories', category));
+        }
+        
+        const data = fetchData(url.toString(), { method: 'GET' });
+        return data;
+    },
 }

@@ -20,6 +20,7 @@
       </div>
       <UiProductsAnalytics v-else-if="action === actions[0]" />
       <UiProductsByCategoryAnalytics v-else-if="action === actions[1]" />
+      <UiPurchaseProductsAnalytics v-else-if="action === actions[2]" />
     </div>
   </dashboard>
 </template>
@@ -31,7 +32,8 @@
   import Dashboard from '@/views/dashboard/base-dashboard.view.vue';
   import UiProductsAnalytics from '@/components/dashboard/analytics/ui-products-analytics.component.vue';
   import UiProductsByCategoryAnalytics from '@/components/dashboard/analytics/ui-products-by-category-analytics.component.vue';
-
+  import UiPurchaseProductsAnalytics from '@/components/dashboard/analytics/ui-purchase-products-analytics.component.vue';
+  
   const baseClass = 'analytics-dashboard';
 
   const { menuElements } = useUserMenu();
@@ -44,7 +46,7 @@
     }
   });
 
-  const actions = ['products', 'productsByCategory'];
+  const actions = ['products', 'productsByCategory', 'orderProductsByCategory'];
 
   const sections = [
     {
@@ -56,6 +58,11 @@
       title: 'Top 10 productos por Categoria',
       description: 'Los productos con más visualizaciones en la tienda por categoría',
       action: 'productsByCategory'
+    },
+    {
+      title: 'Los 10 productos más comprados',
+      description: 'Los productos más comprados en la tienda',
+      action: 'orderProductsByCategory'
     }
   ];
 
@@ -97,7 +104,7 @@
 
   &__wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
