@@ -91,9 +91,14 @@
       <UiCheckbox
         @change="handleTermsChange"
         :value="acceptTermsAndConditions"
-        :text="userRegisterCustom?.texts.signUp.acceptTerms"
         :error="formErrors.terms"
-      />
+      >
+        <template #text>
+          <span :style="{ cursor: 'pointer' }" @click="goToTermsAndConditions">
+            {{ userRegisterCustom?.texts.signUp.acceptTerms }}
+          </span>
+        </template>
+      </UiCheckbox>
       <UiButton 
         @click="handleRegister" 
         :text="userRegisterCustom?.texts.signUp.action" 
@@ -263,6 +268,10 @@ const handleLogin = () => {
       password: formData.value.password
     });
   }
+};
+
+const goToTermsAndConditions = () => {
+  window.open('/terms-and-conditions', '_blank');
 };
 
 watch(

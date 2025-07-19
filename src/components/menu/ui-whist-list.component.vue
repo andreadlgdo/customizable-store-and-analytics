@@ -28,7 +28,7 @@
     <div v-if="products.length && recommendedProductsByFavourites.length">
       <UiProductCarrousel title="Productos que podrían gustarte" :products="recommendedProductsByFavourites" size="small" />
      </div>
-    <section v-else :class="`${baseClass}__wrapper`">
+    <section v-else-if="!products.length" :class="`${baseClass}__wrapper`">
       <p :class="`${baseClass}__text ${baseClass}__text--description`">
         {{ t('asides.whistList.empty.description') }}
       </p>

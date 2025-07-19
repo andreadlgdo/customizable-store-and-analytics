@@ -10,9 +10,9 @@
         :disabled="disabled"
         aria-label="checkbox"
       />
-      <span>
-        {{ text }}
-      </span>
+      <slot name="text">
+        <span v-if="text">{{ text }}</span>
+      </slot>
     </label>
     <p v-if="!!error" :class="`${baseClass}__text`">{{ error }}</p>
   </div>
