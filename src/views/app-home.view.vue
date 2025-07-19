@@ -48,7 +48,7 @@
   import UiButton from '../components/shared/ui-button.component.vue';
   import UiLoading from '../components/shared/ui-loading.component.vue';
   
-  import { useRecommendations, useUsers } from '../composables';
+  import { useRecommendations, useUsers, useLoading } from '../composables';
   import { customService, generalService, productService } from '../services';
 
   import Header from './app-header.view.vue';
@@ -58,6 +58,7 @@
   const router = useRouter();
   const { user } = useUsers();
   const { getTopOrdersCategories, getTopFavouritesCategories, getRecommendedProductsByNavigation } = useRecommendations();
+  const { isLoading, setLoading } = useLoading();
   
   const isOpenMenu = ref(false);
   const isOpenUserMenu = ref(false);
@@ -70,8 +71,6 @@
   const recommendedProductsByOrders = ref();
   const recommendedProductsByFavourites = ref();
   const recommendedProductsByNavigation = ref();
-
-  const isLoading = ref(true);
 
   const containerStyle = computed(() => ({
     '--color-vibrant-primary': homeCustom.value?.visuals.colors.secondary,
@@ -95,17 +94,17 @@
   };
 
   watchEffect(async () => {
-    isLoading.value = true;
+    setLoading(true);
     await loadRecommendations();
-    isLoading.value = false;
+    setLoading(false);
   });
 
   onMounted(async () => {
-    isLoading.value = true;
+    setLoading(true);
     homeCustom.value = await customService.getCustom('home');
     const images = await generalService.getLandingImages();
     landingImage.value = images[0];
-    isLoading.value = false;
+    setLoading(false);
   });
 </script>
 

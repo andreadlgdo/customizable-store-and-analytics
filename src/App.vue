@@ -1,7 +1,7 @@
 <template>
   <div :class="['app', routeClass]">
     <router-view />
-    <UiFooter v-if="routeClass !== 'dashboard' && routeClass !== 'dashboard-user' && routeClass !== 'product-details'" />
+    <UiFooter v-if="!isLoading && routeClass !== 'dashboard' && routeClass !== 'dashboard-user' && routeClass !== 'product-details'" />
   </div>
 </template>
 
@@ -10,8 +10,10 @@
   import { useRoute } from 'vue-router';
 
   import UiFooter from './components/shared/ui-footer.component.vue';
+  import { useLoading } from './composables';
 
   const route = useRoute();
+  const { isLoading } = useLoading();
 
   const routeClass = computed(() => {
     switch (route.name) {

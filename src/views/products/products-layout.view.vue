@@ -80,7 +80,7 @@ import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
-import { useProducts, useUsers } from '@/composables';
+import { useProducts, useUsers, useLoading } from '@/composables';
 import { Product } from '@/interfaces';
 import { productService } from '@/services';
 
@@ -96,6 +96,7 @@ const baseClass = 'products';
 
 const { products, loadProducts } = useProducts();
 const { createProductView } = useProductViews();
+const { isLoading, setLoading } = useLoading();
 const route = useRoute();
 const router = useRouter();
 const { t } = useI18n();
@@ -106,7 +107,6 @@ const isOpenMenu = ref(false);
 const isOpenUserMenu = ref(false);
 const isOpenWhistList = ref(false);
 const isOpenShoppingCart = ref(false);
-const isLoading = ref(false);
 const isOpenFilters = ref(false);
 const productDetails = ref<Product | undefined>(undefined);
 
@@ -200,11 +200,11 @@ const cleanFilters = async () => {
 watch(
   category,
   async newCategory => {
-    isLoading.value = true;
+    setLoading(true);
     try {
       await loadProducts({ categories: newCategory ? [newCategory] : [] });
     } finally {
-      isLoading.value = false;
+      setLoading(false);
     }
   },
   { immediate: true }
