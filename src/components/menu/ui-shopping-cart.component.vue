@@ -97,13 +97,27 @@
         await loadUserOrders();
         await loadCategories();
         await loadProducts();
-        const productCategories = await processCategories(allCategories.value ?? []);
-        let relatedCategories = await getRelatedIdCategories(productCategories);
-        relatedCategories = relatedCategories.filter((cat: string) => !productCategories.includes(cat));
-        relatedCategoriesWithCardProduct.value = await productService.getCategoriesWithProductCount(relatedCategories, 5);    
+        await loadRelatedCategories();
       }
     }
   );
+
+  watch(
+    () => openOrder.value?.products,
+    async () => {
+      if (props.isOpen && openOrder.value?.products) {
+        await loadRelatedCategories();
+      }
+    },
+    { deep: true }
+  );
+
+  const loadRelatedCategories = async () => {
+    const productCategories = await processCategories(allCategories.value ?? []);
+    let relatedCategories = await getRelatedIdCategories(productCategories);
+    relatedCategories = relatedCategories.filter((cat: string) => !productCategories.includes(cat));
+    relatedCategoriesWithCardProduct.value = await productService.getCategoriesWithProductCount(relatedCategories, 5);
+  };
 
   onMounted(async () => {
     uiShoppingCartCustom.value = await customService.getCustom('cart-aside');

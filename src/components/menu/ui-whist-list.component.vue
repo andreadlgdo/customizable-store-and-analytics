@@ -97,7 +97,17 @@
       localStorage.setItem('favouriteProducts', JSON.stringify(localFavouritesProductsIds));
       products.value = await productService.findProductByIds(localFavouritesProductsIds);
     }
+    
+    // Reload recommendations when products change
+    await reloadRecommendations();
+    
     emit('selectFavourite');
+  };
+
+  // Function to reload recommendations
+  const reloadRecommendations = async () => {
+    const topFavouritesCategories = await getTopFavouritesCategories(user.value?._id ?? '');
+    recommendedProductsByFavourites.value = await productService.getCategoriesWithProductCount(topFavouritesCategories, 5);
   };
 
   watch(
@@ -112,11 +122,20 @@
           ? await productService.findProductByUserId(user.value._id)
           : await productService.findProductByIds(localFavouritesProductsIds);
 
-        const topFavouritesCategories = await getTopFavouritesCategories(user.value?._id ?? '');
-        recommendedProductsByFavourites.value = await productService.getCategoriesWithProductCount(topFavouritesCategories, 5);
+        await reloadRecommendations();
       }
     },
     { immediate: true }
+  );
+
+  // Watch for changes in products to reload recommendations
+  watch(
+    () => products.value.length,
+    async () => {
+      if (props.isOpen) {
+        await reloadRecommendations();
+      }
+    }
   );
 </script>
 
