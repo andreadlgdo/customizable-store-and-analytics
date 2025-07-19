@@ -27,8 +27,6 @@
         return 'dashboard-user';
       case 'Analytics':
         return 'dashboard';
-      case 'Products':
-        return 'dashboard';
       case 'Personalization':
         return 'dashboard-user';
       case 'Orders':
