@@ -3,7 +3,7 @@
       <h2 :class="`${baseClass}__title`">{{ title }}</h2>
     </div>
     <div :class="`${baseClass}__carrousel ${baseClass}__carrousel--${size}`">
-        <div @click="clickProduct(product)" v-for="product in products" :key="product._id" :class="`${baseClass}__product`">
+        <div @click="clickProduct(product)" v-for="product in shuffledProducts" :key="product._id" :class="`${baseClass}__product`">
             <UiImage :image="product.imageUrl" type="semi-round" :size="size" />
             <p :class="`${baseClass}__text ${baseClass}__text--name`">{{ product.name }}</p>
         </div>
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from 'vue';
+import { PropType, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { Product } from '@/interfaces';
@@ -22,7 +22,7 @@ import { useUsers } from '@/composables';
 
 const baseClass = 'ui-product-carrousel';
 
-defineProps({
+const props = defineProps({
   title: String,
   products: {
     type: Array as PropType<Product[]>,
@@ -37,6 +37,15 @@ defineProps({
 const router = useRouter();
 const { user } = useUsers();
 const { createProductView } = useProductViews();
+
+const shuffledProducts = computed(() => {
+  const shuffled = [...props.products];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+});
 
 const clickProduct = async (product: Product) => {
   const userId = user.value && user.value._id ? user.value._id : 'no user'; 

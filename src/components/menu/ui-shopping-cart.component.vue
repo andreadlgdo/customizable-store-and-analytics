@@ -76,21 +76,18 @@
     await deleteProduct(productId);
   };
 
-  const topCategories = computed<string[]>(() => {
+  const allCategories = computed<string[]>(() => {
     if (!openOrder.value?.products) return [];
-    const categoryCount = new Map<string, number>();
+    const categories = new Set<string>();
     
     openOrder.value.products.forEach(product => {
       const productInfo = findProduct(product.productId);
       productInfo?.categories?.forEach(category => {
-        categoryCount.set(category, (categoryCount.get(category) || 0) + 1);
+        categories.add(category);
       });
     });
     
-    return Array.from(categoryCount.entries())
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 3)
-      .map(([category]) => category);
+    return Array.from(categories);
   });
 
   watch(
@@ -100,7 +97,7 @@
         await loadUserOrders();
         await loadCategories();
         await loadProducts();
-        const productCategories = await processCategories(topCategories.value ?? []);
+        const productCategories = await processCategories(allCategories.value ?? []);
         let relatedCategories = await getRelatedIdCategories(productCategories);
         relatedCategories = relatedCategories.filter((cat: string) => !productCategories.includes(cat));
         relatedCategoriesWithCardProduct.value = await productService.getCategoriesWithProductCount(relatedCategories, 5);    
