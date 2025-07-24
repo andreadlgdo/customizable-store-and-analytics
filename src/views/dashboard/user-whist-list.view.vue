@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref } from 'vue';
+  import { onMounted, ref, watch } from 'vue';
   import { useRouter } from 'vue-router';
 
   import UiProductDetailsModal from '@/components/products/ui-product-details-modal.component.vue';
@@ -70,6 +70,12 @@
   const productDetails = ref<Product | undefined>(undefined);
   const recommendedProductsByFavourites = ref<Product[]>([]);
 
+  // Function to reload recommendations
+  const reloadRecommendations = async () => {
+    const topFavouritesCategories = await getTopFavouritesCategories(user.value?._id ?? '');
+    recommendedProductsByFavourites.value = await productService.getCategoriesWithProductCount(topFavouritesCategories, 5);
+  };
+
   const deselectFavourite = async (product: Product) => {
     if (user.value && user.value._id) {
       const updateProduct: Product = {
@@ -94,6 +100,9 @@
       localStorage.setItem('favouriteProducts', JSON.stringify(localFavouritesProductsIds));
       products.value = await productService.findProductByIds(localFavouritesProductsIds);
     }
+    
+    // Reload recommendations when products change
+    await reloadRecommendations();
   };
 
   onMounted(async () => {
@@ -105,9 +114,16 @@
       ? await productService.findProductByUserId(user.value._id)
       : await productService.findProductByIds(localFavouritesProductsIds);
 
-    const topFavouritesCategories = await getTopFavouritesCategories(user.value?._id ?? '');
-    recommendedProductsByFavourites.value = await productService.getCategoriesWithProductCount(topFavouritesCategories, 5);
+    await reloadRecommendations();
   });
+
+  // Watch for changes in products to reload recommendations
+  watch(
+    () => products.value.length,
+    async () => {
+      await reloadRecommendations();
+    }
+  );
 </script>
 
 <style lang="scss" scoped>
