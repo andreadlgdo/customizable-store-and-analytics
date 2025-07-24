@@ -50,7 +50,10 @@
               <h3 :class="`${baseClass}__text ${baseClass}__text--price`">
                 {{ formatTotalPrice(product) }}
               </h3>
-              <UiIconButton icon="heart" />
+              <UiIconButton 
+                :icon="favoriteStates[product.productId] ? 'heartSelected' : 'heart'" 
+                @click="selectFavourite(product.productId)" 
+              />
               <UiIconButton icon="delete" @click="deleteOrderProduct(product.id || product.productId)" />
             </div>
           </div>
@@ -102,7 +105,7 @@ import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
 import UiButton from '@/components/shared/ui-button.component.vue';
 import UiProductCarrousel from '@/components/products/ui-product-carrousel.component.vue';
 
-import { useCart, useCategories, useProducts, useRecommendations, useUserMenu } from '@/composables';
+import { useCart, useCategories, useProducts, useRecommendations, useUserMenu, useUsers } from '@/composables';
 import Dashboard from '@/views/dashboard/base-dashboard.view.vue';
 import { productService } from '@/services';
 import { Product } from '@/interfaces';
@@ -112,6 +115,7 @@ const { openOrder, loadUserOrders, deleteProduct } = useCart();
 const { loadProducts, findProduct } = useProducts();
 const { processCategories } = useRecommendations();
 const { getRelatedIdCategories, loadCategories } = useCategories()
+const { user } = useUsers();
 
 const router = useRouter();
 const { t } = useI18n();
@@ -120,6 +124,9 @@ const baseClass = 'user-cart';
 
 const loading = ref(false);
 const relatedCategoriesWithCardProduct = ref<Product[]>([]);
+
+// Add favorite state tracking
+const favoriteStates = ref<Record<string, boolean>>({});
 
 const allCategories = computed<string[]>(() => {
   if (!openOrder.value?.products) return [];
@@ -150,6 +157,65 @@ const deleteOrderProduct = async (productId: string) => {
   await deleteProduct(productId);
 };
 
+const selectFavourite = async (productId: string) => {
+  const product = findProduct(productId);
+  if (!product) return;
+
+  const currentState = favoriteStates.value[productId] || false;
+  favoriteStates.value[productId] = !currentState;
+
+  if (user.value) {
+    // User is logged in - update product in database
+    const updateProduct: Product = {
+      ...product,
+      isFavouriteUsersIds: !currentState
+        ? [...(product.isFavouriteUsersIds ?? []), user.value._id ?? '']
+        : product.isFavouriteUsersIds?.filter(favourite => favourite !== user.value?._id)
+    };
+
+    await productService.updateProduct(updateProduct);
+  } else {
+    // User is not logged in - use localStorage
+    const localFavouritesProductsIds = JSON.parse(
+      localStorage.getItem('favouriteProducts') || '[]'
+    ) as string[];
+
+    const productIdToUpdate = product._id ?? '';
+
+    if (productIdToUpdate) {
+      const index = localFavouritesProductsIds.indexOf(productIdToUpdate);
+      if (index !== -1) {
+        localFavouritesProductsIds.splice(index, 1);
+      } else {
+        localFavouritesProductsIds.push(productIdToUpdate);
+      }
+
+      localStorage.setItem('favouriteProducts', JSON.stringify(localFavouritesProductsIds));
+    }
+  }
+};
+
+const initializeFavoriteStates = () => {
+  if (!openOrder.value?.products) return;
+  
+  openOrder.value.products.forEach(product => {
+    const productInfo = findProduct(product.productId);
+    if (productInfo) {
+      if (user.value) {
+        // Check if user has favorited this product
+        favoriteStates.value[product.productId] = 
+          productInfo.isFavouriteUsersIds?.includes(user.value._id ?? '') || false;
+      } else {
+        // Check localStorage for anonymous users
+        const localFavouritesProductsIds = JSON.parse(
+          localStorage.getItem('favouriteProducts') || '[]'
+        ) as string[];
+        favoriteStates.value[product.productId] = localFavouritesProductsIds.includes(productInfo._id ?? '');
+      }
+    }
+  });
+};
+
 const loadRelatedCategories = async () => {
   const productCategories = await processCategories(allCategories.value ?? []);
   let relatedCategories = await getRelatedIdCategories(productCategories);
@@ -162,9 +228,17 @@ watch(
   async () => {
     if (openOrder.value?.products) {
       await loadRelatedCategories();
+      initializeFavoriteStates();
     }
   },
   { deep: true }
+);
+
+watch(
+  () => user.value,
+  () => {
+    initializeFavoriteStates();
+  }
 );
 
 onMounted(async () => {
@@ -177,6 +251,7 @@ onMounted(async () => {
     ]);
     
     await loadRelatedCategories();
+    initializeFavoriteStates();
   } finally {
     loading.value = false;
   }

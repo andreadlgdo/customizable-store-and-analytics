@@ -1,7 +1,7 @@
 <template>
   <div :class="['app', routeClass]">
     <router-view />
-    <UiFooter v-if="!isLoading && routeClass !== 'dashboard' && routeClass !== 'dashboard-user' && routeClass !== 'product-details'" />
+    <UiFooter v-if="!isLoading && routeClass !== 'dashboard' && routeClass !== 'dashboard-user' && routeClass !== 'product-details' && route.name !== 'ProductsManagement' && route.name !== 'Orders'" />
   </div>
 </template>
 

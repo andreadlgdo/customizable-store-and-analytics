@@ -47,7 +47,7 @@
       <products-list
         v-else-if="!isFormProduct"
         @edit="editProduct"
-        @delete="deleteProduct"
+        @delete="confirmDeleteProduct"
         :products="products"
       />
       <ui-product-form
@@ -56,6 +56,16 @@
         v-if="isFormProduct"
         :item-to-edit="itemToEdit"
       />
+      <ui-modal @close="showDeleteModal = false" :is-open="showDeleteModal">
+        <div :class="`${baseClass}__modal`">
+          <p :class="`${baseClass}__text ${baseClass}__text--title`">¿Estás seguro de que quieres eliminar este producto?</p>
+          <p :class="`${baseClass}__text ${baseClass}__text--warning`">Esta acción no se puede deshacer.</p>
+          <div :class="`${baseClass}__actions`">
+            <ui-button text="Confirmar" @click="deleteProduct" />
+            <ui-button text="Cancelar" @click="showDeleteModal = false" transparent />
+          </div>
+        </div>
+      </ui-modal>
     </div>
   </dashboard>
 </template>
@@ -73,6 +83,7 @@ import UiSelect from '../../components/shared/ui-select.component.vue';
 import UiButton from '../../components/shared/ui-button.component.vue';
 import UiProductForm from '../../components/dashboard/products/ui-product-form.component.vue';
 import UiLoading from '../../components/shared/ui-loading.component.vue';
+import UiModal from '../../components/shared/ui-modal.component.vue';
 
 import { useCategories, useProducts, useUserMenu } from '../../composables';
 
@@ -104,6 +115,9 @@ const isFormProduct = ref(!!props.action && !props.itemId);
 const category = ref<string>('');
 const hasStock = ref<string>('');
 const query = ref<string>('');
+
+const showDeleteModal = ref(false);
+const productToDelete = ref<Product | null>(null);
 
 const itemToEdit = computed(() =>
   products.value.find((product: Product) => product._id === props.itemId)
@@ -160,11 +174,19 @@ const editProduct = (item: Product) => {
   });
 };
 
-const deleteProduct = async (item: Product) => {
+const confirmDeleteProduct = (item: Product) => {
+  productToDelete.value = item;
+  showDeleteModal.value = true;
+};
+
+const deleteProduct = async () => {
+  if (!productToDelete.value) return;
   isLoading.value = true;
-  await productService.deleteProduct(item._id ?? '');
+  await productService.deleteProduct(productToDelete.value._id ?? '');
   await loadProducts({ categories: [category.value], name: query.value, hasStock: hasStock.value });
   isLoading.value = false;
+  showDeleteModal.value = false;
+  productToDelete.value = null;
 };
 
 const saveItem = async () => {
@@ -226,6 +248,34 @@ onMounted(async () => {
     &:hover {
       font-weight: bold;
     }
+
+    &--title { 
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    &--warning {  
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__modal {
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    width: 100%;
   }
 }
 </style>

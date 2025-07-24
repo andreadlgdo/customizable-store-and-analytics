@@ -126,7 +126,6 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .ui-products-analytics {
-    position: relative;
     padding: 2rem;
 
     &__header {
