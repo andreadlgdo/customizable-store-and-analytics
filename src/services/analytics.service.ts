@@ -25,4 +25,17 @@ export const analyticsService = {
         const data = fetchData(url.toString(), { method: 'GET' });
         return data;
     },
+    getMostViewedCategories: async () => {
+        const url = new URL(`${ANALYTICS_PATH}/topCategories`);
+        
+        const data = fetchData(url.toString(), { method: 'GET' });
+        return data;
+    },
+    getMostPurchasedCategories: async () => {
+        const url = new URL(`${ANALYTICS_PATH}/topPurchasedCategories`);
+        
+        const data = fetchData(url.toString(), { method: 'GET' });
+        return data;
+    },
+    
 }

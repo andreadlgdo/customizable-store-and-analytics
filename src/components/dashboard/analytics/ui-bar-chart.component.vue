@@ -15,7 +15,8 @@ import { Bar } from 'vue-chartjs';
 import { TopProduct } from '@/interfaces';
 
 const props = defineProps<{
-    topProducts: TopProduct[]
+    topProducts: TopProduct[], 
+    title: string
 }>();
 
 const chartData = computed(() => {
@@ -42,7 +43,7 @@ const chartOptions = {
         },
         title: {
             display: true,
-            text: 'Vistas por Producto'
+            text: props.title
         }
     },
     scales: {

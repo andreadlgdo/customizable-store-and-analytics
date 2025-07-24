@@ -15,7 +15,8 @@ import { Pie } from 'vue-chartjs';
 import { TopProduct } from '@/interfaces';
 
 const props = defineProps<{
-    topProducts: TopProduct[]
+    topProducts: TopProduct[],
+    title: string
 }>();
 
 const pieColors = [
@@ -55,7 +56,7 @@ const pieChartOptions = {
         },
         title: {
             display: true,
-            text: 'Vistas por Producto'
+            text: props.title
         }
     }
 };

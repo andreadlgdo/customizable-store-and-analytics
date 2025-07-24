@@ -5,27 +5,27 @@
         :options="chartOptions"
     />
     <div v-else class="no-data-message">
-        No hay datos de productos para mostrar
+        No hay datos de categorías para mostrar
     </div>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { Bar } from 'vue-chartjs';
-import { TopPurchasedProduct } from '@/interfaces';
+import { TopPurchasedCategory } from '@/interfaces';
 
 const props = defineProps<{
-    topProducts: TopPurchasedProduct[]
+    topCategories: TopPurchasedCategory[]
 }>();
 
 const chartData = computed(() => {
-    if (!props.topProducts.length) return null;
+    if (!props.topCategories.length) return null;
 
     return {
-        labels: props.topProducts.map(item => item.product.name),
+        labels: props.topCategories.map(item => item.product.name),
         datasets: [{
-            label: 'Número de Vistas',
-            data: props.topProducts.map(item => item.totalUnits),
+            label: 'Número de productos comprados',
+            data: props.topCategories.map(item => item.totalUnits),
             backgroundColor: '#67b3b3',
             borderColor: '#67b3b3',
             borderWidth: 1
@@ -42,7 +42,7 @@ const chartOptions = {
         },
         title: {
             display: true,
-            text: 'Productos más comprados'
+            text: 'Categorías más compradas'
         }
     },
     scales: {
@@ -56,7 +56,7 @@ const chartOptions = {
         x: {
             title: {
                 display: true,
-                text: 'Productos'
+                text: 'Categorías'
             }
         }
     }

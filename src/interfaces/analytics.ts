@@ -9,3 +9,8 @@ export interface TopPurchasedProduct {
     product: Product;
     totalUnits: number;
 }
+
+export interface TopPurchasedCategory {
+    product: Product;
+    totalUnits: number;
+}

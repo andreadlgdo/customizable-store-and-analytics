@@ -150,14 +150,14 @@ export function usePdfExport() {
   };
   
   const exportChartToPdf = async (chartElement: HTMLElement, chartType: string, _data: any[]) => {
-    const title = `Top 10 Productos - ${chartType}`;
-    const filename = `top-10-productos-${chartType.toLowerCase()}`;
+    const title = `${chartType}`;
+    const filename = `${chartType.toLowerCase()}`;
     await exportToPdf(chartElement, filename, title);
   };
   
   const exportListToPdf = async (listElement: HTMLElement, _data: any[]) => {
-    const title = 'Top 10 Productos - Listado';
-    const filename = 'top-10-productos-listado';
+    const title = 'Listado de datos';
+    const filename = 'analytics';
     await exportToPdf(listElement, filename, title);
   };
   

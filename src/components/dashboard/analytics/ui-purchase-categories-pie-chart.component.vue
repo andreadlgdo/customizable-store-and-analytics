@@ -5,17 +5,17 @@
         :options="pieChartOptions"
     />
     <div v-else class="no-data-message">
-        No hay datos de productos para mostrar
+        No hay datos de categorías para mostrar
     </div>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { Pie } from 'vue-chartjs';
-import { TopPurchasedProduct } from '@/interfaces';
+import { TopPurchasedCategory } from '@/interfaces';
 
 const props = defineProps<{
-    topProducts: TopPurchasedProduct[]
+    topCategories: TopPurchasedCategory[]
 }>();
 
 const pieColors = [
@@ -32,13 +32,13 @@ const pieColors = [
 ];
 
 const chartData = computed(() => {
-    if (!props.topProducts.length) return null;
+    if (!props.topCategories.length) return null;
 
     return {
-        labels: props.topProducts.map(item => item.product.name),
+        labels: props.topCategories.map(item => item.product.name),
         datasets: [{
             label: 'Número de productos comprados',
-            data: props.topProducts.map(item => item.totalUnits),
+            data: props.topCategories.map(item => item.totalUnits),
             backgroundColor: pieColors,
             borderColor: pieColors.map(color => color + '99'), // Adding transparency to borders
             borderWidth: 1
@@ -55,7 +55,7 @@ const pieChartOptions = {
         },
         title: {
             display: true,
-            text: 'Productos más comprados'
+            text: 'Categorías más compradas'
         }
     }
 };

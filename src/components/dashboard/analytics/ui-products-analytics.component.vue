@@ -13,10 +13,10 @@
       </div>
       <UiToggle @click="selectToggle" :options="toggleOptions" :class="`${baseClass}__toggle`" />
       <div v-if="toggleOptions[0].selected" :class="`${baseClass}__chart-container`" ref="chartContainer">
-        <UiBarChart :top-products="topProducts" />
+        <UiBarChart :top-products="topProducts" title="Productos más visualizados" />
       </div>
       <div v-else-if="toggleOptions[1].selected" :class="`${baseClass}__chart-container`" ref="chartContainer">
-        <UiPieChart :top-products="topProducts" />
+        <UiPieChart :top-products="topProducts" title="Productos más visualizados" />
       </div>
       <div v-else ref="chartContainer">
             <UiProductsGrid :top-products="topProducts" />

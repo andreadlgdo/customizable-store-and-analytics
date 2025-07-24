@@ -2,7 +2,7 @@
     <UiHeaderDashboard route="Analytics" />
     <div :class="baseClass">
         <div :class="`${baseClass}__header`">
-            <h1 :class="`${baseClass}__title`">Top 10 productos por categoría</h1>
+            <h1 :class="`${baseClass}__title`">Top 5 categorías más compradas</h1>
             <UiIconButton
                 icon="download"
                 :class="`${baseClass}__icon`"
@@ -11,31 +11,29 @@
                 :disabled="isDownloading"
             />
         </div>
-        <UiSelect @change="selectCategory" label="Categoría" :options="categories" :value="category" :class="`${baseClass}__select`" show-all-option />
         <UiToggle @click="selectToggle" :options="toggleOptions" :class="`${baseClass}__toggle`" />
         <div v-if="toggleOptions[0].selected" :class="`${baseClass}__chart-container`" ref="chartContainer">
-            <UiBarChart :top-products="topProducts" title="Productos más visualizados" />
+            <UiPurchaseCategoriesBarChart :top-categories="topCategories" />
         </div>
         <div v-else-if="toggleOptions[1].selected" :class="`${baseClass}__chart-container`" ref="chartContainer">
-            <UiPieChart :top-products="topProducts" title="Productos más visualizados" />
+            <UiPurchaseCategoriesPieChart :top-categories="topCategories" />
         </div>
         <div v-else ref="chartContainer">
-            <UiProductsGrid :top-products="topProducts" />
+            <UiPurchaseCategoriesGrid :top-categories="topCategories" />
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 import UiHeaderDashboard from '@/components/dashboard/ui-header-dashboard.component.vue';
 import UiToggle, { ToggleOption } from '@/components/shared/ui-toggle.component.vue';
-import UiBarChart from './ui-bar-chart.component.vue';
-import UiPieChart from './ui-pie-chart.component.vue';
-import UiProductsGrid from './ui-products-grid.component.vue';
-import UiSelect from '@/components/shared/ui-select.component.vue';
+import UiPurchaseCategoriesBarChart from './ui-purchase-categories-bar-chart.component.vue';
+import UiPurchaseCategoriesPieChart from './ui-purchase-categories-pie-chart.component.vue';
+import UiPurchaseCategoriesGrid from './ui-purchase-categories-grid.component.vue';
 import UiIconButton from '@/components/shared/ui-icon-button.component.vue';
-import { useAnalytics, useCategories, usePdfExport } from '@/composables';
-import { TopProduct } from '@/interfaces';
+import { useAnalytics, usePdfExport } from '@/composables';
+import { TopPurchasedCategory } from '@/interfaces';
 import {
     Chart as ChartJS,
     Title,
@@ -57,13 +55,12 @@ ChartJS.register(
     ArcElement
 );
 
-const baseClass = 'ui-products-analytics';
+const baseClass = 'ui-purchase-categories-analytics';
 
-const { getTopProducts } = useAnalytics();
-const { categories: categoriesList, loadCategories } = useCategories();
+const { getMostPurchasedCategories } = useAnalytics();
 const { exportChartToPdf, exportListToPdf } = usePdfExport();
 
-const topProducts = ref<TopProduct[]>([]);
+const topCategories = ref<TopPurchasedCategory[]>([]);
 const chartContainer = ref<HTMLElement>();
 const isDownloading = ref(false);
 
@@ -73,26 +70,11 @@ const toggleOptions = ref<ToggleOption[]>([
   { label: 'Listado', selected: false }
 ]);
 
-const category = ref<string>('');
-
-const categories = computed(() => {
-  return categoriesList.value?.map(category => ({
-    title: category.title,
-    disabled: false
-  })) ?? [];
-});
-
 const selectToggle = (option: ToggleOption) => {
   toggleOptions.value = toggleOptions.value.map(item => ({
     ...item,
     selected: item.label === option.label
   }));
-};
-
-const selectCategory = async (value: string) => {
-  category.value = value === 'all by default' ? '' : value;
-  const products = await getTopProducts([category.value]);
-  topProducts.value = products.slice(0, 10);
 };
 
 const downloadPdf = async () => {
@@ -104,31 +86,33 @@ const downloadPdf = async () => {
     const selectedOption = toggleOptions.value.find(option => option.selected);
     if (!selectedOption) return;
     
-    const categoryTitle = category.value || 'Todas las categorías';
-    
     if (selectedOption.label === 'Listado') {
-      await exportListToPdf(chartContainer.value, topProducts.value);
+      await exportListToPdf(chartContainer.value, topCategories.value);
     } else {
       const chartType = selectedOption.label === 'Barras' ? 'Gráfico de Barras' : 'Gráfico Circular';
-      await exportChartToPdf(chartContainer.value, `${chartType} - ${categoryTitle}`, topProducts.value);
+      await exportChartToPdf(chartContainer.value, `${chartType} - Top Categorías Compradas`, topCategories.value);
     }
   } catch (error) {
     console.error('Error downloading PDF:', error);
-    // You could add a toast notification here
   } finally {
     isDownloading.value = false;
   }
 };
 
 onMounted(async () => {
-    await loadCategories();
-    const products = await getTopProducts();
-    topProducts.value = products.slice(0, 10);
+    const categories = await getMostPurchasedCategories();
+    topCategories.value = categories.map((category: any) => ({
+        product: {
+            _id: category._id,
+            name: category._id
+        },
+        totalUnits: category.totalUnits
+    }));
 });
 </script>
 
 <style lang="scss" scoped>
-.ui-products-analytics {
+.ui-purchase-categories-analytics {
     padding: 2rem;
 
     &__header {
@@ -154,13 +138,6 @@ onMounted(async () => {
             opacity: 0.6;
             cursor: not-allowed;
         }
-    }
-
-    &__select {
-        position: absolute;
-        top: 28px;
-        right: 100px;
-        width: 200px;
     }
 
     &__title {

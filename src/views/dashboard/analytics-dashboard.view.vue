@@ -18,9 +18,10 @@
           </div>
         </section>
       </div>
-      <UiProductsAnalytics v-else-if="action === actions[0]" />
-      <UiProductsByCategoryAnalytics v-else-if="action === actions[1]" />
-      <UiPurchaseProductsAnalytics v-else-if="action === actions[2]" />
+      <UiProductsByCategoryAnalytics v-else-if="action === actions[0]" />
+      <UiPurchaseProductsAnalytics v-else-if="action === actions[1]" />
+      <UiViewCategoriesAnalytics v-else-if="action === actions[2]" />
+      <UiPurchaseCategoriesAnalytics v-else-if="action === actions[3]" />
     </div>
   </dashboard>
 </template>
@@ -30,10 +31,10 @@
 
   import { useUserMenu } from '@/composables';
   import Dashboard from '@/views/dashboard/base-dashboard.view.vue';
-  import UiProductsAnalytics from '@/components/dashboard/analytics/ui-products-analytics.component.vue';
   import UiProductsByCategoryAnalytics from '@/components/dashboard/analytics/ui-products-by-category-analytics.component.vue';
   import UiPurchaseProductsAnalytics from '@/components/dashboard/analytics/ui-purchase-products-analytics.component.vue';
-  
+  import UiViewCategoriesAnalytics from '@/components/dashboard/analytics/ui-view-categories-analytics.component.vue';
+  import UiPurchaseCategoriesAnalytics from '@/components/dashboard/analytics/ui-purchase-categories-analytics.component.vue';
   const baseClass = 'analytics-dashboard';
 
   const { menuElements } = useUserMenu();
@@ -46,16 +47,11 @@
     }
   });
 
-  const actions = ['products', 'productsByCategory', 'orderProductsByCategory'];
+  const actions = ['productsByCategory', 'orderProductsByCategory', 'mostViewedCategories', 'mostPurchasedCategories'];
 
   const sections = [
     {
-      title: 'Top 10 productos',
-      description: 'Los productos con más visualizaciones en la tienda',
-      action: 'products'
-    },
-    {
-      title: 'Top 10 productos por Categoria',
+      title: 'Top 10 productos visualizados',
       description: 'Los productos con más visualizaciones en la tienda por categoría',
       action: 'productsByCategory'
     },
@@ -63,7 +59,17 @@
       title: 'Los 10 productos más comprados',
       description: 'Los productos más comprados en la tienda',
       action: 'orderProductsByCategory'
-    }
+    },
+    {
+      title: 'Top 5 categorias visualizadas',
+      description: 'Las categorias con más visualizaciones en la tienda',
+      action: 'mostViewedCategories'
+    },
+    {
+      title: 'Top 5 categorias más compradas',
+      description: 'Las categorias mas compradas en la tienda',
+      action: 'mostPurchasedCategories'
+    },
   ];
 
   const selectAction = (action: string) => {
