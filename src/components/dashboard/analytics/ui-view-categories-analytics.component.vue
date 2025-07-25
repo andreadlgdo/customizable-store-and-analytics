@@ -2,7 +2,7 @@
     <UiHeaderDashboard route="Analytics" />
     <div :class="baseClass">
         <div :class="`${baseClass}__header`">
-            <h1 :class="`${baseClass}__title`">Top 10 categorías</h1>
+            <h1 :class="`${baseClass}__title`">Top 5 categorías más visualizadas</h1>
             <UiIconButton
                 icon="download"
                 :class="`${baseClass}__icon`"
